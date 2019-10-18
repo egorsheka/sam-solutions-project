@@ -1,0 +1,9 @@
+by\samsolutions\spring\config\AppInitializer.class
+by\samsolutions\spring\controller\UserController.class
+by\samsolutions\spring\service\UserServiceImp.class
+by\samsolutions\spring\model\User.class
+by\samsolutions\spring\dao\UserDao.class
+by\samsolutions\spring\dao\UserDaoImp.class
+by\samsolutions\spring\service\UserService.class
+by\samsolutions\spring\config\HibernateConfig.class
+by\samsolutions\spring\config\WebMvcConfig.class
