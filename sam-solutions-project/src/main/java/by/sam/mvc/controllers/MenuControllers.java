@@ -1,7 +1,12 @@
 package by.sam.mvc.controllers;
 
 import by.sam.mvc.models.menu.Dish;
-import by.sam.mvc.repository.menu.DishConnector;
+import by.sam.mvc.repository.menu.DbConfiguration;
+import by.sam.mvc.repository.menu.DishDao;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,11 +18,19 @@ import java.util.List;
 @Controller
 public class MenuControllers {
 
+    private DishDao dishDao;
+
     @RequestMapping(path = "/menu", method = RequestMethod.GET)
     public ModelAndView getAllMenu(){
-        List<Dish> dishes = DishConnector.getDishDao().findAll();
+        List<Dish> dishes = dishDao.findAll();
         ModelAndView modelAndView = new ModelAndView("menu");
         modelAndView.addObject("dishes", dishes);
         return modelAndView;
     }
+
+    @Autowired
+    public void setDishDao(DishDao dishDao) {
+        this.dishDao = dishDao;
+    }
+
 }
