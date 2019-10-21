@@ -8,7 +8,7 @@ CREATE TABLE dishes(
 );
 
 
-
+INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Apfelstrudel', 'Austria', 'DESSERT');
 INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Baklava', 'Turkey', 'DESSERT');
 INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Black Forest Cake', 'Germany', 'DESSERT');
 INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Borma', 'Turkey', 'DESSERT');
