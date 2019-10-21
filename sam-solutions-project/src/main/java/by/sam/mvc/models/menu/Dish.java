@@ -17,6 +17,22 @@ public class Dish {
         this.dishType = dishType;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCuisine() {
+        return cuisine;
+    }
+
+    public DishType getDishType() {
+        return dishType;
+    }
+
     @Override
     public String toString() {
         return "Dish{" +

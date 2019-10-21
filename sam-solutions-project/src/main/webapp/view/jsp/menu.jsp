@@ -19,7 +19,8 @@
         </tr>
         <c:forEach items="${dishes}" var="dish">
             <tr>
-                <td>${dish.toString()}</td>
+                <td>${dish.name}</td>
+                <td>${dish.cuisine}</td>
             </tr>
         </c:forEach>
     </table>

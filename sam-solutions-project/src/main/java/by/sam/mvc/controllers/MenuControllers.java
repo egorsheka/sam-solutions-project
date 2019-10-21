@@ -18,7 +18,6 @@ public class MenuControllers {
         List<Dish> dishes = DishConnector.getDishDao().findAll();
         ModelAndView modelAndView = new ModelAndView("menu");
         modelAndView.addObject("dishes", dishes);
-        System.out.println(dishes);
         return modelAndView;
     }
 }
