@@ -4,16 +4,16 @@ import by.sam.mvc.models.menu.Dish;
 import by.sam.mvc.models.menu.DishType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@PropertySource("classpath:db.properties")
 public class DefaultDishDao implements DishDao {
 
     //SQL
@@ -21,8 +21,14 @@ public class DefaultDishDao implements DishDao {
 
     private Connection connection;
 
-    public DefaultDishDao(Connection connection) {
-        this.connection = connection;
+    public DefaultDishDao(
+        @Value("${db.url}") String url,
+        @Value("${db.login}") String login,
+        @Value("${db.password}") String password,
+        @Value("${db.driverClassName}") String driverClassName
+    ) throws ClassNotFoundException, SQLException {
+            Class.forName(driverClassName);
+            connection =  DriverManager.getConnection(url, login, password);
     }
 
     @Override
@@ -39,7 +45,7 @@ public class DefaultDishDao implements DishDao {
                 dishes.add(new Dish(id, name, cuisine, dishType));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            //Log
         }
         return dishes;
     }
