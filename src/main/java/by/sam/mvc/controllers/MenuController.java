@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @Controller
-public class MenuControllers {
+public class MenuController {
 
     private DishDao dishDao;
 
