@@ -2,6 +2,7 @@ package by.sam.mvc.repository.menu;
 
 import by.sam.mvc.models.menu.Dish;
 import by.sam.mvc.models.menu.DishType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +17,7 @@ import java.util.List;
 public class DefaultDishDao implements DishDao {
 
     //SQL
-    private final String FIND_ALL_SQL = "SELECT * FROM DISHES";
+    private static final String FIND_ALL_SQL = "SELECT * FROM DISHES";
 
     private Connection connection;
 

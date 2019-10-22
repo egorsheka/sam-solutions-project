@@ -43,6 +43,3 @@ public class Dish {
                 '}';
     }
 }
-//public enum Cuisine {
-//    ITALIAN, GEORGIAN, UKRAINIAN, BELARUSIAN, RUSSIAN, POLISH, FRENCH, CHINESE, JAPANESE
-//}
