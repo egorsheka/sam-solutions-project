@@ -6,7 +6,7 @@ public interface CrudDao<T> {
 
     void create(T object);
     T read(int id);
-    T update(int id);
+    void update(T object);
     void delete(int id);
 
     List<T> findAll();
