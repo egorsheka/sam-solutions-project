@@ -1,59 +1,90 @@
+CREATE TABLE cuisine(
+                       id       SERIAL PRIMARY KEY,
+                       country     VARCHAR(30)
+);
+
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'Austria');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'China');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'Georgia');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'Turkey');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'USA');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'Sicily');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'Sweden');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'France');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'Southern United States');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'Morocco');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'Greece');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'Bolivia');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'Spain');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'Venezuela');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'Russia');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'Ireland');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'Korea');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'Germany');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'England');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'Taiwan');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'Jamaica');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'Canada');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'Abu Dhabi');
+INSERT INTO "public"."cuisine" ("id", "country") VALUES (DEFAULT, 'France');
+
+
 
 CREATE TYPE DISH_TYPE AS ENUM ('APPETISER', 'MAIN_COURSE', 'DESSERT');
 CREATE TABLE dishes(
-    id       SERIAL PRIMARY KEY,
-    name     VARCHAR(30),
-    cuisine  VARCHAR(30),
-    dish_type DISH_TYPE
+                       id       SERIAL PRIMARY KEY,
+                       name     VARCHAR(30),
+                       cuisine_id  INTEGER REFERENCES cuisine(id),
+                       dish_type DISH_TYPE
 );
 
 
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Apfelstrudel', 'Austria', 'DESSERT');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Baklava', 'Turkey', 'DESSERT');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Black Forest Cake', 'Germany', 'DESSERT');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Borma', 'Turkey', 'DESSERT');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Brownies', 'United States', 'DESSERT');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Cannoli', 'Sicily', 'DESSERT');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Cardamom Buns', 'Sweden', 'DESSERT');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Chocolate Mousse', 'France', 'DESSERT');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Coconut Cake', 'Southern United States', 'DESSERT');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Cornes de Gazelle', 'Morocco', 'DESSERT');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Apfelstrudel', 1, 'DESSERT');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Baklava', 4, 'DESSERT');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Black Forest Cake', 18, 'DESSERT');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Borma', 4, 'DESSERT');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Brownies', 5, 'DESSERT');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Cannoli', 6, 'DESSERT');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Cardamom Buns', 7, 'DESSERT');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Chocolate Mousse', 8, 'DESSERT');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Coconut Cake', 9, 'DESSERT');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Cornes de Gazelle', 10, 'DESSERT');
 
 
 
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Kinkali', 'Georgia', 'MAIN_COURSE');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Dumplings', 'China', 'MAIN_COURSE');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Roast Beef', 'England', 'MAIN_COURSE');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Hamburger', 'USA', 'MAIN_COURSE');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Beef Noodle Soup', 'Taiwan', 'MAIN_COURSE');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Ackee and Salt fish', 'Jamaica', 'MAIN_COURSE');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Bulgogi', 'Korea', 'MAIN_COURSE');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Poutine', 'Canada', 'MAIN_COURSE');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Falafel', 'Abu Dhabi', 'MAIN_COURSE');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Pot-au-feu', 'France', 'MAIN_COURSE');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Kinkali', 3, 'MAIN_COURSE');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Dumplings', 2, 'MAIN_COURSE');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Roast Beef', 19, 'MAIN_COURSE');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Hamburger', 5, 'MAIN_COURSE');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Beef Noodle Soup', 20, 'MAIN_COURSE');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Ackee and Salt fish', 21, 'MAIN_COURSE');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Bulgogi', 17, 'MAIN_COURSE');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Poutine', 22, 'MAIN_COURSE');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Falafel', 23, 'MAIN_COURSE');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Pot-au-feu', 24, 'MAIN_COURSE');
 
 
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Horiatiki', 'Greece', 'APPETISER');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Asaditos', 'Bolivia ', 'APPETISER');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Tiropita', 'Greece', 'APPETISER');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Croquetas de jamon', 'Spain', 'APPETISER');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Pan de jamon', 'Venezuela', 'APPETISER');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Pinchos morunos', 'Spain', 'APPETISER');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Blini', 'Russia', 'APPETISER');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Boxty', 'Ireland', 'APPETISER');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Dak kang jung', 'Korea', 'APPETISER');
-INSERT INTO "public"."dishes" ("id", "name", "cuisine", "dish_type") VALUES (DEFAULT, 'Flammkuchen', 'Germany', 'APPETISER');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Horiatiki', 11, 'APPETISER');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Asaditos', 12, 'APPETISER');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Tiropita', 11, 'APPETISER');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Croquetas de jamon', 13, 'APPETISER');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Pan de jamon', 14, 'APPETISER');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Pinchos morunos', 13, 'APPETISER');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Blini', 15, 'APPETISER');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Boxty', 16, 'APPETISER');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Dak kang jung', 17, 'APPETISER');
+INSERT INTO "public"."dishes" ("id", "name", "cuisine_id", "dish_type") VALUES (DEFAULT, 'Flammkuchen', 18, 'APPETISER');
 
 
 CREATE TYPE MENU_LUXURY AS ENUM ('TEMPTATION', 'PRESTIGE', 'SIGNATURE');
 CREATE TABLE menu(
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(30),
-    luxury MENU_LUXURY,
-    price DECIMAL,
-    appetiser_id INTEGER REFERENCES dishes(id),
-    main_course_id INTEGER REFERENCES dishes(id),
-    dessert_id INTEGER REFERENCES dishes(id)
+                     id SERIAL PRIMARY KEY,
+                     name VARCHAR(30),
+                     luxury MENU_LUXURY,
+                     price DECIMAL,
+                     appetiser_id INTEGER REFERENCES dishes(id),
+                     main_course_id INTEGER REFERENCES dishes(id),
+                     dessert_id INTEGER REFERENCES dishes(id)
 );
 
 INSERT INTO "public"."menu" ("id", "name", "luxury", "price", "appetiser_id", "main_course_id", "dessert_id") VALUES (DEFAULT, 'Catch of the Day', 'TEMPTATION', 45, 1, 11, 21);

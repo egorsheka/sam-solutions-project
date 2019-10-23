@@ -4,6 +4,5 @@ import by.sam.mvc.models.menu.Dish;
 
 import java.util.List;
 
-public interface DishDao {
-    List<Dish> findAll();
+public interface DishDao extends CrudDao<Dish>{
 }
