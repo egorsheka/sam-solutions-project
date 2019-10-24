@@ -1,4 +1,4 @@
-package by.sam.mvc.repository.menu;
+package by.sam.mvc.repository.menu.dish;
 
 import by.sam.mvc.models.menu.Dish;
 import by.sam.mvc.models.menu.DishType;

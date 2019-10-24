@@ -1,8 +1,7 @@
 package by.sam.mvc.controllers;
 
 import by.sam.mvc.models.menu.Dish;
-import by.sam.mvc.models.menu.DishType;
-import by.sam.mvc.repository.menu.DishDao;
+import by.sam.mvc.repository.menu.dish.DishDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
