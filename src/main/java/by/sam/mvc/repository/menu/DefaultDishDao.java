@@ -15,9 +15,9 @@ import java.util.List;
 public class DefaultDishDao implements DishDao {
 
     //SQL
-    private static final String FIND_ALL_SQL = "SELECT * FROM dishes";
+    private static final String FIND_ALL_SQL = "SELECT dishes.id, name, country, dish_type FROM dishes INNER JOIN cuisine c on dishes.cuisine_id = c.id";
     //SQL
-    private static final String FIND_DISH_SQL = "SELECT name, cuisine_id, dish_type FROM dishes WHERE id = ?";
+    private static final String FIND_DISH_SQL = "SELECT name, country,dish_type FROM dishes INNER JOIN cuisine c on dishes.cuisine_id = c.id WHERE dishes.id = ?";
     //SQL
     private static final String CREATE_DISH_SQL = "INSERT INTO dishes(id, name, cuisine_id, dish_type) VALUES (DEFAULT, ?, ?, ?)";
     //SQL
@@ -25,9 +25,9 @@ public class DefaultDishDao implements DishDao {
     //SQL
     private static final String DELETE_DISH_SQL = "DELETE FROM dishes WHERE id = ?";
     //SQL
-    private static final String GET_CUISINE_BY_ID_SQL = "SELECT country FROM cuisine WHERE id = ?";
+    //private static final String GET_CUISINE_BY_ID_SQL = "SELECT country FROM cuisine WHERE id = ?";
     //SQL
-    private static final String IS_EXIST_SQL = "SELECT id, cuisine_id FROM dishes WHERE name = ? AND dish_type = ?";
+    private static final String IS_EXIST_SQL = "SELECT dishes.id FROM dishes INNER JOIN cuisine c on dishes.cuisine_id = c.id WHERE name = ? AND country = ?  AND dish_type = ?";
     //SQL
     //private static final String GET_LAST_ID = "SELECT MAX(id) FROM dishes";
     //SQL
@@ -85,7 +85,7 @@ public class DefaultDishDao implements DishDao {
             if(resultSet.next()){
                 dish.setId(id);
                 dish.setName(resultSet.getString(1));
-                dish.setCuisine(getCuisineById(resultSet.getInt(2)));
+                dish.setCuisine(resultSet.getString(2));
                 dish.setDishType(DishType.valueOf(resultSet.getString(3).toUpperCase()));
                 throw new SQLException();
             }
@@ -137,8 +137,7 @@ public class DefaultDishDao implements DishDao {
             while (resultset.next()) {
                 int id = resultset.getInt(1);
                 String name = resultset.getString(2);
-                int cuisineId = resultset.getInt(3);
-                String cuisineString = getCuisineById(cuisineId);
+                String cuisineString = resultset.getString(3);
                 DishType dishType = DishType.valueOf(resultset.getString(4).toUpperCase());
                 //Long img;
                 dishes.add(new Dish(id, name, cuisineString, dishType));
@@ -155,14 +154,11 @@ public class DefaultDishDao implements DishDao {
         ResultSet resultSet = null;
         try (PreparedStatement statement = connection.prepareStatement(IS_EXIST_SQL)) {
             statement.setString(1, dish.getName());
-            statement.setObject(2, dish.getDishType().toString().toUpperCase());
+            statement.setString(2, dish.getCuisine());
+            statement.setObject(3, dish.getDishType().toString().toUpperCase());
             resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                int id = resultSet.getInt(1);
-                int cuisineID = resultSet.getInt(2);
-                if (dish.getCuisine().equals(getCuisineById(cuisineID))) {
-                    return id;
-                }
+            if(resultSet.next()){
+                return resultSet.getInt(1);
             }
         } catch (SQLException e) {
             System.out.println("error in DefaultDishDao isExist");
@@ -173,22 +169,22 @@ public class DefaultDishDao implements DishDao {
         return 0;
     }
 
-    private String getCuisineById(int id) {
-        String cuisine = "";
-        ResultSet resultSet = null;
-        try (PreparedStatement statement = connection.prepareStatement(GET_CUISINE_BY_ID_SQL)) {
-            statement.setInt(1, id);
-            resultSet = statement.executeQuery();
-            resultSet.next();
-            cuisine = resultSet.getString(1);
-        } catch (SQLException e) {
-            System.out.println("error in DefaultDishDao getCuisineById");
-
-        } finally {
-            closeResultSet(resultSet);
-        }
-        return cuisine;
-    }
+//    private String getCuisineById(int id) {
+//        String cuisine = "";
+//        ResultSet resultSet = null;
+//        try (PreparedStatement statement = connection.prepareStatement(GET_CUISINE_BY_ID_SQL)) {
+//            statement.setInt(1, id);
+//            resultSet = statement.executeQuery();
+//            resultSet.next();
+//            cuisine = resultSet.getString(1);
+//        } catch (SQLException e) {
+//            System.out.println("error in DefaultDishDao getCuisineById");
+//
+//        } finally {
+//            closeResultSet(resultSet);
+//        }
+//        return cuisine;
+//    }
 
     private int getIdCuisineByString(String cuisine){
         int id = 0;

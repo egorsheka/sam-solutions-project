@@ -11,6 +11,12 @@ public class Dish {
 
     public Dish(){}
 
+    public Dish(String name, String cuisine, DishType dishType) {
+        this.name = name;
+        this.cuisine = cuisine;
+        this.dishType = dishType;
+    }
+
     public Dish(int id, String name, String cuisine, DishType dishType) {
         this.id = id;
         this.name = name;
