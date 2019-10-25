@@ -1,6 +1,7 @@
 package by.sam.mvc.controllers;
 
 import by.sam.mvc.models.menu.Dish;
+import by.sam.mvc.repository.menu.MenuDao;
 import by.sam.mvc.repository.menu.dish.DishDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import java.util.List;
 public class MenuControllers {
 
     private DishDao dishDao;
+    private MenuDao menuDao;
 
     @RequestMapping(path = "/menu", method = RequestMethod.GET)
     public ModelAndView getAllMenu(){
@@ -28,4 +30,6 @@ public class MenuControllers {
         this.dishDao = dishDao;
     }
 
+    @Autowired
+    public void setMenuDao(MenuDao menuDao) {this.menuDao = menuDao;}
 }
