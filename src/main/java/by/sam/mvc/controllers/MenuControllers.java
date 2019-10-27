@@ -5,6 +5,7 @@ import by.sam.mvc.repository.menu.MenuDao;
 import by.sam.mvc.repository.menu.dish.DishDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -18,11 +19,13 @@ public class MenuControllers {
     private MenuDao menuDao;
 
     @RequestMapping(path = "/menu", method = RequestMethod.GET)
-    public ModelAndView getAllMenu(){
-        List<Dish> dishes = dishDao.findAll();
-        ModelAndView modelAndView = new ModelAndView("menu");
-        modelAndView.addObject("dishes", dishes);
-        return modelAndView;
+    public String getAllMenu(Model model){
+//        List<Dish> dishes = dishDao.findAll();
+//
+//        ModelAndView modelAndView = new ModelAndView("menu");
+//        modelAndView.addObject("dishes", dishes);
+//        model.addAttribute("dishes", dishes);
+        return "menu";
     }
 
     @Autowired

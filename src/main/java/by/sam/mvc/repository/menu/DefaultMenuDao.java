@@ -6,6 +6,8 @@ import by.sam.mvc.models.menu.Dish;
 import by.sam.mvc.models.menu.Menu;
 import by.sam.mvc.models.menu.MenuLuxury;
 import by.sam.mvc.repository.menu.dish.DishDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -21,6 +23,10 @@ import java.util.List;
 @Component
 @PropertySource("classpath:db.properties")
 public class DefaultMenuDao implements MenuDao {
+
+    Logger logger = LoggerFactory.getLogger(DefaultMenuDao.class);
+
+
     //SQL
     private static final String CREATE_MENU_SQL = "INSERT INTO menu(id, name, luxury, price) VALUES (DEFAULT, ?, ?, ?)";
     //SQL
@@ -69,7 +75,7 @@ public class DefaultMenuDao implements MenuDao {
     public void create(Menu menu) {
         try (PreparedStatement statement = connection.prepareStatement(CREATE_MENU_SQL);
              PreparedStatement statementMenuDish = connection.prepareStatement(INSERT_IN_MENU_DISHES)) {
-
+            logger.info("SQLException in method create");
             statement.setString(1, menu.getName());
             statement.setString(2, menu.getLuxury().toString().toUpperCase());
             statement.setDouble(3, menu.getPrice().doubleValue());
@@ -80,6 +86,7 @@ public class DefaultMenuDao implements MenuDao {
             createDishes(menu);
 
         } catch (SQLException e) {
+            logger.error("SQLException in method create", e);
             throw new DefaultMenuDaoException("SQLException in method create");
         }
     }
