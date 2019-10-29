@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+<div>
+    <button type="submit" name="add">Add</button>
+</div>
+<fieldset th:each="menu : ${menuList}">
+
+
+<legend th:text="${menu.name}"></legend>
+
+<div class="submit">
+    <button type="submit" name="save">Edit</button>
+</div>
+<p>
+
+
+    <form action="#" th:action="@{/saveMenu}" th:object="${menu}" method="post">
+        <label>name</label>
+        <input type="text" th:field="*{menu.name}">
+        <p></p>
+        <label>type</label>
+        <input type="text" th:value="${luxury}">
+        <p></p>
+        <label>price</label>
+        <input type="text" th:value="${price}">
+<p></p>
+<input type="submit" name="submit">
+    </form>
+
+
+<!--<label>name</label>-->
+<!--<input type="text" th:value="${menu.name}">-->
+<!--<p></p>-->
+<!--<label>name</label>-->
+<!--<select name="Type">-->
+<!--    <option th:each="type : ${allTypesLuxury}" th:value="${type}" th:text="${type}"></option>-->
+<!--</select>-->
+<!--<p></p>>-->
+<!--<label>name</label>-->
+<!--<input type="text" th:value="${menu.price}">-->
+
+
+<div th:object="${menu}">
+    <label>Price :</label>
+    <label th:text="*{price}"></label>
+
+    <p></p>
+
+    <label>Luxury:</label>
+    <label th:text="*{luxury}"></label>
+</div>
+
+<div>
+    <button type="submit" name="save">See more</button>
+</div>
+
+
+<div>
+    <table border="1">
+        <tr>
+            <td th:each="dish : ${menu.getDishes()}">
+                <p th:text="${dish.dishType}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td th:each="dish : ${menu.getDishes()}">
+                <p th:text="${dish.name}"></p>
+            </td>
+        </tr>
+        <tr>
+            <td th:each="dish : ${menu.getDishes()}">
+                <p th:text="${dish.cuisine}"></p>
+            </td>
+        </tr>
+
+    </table>
+
+    </table>
+</div>
+
+<!--    <img th:src="@{carmenpaella.jpg}" alt="fdgf"/>-->
+
+
+<!--    <label for="defaultName">1. Example with th:text="${...}"</label>-->
+<!--    <input id="defaultName" style="color: blue" type="text" name="userName" value="James Carrot"  th:value="${defaultName}"/>-->
+
+
+<!--    <div class="submit">-->
+<!--        <form action="#" th:action="@{/}"  method="get">-->
+<!--            &lt;!&ndash;        <button type="submit" name="confirm">confirm</button>&ndash;&gt;-->
+<!--            <input type="button" th:value="${menu.price}">-->
+<!--        </form>-->
+
+<!--    </div>-->
+
+<!--    <form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">-->
+<!--        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>-->
+<!--    </form>-->
+</fieldset>
+
+</body>
+</html>
+

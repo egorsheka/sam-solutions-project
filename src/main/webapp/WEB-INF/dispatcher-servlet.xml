@@ -7,11 +7,12 @@
 
     <context:component-scan base-package="by.sam.mvc"/>
 
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/view/jsp/"/>
-        <property name="suffix" value=".html"/>
-    </bean>
-
-    <mvc:annotation-driven/>
-    <mvc:resources mapping="/css/styles.css" location="/view/css"/>
+<!--    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+<!--        <property name="prefix" value="/view/jsp/"/>-->
+<!--        <property name="suffix" value=".jsp"/>-->
+<!--    </bean>-->
+<!--&lt;!&ndash;    /view/jsp/&ndash;&gt;-->
+<!--    <mvc:default-servlet-handler/>-->
+<!--    <mvc:annotation-driven/>-->
+<!--    <mvc:resources mapping="/css/styles.css" location="/view/css"/>-->
 </beans>
