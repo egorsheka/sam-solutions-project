@@ -10,61 +10,68 @@
 <fieldset th:each="menuItem : ${menuList}">
     <legend th:text="${menuItem.name}"></legend>
 
-    <div class="submit">
-        <button type="submit" name="save">Edit</button>
-    </div>
-    <p>
-        <form action="#" th:action="@{/saveMenu}" th:object="${menuItem}" method="post">
+
+        <!-------------------------------------- Edit main fields --------------------------------------------------->
+
+        <form action="#" th:action="@{/editMenu}" th:object="${menuItem}" method="post">
             <label>name</label>
-            <input type="hidden" th:value="${menuItem.id}"  th:name="id" th:id="id"/>
-            <input type="text" th:value="${menuItem.name}"  th:name="name" th:id="name"/>
-            <p></p>
-            <label>type</label>
+            <input type="hidden" th:value="${menuItem.id}"  th:name="id" />
+            <input type="text" th:value="${menuItem.name}"  th:name="name"/>
+    <p></p>
+    <label>type</label>
 
 
     <select  th:name="luxury" th:id="luxury">
         <option th:each="type : ${allTypesLuxury}" th:value="${type}" th:text="${type}" th:selected="${type == menuItem.luxury}"></option>
     </select>
 
-            <p></p>
-            <label>price</label>
-            <input type="text" th:value="${menuItem.price}"  th:name="price" th:id="price"/>
+    <p></p>
+    <label>price</label>
+    <input type="text" th:value="${menuItem.price}"  th:name="price" />
 
     <p></p>
-
-
-    <div>
-        <table border="1">
-            <tr>
-                <td th:each="dish : ${menuItem.getDishes()}">
-                    <select  th:name="dishType" th:id="dishType">
-                        <option th:each="type : ${allTypesDish}" th:value="${type}" th:text="${type}" th:selected="${type == dish.dishType}"></option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td th:each="dish : ${menuItem.getDishes()}">
-                    <input type="text" th:value="${dish.name}"  th:name="name" th:id="name"/>
-                </td>
-            </tr>
-            <tr>
-                <td th:each="dish : ${menuItem.getDishes()}">
-                    <input type="text" th:value="${dish.cuisine}"  th:name="cuisine" th:id="cuisine"/>
-                </td>
-            </tr>
-
-        </table>
-
-    </div>
-
-
-    <input type="submit" name="submit">
+        <div class="submit">
+            <button type="submit" name="save">Edit</button>
+        </div>
     </form>
 
+<!--    &lt;!&ndash;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; Edit list of dishes-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+
+
+<!--    -->
+<!--    <div th:if="${menuItem.dishShow == true}">-->
+<!--        <table border="1">-->
+<!--            <tr>-->
+<!--                <td th:each="dish : ${menuItem.getDishes()}">-->
+<!--                    <select  th:name="dishType" th:id="dishType">-->
+<!--                        <option th:each="type : ${allTypesDish}" th:value="${type}" th:text="${type}" th:selected="${type == dish.dishType}"></option>-->
+<!--                    </select>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td th:each="dish : ${menuItem.getDishes()}">-->
+<!--                    <input type="text" th:value="${dish.name}"/>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td th:each="dish : ${menuItem.getDishes()}">-->
+<!--                    <input type="text" th:value="${dish.cuisine}"  th:name="cuisine" th:id="cuisine"/>-->
+<!--                </td>-->
+<!--            </tr>-->
+
+<!--        </table>-->
+
+<!--    </div>-->
+
+
+<!--    <input type="submit" name="submit">-->
+<!--    </form>-->
 
 
 
 
+
+    <!-------------------------------------- Main info about menu --------------------------------------------------->
 
 
     <div th:object="${menuItem}">
@@ -89,3 +96,4 @@
 
 </body>
 </html>
+

@@ -11,6 +11,10 @@ public class Menu{
     private MenuLuxury luxury;
     private List<Dish> dishes;
 
+
+
+    private boolean isDishShow;
+
     public Menu() {}
 
     public Menu(String name, BigDecimal price, MenuLuxury luxury, List<Dish> dishes) {
@@ -67,6 +71,15 @@ public class Menu{
     public void setLuxury(MenuLuxury luxury) {
         this.luxury = luxury;
     }
+
+    public boolean isDishShow() {
+        return isDishShow;
+    }
+
+    public void setDishShow(boolean dishShow) {
+        isDishShow = dishShow;
+    }
+
 
     @Override
     public String toString() {

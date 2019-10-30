@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+    <!-------------------------------------- Edit list of dishes--------------------------------------------------->
+    <form action="#" th:action="@{/saveMenu}" th:object="${dishes}" method="post">
+        <div>
+        <table border="1" >
+
+
+
+<!--            <tr>-->
+<!--                <td th:each="dish, item : *{dishes}">-->
+<!--                    <select  th:name="|dishes[${item.index}].dishType|">-->
+<!--                        <option th:each="type : ${allTypesDish}" th:value="${type}" th:text="${type}" th:selected="${type == dish.dishType}"></option>-->
+<!--                    </select>-->
+<!--                </td>-->
+<!--            </tr>-->
+
+<!--            <tr>-->
+<!--                <td th:each="dish, item : *{dishes}">-->
+<!--                    <input th:name="|dishes[${item.index}].name|" th:value="${dish.name}">-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+
+                <td th:each="dish, item : ${dishes}">
+<!--                <input  th:value="${dish.cuisine}"  th:name="${form.dishes[${item.index}].cuisine}">-->
+                    <input type="text" th:value="${dish.cuisine}"/>
+                </td>
+            </tr>
+
+
+        </table>
+    </div>
+    <input type="submit" name="submit">
+</form>
+
+
+</body>
+</html>
