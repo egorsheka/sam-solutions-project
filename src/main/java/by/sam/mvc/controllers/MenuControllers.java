@@ -1,6 +1,7 @@
 package by.sam.mvc.controllers;
 
 import by.sam.mvc.models.menu.Dish;
+import by.sam.mvc.models.menu.DishType;
 import by.sam.mvc.models.menu.Menu;
 import by.sam.mvc.models.menu.MenuLuxury;
 import by.sam.mvc.repository.menu.MenuDao;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -28,27 +30,33 @@ public class MenuControllers {
     public String getAllMenu(){
         return "";
     }
-
     @ModelAttribute
     public void getAllMenu(Model model){
         model.addAttribute("menuList", menuDao.findAll());
+    }
+
+    @ModelAttribute
+    public void getNull(Model model){
+        model.addAttribute("list", new ArrayList<>());
     }
     @ModelAttribute
     public void getAllLuxuryTypes(Model model){
         model.addAttribute("allTypesLuxury", MenuLuxury.ALL);
     }
+    @ModelAttribute
+    public void getAllDishTypes(Model model){
+        model.addAttribute("allTypesDish", DishType.ALL);
+    }
+
 
     @RequestMapping(value = "/saveMenu", method = RequestMethod.POST)
-    public String saveStudent(@Valid @ModelAttribute Menu editMenu, Model model) {
-        model.addAttribute("mmmm", editMenu);
+    public String saveStudent(@ModelAttribute Menu editMenu, Model model) {
         System.out.println(editMenu);
         return "";
     }
 
     @Autowired
-    public void setDishDao(DishDao dishDao) {
-        this.dishDao = dishDao;
-    }
+    public void setDishDao(DishDao dishDao) { this.dishDao = dishDao;}
 
     @Autowired
     public void setMenuDao(MenuDao menuDao) {this.menuDao = menuDao;}
