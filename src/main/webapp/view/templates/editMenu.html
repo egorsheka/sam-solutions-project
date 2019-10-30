@@ -7,37 +7,44 @@
 <body>
 
 
+<!-------------------------------------- Edit list of dishes--------------------------------------------------->
+<form action="#" th:action="@{/saveMenu}" th:object="${editMenu}" method="post">
+    <input type="hidden" th:value="${editMenu.id}" th:name="id">
+    <input type="hidden" th:value="${editMenu.name}" th:name="name">
+    <input type="hidden" th:value="${editMenu.luxury}" th:name="luxury">
+    <input type="hidden" th:value="${editMenu.price}" th:name="price">
+    <div th:each="dish, item : *{dishes}" ><input type="hidden" th:field="*{dishes[__${item.index}__].id}"></div>
+    <div>
+        <table border="1">
 
-    <!-------------------------------------- Edit list of dishes--------------------------------------------------->
-    <form action="#" th:action="@{/saveMenu}" th:object="${dishes}" method="post">
-        <div>
-        <table border="1" >
 
-
-
-<!--            <tr>-->
-<!--                <td th:each="dish, item : *{dishes}">-->
-<!--                    <select  th:name="|dishes[${item.index}].dishType|">-->
-<!--                        <option th:each="type : ${allTypesDish}" th:value="${type}" th:text="${type}" th:selected="${type == dish.dishType}"></option>-->
-<!--                    </select>-->
-<!--                </td>-->
-<!--            </tr>-->
-
-<!--            <tr>-->
-<!--                <td th:each="dish, item : *{dishes}">-->
-<!--                    <input th:name="|dishes[${item.index}].name|" th:value="${dish.name}">-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-
-                <td th:each="dish, item : ${dishes}">
-                <input type="text" th:value="${dish.cuisine}" th:name="${dishes[${item.index}].cuisine}">
+            <tr>
+                <td th:each="dish, item : *{dishes}">
+                    <select th:field="*{dishes[__${item.index}__].dishType}">
+                        <option th:each="type : ${allTypesDish}" th:value="${type}" th:text="${type}" th:selected="${type == editMenu.dishes[item.index].dishType}"></option>
+                    </select>
                 </td>
             </tr>
 
+
+            <tr>
+                <td th:each="dish, item : *{dishes}">
+                    <input th:field="*{dishes[__${item.index}__].name}" />
+                </td>
+            </tr>
+            <tr>
+                <td th:each="dish, item : *{dishes}"><input th:field="*{dishes[__${item.index}__].cuisine}"/>
+                </td>
+            </tr>
         </table>
     </div>
-    <input type="submit" name="submit">
+
+
+    <button type="submit" name="addRow" text="addRow"> add row </button>
+    <button type="submit" name="removeRow " text="remove row"> remove row </button>
+    <button type="submit" name="submit" text="submit"> submit </button>
+
+
 </form>
 
 

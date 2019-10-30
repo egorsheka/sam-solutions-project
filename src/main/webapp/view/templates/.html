@@ -22,7 +22,7 @@
 
 
     <select  th:name="luxury" th:id="luxury">
-        <option th:each="type : ${allTypesLuxury}" th:value="${type}" th:text="${type}" th:selected="${type == menuItem.luxury}"></option>
+        <option th:each="type : ${allTypesLuxury}"  th:text="${type}" th:selected="${type == menuItem.luxury}"></option>
     </select>
 
     <p></p>

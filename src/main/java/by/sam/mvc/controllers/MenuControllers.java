@@ -30,28 +30,33 @@ public class MenuControllers {
     }
 
 
-    @RequestMapping(value = "/editMenu", method = RequestMethod.POST)
+    @RequestMapping(value = "/editMenu", params = {})
     public String editMenu(@ModelAttribute Menu editMenu, Model model) {
         menuDao.read(editMenu.getId());
         Menu menu = menuDao.read(editMenu.getId());
-        model.addAttribute("dishes", menu.getDishes());
+
+        System.out.println(menuDao);
         model.addAttribute( "editMenu", menu);
         return "editMenu";
     }
 
-    @RequestMapping(value = "/saveMenu", method = RequestMethod.POST)
-    public String saveMenu(@ModelAttribute ArrayList<Dish> dishes, Model model) {
-        System.out.println(dishes);
-        return "";
+    @RequestMapping(value = "/editMenu", params ={"addRow"})
+    public String addDishRow(@ModelAttribute Menu menu){
+        menu.getDishes().add(new Dish());
+        return "editMenu";
     }
+
+
+
+//    @RequestMapping(value = "/saveMenu", method = RequestMethod.POST)
+//    public String saveMenu(@ModelAttribute Menu menu, Model model) {
+//        System.out.println(menu);
+//        return "";
+//    }
 
 
     @ModelAttribute
     public void getMenuList(Model model){
-        List<HtmlMenuWrapper> htmlMenuWrapperList = new ArrayList<>();
-        for (Menu menu : menuDao.findAll()) {
-            htmlMenuWrapperList.add(new HtmlMenuWrapper(menu));
-        }
         model.addAttribute("menuList", menuDao.findAll());
     }
 
