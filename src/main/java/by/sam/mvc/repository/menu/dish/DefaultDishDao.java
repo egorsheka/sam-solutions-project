@@ -30,6 +30,8 @@ public class DefaultDishDao implements DishDao {
     //SQL
     private static final String GET_ID_CUISINE_BY_STRING_SQL = "SELECT id FROM cuisine WHERE country = ?";
     //SQL
+    private static final String CREATE_CUISINE_SQL = "INSERT INTO cuisine(id, country) values(DEFAULT, ?)";
+    //SQL
     private static final String GET_LAST_ID = "SELECT MAX(id) FROM dishes";
 
 
@@ -164,16 +166,22 @@ public class DefaultDishDao implements DishDao {
 
     private int getIdCuisineByString(String cuisine){
         int id = 0;
-        ResultSet resultSet = null;
-        try (PreparedStatement statement = connection.prepareStatement(GET_ID_CUISINE_BY_STRING_SQL)) {
-            statement.setString(1, cuisine);
-            resultSet = statement.executeQuery();
-            resultSet.next();
-            id = resultSet.getInt(1);
+        ResultSet resultSetGet = null;
+        try (PreparedStatement statementGet = connection.prepareStatement(GET_ID_CUISINE_BY_STRING_SQL);
+             PreparedStatement statementCreate = connection.prepareStatement(CREATE_CUISINE_SQL)) {
+            statementGet.setString(1, cuisine);
+            resultSetGet = statementGet.executeQuery();
+            if(resultSetGet.next()) {
+                id = resultSetGet.getInt(1);
+            }else{
+                statementCreate.setString(1,cuisine);
+                statementCreate.executeUpdate();
+                id = getIdCuisineByString(cuisine);
+            }
         } catch (SQLException e) {
             throw new DefaultDishDaoException("SQLException in method getIdCuisineByString.");
         } finally {
-            closeResultSet(resultSet);
+            closeResultSet(resultSetGet);
         }
         return id;
     }

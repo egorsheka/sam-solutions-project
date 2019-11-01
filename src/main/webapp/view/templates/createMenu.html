@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="#" th:action="@{/saveNewMenu}" th:object="${newMenu}" method="post">
+
+    <label>name</label>
+    <input type="hidden" th:value="${newMenu.id}"  th:name="id" />
+    <input type="text" th:value="${newMenu.name}"  th:name="name"/>
+    <p></p>
+    <label>type</label>
+
+
+    <select  th:name="luxury" th:id="luxury">
+        <option th:each="type : ${allTypesLuxury}"  th:text="${type}" th:selected="${type == newMenu.luxury}"></option>
+    </select>
+
+    <p></p>
+    <label>price</label>
+    <input type="text" th:value="${newMenu.price}"  th:name="price" />
+
+
+
+
+    <div>
+        <table border="1">
+            <tr>
+                <td th:each="dish, item : *{dishes}">
+                    <select th:field="*{dishes[__${item.index}__].dishType}">
+                        <option th:each="type : ${allTypesDish}" th:value="${type}" th:text="${type}" th:selected="${type == newMenu.dishes[item.index].dishType}"></option>
+                    </select>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td th:each="dish, item : *{dishes}">
+                    <input th:field="*{dishes[__${item.index}__].name}" />
+                </td>
+            </tr>
+            <tr>
+                <td th:each="dish, item : *{dishes}"><input th:field="*{dishes[__${item.index}__].cuisine}"/>
+                </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td th:each="dish, item : *{dishes}">
+                    <button type="submit" name="removeDishRowInNewMenu" th:value="${item.index}" text="addDishRowInNewMenu"> remove row </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <button type="submit" name="addDishRowInNewMenu"> add row </button>
+    <button type="submit" name="submitNewMenu"> submit </button>
+
+</form>
+</body>
+</html>

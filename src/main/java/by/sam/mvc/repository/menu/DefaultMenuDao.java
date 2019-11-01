@@ -74,7 +74,6 @@ public class DefaultMenuDao implements MenuDao {
     @Override
     public void create(Menu menu) {
         try (PreparedStatement statement = connection.prepareStatement(CREATE_MENU_SQL)) {
-            logger.info("SQLException in method create");
             statement.setString(1, menu.getName());
             statement.setString(2, menu.getLuxury().toString().toUpperCase());
             statement.setDouble(3, menu.getPrice().doubleValue());
@@ -139,6 +138,7 @@ public class DefaultMenuDao implements MenuDao {
                 deleteDishes(menu.getId());
                 createDishes(menu);
             }
+
         } catch (SQLException e) {
             throw new DefaultMenuDaoException("SQLException in method update");
         }
@@ -237,10 +237,14 @@ public class DefaultMenuDao implements MenuDao {
         List<Dish> dishes = null;
         try (PreparedStatement statementMenuDish = connection.prepareStatement(INSERT_IN_MENU_DISHES)) {
             dishes = menu.getDishes();
+
             for (Dish dish : dishes) {
                 if (dish.getId() == 0) {
                     dishDao.create(dish);
+                }else{
+                    dishDao.update(dish);
                 }
+
                 statementMenuDish.setInt(1, menu.getId());
                 statementMenuDish.setInt(2, dish.getId());
 
