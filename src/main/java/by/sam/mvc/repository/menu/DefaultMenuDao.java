@@ -73,8 +73,7 @@ public class DefaultMenuDao implements MenuDao {
 
     @Override
     public void create(Menu menu) {
-        try (PreparedStatement statement = connection.prepareStatement(CREATE_MENU_SQL);
-             PreparedStatement statementMenuDish = connection.prepareStatement(INSERT_IN_MENU_DISHES)) {
+        try (PreparedStatement statement = connection.prepareStatement(CREATE_MENU_SQL)) {
             logger.info("SQLException in method create");
             statement.setString(1, menu.getName());
             statement.setString(2, menu.getLuxury().toString().toUpperCase());

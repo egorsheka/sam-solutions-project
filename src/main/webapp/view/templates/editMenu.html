@@ -37,11 +37,16 @@
                 </td>
             </tr>
         </table>
+        <table>
+            <tr>
+                <td th:each="dish, item : *{dishes}">
+                    <button type="submit" name="removeRow" th:value="${item.index}" text="removeRow"> remove row </button>
+                </td>
+            </tr>
+        </table>
     </div>
 
-
     <button type="submit" name="addRow" text="addRow"> add row </button>
-    <button type="submit" name="removeRow " text="remove row"> remove row </button>
     <button type="submit" name="submit" text="submit"> submit </button>
 
 

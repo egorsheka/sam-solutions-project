@@ -14,6 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.servlet.http.HttpServletRequest;
+import java.beans.IntrospectionException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,19 +43,32 @@ public class MenuControllers {
         return "editMenu";
     }
 
-    @RequestMapping(value = "/editMenu", params ={"addRow"})
-    public String addDishRow(@ModelAttribute Menu menu){
+    @RequestMapping(value = "/saveMenu", params ={"addRow"})
+    public String addDishRow(@ModelAttribute Menu menu, Model model){
+        if(menu.getDishes() == null){
+            menu.setDishes(new ArrayList<>());
+        }
         menu.getDishes().add(new Dish());
+        System.out.println("ADDdISH");
+        model.addAttribute("editMenu", menu);
         return "editMenu";
     }
 
 
 
-//    @RequestMapping(value = "/saveMenu", method = RequestMethod.POST)
-//    public String saveMenu(@ModelAttribute Menu menu, Model model) {
-//        System.out.println(menu);
-//        return "";
-//    }
+    @RequestMapping(value = "/saveMenu", params ={"removeRow"})
+    public String removeDishRow(@ModelAttribute Menu menu, Model model, HttpServletRequest request){
+        int removeIndex = Integer.valueOf(request.getParameter("removeRow"));
+        menu.getDishes().remove(removeIndex);
+        model.addAttribute("editMenu", menu);
+        return "editMenu";
+    }
+
+    @RequestMapping(value = "/saveMenu", params ={"submit"})
+    public String removeDishRow(@ModelAttribute Menu menu){
+        menuDao.update(menu);
+        return "";
+    }
 
 
     @ModelAttribute
