@@ -10,9 +10,8 @@ import by.sam.mvc.repository.menu.dish.DishDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,24 +59,24 @@ public class MenuControllers {
 
 
 
-    @RequestMapping(path = "/", method = RequestMethod.GET)
+    @GetMapping(path = "/")
     public String getCookPersonalPage(){
         return "";
     }
 
-    @RequestMapping(value = "/createMenu", method = RequestMethod.POST)
+    @PostMapping(value = "/createMenu")
     public String openCreateMenuPage() {
         return "createMenu";
     }
 
-    @RequestMapping(value = "/saveNewMenu", params = {"submitNewMenu"} )
+    @PostMapping(value = "/saveNewMenu", params = {"submitNewMenu"} )
     public String submitNewMenu(@ModelAttribute Menu newMenu, Model model) {
         menuDao.create(newMenu);
         model.addAttribute("menuList", menuDao.findAll());
         return "";
     }
 
-    @RequestMapping(value = "/saveNewMenu", params = {"addDishRowInNewMenu"} )
+    @PostMapping(value = "/saveNewMenu", params = {"addDishRowInNewMenu"} )
     public String addDishRowInNewMenu(@ModelAttribute Menu newMenu,  Model model, HttpServletRequest request) {
         if(newMenu.getDishes() == null){
             newMenu.setDishes(new ArrayList<>());
@@ -87,7 +86,7 @@ public class MenuControllers {
         return "createMenu";
     }
 
-    @RequestMapping(value = "/saveNewMenu", params = {"removeDishRowInNewMenu"})
+    @PostMapping(value = "/saveNewMenu", params = {"removeDishRowInNewMenu"})
     public String removeDishRowInNewMenu(@ModelAttribute Menu newMenu,  Model model, HttpServletRequest request) {
         int removeIndex = Integer.valueOf(request.getParameter("removeRow"));
         newMenu.getDishes().remove(removeIndex);
@@ -95,14 +94,14 @@ public class MenuControllers {
         return "editMenu";
     }
 
-    @RequestMapping(value = "/editMenu", params = {})
-    public String openEditMenuPage(@ModelAttribute Menu editMenu, Model model) {
+    @PostMapping(value = "/editMenu", params = {})
+    public String openEditMenuPage( @ModelAttribute Menu editMenu, Model model) {
         Menu menu = menuDao.read(editMenu.getId());
         model.addAttribute( "editMenu", menu);
         return "editMenu";
     }
 
-    @RequestMapping(value = "/editMenu", params = {"deleteMenu"})
+    @PostMapping(value = "/editMenu", params = {"deleteMenu"})
     public String deleteMenu(@ModelAttribute Menu deleteMenu, Model model, HttpServletRequest request) {
         int deleteIndex = Integer.parseInt(request.getParameter("deleteMenu"));
         menuList.remove(deleteIndex);
@@ -111,7 +110,7 @@ public class MenuControllers {
         return "";
     }
 
-    @RequestMapping(value = "/saveMenu", params ={"addRow"})
+    @PostMapping(value = "/saveMenu", params ={"addRow"})
     public String addDishRowInEditMenu(@ModelAttribute Menu menu, Model model){
         if(menu.getDishes() == null){
             menu.setDishes(new ArrayList<>());
@@ -121,7 +120,7 @@ public class MenuControllers {
         return "editMenu";
     }
 
-    @RequestMapping(value = "/saveMenu", params ={"removeRow"})
+    @PostMapping(value = "/saveMenu", params ={"removeRow"})
     public String removeDishRowInEditMenu(@ModelAttribute Menu menu, Model model, HttpServletRequest request){
         int removeIndex = Integer.valueOf(request.getParameter("removeRow"));
         menu.getDishes().remove(removeIndex);
@@ -129,7 +128,7 @@ public class MenuControllers {
         return "editMenu";
     }
 
-    @RequestMapping(value = "/saveMenu", params ={"submit"})
+    @PostMapping(value = "/saveMenu", params ={"submit"})
     public String submitChanges(@ModelAttribute Menu menu){
         menuDao.update(menu);
         return "";
