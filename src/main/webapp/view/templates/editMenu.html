@@ -1,50 +1,44 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <meta charset="UTF-8">
-    <title>Title</title>
 </head>
 <body>
 
 
 <!-------------------------------------- Edit list of dishes--------------------------------------------------->
-<form action="#" th:action="@{/saveMenu}" th:object="${editMenu}" method="post">
-    <input type="hidden" th:value="${editMenu.id}" th:name="id">
-    <input type="hidden" th:value="${editMenu.name}" th:name="name">
-    <input type="hidden" th:value="${editMenu.luxury}" th:name="luxury">
-    <input type="hidden" th:value="${editMenu.price}" th:name="price">
-    <div th:each="dish, item : *{dishes}" ><input type="hidden" th:field="*{dishes[__${item.index}__].id}"></div>
+<form action="#" data-th-action="@{/saveMenu}" data-th-object="${editMenu}" method="post">
+    <input type="hidden" data-th-value="${editMenu.id}" data-th-name="id">
+    <input type="hidden" data-th-value="${editMenu.name}" data-th-name="name">
+    <input type="hidden" data-th-value="${editMenu.luxury}" data-th-name="luxury">
+    <input type="hidden" data-th-value="${editMenu.price}" data-th-name="price">
+    <div data-th-each="dish, item : *{dishes}" ><input type="hidden" data-th-field="*{dishes[__${item.index}__].id}"></div>
     <div>
         <table border="1">
 
 
             <tr>
-                <td th:each="dish, item : *{dishes}">
-                    <select th:field="*{dishes[__${item.index}__].dishType}">
-                        <option th:each="type : ${allTypesDish}" th:value="${type}" th:text="${type}" th:selected="${type == editMenu.dishes[item.index].dishType}"></option>
+                <td data-th-each="dish, item : *{dishes}">
+                    <select data-th-field="*{dishes[__${item.index}__].dishType}">
+                        <option data-th-each="type : ${allTypesDish}" data-th-value="${type}" data-th-text="${type}" data-th-selected="${type == editMenu.dishes[item.index].dishType}"></option>
                     </select>
                 </td>
             </tr>
 
 
             <tr>
-                <td th:each="dish, item : *{dishes}">
-                    <input th:field="*{dishes[__${item.index}__].name}" />
+                <td data-th-each="dish, item : *{dishes}">
+                    <input data-th-field="*{dishes[__${item.index}__].name}" />
                 </td>
             </tr>
             <tr>
-                <td th:each="dish, item : *{dishes}"><input th:field="*{dishes[__${item.index}__].cuisine}"/>
+                <td data-th-each="dish, item : *{dishes}"><input data-th-field="*{dishes[__${item.index}__].cuisine}"/>
                 </td>
             </tr>
         </table>
         <table>
             <tr>
-                <td th:each="dish, item : *{dishes}">
-                    <button type="submit" name="removeRow" th:value="${item.index}" text="removeRow"> remove row </button>
+                <td data-th-each="dish, item : *{dishes}">
+                    <button type="submit" name="removeRow" data-th-value="${item.index}" text="removeRow"> remove row </button>
                 </td>
             </tr>
         </table>

@@ -78,10 +78,12 @@ public class DefaultMenuDao implements MenuDao {
             statement.setString(2, menu.getLuxury().toString().toUpperCase());
             statement.setDouble(3, menu.getPrice().doubleValue());
             statement.executeUpdate();
-
             menu.setId(getLastTableId());
 
             createDishes(menu);
+
+
+            throw new SQLException();
 
         } catch (SQLException e) {
             logger.error("SQLException in method create", e);

@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 
-<form action="#" th:action="@{createMenu}" method="post">
+<form action="#" data-th-action="@{createMenu}" method="post">
     <div>
         <button type="submit" name="add">Add</button>
     </div>
@@ -15,25 +12,25 @@
 </form>
 
 
-<fieldset th:each="menuItem, item : ${menuList}">
-    <legend th:text="${menuItem.name}"></legend>
+<fieldset data-th-each="menuItem, item : ${menuList}">
+    <legend data-th-text="${menuItem.name}"></legend>
 
 
     <!-------------------------------------- Edit main fields --------------------------------------------------->
 
-    <form action="#" th:action="@{/editMenu}" th:object="${menuItem}" method="post">
+    <form action="#" data-th-action="@{/editMenu}" data-th-object="${menuItem}" method="post">
         <label>name</label>
-        <input type="hidden" th:value="${menuItem.id}" th:name="id"/>
-        <input type="text" th:value="${menuItem.name}" th:name="name"/>
+        <input type="hidden" data-th-value="${menuItem.id}" data-th-name="id"/>
+        <input type="text" data-th-value="${menuItem.name}" data-th-name="name"/>
         <p></p>
 
         <label>type</label>
-        <input type="text" th:value="${menuItem.luxury}" th:name="luxury"/>
+        <input type="text" data-th-value="${menuItem.luxury}" data-th-name="luxury"/>
 
 
         <p></p>
         <label>price</label>
-        <input type="text" th:value="${menuItem.price}" th:name="price"/>
+        <input type="text" data-th-value="${menuItem.price}" data-th-name="price"/>
 
         <p></p>
         <div class="submit">
@@ -44,14 +41,14 @@
         <!-------------------------------------- Main info about menu --------------------------------------------------->
 
 
-        <div th:object="${menuItem}">
+        <div data-th-object="${menuItem}">
             <label>Price :</label>
-            <label th:text="*{price}"></label>
+            <label data-th-text="*{price}"></label>
 
             <p></p>
 
             <label>Luxury:</label>
-            <label th:text="*{luxury}"></label>
+            <label data-th-text="*{luxury}"></label>
         </div>
 
         <div>
@@ -59,7 +56,7 @@
         </div>
 
     <div>
-        <button type="submit" name="deleteMenu" th:value="${item.index}" text="deleteMenu">Delete menu</button>
+        <button type="submit" name="deleteMenu" data-th-value="${item.index}" text="deleteMenu">Delete menu</button>
     </div>
     </form>
 

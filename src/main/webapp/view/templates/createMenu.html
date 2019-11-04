@@ -1,30 +1,24 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <meta charset="UTF-8">
-    <title>Title</title>
 </head>
 <body>
-<form action="#" th:action="@{/saveNewMenu}" th:object="${newMenu}" method="post">
+<form action="#" data-th-action="@{/saveNewMenu}" data-th-object="${newMenu}" method="post">
 
     <label>name</label>
-    <input type="hidden" th:value="${newMenu.id}"  th:name="id" />
-    <input type="text" th:value="${newMenu.name}"  th:name="name"/>
+    <input type="hidden" data-th-value="${newMenu.id}"  data-th-name="id" />
+    <input type="text" data-th-value="${newMenu.name}"  data-th-name="name"/>
     <p></p>
     <label>type</label>
 
 
-    <select  th:name="luxury" th:id="luxury">
-        <option th:each="type : ${allTypesLuxury}"  th:text="${type}" th:selected="${type == newMenu.luxury}"></option>
+    <select  data-th-name="luxury" data-th-id="luxury">
+        <option data-th-each="type : ${allTypesLuxury}"  data-th-text="${type}" data-th-selected="${type == newMenu.luxury}"></option>
     </select>
 
     <p></p>
     <label>price</label>
-    <input type="text" th:value="${newMenu.price}"  th:name="price" />
+    <input type="text" data-th-value="${newMenu.price}"  data-th-name="price" />
 
 
 
@@ -32,9 +26,9 @@
     <div>
         <table border="1">
             <tr>
-                <td th:each="dish, item : *{dishes}">
-                    <select th:field="*{dishes[__${item.index}__].dishType}">
-                        <option th:each="type : ${allTypesDish}" th:value="${type}" th:text="${type}" th:selected="${type == newMenu.dishes[item.index].dishType}"></option>
+                <td data-th-each="dish, item : *{dishes}">
+                    <select data-th-field="*{dishes[__${item.index}__].dishType}">
+                        <option data-th-each="type : ${allTypesDish}" data-th-value="${type}" data-th-text="${type}" data-th-selected="${type == newMenu.dishes[item.index].dishType}"></option>
                     </select>
                 </td>
             </tr>
@@ -43,19 +37,19 @@
 
 
             <tr>
-                <td th:each="dish, item : *{dishes}">
-                    <input th:field="*{dishes[__${item.index}__].name}" />
+                <td data-th-each="dish, item : *{dishes}">
+                    <input data-th-field="*{dishes[__${item.index}__].name}" />
                 </td>
             </tr>
             <tr>
-                <td th:each="dish, item : *{dishes}"><input th:field="*{dishes[__${item.index}__].cuisine}"/>
+                <td data-th-each="dish, item : *{dishes}"><input data-th-field="*{dishes[__${item.index}__].cuisine}"/>
                 </td>
             </tr>
         </table>
         <table>
             <tr>
-                <td th:each="dish, item : *{dishes}">
-                    <button type="submit" name="removeDishRowInNewMenu" th:value="${item.index}" text="addDishRowInNewMenu"> remove row </button>
+                <td data-th-each="dish, item : *{dishes}">
+                    <button type="submit" name="removeDishRowInNewMenu" data-th-value="${item.index}" text="addDishRowInNewMenu"> remove row </button>
                 </td>
             </tr>
         </table>

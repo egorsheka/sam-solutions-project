@@ -18,21 +18,18 @@ import java.util.List;
 
 
 @Controller
-public class MenuControllers {
+public class MenuController {
 
-    private DishDao dishDao;
-    private MenuDao menuDao;
+    @Autowired
+    private final DishDao dishDao;
+    private final MenuDao menuDao;
     private List<Menu> menuList;
 
-
-
-
     @Autowired
-    public void setDishDao(DishDao dishDao) { this.dishDao = dishDao;}
-
-    @Autowired
-    public void setMenuDao(MenuDao menuDao) {this.menuDao = menuDao;}
-
+    public MenuController(DishDao dishDao, MenuDao menuDao) {
+        this.dishDao = dishDao;
+        this.menuDao = menuDao;
+    }
 
 
     @ModelAttribute
@@ -45,12 +42,12 @@ public class MenuControllers {
 
     @ModelAttribute
     public void getAllLuxuryTypes(Model model){
-        model.addAttribute("allTypesLuxury", MenuLuxury.ALL);
+        model.addAttribute("allTypesLuxury", MenuLuxury.values());
     }
 
     @ModelAttribute
     public void getAllDishTypes(Model model){
-        model.addAttribute("allTypesDish", DishType.ALL);
+        model.addAttribute("allTypesDish", DishType.values());
     }
 
 
