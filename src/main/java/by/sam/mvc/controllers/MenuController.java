@@ -74,7 +74,7 @@ public class MenuController {
     }
 
     @PostMapping(value = "/saveNewMenu", params = {"addDishRowInNewMenu"} )
-    public String addDishRowInNewMenu(@ModelAttribute Menu newMenu,  Model model, HttpServletRequest request) {
+    public String addDishRowInNewMenu(@ModelAttribute Menu newMenu,  Model model) {
         if(newMenu.getDishes() == null){
             newMenu.setDishes(new ArrayList<>());
         }

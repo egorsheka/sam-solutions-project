@@ -19,4 +19,8 @@ public class GlobalExceptionHandler {
     public String handleDefaultDishDaoException(){
         return "error";
     }
+
+    public static void main(String[] args) {
+        System.out.println("");
+    }
 }
