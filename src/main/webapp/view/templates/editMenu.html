@@ -19,7 +19,7 @@
             <tr>
                 <td data-th-each="dish, item : *{dishes}">
                     <select data-th-field="*{dishes[__${item.index}__].dishType}">
-                        <option data-th-each="type : ${allTypesDish}" data-th-value="${type}" data-th-text="${type}" data-th-selected="${type == editMenu.dishes[item.index].dishType}"></option>
+                        <option data-th-each="type : ${allTypesDish}" data-th-value="${type}" data-th-text="#{${'text.type.' + type}}" data-th-selected="${type == editMenu.dishes[item.index].dishType}"></option>
                     </select>
                 </td>
             </tr>
@@ -38,14 +38,14 @@
         <table>
             <tr>
                 <td data-th-each="dish, item : *{dishes}">
-                    <button type="submit" name="removeRow" data-th-value="${item.index}" text="removeRow"> remove row </button>
+                    <button type="submit" data-th-text="#{text.remove_row}" data-th-value="${item.index}" name="removeRow"> remove row </button>
                 </td>
             </tr>
         </table>
     </div>
 
-    <button type="submit" name="addRow" text="addRow"> add row </button>
-    <button type="submit" name="submit" text="submit"> submit </button>
+    <button type="submit" data-th-text="#{text.add_row}" name="addRow"> add row </button>
+    <button type="submit" data-th-text="#{text.submit}" name="submit"> submit </button>
 
 
 </form>

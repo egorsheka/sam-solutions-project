@@ -3,7 +3,7 @@ package by.sam.mvc.controllers;
 
 import by.sam.mvc.models.menu.Dish;
 import by.sam.mvc.models.menu.DishType;
-import by.sam.mvc.models.menu.Menu;
+import by.sam.mvc.models.Menu;
 import by.sam.mvc.models.menu.MenuLuxury;
 import by.sam.mvc.repository.menu.MenuDao;
 import by.sam.mvc.repository.menu.dish.DishDao;
@@ -74,7 +74,7 @@ public class MenuController {
     }
 
     @PostMapping(value = "/saveNewMenu", params = {"addDishRowInNewMenu"} )
-    public String addDishRowInNewMenu(@ModelAttribute Menu newMenu,  Model model, HttpServletRequest request) {
+    public String addDishRowInNewMenu(@ModelAttribute Menu newMenu,  Model model) {
         if(newMenu.getDishes() == null){
             newMenu.setDishes(new ArrayList<>());
         }
