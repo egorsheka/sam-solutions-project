@@ -1,14 +1,24 @@
-package by.sam.mvc.models.menu;
+package by.sam.mvc.models;
 
+import by.sam.mvc.models.menu.Dish;
+import by.sam.mvc.models.menu.MenuLuxury;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
+@Entity
+@Table(name = "menu2")
 public class Menu{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "name")
     private String name;
     private BigDecimal price;
     private MenuLuxury luxury;
+    @Transient
     private List<Dish> dishes;
 
 

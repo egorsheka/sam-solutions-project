@@ -3,7 +3,7 @@ package by.sam.mvc.controllers;
 
 import by.sam.mvc.models.menu.Dish;
 import by.sam.mvc.models.menu.DishType;
-import by.sam.mvc.models.menu.Menu;
+import by.sam.mvc.models.Menu;
 import by.sam.mvc.models.menu.MenuLuxury;
 import by.sam.mvc.repository.menu.MenuDao;
 import by.sam.mvc.repository.menu.dish.DishDao;

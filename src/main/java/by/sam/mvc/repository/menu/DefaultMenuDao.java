@@ -3,7 +3,7 @@ package by.sam.mvc.repository.menu;
 import by.sam.mvc.exceptions.dao.menu.DefaultDishDaoException;
 import by.sam.mvc.exceptions.dao.menu.DefaultMenuDaoException;
 import by.sam.mvc.models.menu.Dish;
-import by.sam.mvc.models.menu.Menu;
+import by.sam.mvc.models.Menu;
 import by.sam.mvc.models.menu.MenuLuxury;
 import by.sam.mvc.repository.menu.dish.DishDao;
 import org.slf4j.Logger;

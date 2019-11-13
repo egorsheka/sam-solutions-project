@@ -20,7 +20,4 @@ public class GlobalExceptionHandler {
         return "error";
     }
 
-    public static void main(String[] args) {
-        System.out.println("");
-    }
 }
