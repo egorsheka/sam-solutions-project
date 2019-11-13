@@ -1,20 +1,20 @@
 package by.sam.mvc.repository;
 
-import by.sam.mvc.models.menu.Menu;
+
+import by.sam.mvc.models.menu.Dish;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Repository
-public class MenuRepository {
-
+public class DishRepository2 {
 //    @Autowired
 //    private SessionFactory sessionFactory;
-
-
-//    public void add(Menu user) {
-//        sessionFactory.getCurrentSession().save(user);
+//
+//    @Transactional
+//    public void add(Dish dish) {
+//        sessionFactory.getCurrentSession().save(dish);
 //    }
-
 }
