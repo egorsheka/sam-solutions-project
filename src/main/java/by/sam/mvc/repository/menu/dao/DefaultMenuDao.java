@@ -1,23 +1,9 @@
-package by.sam.mvc.repository.menu;
+package by.sam.mvc.repository.menu.dao;
 
-import by.sam.mvc.exceptions.dao.menu.DefaultDishDaoException;
-import by.sam.mvc.exceptions.dao.menu.DefaultMenuDaoException;
-import by.sam.mvc.models.menu.Dish;
 import by.sam.mvc.models.menu.Menu;
-import by.sam.mvc.models.menu.MenuLuxury;
-import by.sam.mvc.repository.menu.dish.DishDao;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-import java.math.BigDecimal;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 @Component

@@ -2,7 +2,7 @@ package by.sam.mvc.controllers;
 
 
 import by.sam.mvc.models.menu.*;
-import by.sam.mvc.repository.DishRepository;
+import by.sam.mvc.repository.menu.DishRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,8 +58,8 @@ public class MenuController {
 
     @GetMapping(path = "/")
     public String getCookPersonalPage(){
-        dishRepository.save(new Dish("name", new Cuisine("Bel"), DishType.APPETISER));
-       // dishRepository.add(new Dish("name", new Cuisine("Bel"), DishType.APPETISER));
+        //dishRepository.add(new Dish("name", new Cuisine("Bel"), DishType.APPETISER));
+        dishRepository.add(new Cuisine("bel2"));
         return "";
     }
 

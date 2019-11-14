@@ -1,4 +1,4 @@
-package by.sam.mvc.repository.menu;
+package by.sam.mvc.repository.menu.dao;
 
 import java.util.List;
 

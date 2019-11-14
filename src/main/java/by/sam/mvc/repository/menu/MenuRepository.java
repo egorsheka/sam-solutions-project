@@ -1,4 +1,4 @@
-package by.sam.mvc.repository;
+package by.sam.mvc.repository.menu;
 
 import by.sam.mvc.models.menu.Menu;
 import org.hibernate.SessionFactory;
@@ -12,7 +12,7 @@ public class MenuRepository {
 //    @Autowired
 //    private SessionFactory sessionFactory;
 
-
+//
 //    public void add(Menu user) {
 //        sessionFactory.getCurrentSession().save(user);
 //    }

@@ -1,14 +1,9 @@
-package by.sam.mvc.repository.menu.dish;
+package by.sam.mvc.repository.menu.dao.dish;
 
-import by.sam.mvc.exceptions.dao.menu.DefaultDishDaoException;
 import by.sam.mvc.models.menu.Dish;
-import by.sam.mvc.models.menu.DishType;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
-import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
