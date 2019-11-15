@@ -58,13 +58,12 @@ public class MenuController {
 
     @GetMapping(path = "/")
     public String getCookPersonalPage(){
-        //dishRepository.add(new Dish("name", new Cuisine("Bel"), DishType.APPETISER));
-        dishRepository.add(new Cuisine("bel2"));
         return "";
     }
 
     @PostMapping(value = "/createMenu")
     public String openCreateMenuPage() {
+        dishRepository.add(new Dish("name", DishType.APPETISER, new Cuisine("1")));
         return "createMenu";
     }
 

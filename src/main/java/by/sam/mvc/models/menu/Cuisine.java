@@ -1,6 +1,7 @@
 package by.sam.mvc.models.menu;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -11,26 +12,26 @@ public class Cuisine {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "cuisine_id")
+    @GeneratedValue
     private int id;
     private String name;
 
-    @OneToMany(mappedBy = "cuisine", fetch = FetchType.EAGER)
-    private List<Dish> dishes;
+    @OneToMany(mappedBy = "cuisine", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Dish> dishes = new ArrayList<>();
+
+    public void addDish(Dish dish) {
+        dishes.add( dish );
+        dish.setCuisine(this);
+    }
 
 
     public Cuisine() {
-
     }
-
-    public Cuisine(String name, List<Dish> dishes) {
-        this.name = name;
-        this.dishes = dishes;
-    }
-
     public Cuisine(String name) {
         this.name = name;
+    }
+    public Cuisine(int id, String name) {
+        this.id = id;
     }
 
     public int getId() {
@@ -57,6 +58,8 @@ public class Cuisine {
         this.dishes = dishes;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -70,5 +73,14 @@ public class Cuisine {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, dishes);
+    }
+
+    @Override
+    public String toString() {
+        return "Cuisine{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", dishes=" + dishes +
+                '}';
     }
 }

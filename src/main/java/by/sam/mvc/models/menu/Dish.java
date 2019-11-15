@@ -9,23 +9,17 @@ import java.util.Objects;
 public class Dish {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE )
-    @Column(name = "dish_id", insertable=false, updatable=false)
+    @GeneratedValue
     private int id;
 
     private String name;
-
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
-    @JoinColumn(name = "cuisine_id" , insertable=false, updatable=false)
-    private Cuisine cuisine;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "dish_type")
     private DishType dishType;
 
-//    @ManyToMany(mappedBy = "dishes")
-//    private List<Menu> menu;
-
+    @ManyToOne
+    private Cuisine cuisine;
 
 
     @Transient
@@ -33,19 +27,10 @@ public class Dish {
 
     public Dish(){}
 
-    public Dish(String name, Cuisine cuisine, DishType dishType, List<Menu> menu, Long img) {
+    public Dish(String name, DishType dishType, Cuisine cuisine) {
         this.name = name;
-        this.cuisine = cuisine;
         this.dishType = dishType;
-        //this.menu = menu;
-        this.img = img;
-    }
-
-    public Dish(String name, Cuisine cuisine, DishType dishType) {
-        this.name = name;
         this.cuisine = cuisine;
-        this.dishType = dishType;
-        //this.menu = menu;
         this.img = img;
     }
 
@@ -65,14 +50,6 @@ public class Dish {
         this.name = name;
     }
 
-    public Cuisine getCuisine() {
-        return cuisine;
-    }
-
-    public void setCuisine(Cuisine cuisine) {
-        this.cuisine = cuisine;
-    }
-
     public DishType getDishType() {
         return dishType;
     }
@@ -81,13 +58,13 @@ public class Dish {
         this.dishType = dishType;
     }
 
-//    public List<Menu> getMenu() {
-//        return menu;
-//    }
-//
-//    public void setMenu(List<Menu> menu) {
-//        this.menu = menu;
-//    }
+    public Cuisine getCuisine() {
+        return cuisine;
+    }
+
+    public void setCuisine(Cuisine cuisine) {
+        this.cuisine = cuisine;
+    }
 
     public Long getImg() {
         return img;
@@ -104,18 +81,13 @@ public class Dish {
         Dish dish = (Dish) o;
         return id == dish.id &&
                 Objects.equals(name, dish.name) &&
-                Objects.equals(cuisine, dish.cuisine) &&
                 dishType == dish.dishType &&
-
+                Objects.equals(cuisine, dish.cuisine) &&
                 Objects.equals(img, dish.img);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, cuisine, dishType, img);
+        return Objects.hash(id, name, dishType, cuisine);
     }
-
-
-
-
 }
