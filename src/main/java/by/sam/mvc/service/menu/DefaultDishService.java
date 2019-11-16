@@ -1,4 +1,4 @@
-package by.sam.mvc.service;
+package by.sam.mvc.service.menu;
 
 import by.sam.mvc.models.menu.Dish;
 import by.sam.mvc.repository.menu.DishRepository;
@@ -13,28 +13,26 @@ public class DefaultDishService implements DishService {
         this.repository = repository;
     }
 
-    public static void main(String[] args) {
 
-    }
 
     @Override
     public void add(Dish dish) {
-
+        repository.add(dish);
     }
 
     @Override
     public void delete(int id) {
-
+        repository.delete(id);
     }
 
     @Override
     public void update(Dish dish) {
-
+        repository.update(dish);
     }
 
     @Override
-    public void read(int id) {
-
+    public Dish read(int id) {
+        return repository.read(id);
     }
 
 

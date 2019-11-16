@@ -3,33 +3,24 @@
 <head>
 </head>
 <body>
+
 <form action="#" data-th-action="@{/saveNewMenu}" data-th-object="${newMenu}" method="post">
-
-    <label data-th-text="#{text.name}">name</label>
-    <input type="hidden" data-th-value="${newMenu.id}" data-th-name="id"/>
-    <input type="text" data-th-value="${newMenu.name}" data-th-name="name"/>
+    <input type="hidden" data-th-value="${newMenu.id}" data-th-name="id">
+    <input type="text" data-th-value="${newMenu.name}" data-th-name="name">
     <p></p>
-    <label data-th-text="#{text.type}">type</label>
-
-
-    <select data-th-name="luxury" data-th-id="luxury">
-        <option data-th-each="type : ${allTypesLuxury}" data-th-text="#{${'text.luxury.' + type}}"
-                data-th-selected="${type == newMenu.luxury}"></option>
-    </select>
-
+    <input type="text" data-th-value="${newMenu.luxury}" data-th-name="luxury">
     <p></p>
-    <label data-th-text="#{text.price}">price</label>
-    <input type="text" data-th-value="${newMenu.price}" data-th-name="price"/>
-
+    <input type="text" data-th-value="${newMenu.price}" data-th-name="price">
+    <p></p>
+    <div data-th-each="dish, item : *{dishes}" ><input type="hidden" data-th-field="*{dishes[__${item.index}__].id}"></div>
     <div>
         <table border="1">
+
+
             <tr>
                 <td data-th-each="dish, item : *{dishes}">
                     <select data-th-field="*{dishes[__${item.index}__].dishType}">
-                        <option data-th-each="type : ${allTypesDish}" data-th-value="${type}"
-                                data-th-text="#{${'text.type.' + type}}"
-                                data-th-selected="${type == newMenu.dishes[item.index].dishType}"></option>
-
+                        <option data-th-each="type : ${allTypesDish}" data-th-value="${type}" data-th-text="#{${'text.type.' + type}}" data-th-selected="${type == newMenu.dishes[item.index].dishType}"></option>
                     </select>
                 </td>
             </tr>
@@ -37,26 +28,26 @@
 
             <tr>
                 <td data-th-each="dish, item : *{dishes}">
-                    <input data-th-field="*{dishes[__${item.index}__].name}"/>
+                    <input data-th-field="*{dishes[__${item.index}__].name}" />
                 </td>
             </tr>
             <tr>
-                <td data-th-each="dish, item : *{dishes}"><input data-th-field="*{dishes[__${item.index}__].cuisine}"/>
+                <td data-th-each="dish, item : *{dishes}"><input data-th-field="*{dishes[__${item.index}__].cuisine.name}"/>
                 </td>
             </tr>
         </table>
         <table>
             <tr>
                 <td data-th-each="dish, item : *{dishes}">
-                    <button type="submit" data-th-value="${item.index}" data-th-text="#{text.remove_row}" name="removeDishRowInNewMenu"> remove row
-                    </button>
+                    <button type="submit" data-th-text="#{text.remove_row}" data-th-value="${item.index}" name="removeRow"> remove row </button>
                 </td>
             </tr>
         </table>
     </div>
 
-    <button type="submit" data-th-text="#{text.add_row}" name="addDishRowInNewMenu"> add row</button>
-    <button type="submit" data-th-text="#{text.submit}" name="submitNewMenu"> submit</button>
+    <button type="submit" data-th-text="#{text.add_row}" name="addRow"> add row </button>
+    <button type="submit" data-th-text="#{text.submit}" name="submit"> submit </button>
+
 
 </form>
 </body>

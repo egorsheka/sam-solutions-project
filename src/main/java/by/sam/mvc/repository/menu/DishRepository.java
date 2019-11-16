@@ -31,11 +31,11 @@ public class DishRepository {
 
     }
 
-    //TODO
+
     @Transactional
     public void delete(int id){
-//        Dish dish = manager.find(Dish.class, id);
-//        manager.remove(dish);
+        Dish dish = manager.find(Dish.class, id);
+        manager.remove(dish);
     }
 
     @Transactional

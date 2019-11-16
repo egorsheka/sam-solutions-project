@@ -1,4 +1,4 @@
-package by.sam.mvc.service;
+package by.sam.mvc.service.menu;
 
 import by.sam.mvc.models.menu.Dish;
 
@@ -6,5 +6,5 @@ public interface DishService {
     void add(Dish dish);
     void delete(int id);
     void update(Dish dish);
-    void read(int id);
+    Dish read(int id);
 }

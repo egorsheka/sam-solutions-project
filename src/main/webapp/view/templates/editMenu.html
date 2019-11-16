@@ -8,9 +8,9 @@
 <!-------------------------------------- Edit list of dishes--------------------------------------------------->
 <form action="#" data-th-action="@{/saveMenu}" data-th-object="${editMenu}" method="post">
     <input type="hidden" data-th-value="${editMenu.id}" data-th-name="id">
-    <input type="hidden" data-th-value="${editMenu.name}" data-th-name="name">
-    <input type="hidden" data-th-value="${editMenu.luxury}" data-th-name="luxury">
-    <input type="hidden" data-th-value="${editMenu.price}" data-th-name="price">
+    <input type="text" data-th-value="${editMenu.name}" data-th-name="name">
+    <input type="text" data-th-value="${editMenu.luxury}" data-th-name="luxury">
+    <input type="text" data-th-value="${editMenu.price}" data-th-name="price">
     <div data-th-each="dish, item : *{dishes}" ><input type="hidden" data-th-field="*{dishes[__${item.index}__].id}"></div>
     <div>
         <table border="1">
@@ -31,7 +31,7 @@
                 </td>
             </tr>
             <tr>
-                <td data-th-each="dish, item : *{dishes}"><input data-th-field="*{dishes[__${item.index}__].cuisine}"/>
+                <td data-th-each="dish, item : *{dishes}"><input data-th-field="*{dishes[__${item.index}__].cuisine.name}"/>
                 </td>
             </tr>
         </table>
