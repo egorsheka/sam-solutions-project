@@ -11,7 +11,7 @@ import java.util.Objects;
 public class Menu{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
 
@@ -102,14 +102,5 @@ public class Menu{
         return Objects.hash(id, name, price, luxury, dishes);
     }
 
-    @Override
-    public String toString() {
-        return "Menu{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", luxury=" + luxury +
-                ", dishes=" + dishes +
-                '}';
-    }
+
 }

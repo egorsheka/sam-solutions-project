@@ -102,14 +102,5 @@ public class Dish {
         return Objects.hash(id, name, dishType, cuisine);
     }
 
-    @Override
-    public String toString() {
-        return "Dish{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", dishType=" + dishType +
-                ", cuisine=" + cuisine +
-                ", img=" + img +
-                '}';
-    }
+
 }

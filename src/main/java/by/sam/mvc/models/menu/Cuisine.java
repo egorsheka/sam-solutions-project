@@ -1,5 +1,7 @@
 package by.sam.mvc.models.menu;
 
+import groovy.transform.ToString;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,8 @@ public class Cuisine {
     private int id;
     private String name;
 
-    @OneToMany(mappedBy = "cuisine", cascade = {CascadeType.PERSIST}, orphanRemoval = true)
+
+    @OneToMany(mappedBy = "cuisine", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private List<Dish> dishes = new ArrayList<>();
 
     public void addDish(Dish dish) {
@@ -77,15 +80,8 @@ public class Cuisine {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, dishes);
+        return Objects.hash(id, name);
     }
 
-    @Override
-    public String toString() {
-        return "Cuisine{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", dishes=" + dishes +
-                '}';
-    }
+
 }

@@ -64,9 +64,12 @@ public class MenuController {
     @PostMapping(value = "/createMenu")
     public String openCreateMenuPage() {
 
-        Cuisine cuisine = new Cuisine(1, "Austria");
-        dishRepository.update(new Dish(1, "Apfelstrudel", DishType.DESSERT, cuisine));
-
+        Cuisine cuisine = new Cuisine("Brest");
+        //Dish dish =  dishRepository.read(1);
+       // dishRepository.update(new Dish(2, "Baklava", DishType.APPETISER, cuisine));
+        dishRepository.delete(1);
+        dishRepository.delete(2);
+        dishRepository.delete(3);
         //dishRepository.add(new Dish("draniki", DishType.DESSERT, new Cuisine(1, "Belarus")));
         return "createMenu";
     }
