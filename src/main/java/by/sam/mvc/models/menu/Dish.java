@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Dish {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
 
     private String name;
@@ -21,13 +21,24 @@ public class Dish {
     @ManyToOne
     private Cuisine cuisine;
 
-
     @Transient
     private Long img;
 
     public Dish(){}
 
+    public Dish(int id){
+        this.id = id;
+    }
+
     public Dish(String name, DishType dishType, Cuisine cuisine) {
+        this.name = name;
+        this.dishType = dishType;
+        this.cuisine = cuisine;
+        this.img = img;
+    }
+
+    public Dish(int id, String name, DishType dishType, Cuisine cuisine) {
+        this.id = id;
         this.name = name;
         this.dishType = dishType;
         this.cuisine = cuisine;
@@ -89,5 +100,16 @@ public class Dish {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, dishType, cuisine);
+    }
+
+    @Override
+    public String toString() {
+        return "Dish{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", dishType=" + dishType +
+                ", cuisine=" + cuisine +
+                ", img=" + img +
+                '}';
     }
 }

@@ -12,27 +12,31 @@ public class Cuisine {
 
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String name;
 
-    @OneToMany(mappedBy = "cuisine", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "cuisine", cascade = {CascadeType.PERSIST}, orphanRemoval = true)
     private List<Dish> dishes = new ArrayList<>();
 
     public void addDish(Dish dish) {
-        dishes.add( dish );
+        dishes.add(dish);
         dish.setCuisine(this);
     }
 
 
     public Cuisine() {
     }
+
     public Cuisine(String name) {
         this.name = name;
     }
+
     public Cuisine(int id, String name) {
         this.id = id;
     }
+
+
 
     public int getId() {
         return id;
@@ -57,6 +61,7 @@ public class Cuisine {
     public void setDishes(List<Dish> dishes) {
         this.dishes = dishes;
     }
+
 
 
 

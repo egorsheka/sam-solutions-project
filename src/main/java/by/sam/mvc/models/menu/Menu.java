@@ -3,15 +3,15 @@ package by.sam.mvc.models.menu;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Table(name = "menu2")
 public class Menu{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "menu_id")
+    @GeneratedValue
     private int id;
 
 
@@ -23,15 +23,8 @@ public class Menu{
     private MenuLuxury luxury;
 
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "menu_dishes",
-            joinColumns = @JoinColumn(name = "menu_id"),
-            inverseJoinColumns = @JoinColumn(name = "dish_id")
-    )
-    private List<Dish> dishes;
-
-
-
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Dish> dishes = new ArrayList<>();
 
 
     public Menu() {}
@@ -92,7 +85,22 @@ public class Menu{
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Menu menu = (Menu) o;
+        return id == menu.id &&
+                Objects.equals(name, menu.name) &&
+                Objects.equals(price, menu.price) &&
+                luxury == menu.luxury &&
+                Objects.equals(dishes, menu.dishes);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, price, luxury, dishes);
+    }
 
     @Override
     public String toString() {
