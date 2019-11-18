@@ -1,7 +1,9 @@
 package by.sam.mvc.repository.user;
 
-import by.sam.mvc.models.location.Town;
+import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.user.Cook;
+import by.sam.mvc.repository.location.DistrictRepository;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,21 +17,24 @@ public class DefaultCookRepository implements CookRepository {
     @PersistenceContext
     private EntityManager manager;
 
+    private final DistrictRepository districtRepository;
+
+    //SQL
+    private static String FIND_ALL_QUERY = "SELECT * FROM cooks";
+
+
+
+    public DefaultCookRepository(DistrictRepository districtRepository) {
+        this.districtRepository = districtRepository;
+    }
 
     @Transactional
     @Override
     public void create(Cook cook) {
-        Town town = cook.getTown();
-        if (town.getId() == 0) {
-            manager.persist(town);
-        } else {
-            town = manager.find(Town.class, town.getId());
+        for(District district: cook.getDistricts()){
+            districtRepository.create(district);
         }
-        town.addCook(cook);
-        cook.setTown(town);
-        manager.persist(town);
-
-
+        manager.persist(cook);
 
     }
 
@@ -37,13 +42,9 @@ public class DefaultCookRepository implements CookRepository {
     @Transactional
     @Override
     public Cook read(int id) {
-
-
         Cook cook = manager.find(Cook.class, id);
-        Town town = manager.find(Town.class, cook.getTown().getId());
-        cook.setTown(town);
+        Hibernate.initialize(cook.getDistricts());
         return cook;
-
     }
 
 
@@ -62,21 +63,29 @@ public class DefaultCookRepository implements CookRepository {
         updateCook.setStatus(cook.getStatus());
         updateCook.setWeekForm(cook.getWeekForm());
 
-        Town town = cook.getTown();
-
-        if(town.getId() == 0){
-            manager.persist(town);
-        }else{
-            town = manager.find(Town.class, town.getId());
+        if(!(cook.getDistricts() == null || cook.getDistricts().isEmpty())) {
+            updateCook.setDistricts(cook.getDistricts());
         }
 
-        town.addCook(updateCook);
-        updateCook.setTown(town);
+        updateOnlyDistricts(updateCook);
 
-        manager.merge(cook);
 
     }
+    @Transactional
+    @Override
+    public void updateOnlyDistricts(Cook cook) {
+        if(!(cook.getDistricts() == null || cook.getDistricts().isEmpty())) {
+            for (District district : cook.getDistricts()) {
+                if (district.getId() == 0) {
+                    districtRepository.create(district);
+                } else {
+                    districtRepository.update(district);
+                }
+            }
+            manager.merge(cook);
+        }
 
+    }
 
     @Transactional
     @Override
@@ -86,9 +95,11 @@ public class DefaultCookRepository implements CookRepository {
     }
 
 
-    //TODO test
+    @Transactional
     @Override
     public List<Cook> findAll() {
-        return null;
+        return manager.createNativeQuery(FIND_ALL_QUERY, Cook.class).getResultList();
     }
+
+
 }

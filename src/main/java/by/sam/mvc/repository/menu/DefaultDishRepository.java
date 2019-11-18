@@ -23,7 +23,7 @@ public class DefaultDishRepository implements DishRepository {
         if(cuisine.getId() == 0){
          manager.persist(cuisine);
         }else{
-          cuisine = manager.find(Cuisine.class, cuisine.getId());
+            cuisine = manager.find(Cuisine.class, cuisine.getId());
         }
         cuisine.addDish(dish);
         dish.setCuisine(cuisine);
@@ -34,13 +34,6 @@ public class DefaultDishRepository implements DishRepository {
 
     @Transactional
     @Override
-    public void delete(int id){
-        Dish dish = manager.find(Dish.class, id);
-        manager.remove(dish);
-    }
-
-    @Transactional
-    @Override
     public Dish read(int id){
         Dish dish = manager.find(Dish.class, id);
         Cuisine cuisine = manager.find(Cuisine.class, dish.getCuisine().getId());
@@ -48,10 +41,6 @@ public class DefaultDishRepository implements DishRepository {
         return dish;
     }
 
-    @Override
-    public List<Dish> findAll() {
-        return null;
-    }
 
 
     @Transactional
@@ -76,6 +65,23 @@ public class DefaultDishRepository implements DishRepository {
 
         manager.merge(cuisine);
     }
+
+    @Transactional
+    @Override
+    public void delete(int id){
+        Dish dish = manager.find(Dish.class, id);
+        manager.remove(dish);
+    }
+
+
+
+    @Override
+    public List<Dish> findAll() {
+        return null;
+    }
+
+
+
 
 
 }

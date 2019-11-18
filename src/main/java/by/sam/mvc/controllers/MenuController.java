@@ -1,9 +1,11 @@
 package by.sam.mvc.controllers;
 
 
+import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.location.Town;
 import by.sam.mvc.models.menu.*;
 import by.sam.mvc.models.user.Cook;
+import by.sam.mvc.repository.location.DistrictRepository;
 import by.sam.mvc.repository.user.CookRepository;
 import by.sam.mvc.service.menu.MenuService;
 import org.springframework.stereotype.Controller;
@@ -22,12 +24,13 @@ public class MenuController {
     private List<Menu> menuList;
 
 
-
+    private final DistrictRepository districtRepository;
     private final MenuService menuService;
     private final CookRepository cookRepository;
 
 
-    public MenuController(MenuService menuService, CookRepository cookRepository) {
+    public MenuController(DistrictRepository districtRepository, MenuService menuService, CookRepository cookRepository) {
+        this.districtRepository = districtRepository;
         this.menuService = menuService;
         this.cookRepository = cookRepository;
     }
@@ -43,7 +46,6 @@ public class MenuController {
 
     @PostMapping(value = "/createMenu")
     public String openCreateMenuPage(Model model) {
-        cookRepository.update(new Cook(3, "Pety", new Town(3,  "Gomel")));
 
         model.addAttribute("newMenu", new Menu());
         return "createMenu";

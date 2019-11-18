@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "cooks")
 public class Cook {
 
     @Id
@@ -23,9 +24,6 @@ public class Cook {
     private String birthday;
     private String mobile;
 
-    @ManyToOne
-    private Town town;
-
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<District> districts = new ArrayList<>();
@@ -38,15 +36,20 @@ public class Cook {
 
     public Cook(){}
 
-    public Cook(String name, Town town) {
+    public Cook(String name, List<District> districts) {
         this.name = name;
-        this.town = town;
+        this.districts = districts;
     }
 
-    public Cook(int id, String name, Town town) {
+    public Cook(int id, String name, List<District> districts) {
         this.id = id;
         this.name = name;
-        this.town = town;
+        this.districts = districts;
+    }
+
+    public Cook(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
     public int getId() {
@@ -105,16 +108,6 @@ public class Cook {
         this.mobile = mobile;
     }
 
-    public Town getTown() {
-        return town;
-    }
-
-    public void setTown(Town town) {
-        this.town = town;
-    }
-
-
-
     public String getWeekForm() {
         return weekForm;
     }
@@ -129,5 +122,21 @@ public class Cook {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<District> getDistricts() {
+        return districts;
+    }
+
+    public void setDistricts(List<District> districts) {
+        this.districts = districts;
+    }
+
+    public List<Menu> getMenu() {
+        return menu;
+    }
+
+    public void setMenu(List<Menu> menu) {
+        this.menu = menu;
     }
 }

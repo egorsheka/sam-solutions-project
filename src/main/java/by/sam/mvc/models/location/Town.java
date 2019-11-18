@@ -7,21 +7,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "towns")
 public class Town {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
     private String name;
 
-
     @OneToMany(mappedBy = "town", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
-    private List<Cook> cooks = new ArrayList<>();
+    private List<District> districts = new ArrayList<>();
 
-    public void addCook(Cook cook) {
-        cooks.add(cook);
-        cook.setTown(this);
+    public void addDistrict(District district) {
+        districts.add(district);
+        district.setTown(this);
     }
 
 
@@ -52,11 +51,11 @@ public class Town {
         this.name = name;
     }
 
-    public List<Cook> getCooks() {
-        return cooks;
+    public List<District> getDistricts() {
+        return districts;
     }
 
-    public void setCooks(List<Cook> cooks) {
-        this.cooks = cooks;
+    public void setDistricts(List<District> districts) {
+        this.districts = districts;
     }
 }

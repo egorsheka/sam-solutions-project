@@ -82,7 +82,6 @@ public class DefaultMenuRepository implements MenuRepository {
     @Transactional
     @Override
     public List<Menu> findAll() {
-        List<Menu> menu = manager.createNativeQuery(FIND_ALL_QUERY, Menu.class).getResultList();
-        return menu;
+        return manager.createNativeQuery(FIND_ALL_QUERY, Menu.class).getResultList();
     }
 }
