@@ -1,6 +1,7 @@
 package by.sam.mvc.service.menu;
 
 import by.sam.mvc.models.menu.Dish;
+import by.sam.mvc.repository.menu.DefaultDishRepository;
 import by.sam.mvc.repository.menu.DishRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class DefaultDishService implements DishService {
 
     @Override
     public void add(Dish dish) {
-        repository.add(dish);
+        repository.create(dish);
     }
 
     @Override

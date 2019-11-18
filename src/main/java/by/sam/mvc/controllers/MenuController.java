@@ -1,16 +1,16 @@
 package by.sam.mvc.controllers;
 
 
+import by.sam.mvc.models.location.Town;
 import by.sam.mvc.models.menu.*;
-import by.sam.mvc.repository.menu.DishRepository;
-import by.sam.mvc.repository.menu.MenuRepository;
+import by.sam.mvc.models.user.Cook;
+import by.sam.mvc.repository.user.CookRepository;
 import by.sam.mvc.service.menu.MenuService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,20 +24,18 @@ public class MenuController {
 
 
     private final MenuService menuService;
+    private final CookRepository cookRepository;
 
 
-    public MenuController(MenuService menuService) {
+    public MenuController(MenuService menuService, CookRepository cookRepository) {
         this.menuService = menuService;
+        this.cookRepository = cookRepository;
     }
 
 
 
     @GetMapping(path = "/")
     public String getCookPersonalPage(Model model){
-        List<Dish> dishes = new ArrayList<>();
-        dishes.add(new Dish("0000", DishType.APPETISER, new Cuisine("Minsk")));
-        menuService.update(new Menu(1, "000", new BigDecimal(20000), MenuLuxury.PRESTIGE, dishes));
-
         menuList = menuService.findAll();
         model.addAttribute("menuList", menuList);
         return "";
@@ -45,6 +43,8 @@ public class MenuController {
 
     @PostMapping(value = "/createMenu")
     public String openCreateMenuPage(Model model) {
+        cookRepository.update(new Cook(3, "Pety", new Town(3,  "Gomel")));
+
         model.addAttribute("newMenu", new Menu());
         return "createMenu";
     }
