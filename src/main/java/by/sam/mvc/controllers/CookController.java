@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class CookController {
 
 
-
-    @GetMapping(path = "/hey")
+    @GetMapping(path = "/")
     public String getCookPersonalPage(Model model){
 
-        return "";
+        return "startCook";
     }
 }

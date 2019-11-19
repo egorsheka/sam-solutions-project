@@ -20,7 +20,7 @@ public class DefaultMenuRepository implements MenuRepository {
     private final DishRepository dishRepository;
 
     //SQL
-    private static String FIND_ALL_QUERY = "SELECT * FROM menu";
+    private static String FIND_ALL_QUERY = "SELECT * FROM menus";
 
     public DefaultMenuRepository(DishRepository dishRepository) {
         this.dishRepository = dishRepository;

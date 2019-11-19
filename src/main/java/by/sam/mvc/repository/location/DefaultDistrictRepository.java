@@ -13,6 +13,9 @@ import java.util.List;
 @Repository
 public class DefaultDistrictRepository implements DistrictRepository {
 
+    private static String FIND_ALL_QUERY = "SELECT * FROM districts where town_id = ?1";
+
+
     @PersistenceContext
     private EntityManager manager;
 
@@ -77,4 +80,14 @@ public class DefaultDistrictRepository implements DistrictRepository {
     public List<District> findAll() {
         return null;
     }
+
+
+    @Transactional
+    @Override
+    public List<District> getDistrictListByTown(Town town) {
+        return manager.createNativeQuery(FIND_ALL_QUERY, Town.class)
+        .setParameter(1, town.getId())
+        .getResultList();
+    }
+
 }

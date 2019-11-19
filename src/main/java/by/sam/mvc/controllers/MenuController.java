@@ -37,7 +37,7 @@ public class MenuController {
 
 
 
-    @GetMapping(path = "/")
+    @GetMapping(path = "/hey")
     public String getCookPersonalPage(Model model){
         menuList = menuService.findAll();
         model.addAttribute("menuList", menuList);

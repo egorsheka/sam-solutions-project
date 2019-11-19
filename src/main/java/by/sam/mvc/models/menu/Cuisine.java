@@ -9,7 +9,7 @@ import java.util.Objects;
 
 
 @Entity
-@Table(name = "cuisine")
+@Table(name = "cuisines")
 public class Cuisine {
 
 
