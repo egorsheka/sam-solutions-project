@@ -7,12 +7,18 @@
 <body>
 <form action="#" th:action="@{/selectTown}" th:object="${town}" method="post">
     <div>
-        <select >
-            <option th:each="town : ${townList}" th:value="${town.name}" th:name="name" th:text="${town.name}">
-                <input type="hidden" th:value="${town.id}" th:name="id">
+        <select th:field="${town.id}">
+            <option th:each="town : ${townList}" th:value="${town.id}"  th:text="${town.name}">
             </option>
         </select>
         <button type="submit" data-th-text="#{text.submit}">submit</button>
+    </div>
+
+    <div>
+        <select th:field="${town.id}">
+            <option th:each="district : ${districtList}" th:value="${town.id}"  th:text="${district.name}">
+            </option>
+        </select>
     </div>
 </form>
 </body>

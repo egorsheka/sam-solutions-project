@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -24,26 +25,39 @@ public class AvailabilitiesController {
         this.districtRepository = districtRepository;
     }
 
-    @ModelAttribute("town")
-    public Town checkOptions(){
-        return new Town();
-    }
+    private Town town = new Town();
+
+
+
+
+
+
     @GetMapping(path = "/availabilities")
     public String getAvailabilitiesPage(Model model){
-        List<Town> list =  townRepository.findAll();
-
-        //model.addAttribute("town", new Town());
-        model.addAttribute("townList", townRepository.findAll());
         return "availabilities";
     }
 
     @PostMapping(value = "/selectTown")
     public String selectTown(@ModelAttribute Town town, Model model){
-        System.out.println(town.getName() + town.getId());
-//        List<District> districts = districtRepository.getDistrictListByTown(town);
-//        model.addAttribute("districts", townRepository.findAll());
+        List<District> districts = districtRepository.getDistrictListByTown(town);
+        model.addAttribute("districtList", districts);
         return "availabilities";
     }
+
+    @ModelAttribute("districtList")
+    public List<District> getDistrictsList(){
+        return new ArrayList();
+    }
+    @ModelAttribute("townList")
+    public List<Town> getTownList(){
+        return townRepository.findAll();
+    }
+    @ModelAttribute("town")
+    public Town getEmptyTown(){
+        return town;
+    }
+
+
 
 
 
