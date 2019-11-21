@@ -1,6 +1,6 @@
 package by.sam.mvc.repository.location;
 
-import by.sam.mvc.models.location.District;
+
 import by.sam.mvc.models.location.Town;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

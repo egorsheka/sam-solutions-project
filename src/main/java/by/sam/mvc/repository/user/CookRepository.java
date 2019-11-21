@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface CookRepository extends Repository<Cook> {
     void updateOnlyDistricts(Cook cook);
+    public void updateOnlyWeekDays(Cook cook);
 }
