@@ -58,4 +58,6 @@ public class Town {
     public void setDistricts(List<District> districts) {
         this.districts = districts;
     }
+
+
 }
