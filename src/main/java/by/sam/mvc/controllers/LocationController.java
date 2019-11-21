@@ -7,13 +7,12 @@ import by.sam.mvc.repository.location.DistrictRepository;
 import by.sam.mvc.repository.location.TownRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class AvailabilitiesController {
@@ -28,6 +27,10 @@ public class AvailabilitiesController {
 
     private Town town = new Town();
     private List<District> districts;
+
+
+
+
 
     @GetMapping(path = "/availabilities")
     public String getAvailabilitiesPage(Model model) {
