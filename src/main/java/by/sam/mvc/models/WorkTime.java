@@ -28,6 +28,11 @@ public class WorkTime {
     public WorkTime() {
     }
 
+    public WorkTime(WeekDay day) {
+        this.day = day;
+
+    }
+
     public WorkTime(WeekDay day, String startTime, String endTime) {
         this.day = day;
         this.startTime = startTime;

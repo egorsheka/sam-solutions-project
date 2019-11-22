@@ -38,6 +38,9 @@ public class DefaultCookRepository implements CookRepository {
         for(District district: cook.getDistricts()){
             districtRepository.create(district);
         }
+        for(WorkTime workTime: cook.getWorkTime()){
+            workTimeRepository.create(workTime);
+        }
         manager.persist(cook);
 
     }

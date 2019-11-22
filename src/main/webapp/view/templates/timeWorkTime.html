@@ -9,7 +9,7 @@
     <title>Title</title>
 </head>
 <body>
-<form action="#" th:action="@{/timeWorkBox}" method="post">
+<form action="#" th:action="@{/timeWorkBox}"  method="post">
     <table>
         <tr th:each="day, item : ${weekDays}">
             <td th:unless="${selectedBox.get(item.index) != 1}">
@@ -23,7 +23,7 @@
 
 
             <td th:unless="${selectedBox.get(item.index) != 1}">
-                <select th:field="${workTimeList[__${0}__].endTime}">
+                <select th:name="${'timeStart'} + ${item.index}">
                     <option th:each="hour : ${time}" th:value="${hour}" th:text="${hour}">
                     </option>
                 </select>
@@ -31,7 +31,7 @@
 
 
             <td th:unless="${selectedBox.get(item.index) != 1}">
-                <select >
+                <select th:name="${'timeEnd'} + ${item.index}">
                     <option th:each="hour : ${time}" th:value="${hour}" th:text="${hour}">
                     </option>
                 </select>
@@ -40,8 +40,7 @@
 
         </tr>
     </table>
-    <!--    <button th:unless="${selectedBox.get(0) == null}" type="submit" th:text="#{text.submit}" name="submit"> submit</button>-->
-    <button type="submit" th:text="#{text.submit}" name="submit"> submit</button>
+    <button type="submit" th:text="#{text.submit}" name="saveTime"> submit</button>
 </form>
 
 </body>

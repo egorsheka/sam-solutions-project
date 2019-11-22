@@ -4,7 +4,7 @@ import by.sam.mvc.models.user.Cook;
 
 import java.util.List;
 
-public interface UserService {
+public interface CookService {
 
     void create(Cook object);
     Cook read(int id);

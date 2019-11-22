@@ -124,9 +124,6 @@ public class MenuController {
     }
 
 
-
-
-
     @ModelAttribute
     public void getAllLuxuryTypes(Model model){
         model.addAttribute("allTypesLuxury", MenuLuxury.values());

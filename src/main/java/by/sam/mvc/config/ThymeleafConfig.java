@@ -2,9 +2,11 @@ package by.sam.mvc.config;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
@@ -54,6 +56,7 @@ public class ThymeleafConfig extends WebMvcConfigurerAdapter implements Applicat
         resolver.setApplicationContext(applicationContext);
         resolver.setPrefix("/view/templates/");
         resolver.setSuffix(".html");
+        resolver.setCharacterEncoding("UTF-8");
         resolver.setTemplateMode(TemplateMode.HTML);
         return resolver;
     }
@@ -62,8 +65,11 @@ public class ThymeleafConfig extends WebMvcConfigurerAdapter implements Applicat
     public ResourceBundleMessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("messages");
+        messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
+
+
 
     @Bean
     public LocaleResolver localeResolver() {
