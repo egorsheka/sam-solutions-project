@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="#" th:action="@{/selectTown}" th:object="${town}" method="post">
+    <div>
+        <select th:field="${town.id}">
+            <option th:each="town : ${townList}" th:value="${town.id}" th:text="${town.name}">
+            </option>
+        </select>
+        <button type="submit" th:text="#{text.submit}">submit</button>
+    </div>
+
+
+    <div th:unless="${!(town.id != 0 && !town.districts.isEmpty())}">
+
+        <div th:each="townDisElement, item :${town.districts}">
+            <p></p>
+            <select th:field="${town.districts[__${item.index}__].id}">
+                <option th:each="district : ${districtList}" th:value="${district.id}" th:text="${district.name}">
+                </option>
+            </select>
+            <button type="submit" th:text="#{text.remove_row}" th:value="${item.index}" name="removeRow"> remove row </button>
+        </div>
+
+        <p></p>
+        <div>
+            <button type="submit" th:text="#{text.addDistrict}" name="addDistrict">add district</button>
+        </div>
+
+        <p></p>
+        <div>
+            <button type="submit" th:text="#{text.save}" name="save">save</button>
+        </div>
+    </div>
+
+</form>
+</body>
+</html>

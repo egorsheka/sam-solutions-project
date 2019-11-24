@@ -1,7 +1,9 @@
 package by.sam.mvc.repository.user;
 
+import by.sam.mvc.models.WorkTime;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.user.Cook;
+import by.sam.mvc.repository.WorkTimeRepository;
 import by.sam.mvc.repository.location.DistrictRepository;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
@@ -18,14 +20,16 @@ public class DefaultCookRepository implements CookRepository {
     private EntityManager manager;
 
     private final DistrictRepository districtRepository;
+    private final WorkTimeRepository workTimeRepository;
 
     //SQL
     private static String FIND_ALL_QUERY = "SELECT * FROM cooks";
 
 
 
-    public DefaultCookRepository(DistrictRepository districtRepository) {
+    public DefaultCookRepository(DistrictRepository districtRepository, WorkTimeRepository workTimeRepository) {
         this.districtRepository = districtRepository;
+        this.workTimeRepository = workTimeRepository;
     }
 
     @Transactional
@@ -33,6 +37,9 @@ public class DefaultCookRepository implements CookRepository {
     public void create(Cook cook) {
         for(District district: cook.getDistricts()){
             districtRepository.create(district);
+        }
+        for(WorkTime workTime: cook.getWorkTime()){
+            workTimeRepository.create(workTime);
         }
         manager.persist(cook);
 
@@ -48,6 +55,7 @@ public class DefaultCookRepository implements CookRepository {
     }
 
 
+    //TODO test
     @Transactional
     @Override
     public void update(Cook cook) {
@@ -61,16 +69,17 @@ public class DefaultCookRepository implements CookRepository {
         updateCook.setBirthday(cook.getBirthday());
         updateCook.setMobile(cook.getMobile());
         updateCook.setStatus(cook.getStatus());
-        updateCook.setWeekForm(cook.getWeekForm());
+
 
         if(!(cook.getDistricts() == null || cook.getDistricts().isEmpty())) {
             updateCook.setDistricts(cook.getDistricts());
         }
 
         updateOnlyDistricts(updateCook);
-
+        updateOnlyWeekDays(updateCook);
 
     }
+    //TODO test
     @Transactional
     @Override
     public void updateOnlyDistricts(Cook cook) {
@@ -80,6 +89,23 @@ public class DefaultCookRepository implements CookRepository {
                     districtRepository.create(district);
                 } else {
                     districtRepository.update(district);
+                }
+            }
+            manager.merge(cook);
+        }
+
+    }
+
+    //TODO test
+    @Transactional
+    @Override
+    public void updateOnlyWeekDays(Cook cook) {
+        if(!(cook.getWorkTime() == null || cook.getWorkTime().isEmpty())) {
+            for (WorkTime day : cook.getWorkTime()) {
+                if (day.getId() == 0) {
+                    workTimeRepository.create(day);
+                } else {
+                    workTimeRepository.update(day);
                 }
             }
             manager.merge(cook);
@@ -101,5 +127,9 @@ public class DefaultCookRepository implements CookRepository {
         return manager.createNativeQuery(FIND_ALL_QUERY, Cook.class).getResultList();
     }
 
+
+    private void merge(Cook cook){
+        manager.merge(cook);
+    }
 
 }

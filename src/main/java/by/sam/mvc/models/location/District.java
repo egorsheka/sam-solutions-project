@@ -56,4 +56,11 @@ public class District {
     public void setTown(Town town) {
         this.town = town;
     }
+
+    @Override
+    public String toString() {
+        return "District{" +
+                "id=" + id +
+                '}';
+    }
 }

@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-
-    <meta charset="utf-8">
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Registration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,8 +15,8 @@
     <a th:href="@{?lang=de}">Deutsch</a><p></p>
 </nav>
 
-<a th:href="${(#mvc.url('MC#getCookPersonalPage')).build()}" th:-text="#{text.details}">Details</a> <p></p>
-<a th:href="${(#mvc.url('AC#getAvailabilitiesPage')).build()}" th:-text="#{text.availabilities}">Availabilities</a><p></p>
-<a th:href="${(#mvc.url('MC#getCookPersonalPage')).build()}" th:-text="#{text.menus}">Menus</a><p></p>
+<a th:href="${(#mvc.url('WTC#getTimeWorkPage')).build()}" th:text="#{text.workingHours}">Time Work</a> <p></p>
+<a th:href="${(#mvc.url('LC#getAvailabilitiesPage')).build()}" th:text="#{text.location}">Location</a><p></p>
+<a th:href="${(#mvc.url('MC#getCookPersonalPage')).build()}" th:text="#{text.menus}">Menus</a><p></p>
 </body>
 </html>

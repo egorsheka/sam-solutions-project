@@ -2,14 +2,16 @@ package by.sam.mvc.service.user;
 
 import by.sam.mvc.models.user.Cook;
 import by.sam.mvc.repository.user.CookRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public class DefaultUserService implements UserService {
+@Service
+public class DefaultCookService implements CookService {
 
     private final CookRepository repository;
 
-    public DefaultUserService(CookRepository repository) {
+    public DefaultCookService(CookRepository repository) {
         this.repository = repository;
     }
 

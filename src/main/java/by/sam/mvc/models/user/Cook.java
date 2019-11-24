@@ -1,5 +1,7 @@
 package by.sam.mvc.models.user;
 
+import by.sam.mvc.models.WeekDay;
+import by.sam.mvc.models.WorkTime;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.location.Town;
 import by.sam.mvc.models.menu.Menu;
@@ -31,7 +33,9 @@ public class Cook {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Menu> menu = new ArrayList<>();
 
-    private String weekForm;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<WorkTime> workTime = new ArrayList<>(7);
+
     private String status;
 
     public Cook(){}
@@ -100,6 +104,10 @@ public class Cook {
         this.birthday = birthday;
     }
 
+    public List<WorkTime> getWorkTime() {return workTime; }
+
+    public void setWorkTime(List<WorkTime> workTime) { this.workTime = workTime; }
+
     public String getMobile() {
         return mobile;
     }
@@ -108,13 +116,6 @@ public class Cook {
         this.mobile = mobile;
     }
 
-    public String getWeekForm() {
-        return weekForm;
-    }
-
-    public void setWeekForm(String weekForm) {
-        this.weekForm = weekForm;
-    }
 
     public String getStatus() {
         return status;
