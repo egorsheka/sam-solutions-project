@@ -28,10 +28,6 @@ public class AvailabilitiesController {
     private Town town = new Town();
 
 
-
-
-
-
     @GetMapping(path = "/availabilities")
     public String getAvailabilitiesPage(Model model){
         return "availabilities";
