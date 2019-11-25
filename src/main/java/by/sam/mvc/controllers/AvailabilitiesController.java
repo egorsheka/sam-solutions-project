@@ -27,31 +27,31 @@ public class AvailabilitiesController {
 
     private Town town = new Town();
 
-
-    @GetMapping(path = "/availabilities")
-    public String getAvailabilitiesPage(Model model){
-        return "availabilities";
-    }
-
-    @PostMapping(value = "/selectTown")
-    public String selectTown(@ModelAttribute Town town, Model model){
-        List<District> districts = districtRepository.getDistrictListByTown(town);
-        model.addAttribute("districtList", districts);
-        return "availabilities";
-    }
-
-    @ModelAttribute("districtList")
-    public List<District> getDistrictsList(){
-        return new ArrayList();
-    }
-    @ModelAttribute("townList")
-    public List<Town> getTownList(){
-        return townRepository.findAll();
-    }
-    @ModelAttribute("town")
-    public Town getEmptyTown(){
-        return town;
-    }
+//
+////    @GetMapping(path = "/availabilities")
+////    public String getAvailabilitiesPage(Model model){
+////        return "availabilities";
+////    }
+//
+//    @PostMapping(value = "/selectTown")
+//    public String selectTown(@ModelAttribute Town town, Model model){
+//        List<District> districts = districtRepository.getDistrictListByTown(town);
+//        model.addAttribute("districtList", districts);
+//        return "availabilities";
+//    }
+//
+//    @ModelAttribute("districtList")
+//    public List<District> getDistrictsList(){
+//        return new ArrayList();
+//    }
+//    @ModelAttribute("townList")
+//    public List<Town> getTownList(){
+//        return townRepository.findAll();
+//    }
+//    @ModelAttribute("town")
+//    public Town getEmptyTown(){
+//        return town;
+//    }
 
 
 

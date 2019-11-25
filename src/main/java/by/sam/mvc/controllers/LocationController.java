@@ -3,9 +3,9 @@ package by.sam.mvc.controllers;
 
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.location.Town;
-import by.sam.mvc.repository.WorkTimeRepository;
-import by.sam.mvc.repository.location.DistrictRepository;
-import by.sam.mvc.repository.location.TownRepository;
+import by.sam.mvc.repository.worktime.WorkTimeRepository;
+import by.sam.mvc.service.location.DistrictService;
+import by.sam.mvc.service.location.TownService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,14 +16,14 @@ import java.util.*;
 @Controller
 public class LocationController {
 
-    private final TownRepository townRepository;
-    private final DistrictRepository districtRepository;
+    private final TownService townService;
+    private final DistrictService districtService;
 
     private final WorkTimeRepository workTimeRepository;
 
-    public LocationController(TownRepository townRepository, DistrictRepository districtRepository, WorkTimeRepository workTimeRepository) {
-        this.townRepository = townRepository;
-        this.districtRepository = districtRepository;
+    public LocationController(TownService townService, DistrictService districtService, WorkTimeRepository workTimeRepository) {
+        this.townService = townService;
+        this.districtService = districtService;
         this.workTimeRepository = workTimeRepository;
     }
 
@@ -36,17 +36,22 @@ public class LocationController {
 
     @GetMapping(path = "/availabilities")
     public String getAvailabilitiesPage(Model model) {
+        model.addAttribute("town", town);
+        List<Town> towns = townService.findAll();
+
+        model.addAttribute("townList", towns);
         return "location";
     }
 
     @PostMapping(value = "/selectTown")
     public String selectTown(@ModelAttribute Town town, Model model) {
-        List<District> districts = districtRepository.getDistrictListByTown(town);
+        List<District> districts = districtService.getDistrictListByTown(town);
         town.setDistricts(new ArrayList<>());
         town.getDistricts().add(new District());
         this.districts = districts;
         this.town.setId(town.getId());
         model.addAttribute("districtList", districts);
+        model.addAttribute("town", town);
         return "location";
     }
 
@@ -81,15 +86,18 @@ public class LocationController {
         return districts;
     }
 
-    @ModelAttribute("townList")
-    public List<Town> getTownList() {
-        return townRepository.findAll();
-    }
+//    @ModelAttribute("townList")
+//    public List<Town> getTownList() {
+//        List<Town> towns = townService.findAll();
+//        System.out.println(towns.get(0).getId());
+//        System.out.println(towns.get(0).getName());
+//        System.out.println(towns.get(1).getId());
+//        System.out.println(towns.get(1).getName());
+//
+//        return towns;
+//    }
 
-    @ModelAttribute("town")
-    public Town getEmptyTown() {
-        return town;
-    }
+
 
 
 }

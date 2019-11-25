@@ -1,10 +1,12 @@
-package by.sam.mvc.repository.menu;
+package by.sam.mvc.repository.menu.impl;
 
 import by.sam.mvc.models.menu.Dish;
 import by.sam.mvc.models.menu.Menu;
+import by.sam.mvc.repository.menu.DishRepository;
+import by.sam.mvc.repository.menu.MenuRepository;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,7 +14,7 @@ import java.util.List;
 
 
 @Repository
-public class DefaultMenuRepository implements MenuRepository {
+public class MenuRepositoryImpl implements MenuRepository {
 
     @PersistenceContext
     private EntityManager manager;
@@ -22,12 +24,12 @@ public class DefaultMenuRepository implements MenuRepository {
     //SQL
     private static String FIND_ALL_QUERY = "SELECT * FROM menus";
 
-    public DefaultMenuRepository(DishRepository dishRepository) {
+    public MenuRepositoryImpl(DishRepository dishRepository) {
         this.dishRepository = dishRepository;
     }
 
 
-    @Transactional
+
     @Override
     public void create(Menu menu){
         for(Dish dish: menu.getDishes()){
@@ -39,7 +41,7 @@ public class DefaultMenuRepository implements MenuRepository {
 
 
     //TODO check fetch = FetchType.EAGER or to understand Hibernate.initialize(menu.getDishes());
-    @Transactional
+
     @Override
     public Menu read(int id){
         Menu menu = manager.find(Menu.class, id);
@@ -48,39 +50,19 @@ public class DefaultMenuRepository implements MenuRepository {
     }
 
 
-    @Transactional
+
     @Override
     public void update(Menu menu){
-        Menu updateMenu = manager.find(Menu.class, menu.getId());
-
-        updateMenu.setName(menu.getName());
-        updateMenu.setPrice(menu.getPrice());
-        updateMenu.setLuxury(menu.getLuxury());
-        updateMenu.setDishes(menu.getDishes());
-
-        for(Dish dish: menu.getDishes()){
-            if(dish.getId() == 0){
-                dishRepository.create(dish);
-            }else {
-                dishRepository.update(dish);
-            }
-        }
-        manager.merge(updateMenu);
+        manager.merge(menu);
     }
 
-    @Transactional
+
     @Override
     public void delete(int id){
         Menu menu = manager.find(Menu.class, id);
         manager.remove(menu);
-        for(Dish dish: menu.getDishes()){
-            dishRepository.delete(dish.getId());
-        }
     }
 
-
-    @Transactional
-    @Override
     public List<Menu> findAll() {
         return manager.createNativeQuery(FIND_ALL_QUERY, Menu.class).getResultList();
     }

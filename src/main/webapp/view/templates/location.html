@@ -8,7 +8,7 @@
 <form action="#" th:action="@{/selectTown}" th:object="${town}" method="post">
     <div>
         <select th:field="${town.id}">
-            <option th:each="town : ${townList}" th:value="${town.id}" th:text="${town.name}">
+            <option th:each="t : ${townList}" th:value="${t.id}" th:text="${t.name}">
             </option>
         </select>
         <button type="submit" th:text="#{text.submit}">submit</button>

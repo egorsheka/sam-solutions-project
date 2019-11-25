@@ -1,8 +1,6 @@
-package by.sam.mvc.repository;
+package by.sam.mvc.service;
 
-import java.util.List;
-
-public interface Repository<T> {
+public interface Service<T> {
     void create(T object);
     T read(int id);
     void update(T object);

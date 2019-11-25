@@ -35,6 +35,7 @@ public class Town {
         this.name = name;
     }
 
+
     public int getId() {
         return id;
     }
@@ -58,6 +59,4 @@ public class Town {
     public void setDistricts(List<District> districts) {
         this.districts = districts;
     }
-
-
 }

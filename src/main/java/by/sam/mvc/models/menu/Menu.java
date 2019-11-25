@@ -24,7 +24,7 @@ public class Menu{
     private MenuLuxury luxury;
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     private List<Dish> dishes = new ArrayList<>();
 
 

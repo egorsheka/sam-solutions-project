@@ -3,7 +3,7 @@ package by.sam.mvc.repository.user;
 import by.sam.mvc.models.WorkTime;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.user.Cook;
-import by.sam.mvc.repository.WorkTimeRepository;
+import by.sam.mvc.repository.worktime.WorkTimeRepository;
 import by.sam.mvc.repository.location.DistrictRepository;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
@@ -19,28 +19,18 @@ public class DefaultCookRepository implements CookRepository {
     @PersistenceContext
     private EntityManager manager;
 
-    private final DistrictRepository districtRepository;
-    private final WorkTimeRepository workTimeRepository;
-
-    //SQL
-    private static String FIND_ALL_QUERY = "SELECT * FROM cooks";
 
 
-
-    public DefaultCookRepository(DistrictRepository districtRepository, WorkTimeRepository workTimeRepository) {
-        this.districtRepository = districtRepository;
-        this.workTimeRepository = workTimeRepository;
-    }
 
     @Transactional
     @Override
     public void create(Cook cook) {
-        for(District district: cook.getDistricts()){
-            districtRepository.create(district);
-        }
-        for(WorkTime workTime: cook.getWorkTime()){
-            workTimeRepository.create(workTime);
-        }
+//        for(District district: cook.getDistricts()){
+//            districtRepository.create(district);
+//        }
+//        for(WorkTime workTime: cook.getWorkTime()){
+//            workTimeRepository.create(workTime);
+//        }
         manager.persist(cook);
 
     }
@@ -86,9 +76,9 @@ public class DefaultCookRepository implements CookRepository {
         if(!(cook.getDistricts() == null || cook.getDistricts().isEmpty())) {
             for (District district : cook.getDistricts()) {
                 if (district.getId() == 0) {
-                    districtRepository.create(district);
-                } else {
-                    districtRepository.update(district);
+//                    districtRepository.create(district);
+//                } else {
+//                    districtRepository.update(district);
                 }
             }
             manager.merge(cook);
@@ -102,11 +92,11 @@ public class DefaultCookRepository implements CookRepository {
     public void updateOnlyWeekDays(Cook cook) {
         if(!(cook.getWorkTime() == null || cook.getWorkTime().isEmpty())) {
             for (WorkTime day : cook.getWorkTime()) {
-                if (day.getId() == 0) {
-                    workTimeRepository.create(day);
-                } else {
-                    workTimeRepository.update(day);
-                }
+//                if (day.getId() == 0) {
+//                    workTimeRepository.create(day);
+//                } else {
+//                    workTimeRepository.update(day);
+//                }
             }
             manager.merge(cook);
         }
@@ -124,12 +114,10 @@ public class DefaultCookRepository implements CookRepository {
     @Transactional
     @Override
     public List<Cook> findAll() {
-        return manager.createNativeQuery(FIND_ALL_QUERY, Cook.class).getResultList();
+        return manager.createQuery("from Cook", Cook.class).getResultList();
     }
 
 
-    private void merge(Cook cook){
-        manager.merge(cook);
-    }
+
 
 }
