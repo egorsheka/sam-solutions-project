@@ -3,9 +3,11 @@ package by.sam.mvc.controllers;
 
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.location.Town;
+import by.sam.mvc.models.user.Cook;
 import by.sam.mvc.repository.worktime.WorkTimeRepository;
 import by.sam.mvc.service.location.DistrictService;
 import by.sam.mvc.service.location.TownService;
+import by.sam.mvc.service.user.CookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,28 +20,30 @@ public class LocationController {
 
     private final TownService townService;
     private final DistrictService districtService;
-
     private final WorkTimeRepository workTimeRepository;
+    private final CookService cookService;
 
-    public LocationController(TownService townService, DistrictService districtService, WorkTimeRepository workTimeRepository) {
+    public LocationController(TownService townService, DistrictService districtService, WorkTimeRepository workTimeRepository, CookService cookService) {
         this.townService = townService;
         this.districtService = districtService;
         this.workTimeRepository = workTimeRepository;
+        this.cookService = cookService;
     }
 
     private Town town = new Town();
     private List<District> districts;
+    private int userId = 1;
+    private Cook cook;
 
 
 
-
-
-    @GetMapping(path = "/availabilities")
+    @GetMapping(path ={"location"})
     public String getAvailabilitiesPage(Model model) {
+        //TODO spring security
+//        userId = id;
+        cook = cookService.read(userId);
+        model.addAttribute("cook", cook);
         model.addAttribute("town", town);
-        List<Town> towns = townService.findAll();
-
-        model.addAttribute("townList", towns);
         return "location";
     }
 
@@ -50,6 +54,8 @@ public class LocationController {
         town.getDistricts().add(new District());
         this.districts = districts;
         this.town.setId(town.getId());
+
+
         model.addAttribute("districtList", districts);
         model.addAttribute("town", town);
         return "location";
@@ -58,7 +64,6 @@ public class LocationController {
 
     @PostMapping(value = "/selectTown", params = {"addDistrict"})
     public String addDistrictRowInNewMenu(@ModelAttribute Town town, Model model) {
-
         town.getDistricts().add(new District());
         model.addAttribute("town", town);
         return "location";
@@ -75,8 +80,8 @@ public class LocationController {
 
 
     @PostMapping(value = "/selectTown", params = {"save"})
-    public String saveTownAndDistricts(@ModelAttribute Town town, Model model) {
-        town.getDistricts().forEach(district -> System.out.println(district.getId()));
+    public String saveTownAndDistricts(@ModelAttribute Town town) {
+        cookService.updateDistricts(userId, town.getId(), town.getDistricts());
         return "location";
     }
 
@@ -86,18 +91,15 @@ public class LocationController {
         return districts;
     }
 
-//    @ModelAttribute("townList")
-//    public List<Town> getTownList() {
-//        List<Town> towns = townService.findAll();
-//        System.out.println(towns.get(0).getId());
-//        System.out.println(towns.get(0).getName());
-//        System.out.println(towns.get(1).getId());
-//        System.out.println(towns.get(1).getName());
-//
-//        return towns;
-//    }
+    @ModelAttribute("townList")
+    public List<Town> getTownList() {
+        return townService.findAll();
+    }
 
-
+    @ModelAttribute("cook")
+    public Cook getCook() {
+        return cook;
+    }
 
 
 }

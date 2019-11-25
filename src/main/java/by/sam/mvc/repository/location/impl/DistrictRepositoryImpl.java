@@ -14,7 +14,6 @@ import java.util.List;
 @Repository
 public class DistrictRepositoryImpl implements DistrictRepository {
 
-    private static String FIND_ALL_QUERY = "SELECT * FROM districts where town_id = ?1";
 
 
     @PersistenceContext
@@ -47,14 +46,11 @@ public class DistrictRepositoryImpl implements DistrictRepository {
     }
 
 
-
-
-
     @Override
     public List<District> getDistrictListByTown(Town town) {
-        return manager.createNativeQuery(FIND_ALL_QUERY, Town.class)
-        .setParameter(1, town.getId())
-        .getResultList();
+        return manager.createQuery("from District where town = :town", District.class)
+                .setParameter("town", town)
+                .getResultList();
     }
 
 }

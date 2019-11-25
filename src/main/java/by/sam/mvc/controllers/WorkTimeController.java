@@ -56,7 +56,7 @@ public class WorkTimeController {
         Cook cook = new Cook();
         cook.setWorkTime(workTimeService.createWorkTimeListFromParams(params));
         cookService.create(cook);
-        return "";
+        return "startCook";
     }
 
     @ModelAttribute("weekDays")

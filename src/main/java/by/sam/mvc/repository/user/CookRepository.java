@@ -7,7 +7,5 @@ import by.sam.mvc.repository.Repository;
 import java.util.List;
 
 public interface CookRepository extends Repository<Cook> {
-    void updateOnlyDistricts(Cook cook);
-    void updateOnlyWeekDays(Cook cook);
     List<Cook> findAll();
 }

@@ -5,6 +5,7 @@ import by.sam.mvc.models.user.Cook;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "towns")
@@ -58,5 +59,19 @@ public class Town {
 
     public void setDistricts(List<District> districts) {
         this.districts = districts;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Town town = (Town) o;
+        return id == town.id &&
+                Objects.equals(name, town.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }

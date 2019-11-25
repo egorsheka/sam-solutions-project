@@ -20,7 +20,7 @@
             <tr>
                 <td th:each="dish, item : *{dishes}">
                     <select th:field="*{dishes[__${item.index}__].dishType}">
-                        <option th:each="type : ${allTypesDish}" th:value="${type}" th:text="#{${'text.type.' + type}}" th:selected="${type == newMenu.dishes[item.index].dishType}"></option>
+                        <option th:each="type : ${allTypesDish}" th:value="${type}" th:text="#{${'text.type.' + type}}" ></option>
                     </select>
                 </td>
             </tr>

@@ -7,10 +7,14 @@
 <body>
 <form action="#" th:action="@{/selectTown}" th:object="${town}" method="post">
     <div>
-        <select th:field="${town.id}">
-            <option th:each="t : ${townList}" th:value="${t.id}" th:text="${t.name}">
-            </option>
+        <select th:field="${town.id}"/>
+
+        <option th:unless="${cook.districts.empty}" th:each="t : ${townList}" th:value="${t.id}"
+                th:text="${t.name}" th:selected="${t.id == cook.districts[0].town.id}"></option>
+        <option th:unless="${!cook.districts.empty}" th:each="t : ${townList}" th:value="${t.id}"
+                th:text="${t.name}"></option>
         </select>
+
         <button type="submit" th:text="#{text.submit}">submit</button>
     </div>
 
@@ -23,7 +27,8 @@
                 <option th:each="district : ${districtList}" th:value="${district.id}" th:text="${district.name}">
                 </option>
             </select>
-            <button type="submit" th:text="#{text.remove_row}" th:value="${item.index}" name="removeRow"> remove row </button>
+            <button type="submit" th:text="#{text.remove_row}" th:value="${item.index}" name="removeRow"> remove row
+            </button>
         </div>
 
         <p></p>
