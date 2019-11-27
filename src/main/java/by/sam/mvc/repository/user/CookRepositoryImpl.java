@@ -1,5 +1,6 @@
 package by.sam.mvc.repository.user;
 
+import by.sam.mvc.models.menu.Menu;
 import by.sam.mvc.models.user.Cook;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
@@ -26,9 +27,17 @@ public class CookRepositoryImpl implements CookRepository {
     @Override
     public Cook read(int id) {
         Cook cook = manager.find(Cook.class, id);
+        if(!cook.getDistricts().isEmpty())
         Hibernate.initialize(cook.getDistricts());
+        if(!cook.getWorkTime().isEmpty())
         Hibernate.initialize(cook.getWorkTime());
-        Hibernate.initialize(cook.getMenu());
+        if(!cook.getMenu().isEmpty()){
+            Hibernate.initialize(cook.getMenu());
+            for(Menu menu: cook.getMenu()){
+                Hibernate.initialize(menu.getDishes());
+            }
+        }
+        cook.getName();
         return cook;
     }
 
@@ -49,6 +58,13 @@ public class CookRepositoryImpl implements CookRepository {
     @Override
     public List<Cook> findAll() {
         return manager.createQuery("from Cook", Cook.class).getResultList();
+    }
+
+    @Override
+    public List<Menu> getMenuListByCookId(int id) {
+        return manager.createQuery("select cook.menu from Cook cook where cook.id = :id")
+                .setParameter("id", id)
+                .getResultList();
     }
 
 

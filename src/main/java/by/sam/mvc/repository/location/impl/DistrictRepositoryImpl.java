@@ -48,8 +48,8 @@ public class DistrictRepositoryImpl implements DistrictRepository {
 
     @Override
     public List<District> getDistrictListByTown(Town town) {
-        return manager.createQuery("from District where town = :town", District.class)
-                .setParameter("town", town)
+        return manager.createQuery("from District d where d.town.id = :id", District.class)
+                .setParameter("id", town.getId())
                 .getResultList();
     }
 

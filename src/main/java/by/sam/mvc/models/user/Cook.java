@@ -30,10 +30,10 @@ public class Cook {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<District> districts = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.ALL})
     private List<Menu> menu = new ArrayList<>();
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToMany(cascade = {CascadeType.ALL})
     private List<WorkTime> workTime = new ArrayList<>(7);
 
     private String status;

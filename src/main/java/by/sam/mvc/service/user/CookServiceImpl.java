@@ -2,7 +2,6 @@ package by.sam.mvc.service.user;
 
 import by.sam.mvc.models.WorkTime;
 import by.sam.mvc.models.location.District;
-import by.sam.mvc.models.location.Town;
 import by.sam.mvc.models.menu.Menu;
 import by.sam.mvc.models.user.Cook;
 import by.sam.mvc.repository.user.CookRepository;
@@ -13,6 +12,7 @@ import by.sam.mvc.service.worktime.WorkTimeService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -91,31 +91,54 @@ public class CookServiceImpl implements CookService {
     @Override
     public void updateWorkTime(int id, List<WorkTime> times) {
         Cook cook = cookRepository.read(id);
-        if (!(times == null || times.isEmpty())) {
-            for (WorkTime time : times) {
-                if (time.getId() == 0) {
-                    workTimeService.create(time);
-                } else {
-                    workTimeService.update(time);
-                }
+
+        boolean cookWorkTimeIsEmpty = cook.getWorkTime().isEmpty();
+        List<WorkTime> cookOldList = cook.getWorkTime();
+        cook.setWorkTime(new ArrayList<>());
+        cookRepository.update(cook);
+        if (!cookWorkTimeIsEmpty) {
+            for (WorkTime time : cookOldList) {
+                workTimeService.delete(time.getId());
             }
-            cookRepository.update(cook);
         }
+        cook.setWorkTime(times);
+        cookRepository.update(cook);
     }
 
     @Transactional
     @Override
-    public void updateMenu(int id, List<Menu> menus) {
+    public void addMenuItem(int id, Menu menu) {
         Cook cook = cookRepository.read(id);
-        if (!(menus == null || menus.isEmpty())) {
-            for (Menu menu : menus) {
-                if (menu.getId() == 0) {
-                    menuService.create(menu);
-                } else {
-                    menuService.update(menu);
-                }
-            }
-            cookRepository.update(cook);
-        }
+        menuService.create(menu);
+        cook.getMenu().add(menu);
+        cookRepository.update(cook);
     }
+
+    @Transactional
+    @Override
+    public void updateMenuItem(int id, Menu menu) {
+        Cook cook = cookRepository.read(id);
+        Menu oldMenu = menuService.read(menu.getId());
+
+        cook.getMenu().remove(oldMenu);
+        cook.getMenu().add(menu);
+
+        menuService.update(menu);
+
+        cookRepository.update(cook);
+    }
+
+    @Transactional
+    @Override
+    public void deleteMenuItem(int cookId, int menuId) {
+        Cook cook = cookRepository.read(cookId);
+        Menu menu = menuService.read(menuId);
+
+        cook.getMenu().remove(menu);
+
+        menuService.delete(menuId);
+        cookRepository.update(cook);
+    }
+
+
 }

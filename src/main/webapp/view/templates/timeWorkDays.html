@@ -9,6 +9,8 @@
     <title>Title</title>
 </head>
 <body>
+
+<a th:href="${(#mvc.url('CC#getCookPersonalPage')).build()}" th:text="#{text.back}">back</a><p></p>
 <form action="#" th:action="@{/timeWorkBox}"  method="post">
     <table>
         <tr th:each="day, item : ${weekDays}">

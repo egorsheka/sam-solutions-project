@@ -1,6 +1,8 @@
 package by.sam.mvc.models;
 
 
+import by.sam.mvc.models.user.Cook;
+
 import javax.persistence.*;
 
 @Entity
@@ -37,6 +39,7 @@ public class WorkTime {
         this.day = day;
         this.startTime = startTime;
         this.endTime = endTime;
+
     }
 
     public int getId() {
@@ -70,6 +73,5 @@ public class WorkTime {
     public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
-
 
 }

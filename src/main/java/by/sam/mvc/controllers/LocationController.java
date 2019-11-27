@@ -20,13 +20,11 @@ public class LocationController {
 
     private final TownService townService;
     private final DistrictService districtService;
-    private final WorkTimeRepository workTimeRepository;
     private final CookService cookService;
 
-    public LocationController(TownService townService, DistrictService districtService, WorkTimeRepository workTimeRepository, CookService cookService) {
+    public LocationController(TownService townService, DistrictService districtService, CookService cookService) {
         this.townService = townService;
         this.districtService = districtService;
-        this.workTimeRepository = workTimeRepository;
         this.cookService = cookService;
     }
 
@@ -40,12 +38,29 @@ public class LocationController {
     @GetMapping(path ={"location"})
     public String getAvailabilitiesPage(Model model) {
         //TODO spring security
-//        userId = id;
+        //userId = id;
         cook = cookService.read(userId);
-        model.addAttribute("cook", cook);
-        model.addAttribute("town", town);
-        return "location";
+        districts = new ArrayList<>();
+        if(!cook.getDistricts().isEmpty()){
+
+
+            town.setId(cook.getDistricts().get(0).getTown().getId());
+            town.setDistricts(new ArrayList<>());
+            cook.getDistricts().forEach(district -> town.getDistricts().add(district));
+            List<District> districts = districtService.getDistrictListByTown(town);
+            this.districts = districts;
+            model.addAttribute("districtList", districts);
+            model.addAttribute("town", town);
+            model.addAttribute("cook", cook);
+            return "filledLocation";
+        }else{
+            model.addAttribute("cook", cook);
+            model.addAttribute("town", town);
+            return "location";
+        }
     }
+
+
 
     @PostMapping(value = "/selectTown")
     public String selectTown(@ModelAttribute Town town, Model model) {
@@ -82,6 +97,8 @@ public class LocationController {
     @PostMapping(value = "/selectTown", params = {"save"})
     public String saveTownAndDistricts(@ModelAttribute Town town) {
         cookService.updateDistricts(userId, town.getId(), town.getDistricts());
+        this.town = new Town();
+
         return "location";
     }
 

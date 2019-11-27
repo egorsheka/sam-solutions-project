@@ -1,6 +1,5 @@
 package by.sam.mvc.models.location;
 
-import by.sam.mvc.models.user.Cook;
 
 import javax.persistence.*;
 import java.util.ArrayList;

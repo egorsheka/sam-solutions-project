@@ -1,62 +1,63 @@
 <!DOCTYPE html>
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 </head>
 <body>
-<form action="#" data-th-action="@{/createMenu}" method="post">
+<a th:href="${(#mvc.url('CC#getCookPersonalPage')).build()}" th:text="#{text.back}">back</a><p></p>
+<form action="#" th:action="@{/createMenu}" method="post">
     <div>
-        <button type="submit" data-th-text="#{text.add}">add</button>
+        <button type="submit" th:text="#{text.add}">add</button>
     </div>
 </form>
 
 
-<fieldset data-th-each="menuItem, item : ${menuList}">
-    <legend data-th-text="${menuItem.name}"></legend>
+<fieldset th:each="menuItem, item : ${menuList}">
+    <legend th:text="${menuItem.name}"></legend>
 
 
     <!-------------------------------------- Edit main fields --------------------------------------------------->
 
-    <form action="#" data-th-action="@{/editMenu}" data-th-object="${menuItem}" method="post">
-        <label data-th-text="#{text.name}">name</label>
-        <input type="hidden" data-th-value="${menuItem.id}" data-th-name="id"/>
-        <input type="text" data-th-value="${menuItem.name}" data-th-name="name"/>
+    <form action="#" th:action="@{/editMenu}" th:object="${menuItem}" method="post">
+        <label th:text="#{text.name}">name</label>
+        <input type="hidden" th:value="${menuItem.id}" th:name="id"/>
+        <input type="text" th:value="${menuItem.name}" th:name="name"/>
         <p></p>
 
-        <label data-th-text="#{text.type}">type</label>
-        <input type="text" data-th-value="${menuItem.luxury}"  data-th-name="luxury"/>
+        <label th:text="#{text.type}">type</label>
+        <input type="text" th:value="${menuItem.luxury}"  th:name="luxury"/>
 
 
         <p></p>
-        <label data-th-text="#{text.price}">price</label>
-        <input type="text" data-th-value="${menuItem.price}" data-th-name="price"/>
+        <label th:text="#{text.price}">price</label>
+        <input type="text" th:value="${menuItem.price}" th:name="price"/>
 
         <p></p>
         <div class="submit">
-            <button type="submit" data-th-text="#{text.edit}">edit</button>
+            <button type="submit" th:text="#{text.edit}">edit</button>
         </div>
 
 
         <!-------------------------------------- Main info about menu --------------------------------------------------->
 
 
-        <div data-th-object="${menuItem}">
+        <div th:object="${menuItem}">
 <!--            <label th:value="#{${dishType}}">Price for ${UserName}:</label>-->
 
-            <label data-th-text="#{text.price}"></label>
-            <label data-th-text="*{price}"></label>
+            <label th:text="#{text.price}"></label>
+            <label th:text="*{price}"></label>
 
             <p></p>
 
-            <label data-th-text="#{text.luxury}">luxury:</label>
-            <label data-th-text="#{'text.luxury.' + *{luxury}}"></label>
+            <label th:text="#{text.luxury}">luxury:</label>
+            <label th:text="#{'text.luxury.' + *{luxury}}"></label>
         </div>
 
         <div>
-            <button type="submit" data-th-text="#{text.see_more}">see more</button>
+            <button type="submit" th:text="#{text.see_more}">see more</button>
         </div>
 
     <div>
-        <button type="submit" data-th-value="${item.index}" data-th-text="#{text.delete_menu}" name = "deleteMenu">delete menu</button>
+        <button type="submit" th:value="${item.index}" th:text="#{text.delete_menu}" name = "deleteMenu">delete menu</button>
     </div>
     </form>
 

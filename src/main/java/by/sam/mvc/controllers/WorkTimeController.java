@@ -21,6 +21,8 @@ public class WorkTimeController {
     private final WorkTimeService workTimeService;
     private final CookService cookService;
 
+    int cook_id = 1;
+
     public WorkTimeController(WorkTimeService workTimeService, CookService cookService) {
         this.workTimeService = workTimeService;
         this.cookService = cookService;
@@ -53,9 +55,9 @@ public class WorkTimeController {
 
     @PostMapping(value = "/timeWorkBox", params = {"saveTime"})
     public String saveTime(@RequestParam Map<String, String> params, Model model) {
-        Cook cook = new Cook();
-        cook.setWorkTime(workTimeService.createWorkTimeListFromParams(params));
-        cookService.create(cook);
+
+
+        cookService.updateWorkTime(cook_id, workTimeService.createWorkTimeListFromParams(params));
         return "startCook";
     }
 

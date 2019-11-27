@@ -4,7 +4,7 @@
 </head>
 <body>
 
-
+<a th:href="${(#mvc.url('MC#getCookPersonalPage')).build()}" th:text="#{text.back}">back</a><p></p>
 <!-------------------------------------- Edit list of dishes--------------------------------------------------->
 <form action="#" th:action="@{/saveMenu}" th:object="${editMenu}" method="post">
     <input type="hidden" th:value="${editMenu.id}" th:name="id">

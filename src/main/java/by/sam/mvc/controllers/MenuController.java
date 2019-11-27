@@ -1,13 +1,9 @@
 package by.sam.mvc.controllers;
 
 
-import by.sam.mvc.models.location.District;
-import by.sam.mvc.models.location.Town;
 import by.sam.mvc.models.menu.*;
-import by.sam.mvc.models.user.Cook;
-import by.sam.mvc.repository.location.DistrictRepository;
-import by.sam.mvc.repository.user.CookRepository;
 import by.sam.mvc.service.menu.MenuService;
+import by.sam.mvc.service.user.CookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,24 +18,21 @@ public class MenuController {
 
 
     private List<Menu> menuList;
-
-
-    private final DistrictRepository districtRepository;
     private final MenuService menuService;
-    private final CookRepository cookRepository;
+    private final CookService cookService;
+
+    private int cookId = 1;
 
 
-    public MenuController(DistrictRepository districtRepository, MenuService menuService, CookRepository cookRepository) {
-        this.districtRepository = districtRepository;
+    public MenuController(MenuService menuService, CookService cookService) {
         this.menuService = menuService;
-        this.cookRepository = cookRepository;
+        this.cookService = cookService;
     }
 
 
-
-    @GetMapping(path = "/hey")
+    @GetMapping(path = "/menuPage")
     public String getCookPersonalPage(Model model){
-        menuList = menuService.findAll();
+        menuList = cookService.read(cookId).getMenu();
         model.addAttribute("menuList", menuList);
         return "";
     }
@@ -53,8 +46,9 @@ public class MenuController {
 
     @PostMapping(value = "/saveNewMenu", params = {"submit"} )
     public String submitNewMenu(@ModelAttribute Menu newMenu, Model model) {
-        menuService.create(newMenu);
-        menuList = menuService.findAll();
+
+        cookService.addMenuItem(cookId, newMenu);
+        menuList = cookService.read(1).getMenu();
         model.addAttribute("menuList", menuList);
         return "";
     }
@@ -91,7 +85,7 @@ public class MenuController {
     public String deleteMenu(@ModelAttribute Menu deleteMenu, Model model, HttpServletRequest request) {
         int deleteIndex = Integer.parseInt(request.getParameter("deleteMenu"));
         menuList.remove(deleteIndex);
-        menuService.delete(deleteMenu.getId());
+        cookService.deleteMenuItem(cookId, deleteMenu.getId());
         model.addAttribute( "menuList", menuList);
         return "";
     }
@@ -118,7 +112,7 @@ public class MenuController {
     @PostMapping(value = "/saveMenu", params ={"submit"})
     public String submitChanges(@ModelAttribute Menu menu, Model model){
 
-        menuService.update(menu);
+        cookService.updateMenuItem(cookId, menu);
         model.addAttribute( "menuList", menuList);
         return "";
     }

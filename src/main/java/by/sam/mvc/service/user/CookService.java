@@ -13,6 +13,8 @@ public interface CookService extends Service<Cook> {
 
     void updateDistricts(int cookId, int townId, List<District> districts);
     void updateWorkTime(int id, List<WorkTime> times);
-    void updateMenu(int id, List<Menu> menus);
+    void addMenuItem(int id, Menu menu);
+    void updateMenuItem(int id, Menu menu);
+    void deleteMenuItem(int cookId, int menuId);
 
 }

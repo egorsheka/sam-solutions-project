@@ -40,9 +40,7 @@ public class TownRepositoryImpl implements TownRepository {
         return manager.find(Town.class, id);
     }
 
-    //todo no nativeQuery
-
-
+    
     @Override
     public List<Town> findAll() {
           return manager.createQuery("from Town", Town.class).getResultList();
