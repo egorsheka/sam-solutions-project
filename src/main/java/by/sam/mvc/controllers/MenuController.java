@@ -34,7 +34,7 @@ public class MenuController {
     public String getCookPersonalPage(Model model){
         menuList = cookService.read(cookId).getMenu();
         model.addAttribute("menuList", menuList);
-        return "";
+        return "startMenu";
     }
 
     @PostMapping(value = "/createMenu")
@@ -50,7 +50,7 @@ public class MenuController {
         cookService.addMenuItem(cookId, newMenu);
         menuList = cookService.read(1).getMenu();
         model.addAttribute("menuList", menuList);
-        return "";
+        return "startMenu";
     }
 
     @PostMapping(value = "/saveNewMenu", params = {"addRow"} )
@@ -74,11 +74,18 @@ public class MenuController {
     }
 
 
-    @PostMapping(value = "/editMenu", params = {})
+    @PostMapping(value = "/editMenu", params = {"editMenu"})
     public String openEditMenuPage( @ModelAttribute Menu editMenu, Model model) {
         Menu menu = menuService.read(editMenu.getId());
         model.addAttribute( "editMenu", menu);
         return "editMenu";
+    }
+
+    @PostMapping(value = "/editMenu", params = {"seeMore"})
+    public String openSeeMoreMenuPage( @ModelAttribute Menu editMenu, Model model) {
+        Menu menu = menuService.read(editMenu.getId());
+        model.addAttribute( "editMenu", menu);
+        return "seeMoreMenu";
     }
 
     @PostMapping(value = "/editMenu", params = {"deleteMenu"})
@@ -87,7 +94,7 @@ public class MenuController {
         menuList.remove(deleteIndex);
         cookService.deleteMenuItem(cookId, deleteMenu.getId());
         model.addAttribute( "menuList", menuList);
-        return "";
+        return "startMenu";
     }
 
     @PostMapping(value = "/saveMenu", params ={"addRow"})
@@ -114,7 +121,7 @@ public class MenuController {
 
         cookService.updateMenuItem(cookId, menu);
         model.addAttribute( "menuList", menuList);
-        return "";
+        return "startMenu";
     }
 
 

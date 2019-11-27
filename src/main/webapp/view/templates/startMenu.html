@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>menu</title>
 </head>
 <body>
 <a th:href="${(#mvc.url('CC#getCookPersonalPage')).build()}" th:text="#{text.back}">back</a><p></p>
@@ -33,7 +34,7 @@
 
         <p></p>
         <div class="submit">
-            <button type="submit" th:text="#{text.edit}">edit</button>
+            <button type="submit" th:text="#{text.edit}" name = "editMenu">edit</button>
         </div>
 
 
@@ -53,7 +54,7 @@
         </div>
 
         <div>
-            <button type="submit" th:text="#{text.see_more}">see more</button>
+            <button type="submit" th:text="#{text.see_more}" name = "seeMore">see more</button>
         </div>
 
     <div>

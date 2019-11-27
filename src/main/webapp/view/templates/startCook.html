@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Registration</title>
+    <title>cook</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
@@ -11,8 +11,8 @@
 
 
 <nav class="navbar navbar-light" style="background-color: #232323;">
-    <a th:href="@{?lang=en_Us}">English</a> <p></p>
-    <a th:href="@{?lang=de}">Deutsch</a><p></p>
+    <a th:href="@{?lang=en_Us}" th:text="#{text.english}" style="margin-left: 92%">English</a> <p></p>
+    <a th:href="@{?lang=de}" th:text="#{text.deutsch}" style="padding-right: 10px">Deutsch</a><p></p>
 </nav>
 
 <a th:href="${(#mvc.url('WTC#getTimeWorkPage')).build()}" th:text="#{text.workingHours}">Time Work</a> <p></p>

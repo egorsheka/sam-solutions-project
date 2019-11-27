@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>edit menu</title>
+    <title>see menu</title>
 </head>
 <body>
 
@@ -21,8 +21,6 @@
     <div th:each="dish, item : *{dishes}" ><input type="hidden" th:field="*{dishes[__${item.index}__].id}"></div>
     <div>
         <table th:unless="*{dishes.empty}" border="1">
-
-
             <tr>
                 <td th:each="dish, item : *{dishes}">
                     <select th:field="*{dishes[__${item.index}__].dishType}">
@@ -30,8 +28,6 @@
                     </select>
                 </td>
             </tr>
-
-
             <tr>
                 <td th:each="dish, item : *{dishes}">
                     <input th:field="*{dishes[__${item.index}__].name}" />
@@ -42,21 +38,7 @@
                 </td>
             </tr>
         </table>
-        <table>
-            <tr>
-                <td th:each="dish, item : *{dishes}">
-                    <button type="submit" th:text="#{text.removeDish}" th:value="${item.index}" name="removeRow"> remove dish </button>
-                </td>
-            </tr>
-        </table>
     </div>
-
-    <button type="submit" th:text="#{text.addDish}" name="addRow"> add dish </button>
-    <button type="submit" th:text="#{text.submit}" name="submit"> submit </button>
-
-
 </form>
-
-
 </body>
 </html>

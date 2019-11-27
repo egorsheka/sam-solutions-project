@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <title>new menu</title>
 </head>
 <body>
 
 <a th:href="${(#mvc.url('MC#getCookPersonalPage')).build()}" th:text="#{text.back}">back</a><p></p>
 <form action="#" th:action="@{/saveNewMenu}" th:object="${newMenu}" method="post">
     <input type="hidden" th:value="${newMenu.id}" th:name="id">
+    <label th:text="#{text.name}">name</label>
     <input type="text" th:value="${newMenu.name}" th:name="name">
     <p></p>
+    <label th:text="#{text.type}">type</label>
     <input type="text" th:value="${newMenu.luxury}" th:name="luxury">
     <p></p>
+    <label th:text="#{text.price}">price</label>
     <input type="text" th:value="${newMenu.price}" th:name="price">
     <p></p>
     <div th:each="dish, item : *{dishes}" ><input type="hidden" th:field="*{dishes[__${item.index}__].id}"></div>
     <div>
-        <table border="1">
+        <table th:unless="*{dishes.empty}" border="1">
 
 
             <tr>
@@ -40,13 +44,13 @@
         <table>
             <tr>
                 <td th:each="dish, item : *{dishes}">
-                    <button type="submit" th:text="#{text.remove_row}" th:value="${item.index}" name="removeRow"> remove row </button>
+                    <button type="submit" th:text="#{text.removeDish}" th:value="${item.index}" name="removeRow"> remove dish </button>
                 </td>
             </tr>
         </table>
     </div>
 
-    <button type="submit" th:text="#{text.add_row}" name="addRow"> add row </button>
+    <button type="submit" th:text="#{text.addDish}" name="addRow"> add dish </button>
     <button type="submit" th:text="#{text.submit}" name="submit"> submit </button>
 
 
