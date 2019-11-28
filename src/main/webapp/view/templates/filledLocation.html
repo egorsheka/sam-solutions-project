@@ -24,7 +24,7 @@
                 <option th:each="district : ${districtList}" th:value="${district.id}" th:text="${district.name}">
                 </option>
             </select>
-            <button type="submit" th:text="#{text.remove_row}" th:value="${item.index}" name="removeRow"> remove row
+            <button type="submit" th:text="#{text.removeDistrict}" th:value="${item.index}" name="removeRow"> remove district
             </button>
         </div>
 

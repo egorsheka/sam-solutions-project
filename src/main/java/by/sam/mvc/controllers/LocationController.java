@@ -99,7 +99,7 @@ public class LocationController {
         cookService.updateDistricts(userId, town.getId(), town.getDistricts());
         this.town = new Town();
 
-        return "location";
+        return "startCook";
     }
 
 
