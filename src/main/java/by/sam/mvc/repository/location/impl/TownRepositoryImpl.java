@@ -13,8 +13,7 @@ import java.util.List;
 @Repository
 public class TownRepositoryImpl implements TownRepository {
 
-    //SQL
-    private static String FIND_ALL_QUERY = "SELECT * FROM towns";
+
 
     @PersistenceContext
     private EntityManager manager;

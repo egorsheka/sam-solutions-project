@@ -1,4 +1,4 @@
-INSERT INTO public.cooks (id, birthday, email, mobile, name, password, status, surname) VALUES (1, null, null, null, null, null, null, null);
+INSERT INTO public.cooks (id, birthday, email, mobile, name, password, status, surname, user_id) VALUES (1, null, null, null, null, null, null, null, null);
 
 INSERT INTO public.cooks_districts (cook_id, districts_id) VALUES (1, 1);
 INSERT INTO public.cooks_districts (cook_id, districts_id) VALUES (1, 2);

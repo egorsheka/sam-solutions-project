@@ -1,9 +1,7 @@
 package by.sam.mvc.models.user;
 
-import by.sam.mvc.models.WeekDay;
 import by.sam.mvc.models.WorkTime;
 import by.sam.mvc.models.location.District;
-import by.sam.mvc.models.location.Town;
 import by.sam.mvc.models.menu.Menu;
 
 import javax.persistence.*;
@@ -36,9 +34,14 @@ public class Cook {
     @OneToMany(cascade = {CascadeType.ALL})
     private List<WorkTime> workTime = new ArrayList<>(7);
 
+    @ManyToOne
+    private UserEntity userEntity;
+
     private String status;
 
     public Cook(){}
+
+
 
     public Cook(String name, List<District> districts) {
         this.name = name;
@@ -51,9 +54,11 @@ public class Cook {
         this.districts = districts;
     }
 
-    public Cook(int id, String name) {
+    public Cook(int id, String name, String email, String password) {
         this.id = id;
         this.name = name;
+        this.email = email;
+        this.password = password;
     }
 
     public int getId() {
@@ -139,5 +144,13 @@ public class Cook {
 
     public void setMenu(List<Menu> menu) {
         this.menu = menu;
+    }
+
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 }
