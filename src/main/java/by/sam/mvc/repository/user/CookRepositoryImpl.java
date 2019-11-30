@@ -27,17 +27,15 @@ public class CookRepositoryImpl implements CookRepository {
     @Override
     public Cook read(int id) {
         Cook cook = manager.find(Cook.class, id);
-        if(!cook.getDistricts().isEmpty())
-        Hibernate.initialize(cook.getDistricts());
-        if(!cook.getWorkTime().isEmpty())
-        Hibernate.initialize(cook.getWorkTime());
-        if(!cook.getMenu().isEmpty()){
-            Hibernate.initialize(cook.getMenu());
-            for(Menu menu: cook.getMenu()){
-                Hibernate.initialize(menu.getDishes());
-            }
-        }
-        cook.getName();
+        hibernateInitialize(cook);
+        return cook;
+    }
+    @Override
+    public Cook read(String email) {
+        Cook cook =  manager.createQuery("from Cook c where c.email = :email", Cook.class)
+                .setParameter("email", email)
+                .getSingleResult();
+        hibernateInitialize(cook);
         return cook;
     }
 
@@ -67,5 +65,18 @@ public class CookRepositoryImpl implements CookRepository {
                 .getResultList();
     }
 
+
+    private void hibernateInitialize(Cook cook){
+        if(!cook.getDistricts().isEmpty())
+            Hibernate.initialize(cook.getDistricts());
+        if(!cook.getWorkTime().isEmpty())
+            Hibernate.initialize(cook.getWorkTime());
+        if(!cook.getMenu().isEmpty()){
+            Hibernate.initialize(cook.getMenu());
+            for(Menu menu: cook.getMenu()){
+                Hibernate.initialize(menu.getDishes());
+            }
+        }
+    }
 
 }

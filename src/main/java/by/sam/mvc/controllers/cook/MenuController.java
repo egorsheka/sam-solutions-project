@@ -1,9 +1,11 @@
-package by.sam.mvc.controllers;
+package by.sam.mvc.controllers.cook;
 
 
 import by.sam.mvc.models.menu.*;
 import by.sam.mvc.service.menu.MenuService;
 import by.sam.mvc.service.user.CookService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +23,7 @@ public class MenuController {
     private final MenuService menuService;
     private final CookService cookService;
 
-    private int cookId = 1;
+    private int cookId;
 
 
     public MenuController(MenuService menuService, CookService cookService) {
@@ -31,7 +33,8 @@ public class MenuController {
 
 
     @GetMapping(path = "/menuPage")
-    public String getCookPersonalPage(Model model){
+    public String getCookPersonalPage(Model model, @AuthenticationPrincipal UserDetails currentUser){
+        cookId = cookService.getAuthenticationCook(currentUser).getId();
         menuList = cookService.read(cookId).getMenu();
         model.addAttribute("menuList", menuList);
         return "startMenu";

@@ -1,6 +1,6 @@
 package by.sam.mvc.config;
 
-import by.sam.mvc.security.MySimpleUrlAuthenticationSuccessHandler;
+import by.sam.mvc.security.DefaultUrlAuthenticationSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
-        return new MySimpleUrlAuthenticationSuccessHandler();
+        return new DefaultUrlAuthenticationSuccessHandler();
     }
 
     @Override
@@ -55,6 +55,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .permitAll();
+
+
+        http.logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
+                .permitAll();
+
 
 
 

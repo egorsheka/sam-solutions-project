@@ -29,7 +29,6 @@ public class UserSingInController {
 
     @PostMapping("/signIn")
     public String singIn(@ModelAttribute Cook user, Model model) {
-        System.out.println(user);
         model.addAttribute("loginError", true);
         return "login";
     }

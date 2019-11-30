@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Collection;
 
-public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+public class DefaultUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
 
 
@@ -41,28 +41,36 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
     }
 
     protected String determineTargetUrl(Authentication authentication) {
-        return "/startMenu/";
-//        boolean isUser = false;
-//        boolean isAdmin = false;
-//        Collection<? extends GrantedAuthority> authorities
-//                = authentication.getAuthorities();
-//        for (GrantedAuthority grantedAuthority : authorities) {
-//            if (grantedAuthority.getAuthority().equals("ROLE_USER")) {
-//                isUser = true;
-//                break;
-//            } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
-//                isAdmin = true;
-//                break;
-//            }
-//        }
-//
-//        if (isUser) {
-//            return "/homepage.html";
-//        } else if (isAdmin) {
-//            return "/console.html";
-//        } else {
-//            throw new IllegalStateException();
-//        }
+        boolean isUser = false;
+        boolean isAdmin = false;
+        boolean isCook = false;
+        Collection<? extends GrantedAuthority> authorities
+                = authentication.getAuthorities();
+        for (GrantedAuthority grantedAuthority : authorities) {
+            if (grantedAuthority.getAuthority().equals("USER")) {
+                isUser = true;
+                break;
+            }
+            if (grantedAuthority.getAuthority().equals("ADMIN")) {
+                isAdmin = true;
+                break;
+            }
+            if(grantedAuthority.getAuthority().equals("COOK")){
+                isCook = true;
+                break;
+            }
+
+        }
+
+        if (isUser) {
+            return "";
+        } else if (isAdmin) {
+            return "";
+        } else if(isCook){
+            return "/cookPage";
+        }else {
+            throw new IllegalStateException();
+        }
     }
 
     protected void clearAuthenticationAttributes(HttpServletRequest request) {

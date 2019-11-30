@@ -8,6 +8,7 @@ import by.sam.mvc.repository.Repository;
 import java.util.List;
 
 public interface CookRepository extends Repository<Cook> {
+    Cook read(String email);
     List<Cook> findAll();
     List<Menu> getMenuListByCookId(int id);
 }

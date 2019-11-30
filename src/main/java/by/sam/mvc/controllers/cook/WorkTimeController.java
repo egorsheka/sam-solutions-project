@@ -1,11 +1,11 @@
-package by.sam.mvc.controllers;
+package by.sam.mvc.controllers.cook;
 
 
 import by.sam.mvc.models.WeekDay;
-import by.sam.mvc.models.WorkTime;
-import by.sam.mvc.models.user.Cook;
 import by.sam.mvc.service.user.CookService;
 import by.sam.mvc.service.worktime.WorkTimeService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +21,7 @@ public class WorkTimeController {
     private final WorkTimeService workTimeService;
     private final CookService cookService;
 
-    int cook_id = 1;
+    int cookId = 1;
 
     public WorkTimeController(WorkTimeService workTimeService, CookService cookService) {
         this.workTimeService = workTimeService;
@@ -54,10 +54,10 @@ public class WorkTimeController {
     }
 
     @PostMapping(value = "/timeWorkBox", params = {"saveTime"})
-    public String saveTime(@RequestParam Map<String, String> params, Model model) {
+    public String saveTime(@RequestParam Map<String, String> params, @AuthenticationPrincipal UserDetails currentUser) {
 
-
-        cookService.updateWorkTime(cook_id, workTimeService.createWorkTimeListFromParams(params));
+        cookId = cookService.getAuthenticationCook(currentUser).getId();
+        cookService.updateWorkTime(cookId, workTimeService.createWorkTimeListFromParams(params));
         return "startCook";
     }
 

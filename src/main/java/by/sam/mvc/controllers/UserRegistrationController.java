@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/registration")
 public class UserRegistrationController {
-//
+
 //    @Autowired
 //    private UserService userService;
 //

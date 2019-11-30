@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -11,7 +12,8 @@
 
 
 <nav class="navbar navbar-light" style="background-color: #232323;">
-    <a th:href="@{?lang=en_Us}" th:text="#{text.english}" style="margin-left: 92%">English</a> <p></p>
+    <li sec:authorize="isAuthenticated()"><a th:href="@{/login}">Logout</a></li>
+    <a th:href="@{?lang=en_Us}" th:text="#{text.english}" style="margin-left: 88%">English</a> <p></p>
     <a th:href="@{?lang=de}" th:text="#{text.deutsch}" style="padding-right: 10px">Deutsch</a><p></p>
 </nav>
 

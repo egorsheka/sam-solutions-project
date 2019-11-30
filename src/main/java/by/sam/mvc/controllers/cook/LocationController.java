@@ -1,4 +1,4 @@
-package by.sam.mvc.controllers;
+package by.sam.mvc.controllers.cook;
 
 
 import by.sam.mvc.models.location.District;
@@ -8,6 +8,8 @@ import by.sam.mvc.repository.worktime.WorkTimeRepository;
 import by.sam.mvc.service.location.DistrictService;
 import by.sam.mvc.service.location.TownService;
 import by.sam.mvc.service.user.CookService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,16 +32,16 @@ public class LocationController {
 
     private Town town = new Town();
     private List<District> districts;
-    private int userId = 1;
     private Cook cook;
+    int userId;
 
 
 
     @GetMapping(path ={"location"})
-    public String getAvailabilitiesPage(Model model) {
-        //TODO spring security
-        //userId = id;
-        cook = cookService.read(userId);
+    public String getAvailabilitiesPage(Model model,  @AuthenticationPrincipal UserDetails currentUser) {
+
+        cook = cookService.getAuthenticationCook(currentUser);
+        userId = cook.getId();
         districts = new ArrayList<>();
         if(!cook.getDistricts().isEmpty()){
 
