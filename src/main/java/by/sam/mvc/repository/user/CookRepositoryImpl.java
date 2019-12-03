@@ -65,7 +65,17 @@ public class CookRepositoryImpl implements CookRepository {
                 .getResultList();
     }
 
+    @Override
+    public List<Cook> getCooksByDistrictId(int id) {
+        return manager.createQuery("select cook from Cook cook join cook.districts d where d.id =:id")
+                .setParameter("id", id)
+                .getResultList();
+    }
 
+//    select a
+//    from Article a
+//    join a.categoryArticles ca
+//    where ca.category.id in :categoryIds
     private void hibernateInitialize(Cook cook){
         if(!cook.getDistricts().isEmpty())
             Hibernate.initialize(cook.getDistricts());

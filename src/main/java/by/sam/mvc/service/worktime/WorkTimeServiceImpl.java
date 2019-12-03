@@ -1,11 +1,12 @@
 package by.sam.mvc.service.worktime;
 
-import by.sam.mvc.models.WeekDay;
-import by.sam.mvc.models.WorkTime;
+import by.sam.mvc.models.worktime.WeekDay;
+import by.sam.mvc.models.worktime.WorkTime;
 import by.sam.mvc.repository.worktime.WorkTimeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -59,7 +60,7 @@ public class WorkTimeServiceImpl implements WorkTimeService {
 
         params.forEach((k, v) -> {
             if (k.matches(DIGIT_REGEX)) {
-                workTimeList.add(new WorkTime(WeekDay.valueOf(v.toUpperCase())));
+                workTimeList.add(new WorkTime(DayOfWeek.valueOf(v.toUpperCase())));
             }
         });
 

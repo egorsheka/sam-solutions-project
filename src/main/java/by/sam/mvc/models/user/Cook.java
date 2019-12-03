@@ -1,6 +1,6 @@
 package by.sam.mvc.models.user;
 
-import by.sam.mvc.models.WorkTime;
+import by.sam.mvc.models.worktime.WorkTime;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.menu.Menu;
 

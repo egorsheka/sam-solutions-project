@@ -1,9 +1,10 @@
-package by.sam.mvc.models;
+package by.sam.mvc.models.worktime;
 
 
-import by.sam.mvc.models.user.Cook;
+import by.sam.mvc.models.worktime.WeekDay;
 
 import javax.persistence.*;
+import java.time.DayOfWeek;
 
 @Entity
 @Table(name = "work_times")
@@ -14,9 +15,12 @@ public class WorkTime {
     private int id;
 
 
+
+
+
     @Enumerated(EnumType.STRING)
     @Column(name = "week_day")
-    private WeekDay day;
+    private DayOfWeek day;
 
 
     @Column(name = "start_time")
@@ -30,12 +34,12 @@ public class WorkTime {
     public WorkTime() {
     }
 
-    public WorkTime(WeekDay day) {
+    public WorkTime(DayOfWeek day) {
         this.day = day;
 
     }
 
-    public WorkTime(WeekDay day, String startTime, String endTime) {
+    public WorkTime(DayOfWeek day, String startTime, String endTime) {
         this.day = day;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -50,11 +54,11 @@ public class WorkTime {
         this.id = id;
     }
 
-    public WeekDay getDay() {
+    public DayOfWeek getDay() {
         return day;
     }
 
-    public void setDay(WeekDay day) {
+    public void setDay(DayOfWeek day) {
         this.day = day;
     }
 

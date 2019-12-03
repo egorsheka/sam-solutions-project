@@ -1,6 +1,6 @@
 package by.sam.mvc.service.worktime;
 
-import by.sam.mvc.models.WorkTime;
+import by.sam.mvc.models.worktime.WorkTime;
 import by.sam.mvc.service.Service;
 
 import java.util.List;

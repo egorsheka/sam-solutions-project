@@ -1,18 +1,22 @@
 package by.sam.mvc.service.user;
 
-import by.sam.mvc.models.WorkTime;
+import by.sam.mvc.dto.OrderDto;
+import by.sam.mvc.models.location.Town;
+import by.sam.mvc.models.worktime.WorkTime;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.menu.Menu;
 import by.sam.mvc.models.user.Cook;
 import by.sam.mvc.repository.user.CookRepository;
 import by.sam.mvc.service.location.DistrictService;
-import by.sam.mvc.service.location.TownService;
 import by.sam.mvc.service.menu.MenuService;
 import by.sam.mvc.service.worktime.WorkTimeService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -146,5 +150,59 @@ public class CookServiceImpl implements CookService {
         cookRepository.update(cook);
     }
 
+    @Transactional
+    @Override
+    public List<Cook> getCooksByDistrictId(int id) {
+        return cookRepository.getCooksByDistrictId(id);
+    }
+
+    @Override
+    public List<Cook> filterCooksByWorkTime(List<Cook> cooks, DayOfWeek weekDay, LocalTime time) {
+        List<Cook> filterCooks = new ArrayList<>();
+
+
+        for(Cook cook: cooks){
+            for(WorkTime workTime: cook.getWorkTime()){
+                LocalTime endTime = LocalTime.parse(workTime.getEndTime() + ":00");
+                LocalTime startTime = LocalTime.parse(workTime.getStartTime() + ":00");
+                if(workTime.getDay().equals(weekDay) && startTime.isBefore(time) &&  endTime.isAfter(time)){
+                    filterCooks.add(cook);
+                }
+            }
+        }
+
+        return filterCooks;
+    }
+
+
+    @Transactional
+    @Override
+    public List<Menu> findAllMenuByOrder(OrderDto dto) {
+        dto = new OrderDto();
+        dto.setDistrict(new District(1,"d", new Town("dfd")));
+        dto.setDate(LocalDate.parse("2019-12-04"));
+        dto.setTime("03:30");
+
+
+
+
+       // List<Cook> cooks = getCooksByDistrictId(dto.getDistrict().getId());
+        List<Cook> cooks = getCooksByDistrictId(1);
+
+
+        DayOfWeek dayOfWeek = dto.getDate().getDayOfWeek();
+        LocalTime time = LocalTime.parse(dto.getTime() + ":00");
+
+
+        cooks = filterCooksByWorkTime(cooks, dayOfWeek, time);
+
+
+        List<Menu> menus = new ArrayList<>();
+        for (Cook cook : cooks) {
+            menus.addAll(cook.getMenu());
+        }
+
+        return menus;
+    }
 
 }

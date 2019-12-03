@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>location</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+
+
+<form action="#" th:action="@{/viewMenu}" th:object="${order}" method="post">
+    <div>
+        <span class="add-on">In</span>
+        <select th:field="${order.town}"/>
+        <option th:each="t : ${townList}" th:value="${t.id}" th:text="${t.name}"></option>
+        </select>
+
+
+        <select th:field="${order.district}">
+            <option th:each="district : ${districtList}" th:value="${district.id}" th:text="${district.name}">
+            </option>
+        </select>
+
+        <span class="add-on">on</span>
+
+        <input type="date"  name="data" th:value="${order.date}" min="2019-12-01" max="2020-03-31">
+
+        <span class="add-on">at</span>
+        <select th:field="${order.time}">
+            <option th:each="hour : ${time}" th:value="${hour}" th:text="${hour}">
+            </option>
+        </select>
+
+        <button type="submit" th:text="#{text.view_menu}" name="save">view menu</button>
+
+    </div>
+
+</form>
+</body>
+</html>

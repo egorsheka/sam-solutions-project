@@ -11,4 +11,5 @@ public interface CookRepository extends Repository<Cook> {
     Cook read(String email);
     List<Cook> findAll();
     List<Menu> getMenuListByCookId(int id);
+    List<Cook> getCooksByDistrictId(int id);
 }
