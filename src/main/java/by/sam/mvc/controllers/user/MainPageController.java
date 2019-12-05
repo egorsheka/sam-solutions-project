@@ -1,6 +1,7 @@
 package by.sam.mvc.controllers.user;
 
 
+import by.sam.mvc.controllers.Dto;
 import by.sam.mvc.dto.OrderDto;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.location.Town;
@@ -9,12 +10,12 @@ import by.sam.mvc.service.menu.MenuService;
 import by.sam.mvc.service.user.CookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MainPageController {
@@ -36,6 +37,11 @@ public class MainPageController {
         return "mainPage";
     }
 
+
+    @PostMapping(value = "/getDistricts")
+    public String getDistricts(@RequestBody String str) {
+        return "mainPage";
+    }
 
     @PostMapping(value = "/viewMenu")
     public String viewMenu(@ModelAttribute OrderDto user, Model model) {

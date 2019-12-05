@@ -6,6 +6,8 @@
     <title>location</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+
 </head>
 <body>
 
@@ -13,8 +15,8 @@
 <form action="#" th:action="@{/viewMenu}" th:object="${order}" method="post">
     <div>
         <span class="add-on">In</span>
-        <select th:field="${order.town}"/>
-        <option th:each="t : ${townList}" th:value="${t.id}" th:text="${t.name}"></option>
+        <select th:field="${order.town}" id="select_">
+            <option th:each="t : ${townList}" th:value="${t.id}" th:text="${t.name}"></option>
         </select>
 
 
@@ -25,7 +27,7 @@
 
         <span class="add-on">on</span>
 
-        <input type="date"  name="data" th:value="${order.date}" min="2019-12-01" max="2020-03-31">
+        <input type="date" name="data" th:value="${order.date}" min="2019-12-01" max="2020-03-31">
 
         <span class="add-on">at</span>
         <select th:field="${order.time}">
@@ -38,5 +40,24 @@
     </div>
 
 </form>
+
+
+<script>
+
+
+    let selectButton = document.getElementById('select_');
+    selectButton.addEventListener("change", function () {
+        var select = document.getElementById("select_");
+        var obj = { "id": select.value}
+        fetch( "http://localhost:8083/sam_solutions_project_war/getDistricts",{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(obj)
+        });
+    })
+</script>
+
 </body>
 </html>
