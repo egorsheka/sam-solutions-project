@@ -20,14 +20,14 @@
         </select>
 
 
-        <select th:field="${order.district}">
+        <select th:field="${order.district.id}" id ="selectDistricts">
             <option th:each="district : ${districtList}" th:value="${district.id}" th:text="${district.name}">
             </option>
         </select>
 
         <span class="add-on">on</span>
 
-        <input type="date" name="data" th:value="${order.date}" min="2019-12-01" max="2020-03-31">
+        <input type="date"  th:value="${order.date}"  th:field="${order.date}" min="2019-12-01" max="2020-03-31">
 
         <span class="add-on">at</span>
         <select th:field="${order.time}">
@@ -42,22 +42,68 @@
 </form>
 
 
-<script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
 
 
-    let selectButton = document.getElementById('select_');
+    // let selectButton = document.getElementById('select_');
+    // var RestPost = function() {
+    //     $.ajax({
+    //         type: 'POST',
+    //         url:  "http://localhost:8083/sam_solutions_project_war/getDistricts",
+    //         dataType: 'json',
+    //         async: true,
+    //         success: function(result) {
+    //             alert(result.id);
+    //             console.log(result)
+    //         },
+    //         error: function() {
+    //             alert("error");
+    //         }
+    //     });
+    // }
+    // selectButton.addEventListener("change", RestPost);
+
+
+    const selectDistrict = document.getElementById('selectDistricts');
+    console.log(selectDistrict.target);
+
+    const selectButton = document.getElementById('select_');
     selectButton.addEventListener("change", function () {
-        var select = document.getElementById("select_");
-        var obj = { "id": select.value}
-        fetch( "http://localhost:8083/sam_solutions_project_war/getDistricts",{
+        const select = document.getElementById("select_");
+        const obj = { "id": select.value}
+        fetch( "http://localhost:8084/sam_solutions_project_war/getDistricts",{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify(obj)
-        });
-    })
+        })
+            .then(resp => resp.json()
+            .then(json => {
+                console.log(json);
+                while (selectDistrict.length > 0) {
+                    selectDistrict.remove(0);
+                }
+                json.map(item => {
+                    const option = document.createElement("option");
+                    option.setAttribute("value", item.id.toString());
+                    option.innerHTML = item.name.toString();
+                    selectDistrict.appendChild(option);
+                });
+            }));
+    });
+
+
+
 </script>
+
+
+
+
+
+
 
 </body>
 </html>

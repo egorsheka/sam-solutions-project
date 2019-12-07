@@ -2,20 +2,23 @@ package by.sam.mvc.controllers.user;
 
 
 import by.sam.mvc.controllers.Dto;
+import by.sam.mvc.dto.DistrictDto;
 import by.sam.mvc.dto.OrderDto;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.location.Town;
+import by.sam.mvc.service.location.DistrictService;
 import by.sam.mvc.service.location.TownService;
 import by.sam.mvc.service.menu.MenuService;
 import by.sam.mvc.service.user.CookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
+
 
 @Controller
 public class MainPageController {
@@ -23,31 +26,35 @@ public class MainPageController {
     private CookService cookService;
     private TownService townService;
     private MenuService menuService;
+    private DistrictService districtService;
     private OrderDto user;
 
-    public MainPageController(TownService townService, MenuService menuService, CookService cookService) {
+    public MainPageController(TownService townService, MenuService menuService, CookService cookService, DistrictService districtService) {
         this.cookService = cookService;
         this.townService = townService;
 
         this.menuService = menuService;
+        this.districtService = districtService;
     }
 
     @GetMapping(path = "/")
-    public String getMainPage(){
+    public String getMainPage( Model model){
+        model.addAttribute("districtList", new ArrayList<>());
         return "mainPage";
     }
 
 
     @PostMapping(value = "/getDistricts")
-    public String getDistricts(@RequestBody String str) {
-        return "mainPage";
+    @ResponseBody
+    public List<DistrictDto> getDistricts(@RequestBody Town town, Model model) {
+        return districtService.getDistrictDtoListByTown(town);
     }
 
     @PostMapping(value = "/viewMenu")
     public String viewMenu(@ModelAttribute OrderDto user, Model model) {
-        cookService.findAllMenuByOrder(user);
-        model.addAttribute("menuList");
-        return "mainPage";
+
+        model.addAttribute("menuList",  cookService.findAllMenuByOrder(user));
+        return "viewMenu";
     }
 
     @PostMapping(value = "/selectMenu")
@@ -90,8 +97,8 @@ public class MainPageController {
         return townService.findAll();
     }
 
-    @ModelAttribute("districtList")
-    public List<District> getDistrictList() {
-        return new ArrayList<>();
-    }
+//    @ModelAttribute("districtList")
+//    public List<District> getDistrictList() {
+//        return new ArrayList<>();
+//    }
 }

@@ -1,5 +1,6 @@
 package by.sam.mvc.service.location.impl;
 
+import by.sam.mvc.dto.DistrictDto;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.location.Town;
 import by.sam.mvc.repository.location.DistrictRepository;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class DistrictServiceImpl implements DistrictService {
@@ -72,6 +74,11 @@ public class DistrictServiceImpl implements DistrictService {
         districtRepository.delete(id);
     }
 
+    @Transactional
+    @Override
+    public List<DistrictDto> getDistrictDtoListByTown(Town town) {
+        return districtRepository.getDistrictListByTown(town).stream().map(d -> new DistrictDto(d.getId(), d.getName())).collect(Collectors.toList());
+    }
     @Transactional
     @Override
     public List<District> getDistrictListByTown(Town town) {

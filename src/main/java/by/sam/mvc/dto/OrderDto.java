@@ -14,9 +14,9 @@ public class OrderDto {
 
 
     private Town town;
-    private District district;
+    private DistrictDto district;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
     private String time;
     private String address;
@@ -33,11 +33,11 @@ public class OrderDto {
         this.town = town;
     }
 
-    public District getDistrict() {
+    public DistrictDto getDistrict() {
         return district;
     }
 
-    public void setDistrict(District district) {
+    public void setDistrict(DistrictDto district) {
         this.district = district;
     }
 

@@ -12,11 +12,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
 //@Configuration
 //@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
+//
 //
 //    @Autowired
 //    private UserDetailsService userDetailsService;
@@ -44,7 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    protected void configure(HttpSecurity http) throws Exception {
 //        http
 //                .authorizeRequests()
-//                .antMatchers("/", "/viewMenu", "/selectMenu", "/bookMenu").permitAll()
+//                .antMatchers("/", "/viewMenu", "/selectMenu", "/bookMenu", "/resources/**", "/webapp/**",  "/registration**", "/js/**", "/css/**", "/img/**", "/webjars/**").permitAll()
 //                .anyRequest().authenticated()
 //                .and()
 //                .formLogin()
@@ -64,10 +65,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    }
 }
 
+//
 
-//package by.sam.mvc.config;
-//
-//        import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
-//
-//public class SecurityInit extends AbstractSecurityWebApplicationInitializer { }
 

@@ -15,7 +15,7 @@ public class Town {
     private int id;
     private String name;
 
-    @OneToMany(mappedBy = "town", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    @OneToMany(mappedBy = "town", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true,fetch = FetchType.EAGER)
     private List<District> districts = new ArrayList<>();
 
     public void addDistrict(District district) {
@@ -25,6 +25,10 @@ public class Town {
 
 
     public Town() {}
+
+    public Town(int id) {
+        this.id = id;
+    }
 
     public Town(String name) {
         this.name = name;
