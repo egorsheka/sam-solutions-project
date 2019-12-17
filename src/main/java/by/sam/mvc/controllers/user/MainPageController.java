@@ -47,6 +47,10 @@ public class MainPageController {
     @PostMapping(value = "/getDistricts")
     @ResponseBody
     public List<DistrictDto> getDistricts(@RequestBody Town town, Model model) {
+        System.out.println("  ------- ");
+        System.out.println("  ------- ");
+        System.out.println("  ------- ");
+        System.out.println("  ------- ");
         return districtService.getDistrictDtoListByTown(town);
     }
 

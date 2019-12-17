@@ -2,6 +2,7 @@ package by.sam.mvc.controllers.cook;
 
 
 import by.sam.mvc.models.menu.*;
+import by.sam.mvc.models.user.Cook;
 import by.sam.mvc.service.menu.MenuService;
 import by.sam.mvc.service.user.CookService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -34,6 +35,7 @@ public class MenuController {
 
     @GetMapping(path = "/menuPage")
     public String getCookPersonalPage(Model model, @AuthenticationPrincipal UserDetails currentUser){
+        Cook cook =  cookService.getAuthenticationCook(currentUser);
         cookId = cookService.getAuthenticationCook(currentUser).getId();
         menuList = cookService.read(cookId).getMenu();
         model.addAttribute("menuList", menuList);
@@ -49,7 +51,6 @@ public class MenuController {
 
     @PostMapping(value = "/saveNewMenu", params = {"submit"} )
     public String submitNewMenu(@ModelAttribute Menu newMenu, Model model) {
-
         cookService.addMenuItem(cookId, newMenu);
         menuList = cookService.read(1).getMenu();
         model.addAttribute("menuList", menuList);
