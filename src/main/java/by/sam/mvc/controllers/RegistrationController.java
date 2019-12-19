@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/registration")
-public class CookRegistrationController {
+public class RegistrationController {
 
     private final CookService cookService;
 
-    public CookRegistrationController(CookService cookService) {
+    public RegistrationController(CookService cookService) {
         this.cookService = cookService;
     }
 
