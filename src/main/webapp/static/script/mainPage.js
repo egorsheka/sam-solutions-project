@@ -12,17 +12,17 @@ selectButton.addEventListener("change", function () {
         },
         body: JSON.stringify(obj)
     })
-        .then(resp => JSON.parse(resp.json())
+        .then(resp => resp.json()
         .then(json => {
         console.log(json);
     while (selectDistrict.length > 0) {
         selectDistrict.remove(0);
     }
     json.map(item => {
-        const option = document.createElement("option");
-    option.setAttribute("value", item.id.toString());
-    option.innerHTML = item.name.toString();
-    selectDistrict.appendChild(option);
+        const option_ = document.createElement("option");
+    option_.setAttribute("value", item.id.toString());
+    option_.innerHTML = item.name.toString();
+    selectDistrict.appendChild(option_);
 });
 }));
 });

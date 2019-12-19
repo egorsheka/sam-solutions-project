@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    //@Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("//**", "/viewMenu", "/getDistricts", "/registration/**",
+                .antMatchers("/", "/viewMenu", "/getDistricts", "/registration/**",
                         "/resources/**", "/script/**", "/css/**", "/images/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .permitAll();
 
-
+        http.csrf().disable();
         http.logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")
