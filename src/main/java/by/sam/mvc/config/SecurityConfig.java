@@ -26,8 +26,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
-
-
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -56,7 +54,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .permitAll();
 
-        http.csrf().disable();
         http.logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")

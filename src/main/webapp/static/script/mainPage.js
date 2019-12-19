@@ -5,7 +5,9 @@ const selectButton = document.getElementById('select_');
 selectButton.addEventListener("change", function () {
     const select = document.getElementById("select_");
     const obj = { "id": select.value}
-    fetch( "http://localhost:8084/sam_solutions_project_war/getDistricts",{
+    //http://sc0489:8080/personalcook_war_exploded/
+    //http://localhost:8084/sam_solutions_project_war/
+    fetch( "http://sc0489:8080/personalcook_war_exploded/getDistricts",{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'

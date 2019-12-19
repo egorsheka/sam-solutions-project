@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void create(UserEntity userEntity) {
-        userEntity.setRole(userRepository.readRole("COOK"));
+        userEntity.setRole(userRepository.readRole(userEntity.getRole().getName()));
         userRepository.create(userEntity);
     }
 

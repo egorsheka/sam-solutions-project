@@ -38,7 +38,6 @@ public class MenuController {
 
     @GetMapping(path = "/menuPage")
     public String getCookPersonalPage(Model model, @AuthenticationPrincipal UserDetails currentUser){
-        Cook cook =  cookService.getAuthenticationCook(currentUser);
         cookId = cookService.getAuthenticationCook(currentUser).getId();
         menuList = cookService.read(cookId).getMenu();
         model.addAttribute("menuList", menuList);
@@ -55,11 +54,13 @@ public class MenuController {
     @PostMapping(value = "/saveNewMenu", params = {"submit"} )
     public String submitNewMenu(@ModelAttribute Menu newMenu, Model model) {
         cookService.addMenuItem(cookId, newMenu);
-        menuList = cookService.read(1).getMenu();
+        menuList = cookService.read(cookId).getMenu();
         model.addAttribute("menuList", menuList);
         return "startMenu";
     }
 
+
+    ///////////////////////////////////////////
     @PostMapping(value = "/saveNewMenu", params = {"addRow"} )
     public String addDishRowInNewMenu(@ModelAttribute Menu newMenu,  Model model) {
         if(newMenu.getDishes() == null){

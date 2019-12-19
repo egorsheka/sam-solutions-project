@@ -5,6 +5,7 @@ import by.sam.mvc.dto.OrderDto;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.menu.Menu;
 import by.sam.mvc.models.user.Cook;
+import by.sam.mvc.models.user.Role;
 import by.sam.mvc.models.user.UserEntity;
 import by.sam.mvc.models.worktime.WorkTime;
 import by.sam.mvc.repository.user.CookRepository;
@@ -54,6 +55,7 @@ public class CookServiceImpl implements CookService {
         UserEntity userEntity = new UserEntity();
         userEntity.setEmail(cook.getEmail());
         userEntity.setPassword(cook.getPassword());
+        userEntity.setRole(new Role("COOK"));
 
         userService.create(userEntity);
 

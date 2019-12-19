@@ -5,7 +5,7 @@ INSERT INTO public.role (id, name) VALUES (3, 'ADMIN');
 
 INSERT INTO public.userentity (id, email, password, role_id) VALUES (1, '1', '1', 2);
 
-INSERT INTO public.cooks (id, birthday, email, mobile, name, password, status, surname, userentity_id) VALUES (1, null, null, null, null, null, null, null, 1);
+INSERT INTO public.cooks (id, birthday, email, mobile, name, password, status, surname, userentity_id) VALUES (1, null, 1, null, null, 1, null, null, 1);
 
 INSERT INTO public.towns (id, name) VALUES (1, 'Минск');
 INSERT INTO public.towns (id, name) VALUES (2, 'Брест');
