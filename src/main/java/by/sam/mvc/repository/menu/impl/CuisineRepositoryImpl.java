@@ -1,5 +1,4 @@
 package by.sam.mvc.repository.menu.impl;
-
 import by.sam.mvc.models.menu.Cuisine;
 import by.sam.mvc.repository.menu.CuisineRepository;
 import org.springframework.stereotype.Repository;

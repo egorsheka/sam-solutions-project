@@ -1,10 +1,8 @@
-package by.sam.mvc.service.user;
+package by.sam.mvc.service.user.impl;
 
 import by.sam.mvc.models.user.UserEntity;
 import by.sam.mvc.repository.user.UserRepository;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import by.sam.mvc.service.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,12 +19,14 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
+    public void create(UserEntity userEntity) {
+        userEntity.setRole(userRepository.readRole("COOK"));
+        userRepository.create(userEntity);
+    }
+
+    @Transactional
+    @Override
     public UserEntity read(String email) {
         return userRepository.read(email);
     }
-
-
-
-
-
 }

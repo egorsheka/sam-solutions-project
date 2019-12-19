@@ -1,7 +1,6 @@
 package by.sam.mvc.controllers.cook;
 
 
-import by.sam.mvc.models.Order;
 import by.sam.mvc.models.worktime.WeekDay;
 import by.sam.mvc.service.user.CookService;
 import by.sam.mvc.service.worktime.WorkTimeService;
@@ -14,7 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class WorkTimeController {

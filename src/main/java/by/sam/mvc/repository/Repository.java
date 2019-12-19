@@ -1,7 +1,5 @@
 package by.sam.mvc.repository;
 
-import java.util.List;
-
 public interface Repository<T> {
     void create(T object);
     T read(int id);

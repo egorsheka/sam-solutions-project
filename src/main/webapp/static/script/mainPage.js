@@ -12,7 +12,7 @@ selectButton.addEventListener("change", function () {
         },
         body: JSON.stringify(obj)
     })
-        .then(resp => resp.json()
+        .then(resp => JSON.parse(resp.json())
         .then(json => {
         console.log(json);
     while (selectDistrict.length > 0) {

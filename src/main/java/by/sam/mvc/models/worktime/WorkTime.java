@@ -1,8 +1,6 @@
 package by.sam.mvc.models.worktime;
 
 
-import by.sam.mvc.models.worktime.WeekDay;
-
 import javax.persistence.*;
 import java.time.DayOfWeek;
 

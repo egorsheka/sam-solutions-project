@@ -1,7 +1,8 @@
-package by.sam.mvc.repository.user;
+package by.sam.mvc.repository.user.impl;
 
 import by.sam.mvc.models.menu.Menu;
 import by.sam.mvc.models.user.Cook;
+import by.sam.mvc.repository.user.CookRepository;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Repository;
 

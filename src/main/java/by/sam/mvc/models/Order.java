@@ -1,14 +1,16 @@
 package by.sam.mvc.models;
 
 import by.sam.mvc.models.location.District;
-import by.sam.mvc.models.location.Town;
 import by.sam.mvc.models.menu.Menu;
-import by.sam.mvc.models.user.User;
+import by.sam.mvc.models.user.Client;
 
 import java.util.List;
 
+//@Entity
 public class Order {
 
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String orderTime;
@@ -16,7 +18,7 @@ public class Order {
     private District district;
     private String address;
     private List<Menu> menu;
-    private User user;
+    private Client client;
 
     public int getId() {
         return id;
@@ -66,11 +68,11 @@ public class Order {
         this.menu = menu;
     }
 
-    public User getUser() {
-        return user;
+    public Client getClient() {
+        return client;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

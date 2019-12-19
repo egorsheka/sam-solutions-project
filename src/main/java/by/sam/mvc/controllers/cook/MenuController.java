@@ -1,7 +1,10 @@
 package by.sam.mvc.controllers.cook;
 
 
-import by.sam.mvc.models.menu.*;
+import by.sam.mvc.models.menu.Dish;
+import by.sam.mvc.models.menu.DishType;
+import by.sam.mvc.models.menu.Menu;
+import by.sam.mvc.models.menu.MenuLuxury;
 import by.sam.mvc.models.user.Cook;
 import by.sam.mvc.service.menu.MenuService;
 import by.sam.mvc.service.user.CookService;

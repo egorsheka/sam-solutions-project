@@ -4,7 +4,6 @@ package by.sam.mvc.controllers.cook;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.location.Town;
 import by.sam.mvc.models.user.Cook;
-import by.sam.mvc.repository.worktime.WorkTimeRepository;
 import by.sam.mvc.service.location.DistrictService;
 import by.sam.mvc.service.location.TownService;
 import by.sam.mvc.service.user.CookService;
@@ -12,10 +11,13 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class LocationController {

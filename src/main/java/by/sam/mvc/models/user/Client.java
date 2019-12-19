@@ -5,7 +5,7 @@ import by.sam.mvc.models.location.District;
 
 import java.util.List;
 
-public class User {
+public class Client {
 
     private int id;
 
