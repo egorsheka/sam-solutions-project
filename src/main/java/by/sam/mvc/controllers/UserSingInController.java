@@ -1,7 +1,6 @@
 package by.sam.mvc.controllers;
 
 
-import by.sam.mvc.models.menu.DishType;
 import by.sam.mvc.models.user.Cook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

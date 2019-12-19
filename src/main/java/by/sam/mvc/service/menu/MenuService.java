@@ -1,10 +1,7 @@
 package by.sam.mvc.service.menu;
 
 
-import by.sam.mvc.dto.OrderDto;
 import by.sam.mvc.models.menu.Menu;
-
-import java.util.List;
 
 public interface MenuService {
 

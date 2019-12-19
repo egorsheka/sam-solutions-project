@@ -1,13 +1,10 @@
 package by.sam.mvc.dto;
 
-import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.location.Town;
 import by.sam.mvc.models.menu.Menu;
-import by.sam.mvc.models.user.User;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class OrderDto {

@@ -1,19 +1,42 @@
-INSERT INTO public.cooks (id, birthday, email, mobile, name, password, status, surname, user_id) VALUES (1, null, null, null, null, null, null, null, null);
+
+INSERT INTO public.role (id, name) VALUES (1, 'CLIENT');
+INSERT INTO public.role (id, name) VALUES (2, 'COOK');
+INSERT INTO public.role (id, name) VALUES (3, 'ADMIN');
+
+INSERT INTO public.userentity (id, email, password, role_id) VALUES (1, '1', '1', 2);
+
+INSERT INTO public.cooks (id, birthday, email, mobile, name, password, status, surname, userentity_id) VALUES (1, null, null, null, null, null, null, null, 1);
+
+INSERT INTO public.towns (id, name) VALUES (1, 'Минск');
+INSERT INTO public.towns (id, name) VALUES (2, 'Брест');
+INSERT INTO public.towns (id, name) VALUES (3, 'Витебск');
+
+
+INSERT INTO public.districts (id, name, town_id) VALUES (1, 'Центральный', 1);
+INSERT INTO public.districts (id, name, town_id) VALUES (2, 'Советский', 1);
+INSERT INTO public.districts (id, name, town_id) VALUES (3, 'Первомайский', 1);
+INSERT INTO public.districts (id, name, town_id) VALUES (4, 'Партизанский', 1);
+INSERT INTO public.districts (id, name, town_id) VALUES (5, 'Заводской', 1);
+INSERT INTO public.districts (id, name, town_id) VALUES (6, 'Ленинский', 1);
+INSERT INTO public.districts (id, name, town_id) VALUES (7, 'Октябрьский', 1);
+INSERT INTO public.districts (id, name, town_id) VALUES (8, 'Московский', 1);
+INSERT INTO public.districts (id, name, town_id) VALUES (9, 'Фрунзенский', 1);
+INSERT INTO public.districts (id, name, town_id) VALUES (10, 'Аркадия', 2);
+INSERT INTO public.districts (id, name, town_id) VALUES (11, 'Березовка', 2);
+INSERT INTO public.districts (id, name, town_id) VALUES (12, 'Восток', 2);
+INSERT INTO public.districts (id, name, town_id) VALUES (13, 'Гершоны', 2);
+INSERT INTO public.districts (id, name, town_id) VALUES (14, 'Волынка', 2);
+INSERT INTO public.districts (id, name, town_id) VALUES (15, 'Дубровка', 2);
+INSERT INTO public.districts (id, name, town_id) VALUES (16, 'Мощенка', 2);
+INSERT INTO public.districts (id, name, town_id) VALUES (17, 'Старые Задворцы', 2);
+
+
 
 INSERT INTO public.cooks_districts (cook_id, districts_id) VALUES (1, 1);
 INSERT INTO public.cooks_districts (cook_id, districts_id) VALUES (1, 2);
 INSERT INTO public.cooks_districts (cook_id, districts_id) VALUES (1, 4);
 
 
-INSERT INTO public.cooks_menus (cook_id, menu_id) VALUES (1, 1);
-INSERT INTO public.cooks_menus (cook_id, menu_id) VALUES (1, 2);
-INSERT INTO public.cooks_menus (cook_id, menu_id) VALUES (1, 5);
-INSERT INTO public.cooks_menus (cook_id, menu_id) VALUES (1, 7);
-INSERT INTO public.cooks_menus (cook_id, menu_id) VALUES (1, 10);
-
-
-INSERT INTO public.cooks_work_times (cook_id, worktime_id) VALUES (1, 9);
-INSERT INTO public.cooks_work_times (cook_id, worktime_id) VALUES (1, 10);
 
 
 
@@ -41,6 +64,7 @@ INSERT INTO public.cuisines (id, name) VALUES (21, 'Jamaica');
 INSERT INTO public.cuisines (id, name) VALUES (22, 'Canada');
 INSERT INTO public.cuisines (id, name) VALUES (23, 'Abu Dhabi');
 INSERT INTO public.cuisines (id, name) VALUES (24, 'France');
+
 
 
 
@@ -78,17 +102,6 @@ INSERT INTO public.dishes (id, dish_type, name, cuisine_id) VALUES (30, 'APPETIS
 
 
 
-INSERT INTO public.districts (id, name, town_id) VALUES (1, 'Sovetski', 1);
-INSERT INTO public.districts (id, name, town_id) VALUES (2, 'Pervomaiski', 1);
-INSERT INTO public.districts (id, name, town_id) VALUES (3, 'Partizanski', 1);
-INSERT INTO public.districts (id, name, town_id) VALUES (4, 'Lenenski', 1);
-INSERT INTO public.districts (id, name, town_id) VALUES (5, 'Moskovski', 1);
-INSERT INTO public.districts (id, name, town_id) VALUES (6, 'Lenenski', 2);
-INSERT INTO public.districts (id, name, town_id) VALUES (7, 'Moskovski', 2);
-INSERT INTO public.districts (id, name, town_id) VALUES (8, 'Partizanski', 3);
-INSERT INTO public.districts (id, name, town_id) VALUES (9, 'Pervomaiski', 3);
-
-
 
 
 INSERT INTO public.menus (id, luxury_type, name, price) VALUES (1, 'TEMPTATION', 'Catch of the Day', 45.00);
@@ -101,6 +114,8 @@ INSERT INTO public.menus (id, luxury_type, name, price) VALUES (7, 'PRESTIGE', '
 INSERT INTO public.menus (id, luxury_type, name, price) VALUES (8, 'SIGNATURE', 'Touch Of Indulgence', 95.00);
 INSERT INTO public.menus (id, luxury_type, name, price) VALUES (9, 'SIGNATURE', 'Far East', 105.00);
 INSERT INTO public.menus (id, luxury_type, name, price) VALUES (10, 'SIGNATURE', 'December', 95.00);
+
+
 
 
 
@@ -138,12 +153,16 @@ INSERT INTO public.menus_dishes (menu_id, dishes_id) VALUES (10, 30);
 
 
 
-
-INSERT INTO public.towns (id, name) VALUES (1, 'Minsk');
-INSERT INTO public.towns (id, name) VALUES (2, 'Brest');
-INSERT INTO public.towns (id, name) VALUES (3, 'Vitebsk');
+INSERT INTO public.cooks_menus (cook_id, menu_id) VALUES (1, 1);
+INSERT INTO public.cooks_menus (cook_id, menu_id) VALUES (1, 2);
+INSERT INTO public.cooks_menus (cook_id, menu_id) VALUES (1, 5);
+INSERT INTO public.cooks_menus (cook_id, menu_id) VALUES (1, 7);
+INSERT INTO public.cooks_menus (cook_id, menu_id) VALUES (1, 10);
 
 
 
 INSERT INTO public.work_times (id, week_day, end_time, start_time) VALUES (9, 'MONDAY', '23:00', '17:00');
 INSERT INTO public.work_times (id, week_day, end_time, start_time) VALUES (10, 'TUESDAY', '21:00', '17:00');
+
+INSERT INTO public.cooks_work_times (cook_id, worktime_id) VALUES (1, 9);
+INSERT INTO public.cooks_work_times (cook_id, worktime_id) VALUES (1, 10);

@@ -1,11 +1,11 @@
 package by.sam.mvc.models.location;
 
-import by.sam.mvc.models.menu.Dish;
-import by.sam.mvc.models.user.Cook;
-
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "districts")

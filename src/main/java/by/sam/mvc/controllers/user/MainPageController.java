@@ -46,7 +46,7 @@ public class MainPageController {
 
     @PostMapping(value = "/getDistricts")
     @ResponseBody
-    public List<DistrictDto> getDistricts(@RequestBody Town town, Model model) {
+    public List<DistrictDto> getDistricts(@RequestBody Town town) {
         return districtService.getDistrictDtoListByTown(town);
     }
 
@@ -56,27 +56,6 @@ public class MainPageController {
         model.addAttribute("menuList",  cookService.findAllMenuByOrder(user));
         return "viewMenu";
     }
-
-    @PostMapping(value = "/selectMenu")
-    public String selectMenu(@ModelAttribute OrderDto user) {
-        return "mainPage";
-    }
-
-    @PostMapping(value = "/bookMenu")
-    public String bookMenu(@ModelAttribute OrderDto user) {
-        return "mainPage";
-    }
-
-
-
-    // sing in или просто заказ
-    // остальыне личные данные
-
-
-
-
-
-
 
 
     @ModelAttribute("time")

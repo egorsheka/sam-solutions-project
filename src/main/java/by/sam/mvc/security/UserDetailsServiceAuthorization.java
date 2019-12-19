@@ -5,7 +5,6 @@ import by.sam.mvc.models.user.UserEntity;
 import by.sam.mvc.service.user.UserService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -31,10 +30,10 @@ public class UserDetailsServiceAuthorization implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
 
-        UserEntity user = userService.read(mail);
+        UserEntity userEntity = userService.read(mail);
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
-        return new User(user.getEmail(), user.getPassword(), grantedAuthorities);
+        grantedAuthorities.add(new SimpleGrantedAuthority(userEntity.getRole().getName()));
+        return new org.springframework.security.core.userdetails.User(userEntity.getEmail(), userEntity.getPassword(), grantedAuthorities);
     }
 
 

@@ -1,7 +1,11 @@
 package by.sam.mvc.controllers.cook;
 
 
-import by.sam.mvc.models.menu.*;
+import by.sam.mvc.models.menu.Dish;
+import by.sam.mvc.models.menu.DishType;
+import by.sam.mvc.models.menu.Menu;
+import by.sam.mvc.models.menu.MenuLuxury;
+import by.sam.mvc.models.user.Cook;
 import by.sam.mvc.service.menu.MenuService;
 import by.sam.mvc.service.user.CookService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -33,8 +37,14 @@ public class MenuController {
 
 
     @GetMapping(path = "/menuPage")
+<<<<<<< HEAD
     public String getCookPersonalPage(Model model /*,@AuthenticationPrincipal UserDetails currentUser*/){
         cookId = 2;//cookService.getAuthenticationCook(currentUser).getId();
+=======
+    public String getCookPersonalPage(Model model, @AuthenticationPrincipal UserDetails currentUser){
+        Cook cook =  cookService.getAuthenticationCook(currentUser);
+        cookId = cookService.getAuthenticationCook(currentUser).getId();
+>>>>>>> e93122ec3789654e7b0b1c9584a8774c9a8d0f01
         menuList = cookService.read(cookId).getMenu();
         model.addAttribute("menuList", menuList);
         return "startMenu";
@@ -49,7 +59,6 @@ public class MenuController {
 
     @PostMapping(value = "/saveNewMenu", params = {"submit"} )
     public String submitNewMenu(@ModelAttribute Menu newMenu, Model model) {
-
         cookService.addMenuItem(cookId, newMenu);
         menuList = cookService.read(1).getMenu();
         model.addAttribute("menuList", menuList);

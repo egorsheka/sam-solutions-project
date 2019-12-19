@@ -1,109 +1,116 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8'/>
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>location</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link  rel="stylesheet" type="text/css" th:href="@{/css/style.css}" >
 </head>
-<body>
+
+<body class=FonIn>
+
+<nav class="navbar navbar-dark bg-dark" style="z-index: 2">
+    <h2 class="navbar-brand"></h2>
+    <div class="form-inline">
+        <a class="nav-link active app-nav-link-item my-2 my-sm-0" th:href="${(#mvc.url('MC#getCookPersonalPage')).build()}" th:text="#{text.login}">LOGIN</a>
+    </div>
+</nav>
+
 
 
 <form action="#" th:action="@{/viewMenu}" th:object="${order}" method="post">
-    <div>
-        <span class="add-on">In</span>
-        <select th:field="${order.town}" id="select_">
-            <option th:each="t : ${townList}" th:value="${t.id}" th:text="${t.name}"></option>
-        </select>
+<div class="app-info-container">
+
+    <div class="form-group row"
+         style="color:white; font-size: 30px;position: relative; top: 200px; text-align: center; height: 10em;
+  display: flex;
+  align-items: center;
+  justify-content: center">
+
+        <span>in</span>
+        <div style="padding: 10px;">
+            <select  class="form-control input-main" th:field="${order.town}" id="select_">
+                <option th:each="t : ${townList}" th:value="${t.id}" th:text="${t.name}"></option>
+            </select>
+        </div>
+
+        <div style="padding: 10px;">
+            <select class="form-control input-main" th:field="${order.district.id}" id ="selectDistricts" style="z-index: 2">
+                <option th:each="district : ${districtList}" th:value="${district.id}" th:text="${district.name}">
+                </option>
+            </select>
+        </div>
+
+        <div >
+            <span>on</span>
+        </div>
 
 
-        <select th:field="${order.district.id}" id ="selectDistricts">
-            <option th:each="district : ${districtList}" th:value="${district.id}" th:text="${district.name}">
-            </option>
-        </select>
+        <div style="padding: 10px;">
+            <input class="form-control input-main" type="date"  th:value="${order.date}"  th:field="${order.date}" min="2019-12-01" max="2020-03-31">
+        </div>
 
-        <span class="add-on">on</span>
+        <span >at</span>
+        <div style="padding: 10px;">
+            <select th:field="${order.time}" class="form-control" style="width: 90px">
+                <option th:value="${'01:00'}" th:text="${'01:00'}">01:00</option>
+                <option th:value="${'02:00'}" th:text="${'02:00'}">02:00</option>
+                <option th:value="${'03:00'}" th:text="${'03:00'}">03:00</option>
+                <option th:value="${'04:00'}" th:text="${'04:00'}">04:00</option>
+                <option th:value="${'05:00'}" th:text="${'05:00'}">05:00</option>
+                <option th:value="${'06:00'}" th:text="${'06:00'}">06:00</option>
+                <option th:value="${'07:00'}" th:text="${'07:00'}">07:00</option>
+                <option th:value="${'08:00'}" th:text="${'08:00'}">08:00</option>
+                <option th:value="${'09:00'}" th:text="${'09:00'}">09:00</option>
+                <option th:value="${'10:00'}" th:text="${'10:00'}">10:00</option>
+                <option th:value="${'11:00'}" th:text="${'11:00'}">11:00</option>
+                <option th:value="${'12:00'}" th:text="${'12:00'}">12:00</option>
+                <option th:value="${'13:00'}" th:text="${'13:00'}">13:00</option>
+                <option th:value="${'14:00'}" th:text="${'14:00'}">14:00</option>
+                <option th:value="${'15:00'}" th:text="${'15:00'}">15:00</option>
+                <option th:value="${'16:00'}" th:text="${'16:00'}">16:00</option>
+                <option th:value="${'17:00'}" th:text="${'17:00'}">17:00</option>
+                <option th:value="${'18:00'}" th:text="${'18:00'}">18:00</option>
+                <option th:value="${'19:00'}" th:text="${'19:00'}">19:00</option>
+                <option th:value="${'20:00'}" th:text="${'20:00'}">20:00</option>
+                <option th:value="${'21:00'}" th:text="${'21:00'}">21:00</option>
+                <option th:value="${'22:00'}" th:text="${'22:00'}">22:00</option>
+                <option th:value="${'23:00'}" th:text="${'23:00'}">23:00</option>
+                <option th:value="${'24:00'}" th:text="${'24:00'}">23:00</option>
+            </select>
+        </div>
 
-        <input type="date"  th:value="${order.date}"  th:field="${order.date}" min="2019-12-01" max="2020-03-31">
 
-        <span class="add-on">at</span>
-        <select th:field="${order.time}">
-            <option th:each="hour : ${time}" th:value="${hour}" th:text="${hour}">
-            </option>
-        </select>
+        <div style="padding: 10px;">
+            <button th:text="#{text.view_menu}" name="save" type="submit" class="btn btn-warning" style=" border-radius: 5px; margin-top: 10px">view menu
+            </button>
+        </div>
 
-        <button type="submit" th:text="#{text.view_menu}" name="save">view menu</button>
+
+
 
     </div>
+</div>
+
+<div class="app-content-container">
+    <div class="app-content-text" style="border-bottom: solid 0.1px white; padding-bottom: 10px">
+        <p style="font-size: 40px">Rediscover the pleasure of entertaining at home</p>
+        We believe people should love hosting and entertaining others at home. It should be easy, delicious and
+        enjoyable.
+        <p></p>
+        In the future, hosting meal with loved ones will be simple and stress-free. Planning will be a breeze.
+        Ingredients will be fresh. Logistics will be invisible.
+    </div>
+
+    <p align="center" style="font-size: 40px; width: 1000px; color: white; margin: 0 auto; padding-top: 20px">
+        At La Belle Assiette, we are building this future.
+    </p>
+</div>
 
 </form>
 
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript">
-
-
-    // let selectButton = document.getElementById('select_');
-    // var RestPost = function() {
-    //     $.ajax({
-    //         type: 'POST',
-    //         url:  "http://localhost:8083/sam_solutions_project_war/getDistricts",
-    //         dataType: 'json',
-    //         async: true,
-    //         success: function(result) {
-    //             alert(result.id);
-    //             console.log(result)
-    //         },
-    //         error: function() {
-    //             alert("error");
-    //         }
-    //     });
-    // }
-    // selectButton.addEventListener("change", RestPost);
-
-
-    const selectDistrict = document.getElementById('selectDistricts');
-    console.log(selectDistrict.target);
-
-    const selectButton = document.getElementById('select_');
-    selectButton.addEventListener("change", function () {
-        const select = document.getElementById("select_");
-        const obj = { "id": select.value}
-        fetch( "http://sc0489:8080/personalcook_war_exploded/getDistricts",{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(obj)
-        })
-            .then(resp => resp.json()
-            .then(json => {
-                console.log(json);
-                while (selectDistrict.length > 0) {
-                    selectDistrict.remove(0);
-                }
-                json.map(item => {
-                    const option = document.createElement("option");
-                    option.setAttribute("value", item.id.toString());
-                    option.innerHTML = item.name.toString();
-                    selectDistrict.appendChild(option);
-                });
-            }));
-    });
-
-
-
-</script>
-
-
-
-
-
-
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+<script type="text/javascript" th:src="@{/script/jquery.js}"></script>
+<script type="text/javascript" th:src="@{/script/mainPage.js}"></script>
 
 </body>
 </html>

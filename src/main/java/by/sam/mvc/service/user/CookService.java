@@ -1,11 +1,11 @@
 package by.sam.mvc.service.user;
 
+import by.sam.mvc.dto.CookDto;
 import by.sam.mvc.dto.OrderDto;
-import by.sam.mvc.models.worktime.WeekDay;
-import by.sam.mvc.models.worktime.WorkTime;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.menu.Menu;
 import by.sam.mvc.models.user.Cook;
+import by.sam.mvc.models.worktime.WorkTime;
 import by.sam.mvc.service.Service;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,6 +16,8 @@ import java.util.List;
 public interface CookService extends Service<Cook> {
 
     Cook getAuthenticationCook(UserDetails currentUser);
+
+    void create(CookDto cookDto);
 
     void updateDistricts(int cookId, int townId, List<District> districts);
     void updateWorkTime(int id, List<WorkTime> times);

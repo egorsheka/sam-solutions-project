@@ -1,21 +1,23 @@
-package by.sam.mvc.service.user;
+package by.sam.mvc.service.user.impl;
 
+import by.sam.mvc.dto.CookDto;
 import by.sam.mvc.dto.OrderDto;
-import by.sam.mvc.models.location.Town;
-import by.sam.mvc.models.worktime.WorkTime;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.menu.Menu;
 import by.sam.mvc.models.user.Cook;
+import by.sam.mvc.models.user.UserEntity;
+import by.sam.mvc.models.worktime.WorkTime;
 import by.sam.mvc.repository.user.CookRepository;
 import by.sam.mvc.service.location.DistrictService;
 import by.sam.mvc.service.menu.MenuService;
+import by.sam.mvc.service.user.CookService;
+import by.sam.mvc.service.user.UserService;
 import by.sam.mvc.service.worktime.WorkTimeService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,20 +30,42 @@ public class CookServiceImpl implements CookService {
     private final MenuService menuService;
     private final DistrictService districtService;
     private final WorkTimeService workTimeService;
+    private final UserService userService;
 
 
 
-    public CookServiceImpl(CookRepository cookRepository, MenuService menuService, DistrictService districtService, WorkTimeService workTimeService) {
+    public CookServiceImpl(CookRepository cookRepository, MenuService menuService, DistrictService districtService, WorkTimeService workTimeService, UserService userService) {
         this.cookRepository = cookRepository;
         this.menuService = menuService;
         this.districtService = districtService;
         this.workTimeService = workTimeService;
+        this.userService = userService;
     }
 
     @Transactional
     @Override
     public void create(Cook cook) {
         cookRepository.create(cook);
+    }
+
+    @Transactional
+    @Override
+    public void create(CookDto cook) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setEmail(cook.getEmail());
+        userEntity.setPassword(cook.getPassword());
+
+        userService.create(userEntity);
+
+        Cook newCook = new Cook();
+
+        newCook.setName(cook.getName());
+        newCook.setPassword(cook.getSurname());
+        newCook.setEmail(cook.getEmail());
+        newCook.setPassword(cook.getPassword());
+        newCook.setUserEntity(userEntity);
+
+        cookRepository.create(newCook);
     }
 
     @Transactional
