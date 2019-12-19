@@ -1,4 +1,4 @@
-const selectDistrict = document.getElementById('selectDistricts');
+ const selectDistrict = document.getElementById('selectDistricts');
 console.log(selectDistrict.target);
 
 const selectButton = document.getElementById('select_');

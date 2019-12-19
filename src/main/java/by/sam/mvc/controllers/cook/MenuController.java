@@ -37,14 +37,9 @@ public class MenuController {
 
 
     @GetMapping(path = "/menuPage")
-<<<<<<< HEAD
-    public String getCookPersonalPage(Model model /*,@AuthenticationPrincipal UserDetails currentUser*/){
-        cookId = 2;//cookService.getAuthenticationCook(currentUser).getId();
-=======
     public String getCookPersonalPage(Model model, @AuthenticationPrincipal UserDetails currentUser){
         Cook cook =  cookService.getAuthenticationCook(currentUser);
         cookId = cookService.getAuthenticationCook(currentUser).getId();
->>>>>>> e93122ec3789654e7b0b1c9584a8774c9a8d0f01
         menuList = cookService.read(cookId).getMenu();
         model.addAttribute("menuList", menuList);
         return "startMenu";
