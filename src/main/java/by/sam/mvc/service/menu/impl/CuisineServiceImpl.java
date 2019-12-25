@@ -6,6 +6,8 @@ import by.sam.mvc.service.menu.CuisineService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 
 @Service
 public class CuisineServiceImpl implements CuisineService {
@@ -39,5 +41,15 @@ public class CuisineServiceImpl implements CuisineService {
     @Override
     public void delete(int id) {
         cuisineRepository.delete(id);
+    }
+
+    @Override
+    public List<Cuisine> findAll() {
+        return cuisineRepository.findAll();
+    }
+
+    @Override
+    public int getIdByName(String name) {
+       return cuisineRepository.getIdByName(name);
     }
 }

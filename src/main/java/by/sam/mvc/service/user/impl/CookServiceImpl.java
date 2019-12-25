@@ -3,6 +3,7 @@ package by.sam.mvc.service.user.impl;
 import by.sam.mvc.dto.CookDto;
 import by.sam.mvc.dto.OrderDto;
 import by.sam.mvc.models.location.District;
+import by.sam.mvc.models.menu.Dish;
 import by.sam.mvc.models.menu.Menu;
 import by.sam.mvc.models.user.Cook;
 import by.sam.mvc.models.user.Role;
@@ -10,6 +11,7 @@ import by.sam.mvc.models.user.UserEntity;
 import by.sam.mvc.models.worktime.WorkTime;
 import by.sam.mvc.repository.user.CookRepository;
 import by.sam.mvc.service.location.DistrictService;
+import by.sam.mvc.service.menu.CuisineService;
 import by.sam.mvc.service.menu.MenuService;
 import by.sam.mvc.service.user.CookService;
 import by.sam.mvc.service.user.UserService;
@@ -32,15 +34,17 @@ public class CookServiceImpl implements CookService {
     private final DistrictService districtService;
     private final WorkTimeService workTimeService;
     private final UserService userService;
+    private final CuisineService cuisineService;
 
 
 
-    public CookServiceImpl(CookRepository cookRepository, MenuService menuService, DistrictService districtService, WorkTimeService workTimeService, UserService userService) {
+    public CookServiceImpl(CookRepository cookRepository, MenuService menuService, DistrictService districtService, WorkTimeService workTimeService, UserService userService, CuisineService cuisineService) {
         this.cookRepository = cookRepository;
         this.menuService = menuService;
         this.districtService = districtService;
         this.workTimeService = workTimeService;
         this.userService = userService;
+        this.cuisineService = cuisineService;
     }
 
     @Transactional
@@ -153,8 +157,29 @@ public class CookServiceImpl implements CookService {
     @Transactional
     @Override
     public void updateMenuItem(int id, Menu menu) {
+        if(menu.getId() == 0){
+            createMenuItem(id, menu);
+        }
         Cook cook = cookRepository.read(id);
         Menu oldMenu = menuService.read(menu.getId());
+
+        int i = 0;
+        for(Dish dish: menu.getDishes()){
+            if(dish.getCuisine() == null){
+                dish.setCuisine(oldMenu.getDishes().get(i).getCuisine());
+            }
+            i++;
+            String name = dish.getCuisine().getName();
+            if(name.contains(",")){
+                String[] cuisineArray = name.split(",");
+                String cuisine = cuisineArray[cuisineArray.length - 1];
+                dish.getCuisine().setName(cuisine);
+            }
+            dish.getCuisine().setId(cuisineService.getIdByName(dish.getCuisine().getName()));
+        }
+        if (menu.getPrice() == null){
+            menu.setPrice(oldMenu.getPrice());
+        }
 
         cook.getMenu().remove(oldMenu);
         cook.getMenu().add(menu);
@@ -163,6 +188,14 @@ public class CookServiceImpl implements CookService {
 
         cookRepository.update(cook);
     }
+
+    @Override
+    public void createMenuItem(int id, Menu menu) {
+        menuService.create(menu);
+        Cook cook = cookRepository.read(id);
+        cookRepository.update(cook);
+    }
+
 
     @Transactional
     @Override

@@ -1,11 +1,8 @@
 package by.sam.mvc.controllers.cook;
 
 
-import by.sam.mvc.models.menu.Dish;
-import by.sam.mvc.models.menu.DishType;
-import by.sam.mvc.models.menu.Menu;
-import by.sam.mvc.models.menu.MenuLuxury;
-import by.sam.mvc.models.user.Cook;
+import by.sam.mvc.models.menu.*;
+import by.sam.mvc.service.menu.CuisineService;
 import by.sam.mvc.service.menu.MenuService;
 import by.sam.mvc.service.user.CookService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,31 +20,33 @@ import java.util.List;
 public class MenuController {
 
 
-    private List<Menu> menuList;
+    private List<Menu> menuList; //// !!! no local fields that share state
     private final MenuService menuService;
     private final CookService cookService;
+    private final CuisineService cuisineService;
 
     private int cookId;
 
 
-    public MenuController(MenuService menuService, CookService cookService) {
+    public MenuController(MenuService menuService, CookService cookService, CuisineService cuisineService) {
         this.menuService = menuService;
         this.cookService = cookService;
+        this.cuisineService = cuisineService;
     }
 
 
     @GetMapping(path = "/menuPage")
     public String getCookPersonalPage(Model model, @AuthenticationPrincipal UserDetails currentUser){
         cookId = cookService.getAuthenticationCook(currentUser).getId();
-        menuList = cookService.read(cookId).getMenu();
+        menuList = cookService.read(cookId).getMenu();//??? why do we need a local field in controller
         model.addAttribute("menuList", menuList);
         return "startMenu";
     }
 
-    @PostMapping(value = "/createMenu")
+    @GetMapping(value = "/createMenu")
     public String openCreateMenuPage(Model model) {
 
-        model.addAttribute("newMenu", new Menu());
+        model.addAttribute("editMenu", new Menu());
         return "createMenu";
     }
 
@@ -59,8 +58,6 @@ public class MenuController {
         return "startMenu";
     }
 
-
-    ///////////////////////////////////////////
     @PostMapping(value = "/saveNewMenu", params = {"addRow"} )
     public String addDishRowInNewMenu(@ModelAttribute Menu newMenu,  Model model) {
         if(newMenu.getDishes() == null){
@@ -83,7 +80,7 @@ public class MenuController {
 
 
     @PostMapping(value = "/editMenu", params = {"editMenu"})
-    public String openEditMenuPage( @ModelAttribute Menu editMenu, Model model) {
+    public String openEditMenuPage(@ModelAttribute Menu editMenu, Model model) {
         Menu menu = menuService.read(editMenu.getId());
         model.addAttribute( "editMenu", menu);
         return "editMenu";
@@ -99,7 +96,7 @@ public class MenuController {
     @PostMapping(value = "/editMenu", params = {"deleteMenu"})
     public String deleteMenu(@ModelAttribute Menu deleteMenu, Model model, HttpServletRequest request) {
         int deleteIndex = Integer.parseInt(request.getParameter("deleteMenu"));
-        menuList.remove(deleteIndex);
+        menuList.remove(deleteIndex); //???
         cookService.deleteMenuItem(cookId, deleteMenu.getId());
         model.addAttribute( "menuList", menuList);
         return "startMenu";
@@ -110,10 +107,16 @@ public class MenuController {
         if(menu.getDishes() == null){
             menu.setDishes(new ArrayList<>());
         }
-        menu.getDishes().add(new Dish());
+        cookService.updateMenuItem(cookId, menu);
+        menu = menuService.read(menu.getId());
+
+        menu.getDishes().add(new Dish(new String(), DishType.APPETISER, new Cuisine()));
         model.addAttribute("editMenu", menu);
         return "editMenu";
     }
+
+
+
 
 
     @PostMapping(value = "/saveMenu", params ={"removeRow"})
@@ -142,6 +145,10 @@ public class MenuController {
     public void getAllDishTypes(Model model){
         model.addAttribute("allTypesDish", DishType.values());
     }
+
+    @ModelAttribute
+    public void getAllCuisines(Model model){
+        model.addAttribute("allCuisines", cuisineService.findAll());}
 
 
 

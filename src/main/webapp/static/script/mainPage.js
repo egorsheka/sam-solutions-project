@@ -7,7 +7,7 @@ selectButton.addEventListener("change", function () {
     const obj = { "id": select.value}
     //http://sc0489:8080/personalcook_war_exploded/
     //http://localhost:8084/sam_solutions_project_war/
-    fetch( "http://sc0489:8080/personalcook_war_exploded/getDistricts",{
+    fetch( "http://localhost:8084/sam_solutions_project_war/getDistricts",{ // try not to specify server here
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'

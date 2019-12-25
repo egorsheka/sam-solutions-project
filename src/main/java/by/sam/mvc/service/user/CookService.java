@@ -23,6 +23,7 @@ public interface CookService extends Service<Cook> {
     void updateWorkTime(int id, List<WorkTime> times);
     void addMenuItem(int id, Menu menu);
     void updateMenuItem(int id, Menu menu);
+    void createMenuItem(int id, Menu menu);
     void deleteMenuItem(int cookId, int menuId);
 
     List<Cook> getCooksByDistrictId(int id);

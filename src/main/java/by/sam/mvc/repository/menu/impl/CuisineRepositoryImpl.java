@@ -4,6 +4,7 @@ import by.sam.mvc.repository.menu.CuisineRepository;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 
 @Repository
@@ -36,4 +37,16 @@ public class CuisineRepositoryImpl implements CuisineRepository {
     }
 
 
+    @Override
+    public List<Cuisine> findAll() {
+        return manager.createQuery("from Cuisine", Cuisine.class).getResultList();
+    }
+
+    @Override
+    public int getIdByName(String name) {
+        return manager.createQuery("from Cuisine where name = :name", Cuisine.class)
+                .setParameter("name", name)
+                .getSingleResult()
+                .getId();
+    }
 }

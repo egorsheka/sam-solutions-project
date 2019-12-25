@@ -1,59 +1,422 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>new menu</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<a th:href="${(#mvc.url('MC#getCookPersonalPage')).build()}" th:text="#{text.back}">back</a><p></p>-->
+<!--<form action="#" th:action="@{/saveNewMenu}" th:object="${newMenu}" method="post">-->
+<!--    <input type="hidden" th:value="${newMenu.id}" th:name="id">-->
+<!--    <label th:text="#{text.name}">name</label>-->
+<!--    <input type="text" th:value="${newMenu.name}" th:name="name">-->
+<!--    <p></p>-->
+<!--    <label th:text="#{text.type}">type</label>-->
+<!--    <input type="text" th:value="${newMenu.luxury}" th:name="luxury">-->
+<!--    <p></p>-->
+<!--    <label th:text="#{text.price}">price</label>-->
+<!--    <input type="text" th:value="${newMenu.price}" th:name="price">-->
+<!--    <p></p>-->
+<!--    <div th:each="dish, item : *{dishes}" ><input type="hidden" th:field="*{dishes[__${item.index}__].id}"></div>-->
+<!--    <div>-->
+<!--        <table th:unless="*{dishes.empty}" border="1">-->
+
+
+<!--            <tr>-->
+<!--                <td th:each="dish, item : *{dishes}">-->
+<!--                    <select th:field="*{dishes[__${item.index}__].dishType}">-->
+<!--                        <option th:each="type : ${allTypesDish}" th:value="${type}" th:text="#{${'text.type.' + type}}" ></option>-->
+<!--                    </select>-->
+<!--                </td>-->
+<!--            </tr>-->
+
+
+<!--            <tr>-->
+<!--                <td th:each="dish, item : *{dishes}">-->
+<!--                    <input th:field="*{dishes[__${item.index}__].name}" />-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--                <td th:each="dish, item : *{dishes}"><input th:field="*{dishes[__${item.index}__].cuisine.name}"/>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--        </table>-->
+<!--        <table>-->
+<!--            <tr>-->
+<!--                <td th:each="dish, item : *{dishes}">-->
+<!--                    <button type="submit" th:text="#{text.removeDish}" th:value="${item.index}" name="removeRow"> remove dish </button>-->
+<!--                </td>-->
+<!--            </tr>-->
+<!--        </table>-->
+<!--    </div>-->
+
+<!--    <button type="submit" th:text="#{text.addDish}" name="addRow"> add dish </button>-->
+<!--    <button type="submit" th:text="#{text.submit}" name="submit"> submit </button>-->
+
+
+<!--</form>-->
+<!--</body>-->
+<!--</html>-->
+
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>new menu</title>
+    <title>edit menu</title>
+    <script type="text/javascript" th:src="@{/script/jquery.js}"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/newMenu.css}">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 <body>
 
-<a th:href="${(#mvc.url('MC#getCookPersonalPage')).build()}" th:text="#{text.back}">back</a><p></p>
-<form action="#" th:action="@{/saveNewMenu}" th:object="${newMenu}" method="post">
-    <input type="hidden" th:value="${newMenu.id}" th:name="id">
-    <label th:text="#{text.name}">name</label>
-    <input type="text" th:value="${newMenu.name}" th:name="name">
-    <p></p>
-    <label th:text="#{text.type}">type</label>
-    <input type="text" th:value="${newMenu.luxury}" th:name="luxury">
-    <p></p>
-    <label th:text="#{text.price}">price</label>
-    <input type="text" th:value="${newMenu.price}" th:name="price">
-    <p></p>
-    <div th:each="dish, item : *{dishes}" ><input type="hidden" th:field="*{dishes[__${item.index}__].id}"></div>
-    <div>
-        <table th:unless="*{dishes.empty}" border="1">
+
+<body>
+<form action="#" th:action="@{/saveMenu}" th:object="${editMenu}" method="post">
+    <div class="container-new-menu">
+
+        <input type="hidden" th:value="${editMenu.id}" name="id">
+        <input type="text" th:value="${editMenu.name}" name="name" class="form-control menu-name"
+               placeholder="menu title"/>
 
 
-            <tr>
-                <td th:each="dish, item : *{dishes}">
-                    <select th:field="*{dishes[__${item.index}__].dishType}">
-                        <option th:each="type : ${allTypesDish}" th:value="${type}" th:text="#{${'text.type.' + type}}" ></option>
-                    </select>
-                </td>
-            </tr>
+        <div class="advice-block text-center please-fill-the-sections">Please fill the sections below.</div>
 
 
-            <tr>
-                <td th:each="dish, item : *{dishes}">
-                    <input th:field="*{dishes[__${item.index}__].name}" />
-                </td>
-            </tr>
-            <tr>
-                <td th:each="dish, item : *{dishes}"><input th:field="*{dishes[__${item.index}__].cuisine.name}"/>
-                </td>
-            </tr>
-        </table>
-        <table>
-            <tr>
-                <td th:each="dish, item : *{dishes}">
-                    <button type="submit" th:text="#{text.removeDish}" th:value="${item.index}" name="removeRow"> remove dish </button>
-                </td>
-            </tr>
-        </table>
+        <div class="card new-menu-card">
+            <label style="margin-left: 18px; margin-top: 10px;">Price</label>
+            <p></p>
+            <label style="margin-left: 18px;">The price includes : your time, travel expenses, the cooking, the
+                ingredients,
+                the service and the cleaning.
+                <br/>
+                La Belle Assiette will deduct a 25% commission on the total amount of each booking</label>
+            <div class="card-body">
+                <label>Please choose a price per guest</label>
+                <div class="row">
+
+                    <div class="col-sm-10">
+                        <div class="custom-control-inline price">
+                            <label class="form-check-label" for="gridRadios1">
+                                35 руб.
+                            </label>
+                            <input class="form-check-input" type="radio"
+                                   id="gridRadios1" name="gridRadios" value="35">
+                        </div>
+                        <div class="custom-control-inline price">
+                            <label class="form-check-label" for="gridRadios1">
+                                45 руб.
+                            </label>
+                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="45"
+                                   checked="checked">
+                        </div>
+                        <div class="custom-control-inline price">
+                            <label class="form-check-label" for="gridRadios1">
+                                65 руб.
+                            </label>
+                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="65">
+                        </div>
+                        <div class="custom-control-inline price">
+                            <label class="form-check-label" for="gridRadios1">
+                                95 руб.
+                            </label>
+                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios4" value="95">
+                        </div>
+                        <div class="custom-control" style="margin-top: 15px; margin-left: 26px;">
+                            <div class="custom-control-inline">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios5">
+                                <label class="form-check-label">
+                                    Other:
+                                </label>
+                                <input type="text" id="valueGridRadios5" class="form-control" placeholder="price"
+                                       style="width: 70px; margin-left: 5px; margin-right: 2px; position: relative; bottom: 8px"/>
+                                <label class="form-check-label" for="gridRadios1">
+                                    руб.
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <div class="card new-menu-card">
+            <label style="margin-left: 18px; margin-top: 10px;">Menu composition</label>
+            <p></p>
+            <div class="yellow">
+                <label style="margin-left: 18px;">Given the selected price, we recommend that you have a course
+                    menu:</label>
+                <ul style="margin-left: 40px;">
+                    <li>Appetizer</li>
+                    <li>Main Course</li>
+                    <li>Dessert</li>
+                </ul>
+            </div>
+
+            <div class="card-body">
+                <div class="row" style=" display: table-cell;" id="parent-dish">
+
+
+                    <div class="card dish-card" th:each="dish, item : ${editMenu.dishes}"
+                         th:id="${'dish' + item.index}">
+
+                        <div class="row type-of-dish">
+                            <label style="margin-left: 30px; margin-top: 10px;">Menu courses</label>
+                            <select th:field="${editMenu.dishes[__${item.index}__].dishType}" class="form-control"
+                                    style="width: 130px; margin-left: 10px">
+                                <option th:each="type : ${allTypesDish}" th:value="${type}"
+                                        th:text="#{${'text.type.' + type}}"
+                                        th:selected="${type == editMenu.dishes[item.index].dishType}"></option>
+                            </select>
+                            <i class="far fa-trash-alt" style="margin-left: 600px"></i>
+                            <button type=""> delete</button>
+
+                            <!--                            <a href="#" title="DELETE THIS COURSE" data-placement="top" data-toggle="popover"-->
+                            <!--                               data-trigger="hover" data-content=" ">DELETE</a>-->
+                            <!--                        <script>-->
+                            <!--                            $(document).ready(function () {-->
+                            <!--                                $('[data-toggle="popover"]').popover();-->
+                            <!--                            });-->
+                            <!--                        </script>-->
+
+                        </div>
+
+
+                        <div class="card-body dish-card-body">
+
+                            <input type="text" class="form-control" placeholder="dish title" th:field="*{dishes[__${item.index}__].name}"
+
+                                   style="font-size: 16px; width: 54rem;"/>
+
+                            <input type="hidden" class="form-control" placeholder="dish title" th:field="*{dishes[__${item.index}__].id}"/>
+
+                            <label style="margin-top: 10px;">Type of cuisine</label>
+
+                            <div th:id="${item.index + item.index}">
+                                <input type="hidden" th:id="${'input'+item.index}"
+                                       th:name="*{dishes[__${item.index}__].cuisine.name}">
+                                <div class="card cuisine-card" th:each="cuisine : ${allCuisines}"
+                                     th:id="${'cui' + item.index + cuisine.name}" th:value="${cuisine.name}"
+                                     th:name="${cuisine.name}" onclick="getCuisine(this)">
+                                    <label class="cuisine-card-label" th:text="${cuisine.name}"></label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="row justify-content-center">
+                        <button type="submit" name="addRow" class="btn btn-classic save" style="display: inline-block; margin-top: 30px; background-color: #333333">ADD ONE MORE DISH</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="row justify-content-center">
+            <button class="btn btn-classic save" type="submit" name="submit" id="subButton"
+                    style="display: inline-block; margin-top: 20px">SAVE
+            </button>
+        </div>
+
     </div>
-
-    <button type="submit" th:text="#{text.addDish}" name="addRow"> add dish </button>
-    <button type="submit" th:text="#{text.submit}" name="submit"> submit </button>
-
-
+    <div th:id="container"></div>
 </form>
+<!--</form>-->
+</body>
+
+
+<script type="text/javascript">
+    function getCuisine(param) {
+
+
+        let regex = param.id.match(/cui(\d+)(.+)/);
+        let parentId = regex[1];
+        let parentName = regex[2];
+
+        const mainDish = document.getElementById($(param).parent().attr("id")).childNodes;
+
+
+        for (var i = 0; i < mainDish.length; i++) {
+            console.log(mainDish[i]);
+            if (mainDish[i].nodeName == 'DIV') {
+                if (mainDish[i].classList.contains('cuisine-card-selected')) {
+                    mainDish[i].classList.remove('cuisine-card-selected');
+                    mainDish[i].classList.add('cuisine-card');
+                }
+            }
+
+        }
+
+
+        if (param.classList.contains('cuisine-card')) {
+            param.classList.remove('cuisine-card');
+        }
+
+
+        param.classList.add('cuisine-card-selected');
+
+        let div = document.getElementById('container');
+        let newElement = document.createElement('div');
+        newElement.innerHTML = '<input type=\"hidden\" id=\"dishes' + parentId + '.cuisine.name\" name=\"dishes[' + parentId + '].cuisine.name\" value=\"' + parentName + '\">';
+        div.append(newElement);
+        console.log();
+    }
+
+    jQuery(document).ready(function ($) {
+
+        const mainDish = document.getElementById('parent-dish').childNodes;
+
+        const inputCount = (mainDish.length - 1) / 2 - 1;
+        console.log('mainDish.length = ' + inputCount);
+        const inputArray = [];
+
+        for (var i = 0; i < inputCount; i++) {
+            inputArray.push(document.getElementById('input' + i));
+        }
+
+
+        let str = 'cui' + 0 + inputArray[0].id;
+        let str2 = str.match(/cui(\d+).+/);
+        let str3 = str2[1];
+
+        console.log(str);
+        console.log(str3);
+
+
+        for (var i = 0; i < inputArray.length; i++) {
+            document.getElementById('cui' + i + inputArray[i].name).classList.remove('cuisine-card');
+            document.getElementById('cui' + i + inputArray[i].name).classList.add('cuisine-card-selected');
+        }
+
+
+        for (var i = 0; i < inputCount; i++) {
+            inputArray.push(document.getElementById('input' + i));
+        }
+
+        var rt1 = document.getElementById('gridRadios1');
+        var rt2 = document.getElementById('gridRadios2');
+        var rt3 = document.getElementById('gridRadios3');
+        var rt4 = document.getElementById('gridRadios4');
+        var rt5 = document.getElementById('gridRadios5');
+
+
+        // rt1.addEventListener("click", function () {
+        //     let price = 35;
+        //     let div = document.getElementById('container');
+        //     let newElement = document.createElement('div');
+        //     newElement.innerHTML = '<input type=\"hidden\" id=\"price\" name=\"price\" value=\"' + price + '\">';
+        //     div.append(newElement);
+        // });
+        // rt2.addEventListener("click", function () {
+        //     let price = 45;
+        //     let div = document.getElementById('container');
+        //     let newElement = document.createElement('div');
+        //     newElement.innerHTML = '<input type=\"hidden\" id=\"price\" name=\"price\" value=\"' + price + '\">';
+        //     div.append(newElement);
+        // });
+        // rt3.addEventListener("click", function () {
+        //     let price = 65;
+        //     let div = document.getElementById('container');
+        //     let newElement = document.createElement('div');
+        //     newElement.innerHTML = '<input type=\"hidden\" id=\"price\" name=\"price\" value=\"' + price + '\">';
+        //     div.append(newElement);
+        // });
+        // rt4.addEventListener("click", function () {
+        //     let price = 95;
+        //     let div = document.getElementById('container');
+        //     let newElement = document.createElement('div');
+        //     newElement.innerHTML = '<input type=\"hidden\" id=\"price\" name=\"price\" value=\"' + price + '\">';
+        //     div.append(newElement);
+        // });
+
+
+        const subButton = document.getElementById('subButton');
+        subButton.addEventListener("mouseover", function () {
+
+
+            var price;
+
+            var rt1 = document.getElementById('gridRadios1');
+            var rt2 = document.getElementById('gridRadios2');
+            var rt3 = document.getElementById('gridRadios3');
+            var rt4 = document.getElementById('gridRadios4');
+            var rt5 = document.getElementById('gridRadios5');
+
+            if (rt1.checked) {
+                price = 35;
+            }
+            if (rt2.checked) {
+                price = 45;
+            }
+            if (rt3.checked) {
+                price = 65;
+            }
+            if (rt4.checked) {
+                price = 95;
+            }
+            if (rt5.checked) {
+                price = document.getElementById('valueGridRadios5').value;
+
+            }
+
+
+            let div = document.getElementById('container');
+            let newElement = document.createElement('div');
+            newElement.innerHTML = '<input type=\"hidden\" id=\"price\" name=\"price\" value=\"' + price + '\">';
+            div.append(newElement);
+
+
+        });
+    });
+</script>
+
 </body>
 </html>
+
+
+<!--<head>-->
+<!--    <script src="https://kit.fontawesome.com/a076d05399.js"></script>-->
+
+
+<!--    &lt;!&ndash;    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">&ndash;&gt;-->
+<!--    &lt;!&ndash;    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>&ndash;&gt;-->
+<!--    &lt;!&ndash;    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>&ndash;&gt;-->
+
+
+<!--</head>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

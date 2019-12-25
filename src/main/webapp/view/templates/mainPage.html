@@ -18,72 +18,72 @@
 
 
 <form action="#" th:action="@{/viewMenu}" th:object="${order}" method="post">
-<div class="app-info-container">
+    <div class="app-info-container">
 
-    <div class="form-group row"
-         style="color:white; font-size: 30px;position: relative; top: 200px; text-align: center; height: 10em;
+        <div class="form-group row"
+             style="color:white; font-size: 30px;position: relative; top: 200px; text-align: center; height: 10em;
   display: flex;
   align-items: center;
   justify-content: center">
 
-        <span>in</span>
-        <div style="padding: 10px;">
-            <select  class="form-control input-main" th:field="${order.town}" id="select_">
-                <option th:each="t : ${townList}" th:value="${t.id}" th:text="${t.name}"></option>
-            </select>
-        </div>
+            <span>in</span>
+            <div style="padding: 10px;">
+                <select  class="form-control input-main" th:field="${order.town}" id="select_">
+                    <option th:each="t : ${townList}" th:value="${t.id}" th:text="${t.name}"></option>
+                </select>
+            </div>
 
-        <div style="padding: 10px;">
-            <select class="form-control input-main" th:field="${order.district.id}" id ="selectDistricts" style="z-index: 2">
-                <option th:each="district : ${districtList}" th:value="${district.id}" th:text="${district.name}">
-                </option>
-            </select>
-        </div>
+            <div style="padding: 10px;">
+                <select class="form-control input-main" th:field="${order.district.id}" id ="selectDistricts" style="z-index: 2">
+                    <option th:each="district : ${districtList}" th:value="${district.id}" th:text="${district.name}">
+                    </option>
+                </select>
+            </div>
 
-        <div >
-            <span>on</span>
-        </div>
-
-
-        <div style="padding: 10px;">
-            <input class="form-control input-main" type="date"  th:value="${order.date}"  th:field="${order.date}" min="2019-12-01" max="2020-03-31">
-        </div>
-
-        <span >at</span>
-        <div style="padding: 10px;">
-            <select th:field="${order.time}" class="form-control" style="width: 90px">
-                <option th:value="${'01:00'}" th:text="${'01:00'}">01:00</option>
-                <option th:value="${'02:00'}" th:text="${'02:00'}">02:00</option>
-                <option th:value="${'03:00'}" th:text="${'03:00'}">03:00</option>
-                <option th:value="${'04:00'}" th:text="${'04:00'}">04:00</option>
-                <option th:value="${'05:00'}" th:text="${'05:00'}">05:00</option>
-                <option th:value="${'06:00'}" th:text="${'06:00'}">06:00</option>
-                <option th:value="${'07:00'}" th:text="${'07:00'}">07:00</option>
-                <option th:value="${'08:00'}" th:text="${'08:00'}">08:00</option>
-                <option th:value="${'09:00'}" th:text="${'09:00'}">09:00</option>
-                <option th:value="${'10:00'}" th:text="${'10:00'}">10:00</option>
-                <option th:value="${'11:00'}" th:text="${'11:00'}">11:00</option>
-                <option th:value="${'12:00'}" th:text="${'12:00'}">12:00</option>
-                <option th:value="${'13:00'}" th:text="${'13:00'}">13:00</option>
-                <option th:value="${'14:00'}" th:text="${'14:00'}">14:00</option>
-                <option th:value="${'15:00'}" th:text="${'15:00'}">15:00</option>
-                <option th:value="${'16:00'}" th:text="${'16:00'}">16:00</option>
-                <option th:value="${'17:00'}" th:text="${'17:00'}">17:00</option>
-                <option th:value="${'18:00'}" th:text="${'18:00'}">18:00</option>
-                <option th:value="${'19:00'}" th:text="${'19:00'}">19:00</option>
-                <option th:value="${'20:00'}" th:text="${'20:00'}">20:00</option>
-                <option th:value="${'21:00'}" th:text="${'21:00'}">21:00</option>
-                <option th:value="${'22:00'}" th:text="${'22:00'}">22:00</option>
-                <option th:value="${'23:00'}" th:text="${'23:00'}">23:00</option>
-                <option th:value="${'24:00'}" th:text="${'24:00'}">23:00</option>
-            </select>
-        </div>
+            <div >
+                <span>on</span>
+            </div>
 
 
-        <div style="padding: 10px;">
-            <button th:text="#{text.view_menu}" name="save" type="submit" class="btn btn-warning" style=" border-radius: 5px; margin-top: 10px">view menu
-            </button>
-        </div>
+            <div style="padding: 10px;">
+                <input class="form-control input-main" type="date"  th:value="${order.date}"  th:field="${order.date}" min="2019-12-01" max="2020-03-31">
+            </div>
+
+            <span >at</span>
+            <div style="padding: 10px;">
+                <select th:field="${order.time}" class="form-control" style="width: 90px">
+                    <option th:value="${'01:00'}" th:text="${'01:00'}">01:00</option>
+                    <option th:value="${'02:00'}" th:text="${'02:00'}">02:00</option>
+                    <option th:value="${'03:00'}" th:text="${'03:00'}">03:00</option>
+                    <option th:value="${'04:00'}" th:text="${'04:00'}">04:00</option>
+                    <option th:value="${'05:00'}" th:text="${'05:00'}">05:00</option>
+                    <option th:value="${'06:00'}" th:text="${'06:00'}">06:00</option>
+                    <option th:value="${'07:00'}" th:text="${'07:00'}">07:00</option>
+                    <option th:value="${'08:00'}" th:text="${'08:00'}">08:00</option>
+                    <option th:value="${'09:00'}" th:text="${'09:00'}">09:00</option>
+                    <option th:value="${'10:00'}" th:text="${'10:00'}">10:00</option>
+                    <option th:value="${'11:00'}" th:text="${'11:00'}">11:00</option>
+                    <option th:value="${'12:00'}" th:text="${'12:00'}">12:00</option>
+                    <option th:value="${'13:00'}" th:text="${'13:00'}">13:00</option>
+                    <option th:value="${'14:00'}" th:text="${'14:00'}">14:00</option>
+                    <option th:value="${'15:00'}" th:text="${'15:00'}">15:00</option>
+                    <option th:value="${'16:00'}" th:text="${'16:00'}">16:00</option>
+                    <option th:value="${'17:00'}" th:text="${'17:00'}">17:00</option>
+                    <option th:value="${'18:00'}" th:text="${'18:00'}">18:00</option>
+                    <option th:value="${'19:00'}" th:text="${'19:00'}">19:00</option>
+                    <option th:value="${'20:00'}" th:text="${'20:00'}">20:00</option>
+                    <option th:value="${'21:00'}" th:text="${'21:00'}">21:00</option>
+                    <option th:value="${'22:00'}" th:text="${'22:00'}">22:00</option>
+                    <option th:value="${'23:00'}" th:text="${'23:00'}">23:00</option>
+                    <option th:value="${'24:00'}" th:text="${'24:00'}">23:00</option>
+                </select>
+            </div>
+
+
+            <div style="padding: 10px;">
+                <button th:text="#{text.view_menu}" name="save" type="submit" class="btn btn-warning" style=" border-radius: 5px; margin-top: 10px">view menu
+                </button>
+            </div>
 
 
 
@@ -91,20 +91,20 @@
     </div>
 </div>
 
-<div class="app-content-container">
-    <div class="app-content-text" style="border-bottom: solid 0.1px white; padding-bottom: 10px">
-        <p style="font-size: 40px">Rediscover the pleasure of entertaining at home</p>
-        We believe people should love hosting and entertaining others at home. It should be easy, delicious and
-        enjoyable.
-        <p></p>
-        In the future, hosting meal with loved ones will be simple and stress-free. Planning will be a breeze.
-        Ingredients will be fresh. Logistics will be invisible.
-    </div>
+    <div class="app-content-container">
+        <div class="app-content-text" style="border-bottom: solid 0.1px white; padding-bottom: 10px">
+            <p style="font-size: 40px">Rediscover the pleasure of entertaining at home</p>
+            We believe people should love hosting and entertaining others at home. It should be easy, delicious and
+            enjoyable.
+            <p></p>
+            In the future, hosting meal with loved ones will be simple and stress-free. Planning will be a breeze.
+            Ingredients will be fresh. Logistics will be invisible.
+        </div>
 
-    <p align="center" style="font-size: 40px; width: 1000px; color: white; margin: 0 auto; padding-top: 20px">
-        At La Belle Assiette, we are building this future.
-    </p>
-</div>
+        <p align="center" style="font-size: 40px; width: 1000px; color: white; margin: 0 auto; padding-top: 20px">
+            At La Belle Assiette, we are building this future.
+        </p>
+    </div>
 
 </form>
 

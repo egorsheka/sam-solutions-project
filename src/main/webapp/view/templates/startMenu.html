@@ -2,67 +2,109 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>menu</title>
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
-<body>
-<a th:href="${(#mvc.url('CC#getCookPersonalPage')).build()}" th:text="#{text.back}">back</a><p></p>
+<body style="background-color: #f9f8f6">
+
+<a th:href="${(#mvc.url('CC#getCookPersonalPage')).build()}" th:text="#{text.back}">back</a>
+<a th:href="${(#mvc.url('MC#openCreateMenuPage')).build()}" th:text="#{text.add}">add</a>
+<p></p>
 <form action="#" th:action="@{/createMenu}" method="post">
     <div>
         <button type="submit" th:text="#{text.add}">add</button>
     </div>
 </form>
 
-
-<fieldset th:each="menuItem, item : ${menuList}">
-    <legend th:text="${menuItem.name}"></legend>
-
-
-    <!-------------------------------------- Edit main fields --------------------------------------------------->
-
-    <form action="#" th:action="@{/editMenu}" th:object="${menuItem}" method="post">
-        <label th:text="#{text.name}">name</label>
-        <input type="hidden" th:value="${menuItem.id}" th:name="id"/>
-        <input type="text" th:value="${menuItem.name}" th:name="name"/>
-        <p></p>
-
-        <label th:text="#{text.type}">type</label>
-        <input type="text" th:value="${menuItem.luxury}"  th:name="luxury"/>
-
-
-        <p></p>
-        <label th:text="#{text.price}">price</label>
-        <input type="text" th:value="${menuItem.price}" th:name="price"/>
-
-        <p></p>
-        <div class="submit">
-            <button type="submit" th:text="#{text.edit}" name = "editMenu">edit</button>
-        </div>
-
-
-        <!-------------------------------------- Main info about menu --------------------------------------------------->
-
-
-        <div th:object="${menuItem}">
-<!--            <label th:value="#{${dishType}}">Price for ${UserName}:</label>-->
-
-            <label th:text="#{text.price}"></label>
-            <label th:text="*{price}"></label>
-
-            <p></p>
-
-            <label th:text="#{text.luxury}">luxury:</label>
-            <label th:text="#{'text.luxury.' + *{luxury}}"></label>
-        </div>
-
-        <div>
-            <button type="submit" th:text="#{text.see_more}" name = "seeMore">see more</button>
-        </div>
-
-    <div>
-        <button type="submit" th:value="${item.index}" th:text="#{text.delete_menu}" name = "deleteMenu">delete menu</button>
+<div th:each="menuItem, item : ${menuList}" class="card"
+     style="width: 18rem; margin-left: 300px; margin-top: 50px; background-color: white; border: 0px;">
+    <div style="border-bottom-width: 4px; /* Толщина линии внизу */
+    border-bottom-style: solid; /* Стиль линии внизу */
+    border-bottom-color: #f9f8f6; /* Цвет линии внизу */">
+        <label th:text="${menuItem.name}" th:value="${menuItem.name}" th:name="name"></label>
     </div>
+    <form action="#" th:action="@{/editMenu}" th:object="${menuItem}" method="post">
+        <div>
+            <input type="hidden" th:value="${menuItem.id}" th:name="id"/>
+            <label>price for one guest</label>
+            <label th:text="${menuItem.price}" th:value="${menuItem.price}" th:name="price"></label>
+            <div style="background-color: #444444; margin-left: 10px; margin-right: 10px; margin-bottom: 10px">
+                <button type="submit" th:text="#{text.see_more}" name="seeMore" class="btn btn-classic save"
+                        style="display: inline-block;  width : 230px; margin-left: 15px;margin-top: 10px ">SEE MENU
+                </button>
+                <button type="submit" th:text="#{text.edit}" name="editMenu" class="btn btn-classic save"
+                        style="display: inline-block;  width : 230px; margin-left: 15px;">MODIFY MENU
+                </button>
+                <button type="submit" th:value="${item.index}" th:text="#{text.delete_menu}" name="deleteMenu"
+                        class="btn btn-classic save"
+                        style="display: inline-block;  width : 230px; margin-left: 15px;">DELETE MENU
+                </button>
+            </div>
+
+        </div>
     </form>
 
-</fieldset>
+</div>
+
+
+
+
+
+<!--<fieldset th:each="menuItem, item : ${menuList}">-->
+<!--    <legend th:text="${menuItem.name}"></legend>-->
+
+
+<!--    &lt;!&ndash;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; Edit main fields -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+
+<!--    <form action="#" th:action="@{/editMenu}" th:object="${menuItem}" method="post">-->
+<!--        <label th:text="#{text.name}">name</label>-->
+<!--        <input type="hidden" th:value="${menuItem.id}" th:name="id"/>-->
+<!--        <input type="text" th:value="${menuItem.name}" th:name="name"/>-->
+<!--        <p></p>-->
+
+<!--        <label th:text="#{text.type}">type</label>-->
+<!--        <input type="text" th:value="${menuItem.luxury}" th:name="luxury"/>-->
+
+
+<!--        <p></p>-->
+<!--        <label th:text="#{text.price}">price</label>-->
+<!--        <input type="text" th:value="${menuItem.price}" th:name="price"/>-->
+
+<!--        <p></p>-->
+<!--        <div class="submit">-->
+<!--            <button type="submit" th:text="#{text.edit}" name="editMenu">edit</button>-->
+<!--        </div>-->
+
+
+<!--        &lt;!&ndash;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; Main info about menu -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
+
+
+<!--        <div th:object="${menuItem}">-->
+<!--            &lt;!&ndash;            <label th:value="#{${dishType}}">Price for ${UserName}:</label>&ndash;&gt;-->
+
+<!--            <label th:text="#{text.price}"></label>-->
+<!--            <label th:text="*{price}"></label>-->
+
+<!--            <p></p>-->
+
+<!--            <label th:text="#{text.luxury}">luxury:</label>-->
+<!--            <label th:text="#{'text.luxury.' + *{luxury}}"></label>-->
+<!--        </div>-->
+
+<!--        <div>-->
+<!--            <button type="submit" th:text="#{text.see_more}" name="seeMore">see more</button>-->
+<!--        </div>-->
+
+<!--        <div>-->
+<!--            <button type="submit" th:value="${item.index}" th:text="#{text.delete_menu}" name="deleteMenu">delete menu-->
+<!--            </button>-->
+<!--        </div>-->
+<!--    </form>-->
+
+<!--</fieldset>-->
 </body>
 </html>
 

@@ -1,0 +1,113 @@
+body {
+
+    background-color: #f9f8f6;
+    font-family: GothamBook;
+}
+.menu-name{
+    font-size: 20px;
+    width: 60rem;
+    margin-top: 30px;
+    background-color: #f5f5f5;
+}
+.please-fill-the-sections{
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    margin-top: 25px;
+    padding: 20px;
+    padding-bottom: 10px;
+    font-size: .9em;
+    font-family: GothamBook,sans-serif;
+}
+
+.new-menu-card{
+    width: 60rem;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    background-color: #f5f5f5;
+}
+
+.price{
+    margin-left: 50px;
+}
+.yellow{
+
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+    color: #8a6d3b;
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 57rem
+
+}
+
+.type-of-dish{
+    position: relative; display: flex;align-items: center;
+}
+
+.dish-card{
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 57rem;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    background-color: #DDDDDD;
+}
+
+.dish-card-body{
+    border-bottom: 1px solid #dfdbdb;
+    background: #efefef;
+}
+
+
+
+
+.btn.btn-classic {
+    color: white;
+    background-color: rgb(243, 153, 57);
+    padding: 7px 10px;
+}
+
+.container-new-menu{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    position: relative;
+}
+
+
+.cuisine-card-selected{
+    font-size: 12px;
+    color: white;
+    background: #F39939;
+    font-family: GothamBook;
+    display: inline-block;
+    vertical-align: top
+}
+
+.cuisine-card{
+    font-size: 12px;
+    color: #999;
+    font-family: GothamBook;
+    display: inline-block;
+    vertical-align: top
+}
+
+.cuisine-card:hover{
+    background: #767676;
+    font-size: 12px;
+    font-family: GothamBook;
+    color: white;
+    display: inline-block;
+    vertical-align: top
+}
+
+.cuisine-card-label{
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+
+}
+
