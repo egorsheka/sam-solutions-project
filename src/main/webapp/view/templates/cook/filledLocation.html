@@ -1,36 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta charset="UTF-8">
     <title>location</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 <body>
-
+<div th:replace = "fragments/cookNavbar :: cookNavbar"></div>
 <a th:href="${(#mvc.url('CC#getCookPersonalPage')).build()}" th:text="#{text.back}">back</a><p></p>
 <form action="#" th:action="@{/selectTown}" th:object="${town}" method="post">
     <div>
-
-
         <select th:field="${town.id}"/>
-        <option th:each="t : ${townList}" th:value="${t.id}" th:text="${t.name}"></option>
+        <option th:each="t : ${townList}" th:value="${t.id}" th:text="${t.name}" th:selected="${t.id == cook.districts[0].town.id}"></option>
         </select>
 
         <button type="submit" th:text="#{text.submit}">submit</button>
     </div>
 
 
-    <div th:unless="${!(town.id != 0 && !town.districts.isEmpty())}">
-
+    <div>
         <div th:each="townDisElement, item :${town.districts}">
             <p></p>
             <select th:field="${town.districts[__${item.index}__].id}">
                 <option th:each="district : ${districtList}" th:value="${district.id}" th:text="${district.name}">
                 </option>
             </select>
-            <button type="submit" th:text="#{text.removeDistrict}" th:value="${item.index}" name="removeRow"> remove District
+            <button type="submit" th:text="#{text.removeDistrict}" th:value="${item.index}" name="removeRow"> remove district
             </button>
         </div>
 
@@ -44,6 +38,7 @@
             <button type="submit" th:text="#{text.save}" name="save">save</button>
         </div>
     </div>
+
 </form>
 </body>
 </html>

@@ -1,8 +1,11 @@
 package by.sam.mvc.service.user.impl;
 
 import by.sam.mvc.dto.CookDto;
+import by.sam.mvc.dto.DistrictDto;
+import by.sam.mvc.dto.LocationDto;
 import by.sam.mvc.dto.OrderDto;
 import by.sam.mvc.models.location.District;
+import by.sam.mvc.models.location.Town;
 import by.sam.mvc.models.menu.Dish;
 import by.sam.mvc.models.menu.Menu;
 import by.sam.mvc.models.user.Cook;
@@ -23,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -111,20 +115,14 @@ public class CookServiceImpl implements CookService {
 
     @Transactional
     @Override
-    public void updateDistricts(int cookId, int townId, List<District> districts) {
-
-        Cook cook = cookRepository.read(cookId);
-
-        if (!(districts == null || districts.isEmpty())) {
-
-            districts = districts.stream()
-                    .map(District::getId)
-                    .map(districtService::read)
-                    .collect(Collectors.toList());
-
-            cook.setDistricts(districts);
-            cookRepository.update(cook);
+    public void updateDistricts(int cookId, List<DistrictDto> dtoList) {
+        List<District> districts = new ArrayList<>();
+        for(DistrictDto dto: dtoList){
+            districts.add(districtService.read(dto.getId()));
         }
+        Cook cook = cookRepository.read(cookId);
+        cook.setDistricts(districts);
+        update(cook);
     }
 
     @Transactional
@@ -147,6 +145,14 @@ public class CookServiceImpl implements CookService {
 
     @Transactional
     @Override
+    public void updateMenu(int id, List<Menu> menus) {
+        Cook cook = cookRepository.read(id);
+        cook.setMenu(menus);
+        cookRepository.update(cook);
+    }
+
+    @Transactional
+    @Override
     public void addMenuItem(int id, Menu menu) {
         Cook cook = cookRepository.read(id);
         menuService.create(menu);
@@ -154,33 +160,14 @@ public class CookServiceImpl implements CookService {
         cookRepository.update(cook);
     }
 
+
+    //todo newMenu = menuService.read(id);
+    //todo cook.add(newM)
     @Transactional
     @Override
     public void updateMenuItem(int id, Menu menu) {
-        if(menu.getId() == 0){
-            createMenuItem(id, menu);
-        }
         Cook cook = cookRepository.read(id);
         Menu oldMenu = menuService.read(menu.getId());
-
-        int i = 0;
-        for(Dish dish: menu.getDishes()){
-            if(dish.getCuisine() == null){
-                dish.setCuisine(oldMenu.getDishes().get(i).getCuisine());
-            }
-            i++;
-            String name = dish.getCuisine().getName();
-            if(name.contains(",")){
-                String[] cuisineArray = name.split(",");
-                String cuisine = cuisineArray[cuisineArray.length - 1];
-                dish.getCuisine().setName(cuisine);
-            }
-            dish.getCuisine().setId(cuisineService.getIdByName(dish.getCuisine().getName()));
-        }
-        if (menu.getPrice() == null){
-            menu.setPrice(oldMenu.getPrice());
-        }
-
         cook.getMenu().remove(oldMenu);
         cook.getMenu().add(menu);
 
@@ -189,10 +176,12 @@ public class CookServiceImpl implements CookService {
         cookRepository.update(cook);
     }
 
+    @Transactional
     @Override
     public void createMenuItem(int id, Menu menu) {
         menuService.create(menu);
         Cook cook = cookRepository.read(id);
+        cook.getMenu().add(menu);
         cookRepository.update(cook);
     }
 
@@ -207,6 +196,35 @@ public class CookServiceImpl implements CookService {
 
         menuService.delete(menuId);
         cookRepository.update(cook);
+    }
+
+    @Transactional
+    @Override
+    public List<DistrictDto> readCookLocation(int id) {
+        Cook cook = read(id);
+        List<District> districts = cook.getDistricts();
+        List<DistrictDto> districtList = new ArrayList<>();
+        if(districts != null && !districts.isEmpty()) {
+            districtList.add(new DistrictDto(districts.get(0).getTown().getId(), districts.get(0).getTown().getName()));
+            for (District district : districts) {
+                districtList.add(new DistrictDto(district.getId(), district.getName()));
+            }
+        }
+        return districtList;
+    }
+
+    @Transactional
+    @Override
+    public List<DistrictDto> getSortedDistrictDtoListByTown(Town town, int id) {
+        Cook cook = read(id);
+         List<District> districtList = districtService.getDistrictListByTown(town);
+         districtList.sort(Comparator.comparing(District::getName));
+         List<District> districtCookList = cook.getDistricts();
+         districtList.removeAll(districtCookList);
+         districtList.addAll(0, districtCookList);
+
+         return districtList.stream().map(d -> new DistrictDto(d.getId(), d.getName())).collect(Collectors.toList());
+
     }
 
     @Transactional

@@ -1,0 +1,403 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header-menu"></head>
+<div th:replace="fragments/cookNavbar :: cookNavbar"></div>
+<div class="first-div-label">
+    <label class="first-label"> Your preferable location</label>
+</div>
+<div class="second-div-label">
+    <label class="second-label"> Choose the main locations to allow only clients within your zone to book your
+        services</label>
+</div>
+<div class="card main-div">
+
+    <div class="card-body">
+        <select class="form-control" id="towns" placeholder="Choose your city" style="width: 250px; margin: auto">
+            <option selected disabled>Choose your city</option>
+        </select>
+
+        <input type="hidden" id="inputFindDistrict" class="form-control" placeholder="find district"
+               style=";width: 230px; margin: auto; margin-top: 15px; margin-bottom: 10px;  "/>
+
+        <div class="pagination-container" id="mainDiv">
+            <div id="divDistricts">
+
+            </div>
+
+            <div class="row justify-content-center" style="position: absolute; bottom: 80px; left: 158px">
+                <nav aria-label="Page navigation example">
+                    <div class="pagination pagination-centered">
+                        <ul class="pagination">
+                            <li class="page-item" data-page="-"><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item" data-page="+"><a class="page-link" href="#"
+                                                                   style="width: 85.63px; text-align: center">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+
+        </div>
+
+        <div class="row justify-content-center" style="position: absolute; bottom: 20px; left: 118px">
+            <button class="btn btn-classic save" id="saveButton"
+                    style="display: inline-block; margin-bottom: 30px;  width : 250px;">SAVE
+            </button>
+        </div>
+
+    </div>
+</div>
+</html>
+<script>
+    var paginationHandler = function () {
+        // store pagination container so we only select it once
+        var $paginationContainer = $(".pagination-container"),
+            $pagination = $paginationContainer.find('.pagination ul');
+        // click event
+        $pagination.find("li a").on('click.pageChange', function (e) {
+            e.preventDefault();
+            // get parent li's data-page attribute and current page
+            var parentLiPage = $(this).parent('li').data("page"),
+                currentPage = parseInt($(".pagination-container div[data-page]:visible").data('page')),
+                numPages = $paginationContainer.find("div[data-page]").length;
+            // make sure they aren't clicking the current page
+            if (parseInt(parentLiPage) !== parseInt(currentPage)) {
+                // hide the current page
+                $paginationContainer.find("div[data-page]:visible").hide();
+                if (parentLiPage === '+') {
+                    // next page
+                    $paginationContainer.find("div[data-page=" + (currentPage + 1 > numPages ? numPages : currentPage + 1) + "]").show();
+                } else if (parentLiPage === '-') {
+                    // previous page
+                    $paginationContainer.find("div[data-page=" + (currentPage - 1 < 1 ? 1 : currentPage - 1) + "]").show();
+                } else {
+                    // specific page
+                    $paginationContainer.find("div[data-page=" + parseInt(parentLiPage) + "]").show();
+                }
+            }
+        });
+    };
+    $(document).ready(paginationHandler);
+</script>
+
+<script>
+
+    var districtsCook = [];
+    var isInputFindExist = false;
+    var selectDistrict = document.getElementById('towns');
+    var districts = [];
+    var x = 1;
+
+
+    var saveButton = document.getElementById('saveButton');
+    saveButton.addEventListener("click", function (e) {
+        var els = document.querySelectorAll(
+            'input[name=additional]'
+        );
+        var msg = [];
+        Array.prototype.forEach.call(els, function (cb) {
+            if (cb.checked) {
+                var selected = {id: cb.id};
+                msg.push(selected);
+            }
+
+        });
+
+        fetch("http://localhost:8084/sam_solutions_project_war/saveCookDistricts", { // try not to specify server here
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(msg)
+        })
+
+
+    });
+
+    fetch("http://localhost:8084/sam_solutions_project_war/getAllTowns", { // try not to specify server here
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify("123")
+    })
+        .then(resp => resp.json()
+        .then(json => {
+        console.log(json);
+    json.map(item => {
+        const town = document.createElement("option");
+    town.setAttribute("value", item.id.toString());
+    town.innerHTML = item.name.toString();
+    selectDistrict.appendChild(town);
+    })
+
+
+    fetch("http://localhost:8084/sam_solutions_project_war/getCookDistricts", { // try not to specify server here
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify("123")
+    })
+        .then(resp => resp.json()
+        .then(json => {
+        console.log(json);
+
+    if (JSON.stringify(json) != "[]") {
+        console.log(json);
+
+        var townCook;
+        districtsCook = [];
+        json.map(item => {
+            var disObject = {id: item.id, name: item.name.toString()};
+        districtsCook.push(disObject);
+    })
+        townCook = districtsCook.shift();
+        $("#towns :contains(" + townCook.name + ")").attr("selected", "selected");
+        console.log(townCook.name);
+
+        f2(function () {
+            for (var i = 0; i < districtsCook.length; i++) {
+                console.log('districtsCook[i].id = ' + districtsCook[i].id);
+                $('#' + districtsCook[i].id).prop('checked', true);
+            }
+        });
+    }
+    }))
+    }))
+    input3 = document.querySelector("#inputFindDistrict");
+    input3.oninput = function () {
+        var intArr = [];
+        for (var i = 0; i < districts.length; i++) {
+            if (districts[i].name.toLowerCase().startsWith(this.value)) {
+                intArr.push(i);
+            }else {
+                if (districts[i].name.toUpperCase().startsWith(this.value)) {
+                    intArr.push(i);
+                }else{
+                    if (districts[i].name.startsWith(this.value)) {
+                        intArr.push(i);
+                    }
+                }
+            }
+
+
+        }
+
+        if (x !== 0) {
+            for (var i = 1; i < x; i++) {
+                $('#divPage').remove();
+            }
+        }
+
+
+        for (var i = 0; i < intArr.length; i++) {
+            var buf = districts[i];
+            districts[i] = districts[intArr[i]];
+            districts[intArr[i]] = buf;
+        }
+
+        x = 1;
+        for (var i = 0, j = 1; i < districts.length; i++, j++) {
+            if (i % 10 === 0) {
+
+                var divPage = document.createElement('div');
+                divPage.setAttribute("data-page", x.toString());
+                divPage.id = 'divPage';
+                x++;
+                if (i != 0) {
+                    divPage.setAttribute("style", "display:none;");
+                }
+            }
+            var newElement = document.createElement('div');
+            newElement.id = 'inputDiv' + districts[i].id.toString();
+            newElement.setAttribute("class", 'custom-control custom-checkbox');
+            newElement.setAttribute("style", 'margin-left: 120px');
+            newElement.innerHTML = '<input name="additional" type="checkbox" class="custom-control-input" id="' + districts[i].id.toString() + '"> <label class="custom-control-label" for="' + districts[i].id.toString() + '">' + districts[i].name.toString() + '</label>';
+            divPage.appendChild(newElement);
+
+            if (i % 10 === 0) {
+                divDistricts.appendChild(divPage);
+            }
+        }
+
+        for (var i = 0; i < districtsCook.length; i++) {
+            $('#' + districtsCook[i].id).prop('checked', true);
+        }
+
+
+
+
+    };
+
+    jQuery(function ($) {
+        $(document).mouseup(function (e) {
+            var sel = document.getElementById('selectAllDistrictsI');
+            if (sel != null) {
+                sel.addEventListener('click', function (e) {
+                    var els = document.querySelectorAll(
+                        'input[name=additional]'
+                    );
+
+                    Array.prototype.forEach.call(els, function (cb) {
+                        cb.checked = e.target.checked;
+                    });
+                });
+            }
+        })
+    });
+
+
+    selectDistrict.addEventListener("change", function () {
+        f();
+    });
+
+    function f() {
+        var divDistricts = document.getElementById("divDistricts");
+
+        var divInputDistrict = document.getElementById("inputFindDistrict");
+        divInputDistrict.setAttribute("type", 'text');
+
+
+        if (!isInputFindExist) {
+            var newElement = document.createElement('div');
+            newElement.id = 'selectAllDistricts';
+            newElement.setAttribute("class", 'custom-control custom-checkbox');
+            newElement.setAttribute("style", 'margin-left: 120px');
+            newElement.innerHTML = '<input type="checkbox" class="custom-control-input" id="selectAllDistrictsI"> <label class="custom-control-label" for="selectAllDistrictsI">Все районы</label>';
+            divDistricts.appendChild(newElement);
+            isInputFindExist = true;
+        }
+
+
+        var select = document.getElementById("towns");
+        var obj = {"id": select.value};
+        //http://sc0489:8080/personalcook_war_exploded/
+        //http://localhost:8084/sam_solutions_project_war/
+        fetch("http://localhost:8084/sam_solutions_project_war/getDistricts", { // try not to specify server here
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(obj)
+        })
+            .then(resp => resp.json()
+            .then(json => {
+
+            console.log("lenth districts = " + districts.length);
+
+        if (x !== 0) {
+            for (var i = 1; i < x; i++) {
+                $('#divPage').remove();
+            }
+        }
+
+        districts = [];
+        json.map(item => {
+
+            var disObject = {id: item.id, name: item.name.toString()};
+        districts.push(disObject);
+    })
+        x = 1;
+        for (var i = 0, j = 1; i < districts.length; i++, j++) {
+            if (i % 10 === 0) {
+
+                var divPage = document.createElement('div');
+                divPage.setAttribute("data-page", x.toString());
+                divPage.id = 'divPage';
+                x++;
+                if (i != 0) {
+                    divPage.setAttribute("style", "display:none;");
+                }
+            }
+            var newElement = document.createElement('div');
+            newElement.id = 'inputDiv' + districts[i].id.toString();
+            newElement.setAttribute("class", 'custom-control custom-checkbox');
+            newElement.setAttribute("style", 'margin-left: 120px');
+            newElement.innerHTML = '<input name="additional" type="checkbox" class="custom-control-input" id="' + districts[i].id.toString() + '"> <label class="custom-control-label" for="' + districts[i].id.toString() + '">' + districts[i].name.toString() + '</label>';
+            divPage.appendChild(newElement);
+
+            if (i % 10 === 0) {
+                divDistricts.appendChild(divPage);
+            }
+
+        }
+
+    }))
+    }
+
+    function f2(callback) {
+        var divDistricts = document.getElementById("divDistricts");
+
+        var divInputDistrict = document.getElementById("inputFindDistrict");
+        divInputDistrict.setAttribute("type", 'text');
+
+
+        if (!isInputFindExist) {
+            var newElement = document.createElement('div');
+            newElement.id = 'selectAllDistricts';
+            newElement.setAttribute("class", 'custom-control custom-checkbox');
+            newElement.setAttribute("style", 'margin-left: 120px');
+            newElement.innerHTML = '<input type="checkbox" class="custom-control-input" id="selectAllDistrictsI"> <label class="custom-control-label" for="selectAllDistrictsI">Все районы</label>';
+            divDistricts.appendChild(newElement);
+            isInputFindExist = true;
+        }
+
+
+        var select = document.getElementById("towns");
+        var obj = {"id": select.value};
+        //http://sc0489:8080/personalcook_war_exploded/
+        //http://localhost:8084/sam_solutions_project_war/
+        fetch("http://localhost:8084/sam_solutions_project_war/getAllDistricts", { // try not to specify server here
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(obj)
+        })
+            .then(resp => resp.json()
+            .then(json => {
+
+            console.log("lenth districts = " + districts.length);
+
+        if (x !== 0) {
+            for (var i = 1; i < x; i++) {
+                $('#divPage').remove();
+            }
+        }
+
+        districts = [];
+        json.map(item => {
+
+            var disObject = {id: item.id, name: item.name.toString()};
+        districts.push(disObject);
+    })
+        x = 1;
+        for (var i = 0, j = 1; i < districts.length; i++, j++) {
+            if (i % 10 === 0) {
+
+                var divPage = document.createElement('div');
+                divPage.setAttribute("data-page", x.toString());
+                divPage.id = 'divPage';
+                x++;
+                if (i != 0) {
+                    divPage.setAttribute("style", "display:none;");
+                }
+            }
+            var newElement = document.createElement('div');
+            newElement.id = 'inputDiv' + districts[i].id.toString();
+            newElement.setAttribute("class", 'custom-control custom-checkbox');
+            newElement.setAttribute("style", 'margin-left: 120px');
+            newElement.innerHTML = '<input name="additional" type="checkbox" class="custom-control-input" id="' + districts[i].id.toString() + '"> <label class="custom-control-label" for="' + districts[i].id.toString() + '">' + districts[i].name.toString() + '</label>';
+            divPage.appendChild(newElement);
+
+            if (i % 10 === 0) {
+                divDistricts.appendChild(divPage);
+            }
+        }
+        callback();
+    })
+    )
+    }
+</script>
+
+</body>

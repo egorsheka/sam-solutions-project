@@ -1,24 +1,31 @@
 package by.sam.mvc.service.menu.impl;
 
 
+import by.sam.mvc.models.menu.Cuisine;
 import by.sam.mvc.models.menu.Dish;
 import by.sam.mvc.models.menu.Menu;
+import by.sam.mvc.models.menu.MenuLuxury;
 import by.sam.mvc.repository.menu.MenuRepository;
+import by.sam.mvc.service.menu.CuisineService;
 import by.sam.mvc.service.menu.DishService;
 import by.sam.mvc.service.menu.MenuService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class MenuServiceImpl implements MenuService {
 
     private final MenuRepository menuRepository;
     private final DishService dishService;
+    private final CuisineService cuisineService;
 
 
-    public MenuServiceImpl(MenuRepository menuRepository, DishService dishService) {
+    public MenuServiceImpl(MenuRepository menuRepository, DishService dishService, CuisineService cuisineService) {
         this.menuRepository = menuRepository;
         this.dishService = dishService;
+        this.cuisineService = cuisineService;
     }
 
 
@@ -29,6 +36,7 @@ public class MenuServiceImpl implements MenuService {
             dishService.create(dish);
         }
         menuRepository.create(menu);
+
     }
 
     @Transactional
@@ -41,13 +49,14 @@ public class MenuServiceImpl implements MenuService {
     @Transactional
     @Override
     public void update(Menu menu) {
-
+        menu.setLuxury(MenuLuxury.PRESTIGE);
         Menu updateMenu = menuRepository.read(menu.getId());
 
         updateMenu.setName(menu.getName());
         updateMenu.setPrice(menu.getPrice());
         updateMenu.setLuxury(menu.getLuxury());
         updateMenu.setDishes(menu.getDishes());
+
 
         for (Dish dish : menu.getDishes()) {
             if (dish.getId() == 0) {
@@ -60,6 +69,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
 
+    @Transactional
     @Override
     public void delete(int id) {
         menuRepository.delete(id);

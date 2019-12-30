@@ -1,5 +1,5 @@
  const selectDistrict = document.getElementById('selectDistricts');
-console.log(selectDistrict.target);
+
 
 const selectButton = document.getElementById('select_');
 selectButton.addEventListener("change", function () {

@@ -63,7 +63,7 @@ INSERT INTO public.cuisines (id, name) VALUES (20, 'Taiwan');
 INSERT INTO public.cuisines (id, name) VALUES (21, 'Jamaica');
 INSERT INTO public.cuisines (id, name) VALUES (22, 'Canada');
 INSERT INTO public.cuisines (id, name) VALUES (23, 'Abu Dhabi');
-INSERT INTO public.cuisines (id, name) VALUES (24, 'France');
+INSERT INTO public.cuisines (id, name) VALUES (24, 'Belarus');
 
 
 

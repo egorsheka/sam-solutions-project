@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface CuisineService extends Service<Cuisine> {
     List<Cuisine> findAll();
-    int getIdByName(String name);
+    Cuisine read(String name);
 }

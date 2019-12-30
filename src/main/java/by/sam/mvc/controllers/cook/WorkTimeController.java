@@ -36,7 +36,7 @@ public class WorkTimeController {
             selectedBox.put(i, 0);
         }
         model.addAttribute("selectedBox", selectedBox);
-        return "timeWorkDays";
+        return "cook/timeWorkDays";
     }
 
     @PostMapping(value = "/timeWorkBox")
@@ -51,7 +51,7 @@ public class WorkTimeController {
             }
         });
         model.addAttribute("selectedBox", selectedBox);
-        return "timeWorkTime";
+        return "cook/timeWorkTime";
     }
 
     @PostMapping(value = "/timeWorkBox", params = {"saveTime"})
@@ -59,7 +59,7 @@ public class WorkTimeController {
 
         cookId = cookService.getAuthenticationCook(currentUser).getId();
         cookService.updateWorkTime(cookId, workTimeService.createWorkTimeListFromParams(params));
-        return "startCook";
+        return "cook/startCook";
     }
 
     @ModelAttribute("weekDays")

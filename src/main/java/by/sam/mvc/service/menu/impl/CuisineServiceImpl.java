@@ -48,8 +48,10 @@ public class CuisineServiceImpl implements CuisineService {
         return cuisineRepository.findAll();
     }
 
+    @Transactional
     @Override
-    public int getIdByName(String name) {
-       return cuisineRepository.getIdByName(name);
+    public Cuisine read(String name) {
+        return cuisineRepository.read(name);
     }
+
 }

@@ -1,0 +1,14 @@
+<body th:fragment = "cookNavbar">
+<nav class="navbar navbar-dark bg-dark" style="z-index: 2">
+    <a class="navbar-brand"></a>
+
+    <div class="form-inline  app-nav-bar-container">
+        <a class="nav-link active app-nav-link-item" th:href="${(#mvc.url('PC#getProfilePage')).build()}" th:text="#{text.orders}"  style="margin-right: -65px">Orders</a>
+        <a class="nav-link active app-nav-link-item" th:href="${(#mvc.url('PC#getProfilePage')).build()}" th:text="#{text.profile}" style="margin-right: -65px">Profile</a>
+        <a class="nav-link active app-nav-link-item" th:href="${(#mvc.url('WTC#getTimeWorkPage')).build()}" th:text="#{text.workingHours}">Time Work</a>
+        <a class="nav-link active app-nav-link-item" th:href="${(#mvc.url('LC#getAvailabilitiesPage')).build()}" th:text="#{text.location}" style="margin-left: -30px" >Location</a>
+        <a class="nav-link active app-nav-link-item" th:href="${(#mvc.url('MC#getCookPersonalPage')).build()}" th:text="#{text.menus}" style="margin-left: -50px">Menus</a>
+        <a class="nav-link active app-nav-link-item my-2 my-sm-0" th:href="@{/logout}" style="margin-left: 40px; margin-right: -50px ">Logout</a>
+    </div>
+</nav>
+</body>

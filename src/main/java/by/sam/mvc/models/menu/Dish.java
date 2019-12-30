@@ -17,7 +17,7 @@ import java.util.Objects;
 public class Dish {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private int id;
 
     private String name;

@@ -9,7 +9,7 @@ public class ProfileController {
 
     @GetMapping(path = "profile")
     public String getProfilePage() {
-        return "profile";
+        return "cook/profile";
     }
 }
 

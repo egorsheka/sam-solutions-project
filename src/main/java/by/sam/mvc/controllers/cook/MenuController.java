@@ -19,8 +19,6 @@ import java.util.List;
 @Controller
 public class MenuController {
 
-
-    private List<Menu> menuList; //// !!! no local fields that share state
     private final MenuService menuService;
     private final CookService cookService;
     private final CuisineService cuisineService;
@@ -38,102 +36,102 @@ public class MenuController {
     @GetMapping(path = "/menuPage")
     public String getCookPersonalPage(Model model, @AuthenticationPrincipal UserDetails currentUser){
         cookId = cookService.getAuthenticationCook(currentUser).getId();
-        menuList = cookService.read(cookId).getMenu();//??? why do we need a local field in controller
-        model.addAttribute("menuList", menuList);
-        return "startMenu";
+        model.addAttribute("menuList", cookService.read(cookId).getMenu());
+        return "cook/menu/startMenu";
     }
+
+
+    //create new menu
 
     @GetMapping(value = "/createMenu")
     public String openCreateMenuPage(Model model) {
-
-        model.addAttribute("editMenu", new Menu());
-        return "createMenu";
-    }
-
-    @PostMapping(value = "/saveNewMenu", params = {"submit"} )
-    public String submitNewMenu(@ModelAttribute Menu newMenu, Model model) {
-        cookService.addMenuItem(cookId, newMenu);
-        menuList = cookService.read(cookId).getMenu();
-        model.addAttribute("menuList", menuList);
-        return "startMenu";
-    }
-
-    @PostMapping(value = "/saveNewMenu", params = {"addRow"} )
-    public String addDishRowInNewMenu(@ModelAttribute Menu newMenu,  Model model) {
-        if(newMenu.getDishes() == null){
-            newMenu.setDishes(new ArrayList<>());
-        }
-        newMenu.getDishes().add(new Dish());
-        model.addAttribute("newMenu", newMenu);
-        return "createMenu";
+        model.addAttribute("newMenu", new Menu());
+        return "cook/menu/createMenu";
     }
 
 
-
-    @PostMapping(value = "/saveNewMenu", params = {"removeRow"})
-    public String removeDishRowInNewMenu(@ModelAttribute Menu newMenu,  Model model, HttpServletRequest request) {
-        int removeIndex = Integer.valueOf(request.getParameter("removeRow"));
-        newMenu.getDishes().remove(removeIndex);
-        model.addAttribute("newMenu", newMenu);
-        return "editMenu";
+    @PostMapping(value = "/saveMenu", params ={"addDish"})
+    public String addDishInMenu(@ModelAttribute Menu menu, Model model){
+        if(menu.getDishes() == null){menu.setDishes(new ArrayList<>());}
+        menu.getDishes().add(new Dish("", DishType.APPETISER, new Cuisine()));
+        model.addAttribute("newMenu", menu);
+        return "cook/menu/createMenu";
     }
 
+    @PostMapping(value = "/saveMenu", params ={"removeDish"})
+    public String removeDishInMenu(@ModelAttribute Menu menu, Model model, @RequestParam int removeDish){
+        menu.getDishes().remove(removeDish);
+        model.addAttribute("newMenu", menu);
+        return "cook/menu/createMenu";
+    }
+
+    @PostMapping(value = "/saveMenu", params ={"saveNewMenu"})
+    public String submitChanges(@ModelAttribute Menu menu, Model model){
+        cookService.createMenuItem(cookId, menu);
+        model.addAttribute( "menuList", cookService.read(cookId).getMenu());
+        return "cook/menu/startMenu";
+    }
+
+
+
+    // delete one menu
+
+
+    @PostMapping(value = "/editMenu", params = {"deleteMenu"})
+    public String deleteMenu(@RequestParam int deleteMenu, Model model) {
+        List<Menu> menus = cookService.read(cookId).getMenu();
+        menus.remove(deleteMenu);
+        cookService.updateMenu(cookId, menus);
+        model.addAttribute("menuList", menus);
+        return "cook/menu/startMenu";
+    }
+
+    // edit one menu
 
     @PostMapping(value = "/editMenu", params = {"editMenu"})
     public String openEditMenuPage(@ModelAttribute Menu editMenu, Model model) {
         Menu menu = menuService.read(editMenu.getId());
         model.addAttribute( "editMenu", menu);
-        return "editMenu";
+        return "cook/menu/editMenu";
     }
+
+    @PostMapping(value = "/saveMenu", params ={"addEditDish"})
+    public String addEditDishInMenu(@ModelAttribute Menu menu, Model model){
+        if(menu.getDishes() == null){menu.setDishes(new ArrayList<>());}
+        menu.getDishes().add(new Dish("", DishType.APPETISER, new Cuisine()));
+        model.addAttribute("editMenu", menu);
+        return "cook/menu/editMenu";
+    }
+
+    @PostMapping(value = "/saveMenu", params ={"removeEditDish"})
+    public String removeEditDishInMenu(@ModelAttribute Menu menu, Model model, @RequestParam int removeEditDish){
+        menu.getDishes().remove(removeEditDish);
+        model.addAttribute("editMenu", menu);
+        return "cook/menu/editMenu";
+    }
+
+    @PostMapping(value = "/saveMenu", params = {"saveEditMenu"} )
+    public String submitNewMenu(@ModelAttribute Menu menu, Model model) {
+        cookService.updateMenuItem(cookId, menu);
+        model.addAttribute( "menuList", cookService.read(cookId).getMenu());
+        return "cook/menu/startMenu";
+    }
+
+
+
+    //todo
+    // see one menu
 
     @PostMapping(value = "/editMenu", params = {"seeMore"})
-    public String openSeeMoreMenuPage( @ModelAttribute Menu editMenu, Model model) {
+    public String openSeeMoreMenuPage(@ModelAttribute Menu editMenu, Model model) {
         Menu menu = menuService.read(editMenu.getId());
         model.addAttribute( "editMenu", menu);
-        return "seeMoreMenu";
-    }
-
-    @PostMapping(value = "/editMenu", params = {"deleteMenu"})
-    public String deleteMenu(@ModelAttribute Menu deleteMenu, Model model, HttpServletRequest request) {
-        int deleteIndex = Integer.parseInt(request.getParameter("deleteMenu"));
-        menuList.remove(deleteIndex); //???
-        cookService.deleteMenuItem(cookId, deleteMenu.getId());
-        model.addAttribute( "menuList", menuList);
-        return "startMenu";
-    }
-
-    @PostMapping(value = "/saveMenu", params ={"addRow"})
-    public String addDishRowInEditMenu(@ModelAttribute Menu menu, Model model){
-        if(menu.getDishes() == null){
-            menu.setDishes(new ArrayList<>());
-        }
-        cookService.updateMenuItem(cookId, menu);
-        menu = menuService.read(menu.getId());
-
-        menu.getDishes().add(new Dish(new String(), DishType.APPETISER, new Cuisine()));
-        model.addAttribute("editMenu", menu);
-        return "editMenu";
+        return "cook/seeMoreMenu";
     }
 
 
 
 
-
-    @PostMapping(value = "/saveMenu", params ={"removeRow"})
-    public String removeDishRowInEditMenu(@ModelAttribute Menu menu, Model model, HttpServletRequest request){
-        int removeIndex = Integer.valueOf(request.getParameter("removeRow"));
-        menu.getDishes().remove(removeIndex);
-        model.addAttribute("editMenu", menu);
-        return "editMenu";
-    }
-
-    @PostMapping(value = "/saveMenu", params ={"submit"})
-    public String submitChanges(@ModelAttribute Menu menu, Model model){
-
-        cookService.updateMenuItem(cookId, menu);
-        model.addAttribute( "menuList", menuList);
-        return "startMenu";
-    }
 
 
     @ModelAttribute

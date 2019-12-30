@@ -21,7 +21,7 @@ import java.util.Objects;
 public class Menu{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
 
@@ -33,7 +33,7 @@ public class Menu{
     private MenuLuxury luxury;
 
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToMany()
     private List<Dish> dishes = new ArrayList<>();
 
 

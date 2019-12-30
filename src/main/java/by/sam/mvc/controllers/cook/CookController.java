@@ -18,6 +18,6 @@ public class CookController {
 
     @GetMapping(path = "/cookPage")
     public String getCookPersonalPage(Model model){
-        return "startCook";
+        return "cook/startCook";
     }
 }

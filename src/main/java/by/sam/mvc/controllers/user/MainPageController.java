@@ -1,10 +1,8 @@
 package by.sam.mvc.controllers.user;
 
 
-import by.sam.mvc.controllers.Dto;
 import by.sam.mvc.dto.DistrictDto;
 import by.sam.mvc.dto.OrderDto;
-import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.location.Town;
 import by.sam.mvc.service.location.DistrictService;
 import by.sam.mvc.service.location.TownService;
@@ -13,7 +11,6 @@ import by.sam.mvc.service.user.CookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +45,13 @@ public class MainPageController {
     @ResponseBody
     public List<DistrictDto> getDistricts(@RequestBody Town town) {
         return districtService.getDistrictDtoListByTown(town);
+    }
+
+    @PostMapping(value = "/getAllTowns")
+    @ResponseBody
+    public List<DistrictDto> getAllTowns(@RequestBody int i) {
+        List<DistrictDto> list = townService.findAll().stream().map(d -> new DistrictDto(d.getId(), d.getName())).collect(Collectors.toList());
+        return list;
     }
 
     @PostMapping(value = "/viewMenu")

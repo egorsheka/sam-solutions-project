@@ -43,10 +43,10 @@ public class CuisineRepositoryImpl implements CuisineRepository {
     }
 
     @Override
-    public int getIdByName(String name) {
-        return manager.createQuery("from Cuisine where name = :name", Cuisine.class)
+    public Cuisine read(String name) {
+        return manager.createQuery("from Cuisine c where c.name = :name", Cuisine.class)
                 .setParameter("name", name)
-                .getSingleResult()
-                .getId();
+                .getSingleResult();
     }
+
 }
