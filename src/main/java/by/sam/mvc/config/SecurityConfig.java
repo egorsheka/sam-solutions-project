@@ -44,7 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/viewMenu", "/getAllTowns", "/getCookDistricts" , "/saveCookDistricts" , "/getDistricts", "/getAllDistricts", "/registration/**",
+                .antMatchers("/", "/saveTimeWorkData", "/timeWorkData", "/viewMenu", "/getAllTowns", "/getCookDistricts" , "/saveCookDistricts" , "/getDistricts", "/getAllDistricts", "/registration/**",
                         "/resources/**", "/script/**", "/css/**", "/images/**").permitAll()
                 .anyRequest().authenticated()
                 .and()

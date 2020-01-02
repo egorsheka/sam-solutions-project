@@ -1,9 +1,6 @@
 package by.sam.mvc.service.user;
 
-import by.sam.mvc.dto.CookDto;
-import by.sam.mvc.dto.DistrictDto;
-import by.sam.mvc.dto.LocationDto;
-import by.sam.mvc.dto.OrderDto;
+import by.sam.mvc.dto.*;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.location.Town;
 import by.sam.mvc.models.menu.Menu;
@@ -23,12 +20,14 @@ public interface CookService extends Service<Cook> {
     void create(CookDto cookDto);
 
     void updateDistricts(int cookId, List<DistrictDto> dtoList);
-    void updateWorkTime(int id, List<WorkTime> times);
+    void updateWorkTime(int id, List<WorkTimeDto> times);
     void updateMenu(int id, List<Menu> menus);
     void addMenuItem(int id, Menu menu);
     void updateMenuItem(int id, Menu menu);
     void createMenuItem(int id, Menu menu);
     void deleteMenuItem(int cookId, int menuId);
+
+    List<WorkTimeDto> readWorkTimeDto(int id);
 
     List<DistrictDto> readCookLocation(int id);
 

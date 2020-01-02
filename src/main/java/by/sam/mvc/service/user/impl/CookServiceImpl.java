@@ -1,9 +1,6 @@
 package by.sam.mvc.service.user.impl;
 
-import by.sam.mvc.dto.CookDto;
-import by.sam.mvc.dto.DistrictDto;
-import by.sam.mvc.dto.LocationDto;
-import by.sam.mvc.dto.OrderDto;
+import by.sam.mvc.dto.*;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.location.Town;
 import by.sam.mvc.models.menu.Dish;
@@ -11,6 +8,7 @@ import by.sam.mvc.models.menu.Menu;
 import by.sam.mvc.models.user.Cook;
 import by.sam.mvc.models.user.Role;
 import by.sam.mvc.models.user.UserEntity;
+import by.sam.mvc.models.worktime.WeekDay;
 import by.sam.mvc.models.worktime.WorkTime;
 import by.sam.mvc.repository.user.CookRepository;
 import by.sam.mvc.service.location.DistrictService;
@@ -25,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -127,8 +126,10 @@ public class CookServiceImpl implements CookService {
 
     @Transactional
     @Override
-    public void updateWorkTime(int id, List<WorkTime> times) {
+    public void updateWorkTime(int id, List<WorkTimeDto> times) {
         Cook cook = cookRepository.read(id);
+
+
 
         boolean cookWorkTimeIsEmpty = cook.getWorkTime().isEmpty();
         List<WorkTime> cookOldList = cook.getWorkTime();
@@ -139,7 +140,11 @@ public class CookServiceImpl implements CookService {
                 workTimeService.delete(time.getId());
             }
         }
-        cook.setWorkTime(times);
+
+
+        List<WorkTime> timeList = times.stream().map(time ->
+                new WorkTime(DayOfWeek.valueOf(time.getDay().toUpperCase()), time.getStartTime(), time.getEndTime())).collect(Collectors.toList());
+        cook.setWorkTime(timeList);
         cookRepository.update(cook);
     }
 
@@ -196,6 +201,16 @@ public class CookServiceImpl implements CookService {
 
         menuService.delete(menuId);
         cookRepository.update(cook);
+    }
+
+    @Transactional
+    @Override
+    public List<WorkTimeDto> readWorkTimeDto(int id) {
+        Cook cook = read(id);
+        return cook.getWorkTime()
+                .stream()
+                .map(workTime -> new WorkTimeDto(workTime.getDay().toString(), workTime.getStartTime(), workTime.getEndTime()))
+                .collect(Collectors.toList());
     }
 
     @Transactional

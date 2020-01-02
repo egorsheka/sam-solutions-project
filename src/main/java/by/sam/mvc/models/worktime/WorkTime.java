@@ -13,9 +13,6 @@ public class WorkTime {
     private int id;
 
 
-
-
-
     @Enumerated(EnumType.STRING)
     @Column(name = "week_day")
     private DayOfWeek day;

@@ -3,46 +3,696 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>time work</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <title>Title</title>
+    <script type="text/javascript" th:src="@{/script/jquery.js}"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/worktime.css}">
+
 </head>
 <body>
-<a th:href="${(#mvc.url('CC#getCookPersonalPage')).build()}" th:text="#{text.back}">back</a><p></p>
-<form action="#" th:action="@{/timeWorkBox}"  method="post">
-    <table>
-        <tr th:each="day, item : ${weekDays}">
-            <td th:unless="${selectedBox.get(item.index) != 1}">
-                <input type="checkbox" th:value="${day}" th:name="${item.index}"  th:text="#{${'text.day.' + day}}"  checked="checked">
-            </td>
+<div th:replace="fragments/cookNavbar :: cookNavbar"></div>
+
+<div class="card main-div">
+
+    <div class="card-body">
+
+        <div style="columns: 70px ; margin-left: 45px; margin-top: 50px">
+            <div class="custom-control custom-checkbox custom-control-inline"
+                 style="float: left; width: 100px; height: 100px;">
+                <input type="checkbox" class="custom-control-input" id="MONDAY">
+                <label class="custom-control-label" for="MONDAY">Monday</label>
+                <div id="div1" style="display: none; z-index: 2; width: 10px">
+                    <select id="selectStart1" class="form-control" placeholder="from"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px">
+                        <option value="00:00">00:00</option>
+                        <option value="01:00">01:00</option>
+                        <option value="02:00">02:00</option>
+                        <option value="03:00">03:00</option>
+                        <option value="04:00">04:00</option>
+                        <option value="05:00">05:00</option>
+                        <option value="06:00">06:00</option>
+                        <option value="07:00">07:00</option>
+                        <option value="08:00">08:00</option>
+                        <option value="09:00">09:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="19:00">19:00</option>
+                        <option value="20:00">20:00</option>
+                        <option value="21:00">21:00</option>
+                        <option value="22:00">22:00</option>
+                        <option value="23:00">23:00</option>
+                    </select>
+
+                    <label style="position: relative; right: 10px">-</label>
+                    <select id="selectEnd1" class="form-control" placeholder="to"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px"
+                            ;>
+                        <option value="00:00">00:00</option>
+                        <option value="01:00">01:00</option>
+                        <option value="02:00">02:00</option>
+                        <option value="03:00">03:00</option>
+                        <option value="04:00">04:00</option>
+                        <option value="05:00">05:00</option>
+                        <option value="06:00">06:00</option>
+                        <option value="07:00">07:00</option>
+                        <option value="08:00">08:00</option>
+                        <option value="09:00">09:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="19:00">19:00</option>
+                        <option value="20:00">20:00</option>
+                        <option value="21:00">21:00</option>
+                        <option value="22:00">22:00</option>
+                        <option value="23:00">23:00</option>
+                    </select>
+
+                </div>
+            </div>
 
 
-            <td th:unless="${selectedBox.get(item.index) == 1}">
-                <input type="checkbox" th:value="${day}" th:name="${item.index}" th:text="#{${'text.day.' + day}}">
-            </td>
+            <div class="custom-control custom-checkbox custom-control-inline"
+                 style="float: left; width: 100px; height: 100px;">
+                <input type="checkbox" class="custom-control-input" id="TUESDAY">
+                <label class="custom-control-label" for="TUESDAY">Tuesday</label>
+                <div id="div2" style="display: none; z-index: 2; width: 10px">
+                    <select id="selectStart2" class="form-control" placeholder="from"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px">
+                        <option value="00:00">00:00</option>
+                        <option value="01:00">01:00</option>
+                        <option value="02:00">02:00</option>
+                        <option value="03:00">03:00</option>
+                        <option value="04:00">04:00</option>
+                        <option value="05:00">05:00</option>
+                        <option value="06:00">06:00</option>
+                        <option value="07:00">07:00</option>
+                        <option value="08:00">08:00</option>
+                        <option value="09:00">09:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="19:00">19:00</option>
+                        <option value="20:00">20:00</option>
+                        <option value="21:00">21:00</option>
+                        <option value="22:00">22:00</option>
+                        <option value="23:00">23:00</option>
+                    </select>
+
+                    <label style="position: relative; right: 10px">-</label>
+                    <select id="selectEnd2" class="form-control" placeholder="to"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px"
+                            ;>
+                        <option value="00:00">00:00</option>
+                        <option value="01:00">01:00</option>
+                        <option value="02:00">02:00</option>
+                        <option value="03:00">03:00</option>
+                        <option value="04:00">04:00</option>
+                        <option value="05:00">05:00</option>
+                        <option value="06:00">06:00</option>
+                        <option value="07:00">07:00</option>
+                        <option value="08:00">08:00</option>
+                        <option value="09:00">09:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="19:00">19:00</option>
+                        <option value="20:00">20:00</option>
+                        <option value="21:00">21:00</option>
+                        <option value="22:00">22:00</option>
+                        <option value="23:00">23:00</option>
+                    </select>
+                </div>
+            </div>
 
 
-            <td th:unless="${selectedBox.get(item.index) != 1}">
-                <select th:name="${'timeStart'} + ${item.index}">
-                    <option th:each="hour : ${time}" th:value="${hour}" th:text="${hour}">
-                    </option>
-                </select>
-            </td>
+            <div class="custom-control custom-checkbox custom-control-inline"
+                 style="float: left; width: 100px; height: 100px;">
+                <input type="checkbox" class="custom-control-input" id="WEDNESDAY">
+                <label class="custom-control-label" for="WEDNESDAY">Wednesday</label>
+                <div id="div3" style="display: none; z-index: 2; width: 10px">
+                    <select id="selectStart3" class="form-control" placeholder="from"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px">
+                        <option value="00:00">00:00</option>
+                        <option value="01:00">01:00</option>
+                        <option value="02:00">02:00</option>
+                        <option value="03:00">03:00</option>
+                        <option value="04:00">04:00</option>
+                        <option value="05:00">05:00</option>
+                        <option value="06:00">06:00</option>
+                        <option value="07:00">07:00</option>
+                        <option value="08:00">08:00</option>
+                        <option value="09:00">09:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="19:00">19:00</option>
+                        <option value="20:00">20:00</option>
+                        <option value="21:00">21:00</option>
+                        <option value="22:00">22:00</option>
+                        <option value="23:00">23:00</option>
+                    </select>
+
+                    <label style="position: relative; right: 10px">-</label>
+                    <select id="selectEnd3" class="form-control" placeholder="to"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px"
+                            ;>
+                        <option value="00:00">00:00</option>
+                        <option value="01:00">01:00</option>
+                        <option value="02:00">02:00</option>
+                        <option value="03:00">03:00</option>
+                        <option value="04:00">04:00</option>
+                        <option value="05:00">05:00</option>
+                        <option value="06:00">06:00</option>
+                        <option value="07:00">07:00</option>
+                        <option value="08:00">08:00</option>
+                        <option value="09:00">09:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="19:00">19:00</option>
+                        <option value="20:00">20:00</option>
+                        <option value="21:00">21:00</option>
+                        <option value="22:00">22:00</option>
+                        <option value="23:00">23:00</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div style="columns: 70px ;  margin-left: 45px; margin-top: 70px">
+            <div class="custom-control custom-checkbox custom-control-inline"
+                 style="float: left; width: 100px; height: 100px;">
+                <input type="checkbox" class="custom-control-input" id="THURSDAY">
+                <label class="custom-control-label" for="THURSDAY">Thursday</label>
+                <div id="div4" style="display: none; z-index: 2; width: 10px">
+                    <select id="selectStart4" class="form-control" placeholder="from"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px">
+                        <option value="00:00">00:00</option>
+                        <option value="01:00">01:00</option>
+                        <option value="02:00">02:00</option>
+                        <option value="03:00">03:00</option>
+                        <option value="04:00">04:00</option>
+                        <option value="05:00">05:00</option>
+                        <option value="06:00">06:00</option>
+                        <option value="07:00">07:00</option>
+                        <option value="08:00">08:00</option>
+                        <option value="09:00">09:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="19:00">19:00</option>
+                        <option value="20:00">20:00</option>
+                        <option value="21:00">21:00</option>
+                        <option value="22:00">22:00</option>
+                        <option value="23:00">23:00</option>
+                    </select>
+
+                    <label style="position: relative; right: 10px">-</label>
+                    <select id="selectEnd4" class="form-control" placeholder="to"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px"
+                            ;>
+                        <option value="00:00">00:00</option>
+                        <option value="01:00">01:00</option>
+                        <option value="02:00">02:00</option>
+                        <option value="03:00">03:00</option>
+                        <option value="04:00">04:00</option>
+                        <option value="05:00">05:00</option>
+                        <option value="06:00">06:00</option>
+                        <option value="07:00">07:00</option>
+                        <option value="08:00">08:00</option>
+                        <option value="09:00">09:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="19:00">19:00</option>
+                        <option value="20:00">20:00</option>
+                        <option value="21:00">21:00</option>
+                        <option value="22:00">22:00</option>
+                        <option value="23:00">23:00</option>
+                    </select>
+                </div>
+            </div>
 
 
-            <td th:unless="${selectedBox.get(item.index) != 1}">
-                <select th:name="${'timeEnd'} + ${item.index}">
-                    <option th:each="hour : ${time}" th:value="${hour}" th:text="${hour}">
-                    </option>
-                </select>
-            </td>
+            <div class="custom-control custom-checkbox custom-control-inline"
+                 style="float: left; width: 100px; height: 100px;">
+                <input type="checkbox" class="custom-control-input" id="FRIDAY">
+                <label class="custom-control-label" for="FRIDAY">Friday</label>
+                <div id="div5" style="display: none; z-index: 2; width: 10px">
+                    <select id="selectStart5" class="form-control" placeholder="from"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px">
+                        <option value="00:00">00:00</option>
+                        <option value="01:00">01:00</option>
+                        <option value="02:00">02:00</option>
+                        <option value="03:00">03:00</option>
+                        <option value="04:00">04:00</option>
+                        <option value="05:00">05:00</option>
+                        <option value="06:00">06:00</option>
+                        <option value="07:00">07:00</option>
+                        <option value="08:00">08:00</option>
+                        <option value="09:00">09:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="19:00">19:00</option>
+                        <option value="20:00">20:00</option>
+                        <option value="21:00">21:00</option>
+                        <option value="22:00">22:00</option>
+                        <option value="23:00">23:00</option>
+                    </select>
+
+                    <label style="position: relative; right: 10px">-</label>
+                    <select id="selectEnd5" class="form-control" placeholder="to"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px"
+                            ;>
+                        <option value="00:00">00:00</option>
+                        <option value="01:00">01:00</option>
+                        <option value="02:00">02:00</option>
+                        <option value="03:00">03:00</option>
+                        <option value="04:00">04:00</option>
+                        <option value="05:00">05:00</option>
+                        <option value="06:00">06:00</option>
+                        <option value="07:00">07:00</option>
+                        <option value="08:00">08:00</option>
+                        <option value="09:00">09:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="19:00">19:00</option>
+                        <option value="20:00">20:00</option>
+                        <option value="21:00">21:00</option>
+                        <option value="22:00">22:00</option>
+                        <option value="23:00">23:00</option>
+                    </select>
+
+                </div>
+            </div>
 
 
-        </tr>
-    </table>
-    <button type="submit" th:text="#{text.submit}" name="saveTime"> submit</button>
-</form>
+            <div class="custom-control custom-checkbox custom-control-inline"
+                 style="float: left; width: 100px; height: 100px;">
+                <input type="checkbox" class="custom-control-input" id="SATURDAY">
+                <label class="custom-control-label" for="SATURDAY">Saturday</label>
+                <div id="div6" style="display: none; z-index: 2; width: 10px">
+                    <select id="selectStart6" class="form-control" placeholder="from"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px">
+                        <option value="00:00">00:00</option>
+                        <option value="01:00">01:00</option>
+                        <option value="02:00">02:00</option>
+                        <option value="03:00">03:00</option>
+                        <option value="04:00">04:00</option>
+                        <option value="05:00">05:00</option>
+                        <option value="06:00">06:00</option>
+                        <option value="07:00">07:00</option>
+                        <option value="08:00">08:00</option>
+                        <option value="09:00">09:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="19:00">19:00</option>
+                        <option value="20:00">20:00</option>
+                        <option value="21:00">21:00</option>
+                        <option value="22:00">22:00</option>
+                        <option value="23:00">23:00</option>
+                    </select>
+
+                    <label style="position: relative; right: 10px">-</label>
+                    <select id="selectEnd6" class="form-control" placeholder="to"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px"
+                            ;>
+                        <option value="00:00">00:00</option>
+                        <option value="01:00">01:00</option>
+                        <option value="02:00">02:00</option>
+                        <option value="03:00">03:00</option>
+                        <option value="04:00">04:00</option>
+                        <option value="05:00">05:00</option>
+                        <option value="06:00">06:00</option>
+                        <option value="07:00">07:00</option>
+                        <option value="08:00">08:00</option>
+                        <option value="09:00">09:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="19:00">19:00</option>
+                        <option value="20:00">20:00</option>
+                        <option value="21:00">21:00</option>
+                        <option value="22:00">22:00</option>
+                        <option value="23:00">23:00</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div style="columns: 70px ;  margin-left: 45px; margin-top: 70px">
+            <div class="custom-control custom-checkbox custom-control-inline"
+                 style="float: left; width: 100px; height: 100px;">
+                <input type="checkbox" class="custom-control-input" id="SUNDAY">
+                <label class="custom-control-label" for="SUNDAY">Sunday</label>
+                <div id="div7" style="display: none; z-index: 2; width: 10px">
+                    <select id="selectStart7" class="form-control" placeholder="from"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px">
+                        <option value="00:00">00:00</option>
+                        <option value="01:00">01:00</option>
+                        <option value="02:00">02:00</option>
+                        <option value="03:00">03:00</option>
+                        <option value="04:00">04:00</option>
+                        <option value="05:00">05:00</option>
+                        <option value="06:00">06:00</option>
+                        <option value="07:00">07:00</option>
+                        <option value="08:00">08:00</option>
+                        <option value="09:00">09:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="19:00">19:00</option>
+                        <option value="20:00">20:00</option>
+                        <option value="21:00">21:00</option>
+                        <option value="22:00">22:00</option>
+                        <option value="23:00">23:00</option>
+                    </select>
+
+                    <label style="position: relative; right: 10px">-</label>
+                    <select id="selectEnd7" class="form-control" placeholder="to"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px"
+                            ;>
+                        <option value="00:00">00:00</option>
+                        <option value="01:00">01:00</option>
+                        <option value="02:00">02:00</option>
+                        <option value="03:00">03:00</option>
+                        <option value="04:00">04:00</option>
+                        <option value="05:00">05:00</option>
+                        <option value="06:00">06:00</option>
+                        <option value="07:00">07:00</option>
+                        <option value="08:00">08:00</option>
+                        <option value="09:00">09:00</option>
+                        <option value="10:00">10:00</option>
+                        <option value="11:00">11:00</option>
+                        <option value="12:00">12:00</option>
+                        <option value="13:00">13:00</option>
+                        <option value="14:00">14:00</option>
+                        <option value="15:00">15:00</option>
+                        <option value="16:00">16:00</option>
+                        <option value="17:00">17:00</option>
+                        <option value="18:00">18:00</option>
+                        <option value="19:00">19:00</option>
+                        <option value="20:00">20:00</option>
+                        <option value="21:00">21:00</option>
+                        <option value="22:00">22:00</option>
+                        <option value="23:00">23:00</option>
+                    </select>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row justify-content-center" style="margin-top: 50px">
+            <button class="btn btn-classic save" id="saveButton"
+                    style="display: inline-block; margin-bottom: 30px;  width : 250px;">SAVE
+            </button>
+        </div>
+    </div>
+</div>
 
 </body>
+
+<script>
+    var check1 = document.getElementById('MONDAY');
+    check1.addEventListener('change', function () {
+        if (!$('#MONDAY').prop("checked")) {
+            $('#div1').hide();
+        } else {
+            $('#div1').show();
+        }
+    });
+
+
+    var check = document.getElementById('TUESDAY');
+    check.addEventListener('change', function () {
+        if (!$('#TUESDAY').prop("checked")) {
+            $('#div2').hide();
+        } else {
+            $('#div2').show();
+        }
+    });
+
+
+    var check = document.getElementById('WEDNESDAY');
+    check.addEventListener('change', function () {
+        if (!$('#WEDNESDAY').prop("checked")) {
+            $('#div3').hide();
+        } else {
+            $('#div3').show();
+        }
+    });
+
+
+    var check = document.getElementById('THURSDAY');
+    check.addEventListener('change', function () {
+        if (!$('#THURSDAY').prop("checked")) {
+            $('#div4').hide();
+        } else {
+            $('#div4').show();
+        }
+    });
+
+
+    var check = document.getElementById('FRIDAY');
+    check.addEventListener('change', function () {
+        if (!$('#FRIDAY').prop("checked")) {
+            $('#div5').hide();
+        } else {
+            $('#div5').show();
+        }
+    });
+
+
+    var check = document.getElementById('SATURDAY');
+    check.addEventListener('change', function () {
+        if (!$('#SATURDAY').prop("checked")) {
+            $('#div6').hide();
+        } else {
+            $('#div6').show();
+        }
+    });
+
+
+    var check = document.getElementById('SUNDAY');
+    check.addEventListener('change', function () {
+        if (!$('#SUNDAY').prop("checked")) {
+            $('#div7').hide();
+        } else {
+            $('#div7').show();
+        }
+    });
+
+    fetch("http://localhost:8084/sam_solutions_project_war/timeWorkData", { // try not to specify server here
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify("123")
+    })
+        .then(resp => resp.json()
+        .then(json => {
+        console.log(json);
+
+    json.map(item => {
+
+        $('#' +item.day).prop('checked', true);
+
+
+    switch (item.day) {
+        case 'MONDAY':
+            $("#selectStart1").val(item.startTime);
+            $("#selectEnd1").val(item.endTime);
+            if ($('#MONDAY').prop("checked")) {
+                $('#div1').show();
+            }
+            break;
+        case 'TUESDAY':
+            $("#selectStart2").val(item.startTime);
+            $("#selectEnd2").val(item.endTime);
+            if ($('#TUESDAY').prop("checked")) {
+                $('#div2').show();
+            }
+            break;
+        case 'WEDNESDAY':
+            $("#selectStart3").val(item.startTime);
+            $("#selectEnd3").val(item.endTime);
+            if ($('#WEDNESDAY').prop("checked")) {
+                $('#div3').show();
+            }
+
+            break;
+        case 'THURSDAY':
+            $("#selectStart4").val(item.startTime);
+            $("#selectEnd4").val(item.endTime);
+            if ($('#THURSDAY').prop("checked")) {
+                $('#div4').show();
+            }
+
+            break;
+        case 'FRIDAY':
+            $("#selectStart5").val(item.startTime);
+            $("#selectEnd5").val(item.endTime);
+            if ($('#FRIDAY').prop("checked")) {
+                $('#div5').show();
+            }
+
+            break;
+        case 'SATURDAY':
+            $("#selectStart6").val(item.startTime);
+            $("#selectEnd6").val(item.endTime);
+            if ($('#SATURDAY').prop("checked")) {
+                $('#div6').show();
+            }
+
+            break;
+        case 'SUNDAY':
+            $("#selectStart7").val(item.startTime);
+            $("#selectEnd7").val(item.endTime);
+            if ($('#SUNDAY').prop("checked")) {
+                $('#div7').show();
+            }
+
+            break;
+    }
+    })
+    })
+    )
+
+
+    var saveButton = document.getElementById('saveButton');
+    saveButton.addEventListener("click", function (e) {
+        var msg = [];
+        if ($('#MONDAY').prop("checked")) {
+            var day = {day: 'MONDAY', startTime: $('#selectStart1 option:selected').text(), endTime: $('#selectEnd1 option:selected').text()};
+            msg.push(day);
+        }
+
+        if ($('#TUESDAY').prop("checked")) {
+            var day = {day: 'TUESDAY', startTime: $('#selectStart2 option:selected').text(), endTime: $('#selectEnd2 option:selected').text()};
+            msg.push(day);
+        }
+
+        if ($('#WEDNESDAY').prop("checked")) {
+            var day = {day: 'WEDNESDAY', startTime: $('#selectStart3 option:selected').text(), endTime: $('#selectEnd3 option:selected').text()};
+            msg.push(day);
+        }
+
+        if ($('#THURSDAY').prop("checked")) {
+            var day = {day: 'THURSDAY', startTime: $('#selectStart4 option:selected').text(), endTime: $('#selectEnd4 option:selected').text()};
+            msg.push(day);
+        }
+
+        if ($('#FRIDAY').prop("checked")) {
+            var day = {day: 'FRIDAY', startTime: $('#selectStart5 option:selected').text(), endTime: $('#selectEnd5 option:selected').text()};
+            msg.push(day);
+        }
+
+        if ($('#SATURDAY').prop("checked")) {
+            var day = {day: 'SATURDAY', startTime: $('#selectStart6 option:selected').text(), endTime: $('#selectEnd6 option:selected').text()};
+            msg.push(day);
+        }
+
+        if ($('#SUNDAY').prop("checked")) {
+            var day = {day: 'SUNDAY', startTime: $('#selectStart7 option:selected').text(), endTime: $('#selectEnd7 option:selected').text()};
+            msg.push(day);
+        }
+
+
+        fetch("http://localhost:8084/sam_solutions_project_war/saveTimeWorkData", { // try not to specify server here
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json;charset=utf-8'
+            },
+            body: JSON.stringify(msg)
+        })
+
+
+    });
+
+</script>
+</html>
 </html>
