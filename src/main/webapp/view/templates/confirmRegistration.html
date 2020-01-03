@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+</head>
+<body class="FonL app-contact-body">
+
+
+<nav class="navbar navbar-dark bg-dark" style="z-index: 2">
+    <h2 class="navbar-brand"></h2>
+    <div class="form-inline">
+        <a class="nav-link active app-nav-link-item my-2 my-sm-0"
+           th:href="${(#mvc.url('MC#getCookPersonalPage')).build()}" th:text="#{text.login}">LOGIN</a>
+    </div>
+</nav>
+
+<form th:action="@{/registration/singUp}"  method="get">
+    <div class="container-profile">
+        <div class="inner-profile">
+
+            <label style="font-family: Gothic A1;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 30px;
+    text-align: center;
+
+    color: #000000;">To login check your email for the confirmation link</label>
+
+
+                <div class="row justify-content-center cook-registr">
+                    <button type="submit" class="btn btn-classic save"
+                            style="display: inline-block; margin-top: 12px;  width : 250px;">LOGIN
+                    </button>
+                </div>
+        </div>
+    </div>
+</form>
+
+
+</body>
+</html>

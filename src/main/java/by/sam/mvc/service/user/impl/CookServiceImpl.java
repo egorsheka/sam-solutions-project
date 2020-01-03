@@ -1,18 +1,16 @@
 package by.sam.mvc.service.user.impl;
 
 import by.sam.mvc.dto.*;
+import by.sam.mvc.mail.GmailSenderService;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.location.Town;
-import by.sam.mvc.models.menu.Dish;
 import by.sam.mvc.models.menu.Menu;
 import by.sam.mvc.models.user.Cook;
 import by.sam.mvc.models.user.Role;
 import by.sam.mvc.models.user.UserEntity;
-import by.sam.mvc.models.worktime.WeekDay;
 import by.sam.mvc.models.worktime.WorkTime;
 import by.sam.mvc.repository.user.CookRepository;
 import by.sam.mvc.service.location.DistrictService;
-import by.sam.mvc.service.menu.CuisineService;
 import by.sam.mvc.service.menu.MenuService;
 import by.sam.mvc.service.user.CookService;
 import by.sam.mvc.service.user.UserService;
@@ -23,10 +21,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
-import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,17 +35,17 @@ public class CookServiceImpl implements CookService {
     private final DistrictService districtService;
     private final WorkTimeService workTimeService;
     private final UserService userService;
-    private final CuisineService cuisineService;
+    private final GmailSenderService mailSender;
 
 
 
-    public CookServiceImpl(CookRepository cookRepository, MenuService menuService, DistrictService districtService, WorkTimeService workTimeService, UserService userService, CuisineService cuisineService) {
+    public CookServiceImpl(CookRepository cookRepository, MenuService menuService, DistrictService districtService, WorkTimeService workTimeService, UserService userService, GmailSenderService mailSender) {
         this.cookRepository = cookRepository;
         this.menuService = menuService;
         this.districtService = districtService;
         this.workTimeService = workTimeService;
         this.userService = userService;
-        this.cuisineService = cuisineService;
+        this.mailSender = mailSender;
     }
 
     @Transactional
@@ -63,6 +61,12 @@ public class CookServiceImpl implements CookService {
         userEntity.setEmail(cook.getEmail());
         userEntity.setPassword(cook.getPassword());
         userEntity.setRole(new Role("COOK"));
+        userEntity.setVerify(false);
+        userEntity.setIdVerification(UUID.randomUUID().toString().split("-")[4]);
+
+        mailSender.send("vikulya0102@gmail.com", "Pdhjw2ks", "Confirm your registration", "http://localhost:8084/sam_solutions_project_war/registration/confirm/" + userEntity.getIdVerification(), cook.getEmail());
+
+
 
         userService.create(userEntity);
 

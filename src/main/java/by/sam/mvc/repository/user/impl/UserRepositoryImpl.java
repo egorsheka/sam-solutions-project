@@ -3,10 +3,12 @@ package by.sam.mvc.repository.user.impl;
 import by.sam.mvc.models.user.Role;
 import by.sam.mvc.models.user.UserEntity;
 import by.sam.mvc.repository.user.UserRepository;
+import by.sam.mvc.service.user.UserService;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Optional;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -30,6 +32,15 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public Optional<UserEntity> isVerifyUser(String id) {
+        return manager.createQuery("from UserEntity u where u.idVerification = :idVerification", UserEntity.class)
+                .setParameter("idVerification", id)
+                .getResultList()
+                .stream()
+                .findFirst();
+    }
+
+    @Override
     public void create(UserEntity userEntity) {
         manager.persist(userEntity);
     }
@@ -40,8 +51,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void update(UserEntity object) {
-
+    public void update(UserEntity user) {
+        manager.merge(user);
     }
 
     @Override

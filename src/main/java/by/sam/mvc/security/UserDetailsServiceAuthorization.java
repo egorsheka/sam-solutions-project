@@ -20,7 +20,6 @@ public class UserDetailsServiceAuthorization implements UserDetailsService {
     private final UserService userService;
 
 
-
     public UserDetailsServiceAuthorization(UserService userService) {
         this.userService = userService;
     }
@@ -33,11 +32,11 @@ public class UserDetailsServiceAuthorization implements UserDetailsService {
         UserEntity userEntity = userService.read(mail);
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(userEntity.getRole().getName()));
-        return new org.springframework.security.core.userdetails.User(userEntity.getEmail(), userEntity.getPassword(), grantedAuthorities);
+        if (userEntity.isVerify())
+            return new org.springframework.security.core.userdetails.User(userEntity.getEmail(), userEntity.getPassword(), grantedAuthorities);
+
+        return null;
     }
-
-
-
 
 
 }

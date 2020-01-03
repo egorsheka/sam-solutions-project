@@ -16,6 +16,10 @@ public class UserEntity {
     @Column(unique = true)
     private String email;
     private String password;
+    private String idVerification;
+    private boolean isVerify;
+
+
 
     @ManyToOne
     private Role role;
@@ -25,6 +29,14 @@ public class UserEntity {
     public UserEntity(String email, String password, Role role) {
         this.email = email;
         this.password = password;
+        this.role = role;
+    }
+
+    public UserEntity(String email, String password, Role role, String idVerification, boolean isVerify) {
+        this.email = email;
+        this.password = password;
+        this.idVerification = idVerification;
+        this.isVerify = isVerify;
         this.role = role;
     }
 
@@ -56,7 +68,13 @@ public class UserEntity {
         return role;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
-    }
+    public void setRole(Role role) { this.role = role;}
+
+    public String getIdVerification() { return idVerification;}
+
+    public void setIdVerification(String idVerification) { this.idVerification = idVerification;}
+
+    public boolean isVerify() { return isVerify;}
+
+    public void setVerify(boolean verify) { isVerify = verify;}
 }

@@ -8,19 +8,8 @@
     <link  rel="stylesheet" type="text/css" th:href="@{/css/style.css}" >
 </head>
 <body class="FonL app-contact-body">
+<div th:replace="fragments/cookNavbar :: cookNavbar"></div>
 
-
-<nav class="navbar navbar-dark bg-dark" style="z-index: 2">
-    <a class="navbar-brand"></a>
-
-    <div class="form-inline  app-nav-bar-container">
-        <a class="nav-link active app-nav-link-item"th:href="${(#mvc.url('PC#getProfilePage')).build()}" th:text="#{text.profile}">Profile</a>
-        <a class="nav-link active app-nav-link-item"th:href="${(#mvc.url('WTC#getTimeWorkPage')).build()}" th:text="#{text.workingHours}">Time Work</a>
-        <a class="nav-link active app-nav-link-item" th:href="${(#mvc.url('LC#getAvailabilitiesPage')).build()}" th:text="#{text.location}">Location</a>
-        <a class="nav-link active app-nav-link-item" th:href="${(#mvc.url('MC#getCookPersonalPage')).build()}" th:text="#{text.menus}">Menus</a>
-        <a class="nav-link active app-nav-link-item my-2 my-sm-0" href="/users/logout" style="margin-left: 40px; margin-right: -50px ">Logout</a>
-    </div>
-</nav>
 
 <div class="container-profile">
     <div class="inner-profile">

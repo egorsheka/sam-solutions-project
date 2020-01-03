@@ -24,15 +24,17 @@ public class MainPageController {
     private TownService townService;
     private MenuService menuService;
     private DistrictService districtService;
-    private OrderDto user;
+
 
     public MainPageController(TownService townService, MenuService menuService, CookService cookService, DistrictService districtService) {
         this.cookService = cookService;
         this.townService = townService;
-
         this.menuService = menuService;
         this.districtService = districtService;
+
     }
+
+
 
     @GetMapping(path = "/")
     public String getMainPage( Model model){
@@ -56,7 +58,6 @@ public class MainPageController {
 
     @PostMapping(value = "/viewMenu")
     public String viewMenu(@ModelAttribute OrderDto user, Model model) {
-
         model.addAttribute("menuList",  cookService.findAllMenuByOrder(user));
         return "viewMenu";
     }
