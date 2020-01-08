@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>menu</title>
+
+
+    <script type="text/javascript" th:src="@{/script/jquery.js}"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/newMenu.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/viewMenu.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/seeMenu.css}">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+</head>
+
+<body style="background-color: #f9f8f6">
+
+
+<div class="row justify-content-center" style="margin-top: 200px; margin-bottom: 200px">
+    <div class="card d-inline-block" style="width: 470px; height: 550px; border: 0px; margin-left: 70px">
+
+        <div style="margin-top: 15px; margin-left: 10px">
+            <label class="main-label" style="color: #333333; font-size: 15px">Start time</label>
+        </div>
+
+        <div style=" margin-left: 10px">
+            <label class="main-label" th:text="${order.date.dayOfWeek + ', '}" style="color: #333333; font-size: 14px">Friday, January 17th 2020 at 2:00 pm</label>
+            <label class="main-label" th:text="${order.date.dayOfMonth +'/' + order.date.monthValue + '/' + order.date.year}" style="color: #333333; font-size: 14px">Friday, January 17th 2020 at 2:00 pm</label>
+            <label class="main-label" th:text="${' at ' + order.time}" style="color: #333333; font-size: 14px">Friday, January 17th 2020 at 2:00 pm</label>
+        </div>
+
+
+        <div class="card-body" style="height: 5px">
+            <div class="card dish-card2"
+                 style="width: 580px; margin-left: -20px; margin-top: -20px; border-color: #f9f8f6; border-width: 20px; border-radius: 0px; border-style: solid"></div>
+        </div>
+
+        <div style="margin-top: 15px; margin-left: 10px">
+            <label class="main-label" style="color: #333333; font-size: 15px">Specific instructions</label>
+        </div>
+
+        <div style="margin-top: -8px; margin-left: 10px">
+            <label class="main-label" style="color: #333333; font-size: 12px">Inform our team and your chef</label>
+        </div>
+
+        <div class="form-group" style="margin-left: 10px; margin-top: -10px; width: 440px">
+            <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="2"
+                      placeholder="Please indicate if you would like to change something or have any dietary requirements."></textarea>
+        </div>
+
+
+        <div class="card-body" style="height: 5px">
+            <div class="card dish-card2"
+                 style="width: 580px; margin-left: -20px; margin-top: -20px; border-color: #f9f8f6; border-width: 20px; border-radius: 0px; border-style: solid"></div>
+        </div>
+
+        <div>
+            <div class="d-inline-block" style="margin-top: 15px; margin-left: 10px">
+                <label class="main-label" style="color: #333333">First Name*</label>
+            </div>
+            <div class="d-inline-block">
+                <input type="text" class="form-control"
+                       style="width: 340px; height: 30px; margin-left: 20px"
+                       placeholder="Your first name"/>
+            </div>
+        </div>
+
+        <div>
+            <div class="d-inline-block" style="margin-top: 15px; margin-left: 10px">
+                <label class="main-label" style="color: #333333">Last Name*</label>
+            </div>
+            <div class="d-inline-block">
+                <input type="text" class="form-control"
+                       style="width: 340px;height: 30px; margin-left: 20px"
+                       placeholder="Your last name"/>
+            </div>
+        </div>
+
+
+        <div>
+            <div class="d-inline-block" style="margin-top: 15px; margin-left: 10px">
+                <label class="main-label" style="color: #333333">Phone*</label>
+            </div>
+            <div class="d-inline-block">
+                <input type="text" class="form-control"
+                       style="width: 340px; height: 30px; margin-left: 45px"
+                       placeholder="Your phone"/>
+            </div>
+        </div>
+
+        <div>
+            <div class="d-inline-block" style="margin-top: 15px; margin-left: 10px">
+                <label class="main-label" style="color: #333333">Address line*</label>
+            </div>
+            <div class="d-inline-block">
+                <input type="text" class="form-control"
+                       style="width: 340px; height: 30px; margin-left: 7px"
+                       placeholder="Your address line"/>
+            </div>
+        </div>
+
+        <div>
+            <div class="d-inline-block" style="margin-top: 15px; margin-left: 10px">
+                <label class="main-label" style="color: #333333">Town*</label>
+            </div>
+            <div class="d-inline-block">
+                <input type="text" class="form-control"
+                       style="width: 340px; height: 30px; margin-left: 52px"
+                       placeholder="Your city"/>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="card d-inline-block "
+         style="width: 18rem;height: 470px ;margin-left: 20px; background-color: white; border: 0px; background-color: #222;">
+        <div style="margin-left: 10px; margin-top: 5px; height: 20px">
+            <label class="main-label2" style="color: #fff"><b>YOUR BOOKING DETAILS</b></label>
+        </div>
+        <div style="color: whitesmoke;">
+            <ul style="position: relative">
+                <li style="position: absolute; top: 0px">
+                    <label class="main-label2" style="color: whitesmoke; margin-left: 7px">In</label>
+                    <label class="main-label2" th:text="${order.town.name}" style="color: whitesmoke; margin-left: 2px"></label>
+                    <label class="main-label2"  style="color: whitesmoke; margin-left: -2px">, </label>
+                    <label class="main-label2" th:text="${order.district.name}" style="color: whitesmoke; margin-left: 2px"></label>
+                </li>
+                <li style="position: absolute; top: 16px">
+                    <label class="main-label2" style="color: whitesmoke; margin-left: 7px">On </label>
+                    <label class="main-label2" th:text="${order.date.dayOfMonth +'/' + order.date.monthValue + '/' + order.date.year}" style="color: whitesmoke; margin-left: 2px"></label>
+                </li>
+                <li style="position: absolute; top: 32px">
+                    <label class="main-label2" style="color: whitesmoke; margin-left: 7px">Service time </label>
+                    <label class="main-label2" th:text="${order.time}" style="color: whitesmoke; margin-left: 2px"></label>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card-body">
+            <div class="card dish-card2"
+                 style="position: absolute;left: 0px;  top:33px; width: 288px; border-color:  #000000;border-style: solid"></div>
+        </div>
+
+        <div class="card-body">
+            <div class="card dish-card2"
+                 style="position: absolute;left: 0px; top:110px; width: 288px; border-color: #f9f8f6; border-width: 17px; border-radius: 0px; border-style: solid"></div>
+        </div>
+
+
+        <label class="main-label2" style="position: relative; top: 30px;color: whitesmoke; margin-left: 10px"><b>YOUR
+            CART</b></label>
+
+        <div class="card-body" style="height: 5px">
+            <div class="card dish-card2"
+                 style="position: absolute;left: 0px;  top:185px; width: 288px; border-color:  #000000;border-style: solid"></div>
+        </div>
+        <label class="main-label2"
+               style="color: whitesmoke; margin-left: 10px">Total number of guests</label>
+
+        <label class="main-label2" th:text="${order.countOfGuests}" id="selectGuests"
+               style="color: whitesmoke; margin-left: 220px; position: relative; top: -30px">6</label>
+
+        <div class="card-body" style="height: 5px">
+            <div class="card dish-card2"
+                 style="position: absolute;left: 0px;  top:228px; width: 288px; border-color:  #000000;border-style: solid"></div>
+        </div>
+
+        <label class="main-label2"
+               style="color: whitesmoke; margin-left: 10px; position: relative; top: -60px">Unit price</label>
+
+        <label class="main-label2" id="unitPrice" th:text="${order.price}"
+               style="color: whitesmoke; margin-left: 150px; position: relative; top: -60px">30</label>
+        <label class="main-label2"
+               style="color: whitesmoke;  position: relative; top: -60px"> руб</label>
+
+
+        <div class="card-body" style="height: 5px">
+            <div class="card dish-card2"
+                 style="position: absolute;left: 0px;  top:270px; width: 288px; border-color:  #000000;border-style: solid"></div>
+        </div>
+
+
+        <label class="main-label2"
+               style="color: whitesmoke; margin-left: 10px; position: relative; top: -94px">Menu x </label>
+        <label class="main-label2" id="countX"
+               style="color: whitesmoke; margin-left: 0px; position: relative; top: -94px">3</label>
+
+        <label class="main-label2" id="priceX"
+               style="color: whitesmoke;  position: absolute; top: 282px; right: 55px">90</label>
+        <label class="main-label2"
+               style="color: whitesmoke;  position: absolute; top: 282px; right: 30px"> руб</label>
+
+
+        <div class="card-body" style="height: 5px">
+            <div class="card dish-card2"
+                 style="position: absolute;left: 0px;  top:313px; width: 288px; border-color:  #000000;border-style: solid"></div>
+        </div>
+
+
+        <label class="main-label2"
+               style="color: whitesmoke; margin-left: 10px; position: relative; top: -122px">Booking Fee</label>
+
+        <label class="main-label2" id="bookingPrice"
+               style="color: whitesmoke;  position: absolute; top: 327px; right: 54px">20</label>
+        <label class="main-label2"
+               style="color: whitesmoke;  position: absolute; top: 327px; left: 238px"> руб</label>
+
+
+        <div class="card-body" style="height: 5px">
+            <div class="card dish-card2"
+                 style="position: absolute;left: 0px;  top:357px; width: 288px; border-color: #000000;border-style: solid"></div>
+        </div>
+
+
+        <label class="main-label2"
+               style="color: rgb(243, 153, 57); margin-left: 10px; position: relative; top: -150px">Total</label>
+
+        <label class="main-label2" id="totalPrice"
+               style="color: rgb(243, 153, 57);  position: absolute; top: 369px; right: 55px">110</label>
+        <label class="main-label2"
+               style="color: rgb(243, 153, 57);  position: absolute; top: 369px; right: 30px"> руб</label>
+
+
+        <div class="card-body" style="height: 5px">
+            <div class="card dish-card2"
+                 style="position: absolute;left: 0px;  top:397px; width: 288px; border-color: #000000;border-style: solid"></div>
+        </div>
+
+
+        <div class="row justify-content-center" style="position: absolute;left: 30px;  top:400px; width: 258px">
+            <button class="btn btn-classic save"
+                    style="display: inline-block; margin-top: 12px;  width : 258px;">BOOK THIS MENU
+            </button>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+    const selectGuests = document.getElementById('selectGuests');
+    const unitPrice = document.getElementById('unitPrice');
+    const countX = document.getElementById('countX');
+    countX.innerHTML = selectGuests.value;
+    const priceX = document.getElementById('priceX');
+    const bookingPrice = document.getElementById('bookingPrice');
+    const totalPrice = document.getElementById('totalPrice');
+
+
+
+    countX.innerHTML = (Number(selectGuests.innerHTML)) + '';
+    priceX.innerHTML = (Number(unitPrice.innerHTML) * Number(countX.innerHTML)) + '';
+    totalPrice.innerHTML = (Number(unitPrice.innerHTML) * Number(countX.innerHTML) + Number(bookingPrice.innerHTML));
+
+
+</script>
+
+
+</body>
+</html>

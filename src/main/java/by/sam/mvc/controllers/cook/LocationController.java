@@ -33,6 +33,7 @@ public class LocationController {
 
     @GetMapping(path = {"location"})
     public String getAvailabilitiesPage(Model model, @AuthenticationPrincipal UserDetails currentUser) {
+        System.out.println(currentUser.isEnabled());
         return "cook/location";
     }
 

@@ -35,8 +35,6 @@ public class RegistrationController {
 
     @PostMapping("/singUp")
     public String registerUserAccount(@ModelAttribute("user") CookDto cook) {
-
-
         cookService.create(cook);
         return "confirmRegistration";
     }

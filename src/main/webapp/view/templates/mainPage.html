@@ -3,7 +3,7 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link  rel="stylesheet" type="text/css" th:href="@{/css/style.css}" >
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 
 <body class=FonIn>
@@ -11,20 +11,16 @@
 <nav class="navbar navbar-dark bg-dark" style="z-index: 2">
     <h2 class="navbar-brand"></h2>
     <div class="form-inline">
-        <a class="nav-link active app-nav-link-item my-2 my-sm-0" th:href="${(#mvc.url('MC#getCookPersonalPage')).build()}" th:text="#{text.login}">LOGIN</a>
+        <a class="nav-link active app-nav-link-item my-2 my-sm-0"
+           th:href="${(#mvc.url('MC#getCookPersonalPage')).build()}" th:text="#{text.login}">LOGIN</a>
     </div>
 </nav>
-
 
 
 <form action="#" th:action="@{/viewMenu}" th:object="${order}" method="post">
 
     <div class="app-info-container">
 
-
-
-
-        </a>
         <div class="form-group row"
              style="color:white; font-size: 30px;position: relative; top: 200px; text-align: center; height: 10em;
   display: flex;
@@ -33,28 +29,30 @@
 
             <span>in</span>
             <div style="padding: 10px;">
-                <select  class="form-control input-main" th:field="${order.town}" id="select_">
+                <select class="form-control input-main" th:field="${order.town}" id="select_">
                     <option th:each="t : ${townList}" th:value="${t.id}" th:text="${t.name}"></option>
                 </select>
             </div>
 
             <div style="padding: 10px;">
-                <select class="form-control input-main" th:field="${order.district.id}" id ="selectDistricts" style="z-index: 2">
+                <select class="form-control input-main" th:field="${order.district.id}" id="selectDistricts"
+                        style="z-index: 2">
                     <option th:each="district : ${districtList}" th:value="${district.id}" th:text="${district.name}">
                     </option>
                 </select>
             </div>
 
-            <div >
+            <div>
                 <span>on</span>
             </div>
 
 
             <div style="padding: 10px;">
-                <input class="form-control input-main" type="date"  th:value="${order.date}"  th:field="${order.date}" min="2019-12-01" max="2020-03-31">
+                <input class="form-control input-main" type="date" th:value="${order.date}" th:field="${order.date}"
+                       min="2019-12-01" max="2020-03-31">
             </div>
 
-            <span >at</span>
+            <span>at</span>
             <div style="padding: 10px;">
                 <select th:field="${order.time}" class="form-control" style="width: 90px">
                     <option th:value="${'01:00'}" th:text="${'01:00'}">01:00</option>
@@ -86,15 +84,12 @@
 
 
             <div style="padding: 10px;">
-                <button th:text="#{text.view_menu}" name="save" type="submit" class="btn btn-warning" style=" border-radius: 5px; margin-top: 10px">view menu
+                <button th:text="#{text.view_menu}" name="save" type="submit" class="btn btn-warning"
+                        style=" border-radius: 5px; margin-top: 10px">view menu
                 </button>
             </div>
-
-
-
-
+        </div>
     </div>
-</div>
 
     <div class="app-content-container">
         <div class="app-content-text" style="border-bottom: solid 0.1px white; padding-bottom: 10px">
@@ -115,13 +110,9 @@
 <script type="text/javascript">
 
 
-
-
-
-
     //http://sc0489:8080/personalcook_war_exploded/
     //http://localhost:8084/sam_solutions_project_war/
-    fetch( "http://localhost:8084/sam_solutions_project_war/getAllTowns",{ // try not to specify server here
+    fetch("http://localhost:8084/sam_solutions_project_war/getAllTowns", { // try not to specify server here
         method: 'POST',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -131,14 +122,13 @@
         .then(resp => resp.json()
         .then(json => {
         console.log(json);
-    }));
+    }))
+
 
 </script>
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
 <script type="text/javascript" th:src="@{/script/jquery.js}"></script>
 <script type="text/javascript" th:src="@{/script/mainPage.js}"></script>
-
-
 
 
 </body>

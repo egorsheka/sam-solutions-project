@@ -1,6 +1,7 @@
 package by.sam.mvc.controllers;
 
 
+import by.sam.mvc.models.user.Client;
 import by.sam.mvc.models.user.Cook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +31,12 @@ public class UserSingInController {
     public String singIn(@ModelAttribute Cook user, Model model) {
         model.addAttribute("loginError", true);
         return "login";
+    }
+
+    @PostMapping("/signUp")
+    public String singUp(@ModelAttribute Client client, Model model) {
+
+        return "loginOrSingUp";
     }
 
     @ModelAttribute

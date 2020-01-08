@@ -3,7 +3,7 @@ INSERT INTO public.role (id, name) VALUES (1, 'CLIENT');
 INSERT INTO public.role (id, name) VALUES (2, 'COOK');
 INSERT INTO public.role (id, name) VALUES (3, 'ADMIN');
 
-INSERT INTO public.userentity (id, email, idverification, isVerify, password, role_id ) VALUES (1, '1', 0, false, '1', 2);
+INSERT INTO public.userentity (id, email, idverification, isVerify, password, role_id ) VALUES (1, '1', 0, true, '1', 2);
 
 INSERT INTO public.cooks (id, birthday, email, mobile, name, password, status, surname, userentity_id) VALUES (1, null, 1, null, null, 1, null, null, 1);
 

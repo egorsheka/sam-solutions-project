@@ -274,12 +274,6 @@ public class CookServiceImpl implements CookService {
     @Transactional
     @Override
     public List<Menu> findAllMenuByOrder(OrderDto dto) {
-//        dto = new OrderDto();
-//        dto.setDistrict(new District(1,"d", new Town("dfd")));
-//        dto.setDate(LocalDate.parse("2019-12-04"));
-//        dto.setTime("03:30");
-
-
 
 
         List<Cook> cooks = getCooksByDistrictId(dto.getDistrict().getId());
@@ -288,7 +282,7 @@ public class CookServiceImpl implements CookService {
         DayOfWeek dayOfWeek = dto.getDate().getDayOfWeek();
         LocalTime time = LocalTime.parse(dto.getTime() + ":00");
 
-        cooks = filterCooksByWorkTime(cooks, dayOfWeek, time);
+         cooks = filterCooksByWorkTime(cooks, dayOfWeek, time);
 
 
         List<Menu> menus = new ArrayList<>();

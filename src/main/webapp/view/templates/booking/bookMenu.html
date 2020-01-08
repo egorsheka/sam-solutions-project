@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>menu</title>
+
+
+    <script type="text/javascript" th:src="@{/script/jquery.js}"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/seeMenu.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+
+
+</head>
+<body style="background-color: #f9f8f6">
+
+<form action="#" th:action="@{/bookMenu}" th:object="${orderDto}" method="post">
+<div class="row justify-content-center" style="margin-top: 100px; margin-bottom: 200px">
+    <div class="card d-inline-block" style="width: 580px; border: 0px; margin-left: 70px">
+
+        <div class="row justify-content-center" style="margin-top: 15px">
+            <label class="main-label"><b>SERVICE DESCRIPTION</b></label>
+        </div>
+
+        <div style="margin-left: 30px; margin-right: 30px">
+            <label class="label-two">
+                The chef brings all ingredients, prepares the meal in your kitchen, serves each dish, and does the
+                washing up before leaving
+            </label>
+        </div>
+
+
+        <div class="card-body" th:each="dish, item : ${menu.dishes}">
+
+            <div class="card dish-card"
+                 style="position: absolute; left: -1px; width: 580px; border-color:  #f9f8f6;border-style: solid"></div>
+
+
+            <div>
+                <div class="row justify-content-center" style="margin-top: 25px">
+                    <label class="main-label"><b th:text="${dish.dishType}">SERVICE DESCRIPTION</b></label>
+                </div>
+
+                <div style="margin-left: 30px; margin-right: 30px">
+                    <label class="label-two" th:text="${dish.name}">
+
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <div class="card d-inline-block "
+         style="width: 18rem; margin-left: 20px ; background-color: white; border: 0px; background-color: #222;">
+        <div style="margin-left: 10px; margin-top: 5px; height: 20px">
+            <label class="main-label2" style="color: #fff"><b>YOUR BOOKING DETAILS</b></label>
+        </div>
+        <div style="color: whitesmoke;">
+            <ul style="position: relative">
+                <li style="position: absolute; top: 0px">
+                    <label class="main-label2" style="color: whitesmoke; margin-left: 7px">In</label>
+                    <label class="main-label2" th:text="${order.town.name}" style="color: whitesmoke; margin-left: 2px"></label>
+                    <label class="main-label2"  style="color: whitesmoke; margin-left: -2px">, </label>
+                    <label class="main-label2" th:text="${order.district.name}" style="color: whitesmoke; margin-left: 2px"></label>
+                </li>
+                <li style="position: absolute; top: 16px">
+                    <label class="main-label2" style="color: whitesmoke; margin-left: 7px">On </label>
+                    <label class="main-label2" th:text="${order.date.dayOfMonth +'/' + order.date.monthValue + '/' + order.date.year}" style="color: whitesmoke; margin-left: 2px"></label>
+                </li>
+                <li style="position: absolute; top: 32px">
+                    <label class="main-label2" style="color: whitesmoke; margin-left: 7px">Service time </label>
+                    <label class="main-label2" th:text="${order.time}" style="color: whitesmoke; margin-left: 2px"></label>
+                </li>
+            </ul>
+        </div>
+
+        <div class="card-body">
+            <div class="card dish-card2"
+                 style="position: absolute;left: 0px;  top:33px; width: 288px; border-color:  #000000;border-style: solid"></div>
+        </div>
+
+        <div class="card-body">
+            <div class="card dish-card2"
+                 style="position: absolute;left: 0px; top:110px; width: 288px; border-color: #f9f8f6; border-width: 17px; border-radius: 0px; border-style: solid"></div>
+        </div>
+
+
+        <label class="main-label2" style="position: relative; top: 30px;color: whitesmoke; margin-left: 10px"><b>YOUR
+            CART</b></label>
+
+        <div class="card-body" style="height: 5px">
+            <div class="card dish-card2"
+                 style="position: absolute;left: 0px;  top:185px; width: 288px; border-color:  #000000;border-style: solid"></div>
+        </div>
+        <label class="main-label2"
+               style="color: whitesmoke; margin-left: 10px">Total number of guests</label>
+
+
+
+        <select th:field="${order.countOfGuests}" class="form-control" id="selectGuests"
+                style="font-size: 11px; width: 60px; height: 30px; position: relative; top: -35px; left: 210px">
+            <option th:value="${'1'}" th:text="${'1'}">1</option>
+            <option th:value="${'2'}" th:text="${'2'}">2</option>
+            <option th:value="${'3'}" th:text="${'3'}">3</option>
+            <option th:value="${'4'}" th:text="${'4'}">4</option>
+            <option th:value="${'5'}" th:text="${'5'}">5</option>
+            <option th:value="${'6'}" th:text="${'6'}">6</option>
+            <option th:value="${'7'}" th:text="${'7'}">7</option>
+            <option th:value="${'8'}" th:text="${'8'}">8</option>
+            <option th:value="${'9'}" th:text="${'9'}">9</option>
+            <option th:value="${'10'}" th:text="${'10'}">10</option>
+            <option th:value="${'11'}" th:text="${'11'}">11</option>
+            <option th:value="${'12'}" th:text="${'12'}">12</option>
+            <option th:value="${'13'}" th:text="${'13'}">13</option>
+            <option th:value="${'14'}" th:text="${'14'}">14</option>
+            <option th:value="${'15'}" th:text="${'15'}">15</option>
+            <option th:value="${'16'}" th:text="${'16'}">16</option>
+            <option th:value="${'17'}" th:text="${'17'}">17</option>
+            <option th:value="${'18'}" th:text="${'18'}">18</option>
+            <option th:value="${'19'}" th:text="${'19'}">19</option>
+            <option th:value="${'20'}" th:text="${'20'}">20</option>
+            <option th:value="${'21'}" th:text="${'21'}">21</option>
+            <option th:value="${'22'}" th:text="${'22'}">22</option>
+            <option th:value="${'23'}" th:text="${'23'}">23</option>
+            <option th:value="${'24'}" th:text="${'24'}">24</option>
+            <option th:value="${'25'}" th:text="${'25'}">25</option>
+            <option th:value="${'26'}" th:text="${'26'}">26</option>
+            <option th:value="${'27'}" th:text="${'27'}">27</option>
+            <option th:value="${'28'}" th:text="${'28'}">28</option>
+            <option th:value="${'29'}" th:text="${'29'}">29</option>
+            <option th:value="${'30'}" th:text="${'30'}">30</option>
+
+        </select>
+
+        <div class="card-body" style="height: 5px">
+            <div class="card dish-card2"
+                 style="position: absolute;left: 0px;  top:228px; width: 288px; border-color:  #000000;border-style: solid"></div>
+        </div>
+
+        <label class="main-label2"
+               style="color: whitesmoke; margin-left: 10px; position: relative; top: -60px">Unit price</label>
+
+        <label class="main-label2" id="unitPrice" th:text="${menu.price}"
+               style="color: whitesmoke; margin-left: 150px; position: relative; top: -60px"></label>
+        <label class="main-label2"
+               style="color: whitesmoke;  position: relative; top: -60px"> руб</label>
+
+
+        <div class="card-body" style="height: 5px">
+            <div class="card dish-card2"
+                 style="position: absolute;left: 0px;  top:270px; width: 288px; border-color:  #000000;border-style: solid"></div>
+        </div>
+
+
+        <label class="main-label2"
+               style="color: whitesmoke; margin-left: 10px; position: relative; top: -94px">Menu x </label>
+        <label class="main-label2" id="countX"
+               style="color: whitesmoke; margin-left: 0px; position: relative; top: -94px">3</label>
+
+        <label class="main-label2" id="priceX"
+               style="color: whitesmoke;  position: absolute; top: 282px; right: 55px">90</label>
+        <label class="main-label2"
+               style="color: whitesmoke;  position: absolute; top: 282px; right: 30px"> руб</label>
+
+
+        <div class="card-body" style="height: 5px">
+            <div class="card dish-card2"
+                 style="position: absolute;left: 0px;  top:313px; width: 288px; border-color:  #000000;border-style: solid"></div>
+        </div>
+
+
+        <label class="main-label2"
+               style="color: whitesmoke; margin-left: 10px; position: relative; top: -122px">Booking Fee</label>
+
+        <label class="main-label2" id="bookingPrice"
+               style="color: whitesmoke;  position: absolute; top: 327px; right: 54px">20</label>
+        <label class="main-label2"
+               style="color: whitesmoke;  position: absolute; top: 327px; left: 238px"> руб</label>
+
+
+        <div class="card-body" style="height: 5px">
+            <div class="card dish-card2"
+                 style="position: absolute;left: 0px;  top:357px; width: 288px; border-color: #000000;border-style: solid"></div>
+        </div>
+
+
+        <label class="main-label2"
+               style="color: rgb(243, 153, 57); margin-left: 10px; position: relative; top: -150px">Total</label>
+
+        <label class="main-label2" id="totalPrice"
+               style="color: rgb(243, 153, 57);  position: absolute; top: 369px; right: 55px">110</label>
+        <label class="main-label2"
+               style="color: rgb(243, 153, 57);  position: absolute; top: 369px; right: 30px"> руб</label>
+
+
+        <div class="card-body" style="height: 5px">
+            <div class="card dish-card2"
+                 style="position: absolute;left: 0px;  top:397px; width: 288px; border-color: #000000;border-style: solid"></div>
+        </div>
+
+
+        <label class="main-label2"
+               style="color: whitesmoke; margin-left: 10px; position: relative; top: -183px">Need to make some menu
+            changes?</label>
+
+
+        <div class="form-group" style="position: absolute;left: 15px;  top:440px;width: 258px">
+            <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="4"
+                      placeholder="Please indicate if you would like to change something or have any dietary requirements."></textarea>
+        </div>
+
+            <input type="hidden" th:value="${menu.id}" th:name="menuId">
+            <input type="hidden" th:value="${menu.price}" th:name="price">
+            <input type="hidden" th:field="${order.district.id}" th:value="${order.district.id}">
+            <input type="hidden" th:field="${order.district.name}" th:value="${order.district.name}">
+            <input type="hidden" th:field="${order.town.name}" th:value="${order.town.name}">
+            <input type="hidden" th:name="date" th:value="${order.date}">
+            <input type="hidden" th:name="time" th:value="${order.time}">
+            <div class="row justify-content-center" style="position: absolute;left: 30px;  top:550px; width: 258px">
+                <button class="btn btn-classic save"
+                        style="display: inline-block; margin-top: 12px;  width : 258px;">BOOK THIS MENU
+                </button>
+            </div>
+
+
+
+    </div>
+
+</div>
+</form>
+<script>
+
+    const selectGuests = document.getElementById('selectGuests');
+    const unitPrice = document.getElementById('unitPrice');
+    const countX = document.getElementById('countX');
+    countX.innerHTML = selectGuests.value;
+    const priceX = document.getElementById('priceX');
+    const bookingPrice = document.getElementById('bookingPrice');
+    const totalPrice = document.getElementById('totalPrice');
+
+
+    selectGuests.addEventListener("change", function () {
+        const obj = {"number": selectGuests.value};
+        countX.innerHTML = obj.number;
+        priceX.innerHTML = (Number(unitPrice.innerHTML) * Number(countX.innerHTML)) + '';
+        totalPrice.innerHTML = (Number(unitPrice.innerHTML) * Number(countX.innerHTML) + Number(bookingPrice.innerHTML));
+    })
+
+</script>
+
+
+</body>
+</html>

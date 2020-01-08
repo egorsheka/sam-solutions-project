@@ -16,9 +16,9 @@ public class OrderDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
     private String time;
-    private String address;
-    private List<Menu> menu;
-
+    private int menuId;
+    private double price;
+    private int countOfGuests;
 
 
 
@@ -46,27 +46,30 @@ public class OrderDto {
         this.time = time;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public List<Menu> getMenu() {
-        return menu;
-    }
-
-    public void setMenu(List<Menu> menu) {
-        this.menu = menu;
-    }
-
     public LocalDate getDate() {
         return date;
     }
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public int getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(int menuId) {
+        this.menuId = menuId;
+    }
+
+    public int getCountOfGuests() { return countOfGuests; }
+    public void setCountOfGuests(int countOfGuests) { this.countOfGuests = countOfGuests; }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

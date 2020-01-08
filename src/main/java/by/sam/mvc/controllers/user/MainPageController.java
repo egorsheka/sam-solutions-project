@@ -4,10 +4,13 @@ package by.sam.mvc.controllers.user;
 import by.sam.mvc.dto.DistrictDto;
 import by.sam.mvc.dto.OrderDto;
 import by.sam.mvc.models.location.Town;
+import by.sam.mvc.models.menu.*;
 import by.sam.mvc.service.location.DistrictService;
 import by.sam.mvc.service.location.TownService;
 import by.sam.mvc.service.menu.MenuService;
 import by.sam.mvc.service.user.CookService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +24,10 @@ import java.util.stream.Collectors;
 public class MainPageController {
 
     private CookService cookService;
-    private TownService townService;
     private MenuService menuService;
+    private TownService townService;
     private DistrictService districtService;
+    List<Menu> menus;
 
 
     public MainPageController(TownService townService, MenuService menuService, CookService cookService, DistrictService districtService) {
@@ -54,12 +58,6 @@ public class MainPageController {
     public List<DistrictDto> getAllTowns(@RequestBody int i) {
         List<DistrictDto> list = townService.findAll().stream().map(d -> new DistrictDto(d.getId(), d.getName())).collect(Collectors.toList());
         return list;
-    }
-
-    @PostMapping(value = "/viewMenu")
-    public String viewMenu(@ModelAttribute OrderDto user, Model model) {
-        model.addAttribute("menuList",  cookService.findAllMenuByOrder(user));
-        return "viewMenu";
     }
 
 
