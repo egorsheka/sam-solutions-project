@@ -1,23 +1,36 @@
-package by.sam.mvc.models;
+package by.sam.mvc.models.order;
 
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.menu.Menu;
 import by.sam.mvc.models.user.Client;
 
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.ManyToOne;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.time.LocalDate;
 
-//@Entity
+
+@Entity
+@Table(name = "orders")
 public class Order {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String orderTime;
     private String eventTime;
+    private LocalDate date;
+    private int countOfGuests;
+    @ManyToOne
     private District district;
     private String address;
-    private List<Menu> menu;
+    @ManyToOne
+    private Menu menu;
+    @ManyToOne
     private Client client;
 
     public int getId() {
@@ -60,19 +73,35 @@ public class Order {
         this.address = address;
     }
 
-    public List<Menu> getMenu() {
-        return menu;
-    }
-
-    public void setMenu(List<Menu> menu) {
-        this.menu = menu;
-    }
-
     public Client getClient() {
         return client;
     }
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
+
+    public int getCountOfGuests() {
+        return countOfGuests;
+    }
+
+    public void setCountOfGuests(int countOfGuests) {
+        this.countOfGuests = countOfGuests;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }

@@ -32,6 +32,12 @@
 <body style="background-color: #f9f8f6">
 
 
+<div sec:authorize="hasAuthority('COOK')">
+    <div th:replace = "fragments/cookNavbar :: cookNavbar"></div>
+</div>
+
+
+<form action="#" th:action="@{/makeOrder}" th:object="${order}" method="post">
 <div class="row justify-content-center" style="margin-top: 200px; margin-bottom: 200px">
     <div class="card d-inline-block" style="width: 470px; height: 550px; border: 0px; margin-left: 70px">
 
@@ -70,12 +76,13 @@
                  style="width: 580px; margin-left: -20px; margin-top: -20px; border-color: #f9f8f6; border-width: 20px; border-radius: 0px; border-style: solid"></div>
         </div>
 
+
         <div>
             <div class="d-inline-block" style="margin-top: 15px; margin-left: 10px">
                 <label class="main-label" style="color: #333333">First Name*</label>
             </div>
             <div class="d-inline-block">
-                <input type="text" class="form-control"
+                <input type="text" th:name="name" th:value="${user.name}" class="form-control"
                        style="width: 340px; height: 30px; margin-left: 20px"
                        placeholder="Your first name"/>
             </div>
@@ -86,7 +93,7 @@
                 <label class="main-label" style="color: #333333">Last Name*</label>
             </div>
             <div class="d-inline-block">
-                <input type="text" class="form-control"
+                <input type="text" th:name="surname" th:value="${user.surname}" class="form-control"
                        style="width: 340px;height: 30px; margin-left: 20px"
                        placeholder="Your last name"/>
             </div>
@@ -98,7 +105,7 @@
                 <label class="main-label" style="color: #333333">Phone*</label>
             </div>
             <div class="d-inline-block">
-                <input type="text" class="form-control"
+                <input type="text" th:name="mobile" th:value="${user.mobile}" class="form-control"
                        style="width: 340px; height: 30px; margin-left: 45px"
                        placeholder="Your phone"/>
             </div>
@@ -109,7 +116,7 @@
                 <label class="main-label" style="color: #333333">Address line*</label>
             </div>
             <div class="d-inline-block">
-                <input type="text" class="form-control"
+                <input type="text" class="form-control" th:name="address" th:value="${order.address}"
                        style="width: 340px; height: 30px; margin-left: 7px"
                        placeholder="Your address line"/>
             </div>
@@ -120,7 +127,7 @@
                 <label class="main-label" style="color: #333333">Town*</label>
             </div>
             <div class="d-inline-block">
-                <input type="text" class="form-control"
+                <input type="text" class="form-control"  th:value="${order.town.name}"
                        style="width: 340px; height: 30px; margin-left: 52px"
                        placeholder="Your city"/>
             </div>
@@ -254,7 +261,7 @@
     </div>
 
 </div>
-
+</form>
 
 <script>
 
@@ -266,7 +273,7 @@
     const bookingPrice = document.getElementById('bookingPrice');
     const totalPrice = document.getElementById('totalPrice');
 
-
+    unitPrice.innerHTML = unitPrice.innerHTML.split('.')[0];
 
     countX.innerHTML = (Number(selectGuests.innerHTML)) + '';
     priceX.innerHTML = (Number(unitPrice.innerHTML) * Number(countX.innerHTML)) + '';

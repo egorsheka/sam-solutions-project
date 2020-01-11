@@ -8,6 +8,6 @@ public interface UserService {
     void create(UserEntity userEntity);
     UserEntity read(String email);
     void update(UserEntity userEntity);
-    Optional<UserEntity> isVerifyUser(String id);
+    boolean isVerifyUser(String id);
 
 }

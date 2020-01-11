@@ -10,6 +10,6 @@ public interface UserRepository extends Repository<UserEntity> {
 
     UserEntity read(String email);
     Role readRole(String role);
-    Optional<UserEntity> isVerifyUser(String id);
+    boolean isVerifyUser(String id);
 
 }

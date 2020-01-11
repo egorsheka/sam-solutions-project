@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <script type="text/javascript" th:src="@{/script/jquery.js}"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+
+    <div th:replace = "fragments/header :: header-menu"></div>
     <link rel="stylesheet" type="text/css" th:href="@{/css/worktime.css}">
+
+
 
 </head>
 <body>
@@ -23,9 +23,9 @@
                  style="float: left; width: 100px; height: 100px;">
                 <input type="checkbox" class="custom-control-input" id="MONDAY">
                 <label class="custom-control-label" for="MONDAY">Monday</label>
-                <div id="div1" style="display: none; z-index: 2; width: 10px">
+                <div id="div1" style="display: none; z-index: 2; width: 10px;">
                     <select id="selectStart1" class="form-control" placeholder="from"
-                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px">
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px; padding: 3px">
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
                         <option value="02:00">02:00</option>
@@ -54,7 +54,7 @@
 
                     <label style="position: relative; right: 10px">-</label>
                     <select id="selectEnd1" class="form-control" placeholder="to"
-                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px; padding: 3px"
                             ;>
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
@@ -92,7 +92,7 @@
                 <label class="custom-control-label" for="TUESDAY">Tuesday</label>
                 <div id="div2" style="display: none; z-index: 2; width: 10px">
                     <select id="selectStart2" class="form-control" placeholder="from"
-                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px">
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px; padding: 3px">
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
                         <option value="02:00">02:00</option>
@@ -121,7 +121,7 @@
 
                     <label style="position: relative; right: 10px">-</label>
                     <select id="selectEnd2" class="form-control" placeholder="to"
-                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px; padding: 3px"
                             ;>
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
@@ -158,7 +158,7 @@
                 <label class="custom-control-label" for="WEDNESDAY">Wednesday</label>
                 <div id="div3" style="display: none; z-index: 2; width: 10px">
                     <select id="selectStart3" class="form-control" placeholder="from"
-                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px">
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px; padding: 3px">
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
                         <option value="02:00">02:00</option>
@@ -187,7 +187,7 @@
 
                     <label style="position: relative; right: 10px">-</label>
                     <select id="selectEnd3" class="form-control" placeholder="to"
-                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px; padding: 3px"
                             ;>
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
@@ -224,7 +224,7 @@
                 <label class="custom-control-label" for="THURSDAY">Thursday</label>
                 <div id="div4" style="display: none; z-index: 2; width: 10px">
                     <select id="selectStart4" class="form-control" placeholder="from"
-                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px">
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px; padding: 3px">
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
                         <option value="02:00">02:00</option>
@@ -253,7 +253,7 @@
 
                     <label style="position: relative; right: 10px">-</label>
                     <select id="selectEnd4" class="form-control" placeholder="to"
-                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px; padding: 3px"
                             ;>
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
@@ -290,7 +290,7 @@
                 <label class="custom-control-label" for="FRIDAY">Friday</label>
                 <div id="div5" style="display: none; z-index: 2; width: 10px">
                     <select id="selectStart5" class="form-control" placeholder="from"
-                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px">
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px; padding: 3px">
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
                         <option value="02:00">02:00</option>
@@ -319,7 +319,7 @@
 
                     <label style="position: relative; right: 10px">-</label>
                     <select id="selectEnd5" class="form-control" placeholder="to"
-                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px; padding: 3px"
                             ;>
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
@@ -357,7 +357,7 @@
                 <label class="custom-control-label" for="SATURDAY">Saturday</label>
                 <div id="div6" style="display: none; z-index: 2; width: 10px">
                     <select id="selectStart6" class="form-control" placeholder="from"
-                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px">
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px; padding: 3px">
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
                         <option value="02:00">02:00</option>
@@ -386,7 +386,7 @@
 
                     <label style="position: relative; right: 10px">-</label>
                     <select id="selectEnd6" class="form-control" placeholder="to"
-                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px; padding: 3px"
                             ;>
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
@@ -424,7 +424,7 @@
                 <label class="custom-control-label" for="SUNDAY">Sunday</label>
                 <div id="div7" style="display: none; z-index: 2; width: 10px">
                     <select id="selectStart7" class="form-control" placeholder="from"
-                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px">
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px; padding: 3px">
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>
                         <option value="02:00">02:00</option>
@@ -453,7 +453,7 @@
 
                     <label style="position: relative; right: 10px">-</label>
                     <select id="selectEnd7" class="form-control" placeholder="to"
-                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px"
+                            style="width: 80px; height: 28px;text-align: center; margin-left: 3px; position: relative; right: 101px; font-size: 13px; padding: 3px"
                             ;>
                         <option value="00:00">00:00</option>
                         <option value="01:00">01:00</option>

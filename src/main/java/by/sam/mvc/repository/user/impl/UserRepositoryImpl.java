@@ -32,12 +32,14 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public Optional<UserEntity> isVerifyUser(String id) {
+    public boolean isVerifyUser(String id) {
+
         return manager.createQuery("from UserEntity u where u.idVerification = :idVerification", UserEntity.class)
                 .setParameter("idVerification", id)
                 .getResultList()
                 .stream()
-                .findFirst();
+                .findFirst()
+                .isPresent();
     }
 
     @Override
@@ -47,7 +49,8 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public UserEntity read(int id) {
-        return null;
+        UserEntity userEntity = manager.find(UserEntity.class, id);
+        return userEntity;
     }
 
     @Override
@@ -57,6 +60,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public void delete(int id) {
-
+        UserEntity userEntity = manager.find(UserEntity.class, id);
+        manager.remove(userEntity);
     }
 }

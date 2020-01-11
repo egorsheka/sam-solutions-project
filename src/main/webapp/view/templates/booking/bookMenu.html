@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <title>menu</title>
@@ -30,7 +31,22 @@
 </head>
 <body style="background-color: #f9f8f6">
 
-<form action="#" th:action="@{/bookMenu}" th:object="${orderDto}" method="post">
+<div sec:authorize="hasAuthority('COOK')">
+    <div th:replace = "fragments/cookNavbar :: cookNavbar"></div>
+</div>
+<div sec:authorize="!isAuthenticated()">
+    <nav class="navbar navbar-dark bg-dark" style="position: fixed; top: -3px; width: 100%;z-index: 2">
+        <a class="navbar-brand"></a>
+
+        <div class="form-inline  app-nav-bar-container" style="margin-left: 85%">
+            <a class="nav-link active app-nav-link-item"
+               th:href="${(#mvc.url('USIC#login')).build()}" th:text="#{text.login}" style="flex:1; width: 30px" >Login</a>
+
+        </div>
+    </nav>
+</div>
+
+<form action="#" th:action="@{/bookMenu}" th:object="${orderDto}" method="post" >
 <div class="row justify-content-center" style="margin-top: 100px; margin-bottom: 200px">
     <div class="card d-inline-block" style="width: 580px; border: 0px; margin-left: 70px">
 
@@ -257,6 +273,7 @@
     const bookingPrice = document.getElementById('bookingPrice');
     const totalPrice = document.getElementById('totalPrice');
 
+    unitPrice.innerHTML = unitPrice.innerHTML.split('.')[0];
 
     selectGuests.addEventListener("change", function () {
         const obj = {"number": selectGuests.value};

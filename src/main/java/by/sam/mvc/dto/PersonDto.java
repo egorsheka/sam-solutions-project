@@ -1,6 +1,6 @@
 package by.sam.mvc.dto;
 
-public class CookDto {
+public class PersonDto {
 
     private int id;
     private String name;
@@ -10,9 +10,9 @@ public class CookDto {
     private String birthday;
     private String mobile;
 
-    public CookDto() {}
+    public PersonDto() {}
 
-    public CookDto(int id, String name, String surname, String email, String password, String birthday, String mobile) {
+    public PersonDto(int id, String name, String surname, String email, String password, String birthday, String mobile) {
         this.id = id;
         this.name = name;
         this.surname = surname;

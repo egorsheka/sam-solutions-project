@@ -40,6 +40,14 @@ public class UserEntity {
         this.role = role;
     }
 
+    public UserEntity(UserEntity userEntity) {
+        this.email = userEntity.email;
+        this.password = userEntity.password;
+        this.idVerification = userEntity.idVerification;
+        this.isVerify = userEntity.isVerify;
+        this.role = userEntity.role;
+    }
+
     public int getId() {
         return id;
     }

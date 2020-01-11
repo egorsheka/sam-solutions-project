@@ -7,8 +7,4 @@ import java.util.List;
 import java.util.Map;
 
 public interface WorkTimeService extends Service<WorkTime> {
-
-    List<WorkTime> createWorkTimeListFromParams(Map<String, String> params);
-
-
 }

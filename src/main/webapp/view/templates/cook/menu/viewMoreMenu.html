@@ -13,8 +13,6 @@
 
 
 
-
-
 <div class="container-new-menu">
     <div class="card new-menu-card" style="width: 580px; border: 0px">
 
@@ -67,40 +65,4 @@
 
 
 
-<a th:href="${(#mvc.url('MC#getCookPersonalPage')).build()}" th:text="#{text.back}">back</a><p></p>
-<!-------------------------------------- Edit list of dishes--------------------------------------------------->
-<form action="#" th:action="@{/saveMenu}" th:object="${editMenu}" method="post">
-    <input type="hidden" th:value="${editMenu.id}" th:name="id">
-    <label th:text="#{text.name}">name</label>
-    <input type="text" th:value="${editMenu.name}" th:name="name">
-    <p></p>
-    <label th:text="#{text.type}">type</label>
-    <input type="text" th:value="${editMenu.luxury}" th:name="luxury">
-    <p></p>
-    <label th:text="#{text.price}">price</label>
-    <input type="text" th:value="${editMenu.price}" th:name="price">
-    <p></p>
-    <div th:each="dish, item : *{dishes}" ><input type="hidden" th:field="*{dishes[__${item.index}__].id}"></div>
-    <div>
-        <table th:unless="*{dishes.empty}" border="1">
-            <tr>
-                <td th:each="dish, item : *{dishes}">
-                    <select th:field="*{dishes[__${item.index}__].dishType}">
-                        <option th:each="type : ${allTypesDish}" th:value="${type}" th:text="#{${'text.type.' + type}}"></option>
-                    </select>
-                </td>
-            </tr>
-            <tr>
-                <td th:each="dish, item : *{dishes}">
-                    <input th:field="*{dishes[__${item.index}__].name}" />
-                </td>
-            </tr>
-            <tr>
-                <td th:each="dish, item : *{dishes}"><input th:field="*{dishes[__${item.index}__].cuisine.name}"/>
-                </td>
-            </tr>
-        </table>
-    </div>
-</form>
-</body>
-</html>
+

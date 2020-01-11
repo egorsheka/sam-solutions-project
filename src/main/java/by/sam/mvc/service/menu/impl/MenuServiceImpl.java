@@ -1,31 +1,26 @@
 package by.sam.mvc.service.menu.impl;
 
 
-import by.sam.mvc.models.menu.Cuisine;
 import by.sam.mvc.models.menu.Dish;
 import by.sam.mvc.models.menu.Menu;
 import by.sam.mvc.models.menu.MenuLuxury;
 import by.sam.mvc.repository.menu.MenuRepository;
-import by.sam.mvc.service.menu.CuisineService;
 import by.sam.mvc.service.menu.DishService;
 import by.sam.mvc.service.menu.MenuService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class MenuServiceImpl implements MenuService {
 
     private final MenuRepository menuRepository;
     private final DishService dishService;
-    private final CuisineService cuisineService;
 
 
-    public MenuServiceImpl(MenuRepository menuRepository, DishService dishService, CuisineService cuisineService) {
+
+    public MenuServiceImpl(MenuRepository menuRepository, DishService dishService) {
         this.menuRepository = menuRepository;
         this.dishService = dishService;
-        this.cuisineService = cuisineService;
     }
 
 

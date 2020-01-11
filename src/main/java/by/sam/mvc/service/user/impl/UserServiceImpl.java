@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public Optional<UserEntity> isVerifyUser(String id) {
+    public boolean isVerifyUser(String id) {
         return userRepository.isVerifyUser(id);
     }
 }

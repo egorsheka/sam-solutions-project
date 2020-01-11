@@ -14,7 +14,6 @@ public class CuisineRepositoryImpl implements CuisineRepository {
     private EntityManager manager;
 
 
-
     @Override
     public void create(Cuisine cuisine) {
         manager.persist(cuisine);

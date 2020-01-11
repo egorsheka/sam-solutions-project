@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+//todo
 @Service
 public class CookServiceImpl implements CookService {
 
@@ -54,17 +55,22 @@ public class CookServiceImpl implements CookService {
         cookRepository.create(cook);
     }
 
+    //todo
     @Transactional
     @Override
-    public void create(CookDto cook) {
+    public void create(PersonDto cook) {
         UserEntity userEntity = new UserEntity();
         userEntity.setEmail(cook.getEmail());
         userEntity.setPassword(cook.getPassword());
+        //
+        // set role by userentity Service
         userEntity.setRole(new Role("COOK"));
+
+        //
         userEntity.setVerify(false);
         userEntity.setIdVerification(UUID.randomUUID().toString().split("-")[4]);
-
-        mailSender.send("vikulya0102@gmail.com", "Pdhjw2ks", "Confirm your registration", "http://localhost:8084/sam_solutions_project_war/registration/confirm/" + userEntity.getIdVerification(), cook.getEmail());
+//todo еренести в ресурсы через mailSendrt
+        mailSender.send("Confirm your registration", "http://localhost:8084/sam_solutions_project_war/registration/confirm/" + userEntity.getIdVerification(), cook.getEmail());
 
 
 

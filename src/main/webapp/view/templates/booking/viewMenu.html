@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">>
 <head>
     <meta charset="UTF-8">
     <title>menu</title>
@@ -29,58 +30,22 @@
 
 
 </head>
-<!--<body>-->
-<!--<a th:href="${(#mvc.url('CC#getCookPersonalPage')).build()}" th:text="#{text.back}">back</a><p></p>-->
-
-
-<!--<fieldset th:each="menuItem, item : ${menuList}">-->
-<!--    <legend th:text="${menuItem.name}"></legend>-->
-
-
-<!--    &lt;!&ndash;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; Edit main fields -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-
-<!--    <form action="#" th:action="@{/editMenu}" th:object="${menuItem}" method="post">-->
-<!--        <label th:text="#{text.name}">name</label>-->
-<!--        <input type="hidden" th:value="${menuItem.id}" th:name="id"/>-->
-<!--        <input type="text" th:value="${menuItem.name}" th:name="name"/>-->
-<!--        <p></p>-->
-
-<!--        <label th:text="#{text.type}">type</label>-->
-<!--        <input type="text" th:value="${menuItem.luxury}"  th:name="luxury"/>-->
-
-
-<!--        <p></p>-->
-<!--        <label th:text="#{text.price}">price</label>-->
-<!--        <input type="text" th:value="${menuItem.price}" th:name="price"/>-->
-
-<!--        <p></p>-->
-
-
-<!--        &lt;!&ndash;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45; Main info about menu -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&ndash;&gt;-->
-
-
-<!--        <div th:object="${menuItem}">-->
-<!--            &lt;!&ndash;            <label th:value="#{${dishType}}">Price for ${UserName}:</label>&ndash;&gt;-->
-
-<!--            <label th:text="#{text.price}"></label>-->
-<!--            <label th:text="*{price}"></label>-->
-
-<!--            <p></p>-->
-
-<!--            <label th:text="#{text.luxury}">luxury:</label>-->
-<!--            <label th:text="#{'text.luxury.' + *{luxury}}"></label>-->
-<!--        </div>-->
-<!--        <div>-->
-<!--            <button type="submit" th:text="#{text.see_more}" name = "seeMore">see more</button>-->
-<!--        </div>-->
-<!--    </form>-->
-
-<!--</fieldset>-->
-<!--</body>-->
-
-
 <body style="background-color: #f9f8f6;">
-<div th:replace="fragments/cookNavbar :: cookNavbar"></div>
+
+<div sec:authorize="hasAuthority('COOK')">
+    <div th:replace = "fragments/cookNavbar :: cookNavbar"></div>
+</div>
+<div sec:authorize="!isAuthenticated()">
+    <nav class="navbar navbar-dark bg-dark" style="position: fixed; top: -3px; width: 100%;z-index: 2">
+        <a class="navbar-brand"></a>
+
+        <div class="form-inline  app-nav-bar-container" style="width: 70px">
+            <a class="nav-link active app-nav-link-item"
+               th:href="${(#mvc.url('USIC#login')).build()}" th:text="#{text.login}" style="flex:1; width: 30px" >Login</a>
+
+        </div>
+    </nav>
+</div>
 
 
 <div class="main-div-img" style="height: 250px; position: absolute; width: 100%;">
@@ -113,8 +78,8 @@
 
 
                 <div style="padding: 10px;">
-                    <input class="form-control input-main" type="date" th:value="${order.date}" th:field="${order.date}"
-                           min="2019-12-01" max="2020-03-31">
+                    <input class="form-control input-main" id="orderedDate" type="date" th:value="${order.date}" th:field="${order.date}"
+                           min="2019-12-01" max="2020-06-31">
                 </div>
 
                 <span>at</span>
@@ -138,7 +103,7 @@
                         <option th:value="${'16:00'}" th:text="${'16:00'}">16:00</option>
                         <option th:value="${'17:00'}" th:text="${'17:00'}">17:00</option>
                         <option th:value="${'18:00'}" th:text="${'18:00'}">18:00</option>
-                        <option th:value="${'19:00'}" th:text="${'19:00'}">19:00</option>
+                        <option th:value="${'19:00'}" th:text="${'19:00'}" selected>19:00</option>
                         <option th:value="${'20:00'}" th:text="${'20:00'}">20:00</option>
                         <option th:value="${'21:00'}" th:text="${'21:00'}">21:00</option>
                         <option th:value="${'22:00'}" th:text="${'22:00'}">22:00</option>
@@ -299,73 +264,10 @@
 </div>
 
 
-<!--<div class="card main-div  d-inline-block"  th:each="menuItem, item : ${menuList}" style="height: 350px; margin-top: 70px">-->
-<!--    <div th:id="${'carouselExampleIndicators' + item.index}" class="carousel slide" data-ride="carousel">-->
-<!--        <ol class="carousel-indicators">-->
-<!--            <li  data-target="#carouselExampleIndicators" th:each="dish, itemDish : ${menuItem.dishes}"  th:data-slide-to="${itemDish.index}"></li>-->
-
-<!--        </ol>-->
-<!--        <div class="carousel-inner">-->
-<!--            <div class="carousel-item active" th:each="dish, itemDish : ${menuItem.dishes}" th:if="${itemDish.index == 0}">-->
-<!--                <img class="d-block w-100" th:src="@{/images/kafe.jpg}" alt="First slide"-->
-<!--                     style="max-height: 300px; min-height: 300px;">-->
-<!--                <div class="carousel-caption d-none d-md-block">-->
-<!--                    <h5  th:text="${menuItem.name}"></h5>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="carousel-item" th:each="dish, itemDish : ${menuItem.dishes}" th:if="${itemDish.index != 0}">-->
-<!--                <img class="d-block w-100" th:src="@{/images/kafe.jpg}" alt="First slide"-->
-<!--                     style="max-height: 300px; min-height: 300px;">-->
-<!--                <div class="carousel-caption d-none d-md-block">-->
-<!--                    <h5 th:text="${menuItem.name}"></h5>-->
-
-<!--                </div>-->
-<!--            </div>-->
-<!--        </div>-->
-
-<!--        <a class="carousel-control-prev" th:href="${'#carouselExampleIndicators' + item.index}" role="button" data-slide="prev">-->
-<!--            <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
-<!--            <span class="sr-only">Previous</span>-->
-<!--        </a>-->
-<!--        <a class="carousel-control-next" th:href="${'#carouselExampleIndicators' + item.index}" role="button" data-slide="next">-->
-<!--            <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
-<!--            <span class="sr-only">Next</span>-->
-<!--        </a>-->
-<!--    </div>-->
-
-<!--    <div class="card-body">-->
-
-<!--        <div>-->
-<!--            <label th:text="${menuItem.price}"></label>-->
-<!--            <label>Price per guest </label>-->
-<!--        </div>-->
-
-<!--        <div style="position: absolute; bottom: -5px; left: 450px">-->
-<!--            <button class="btn btn-classic save" id="saveButton"-->
-<!--                    style="display: inline-block; font-size: 13px;  width : 140px;">SELECT THIS MENU-->
-<!--            </button>-->
-<!--        </div>-->
-
-<!--    </div>-->
-<!--</div>-->
-
-
 <script type="text/javascript" th:src="@{/script/jquery.js}"></script>
-<script type="text/javascript" th:src="@{/script/mainPage.js}"></script>
-<!--<script type="text/javascript" >-->
 
-<!--    fetch("http://localhost:8084/sam_solutions_project_war/viewMenu2", { // try not to specify server here-->
-<!--        method: 'POST',-->
-<!--        headers: {-->
-<!--            'Content-Type': 'application/json;charset=utf-8'-->
-<!--        },-->
-<!--        body: JSON.stringify("123")-->
-<!--    })-->
-<!--        .then(resp => resp.json()-->
-<!--        .then(json => {-->
-<!--        console.log(json);-->
-<!--    }))-->
-<!--</script>-->
+<script type="text/javascript" th:src="@{/script/mainPage.js}"></script>
+
 </body>
 
 

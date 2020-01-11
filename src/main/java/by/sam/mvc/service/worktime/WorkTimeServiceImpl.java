@@ -15,10 +15,6 @@ import java.util.Map;
 @Service
 public class WorkTimeServiceImpl implements WorkTimeService {
 
-    private final String DIGIT_REGEX = "\\d";
-    private final String TIME_START_REGEX = "timeStart\\d";
-    private final String TIME_EDN_REGEX = "timeEnd\\d";
-
     private final WorkTimeRepository workTimeRepository;
 
     public WorkTimeServiceImpl(WorkTimeRepository workTimeRepository) {
@@ -30,11 +26,13 @@ public class WorkTimeServiceImpl implements WorkTimeService {
     public void create(WorkTime time) {
         workTimeRepository.create(time);
     }
+
     @Transactional
     @Override
     public WorkTime read(int id) {
         return workTimeRepository.read(id);
     }
+
     @Transactional
     @Override
     public void update(WorkTime time) {
@@ -44,6 +42,7 @@ public class WorkTimeServiceImpl implements WorkTimeService {
         updateWorkTime.setEndTime(time.getEndTime());
         workTimeRepository.update(time);
     }
+
     @Transactional
     @Override
     public void delete(int id) {
@@ -53,32 +52,6 @@ public class WorkTimeServiceImpl implements WorkTimeService {
 
 
 
-
-    public List<WorkTime> createWorkTimeListFromParams(Map<String, String> params){
-        List<WorkTime> workTimeList = new ArrayList<>();
-
-        params.forEach((k, v) -> {
-            if (k.matches(DIGIT_REGEX)) {
-                workTimeList.add(new WorkTime(DayOfWeek.valueOf(v.toUpperCase())));
-            }
-        });
-
-        Iterator<WorkTime> timeStartIterator = workTimeList.iterator();
-        params.forEach((k, v) -> {
-            if (k.matches(TIME_START_REGEX)) {
-                timeStartIterator.next().setStartTime(v);
-
-            }
-        });
-
-        Iterator<WorkTime> workTimeIterator = workTimeList.iterator();
-        params.forEach((k, v) -> {
-            if (k.matches(TIME_EDN_REGEX)) {
-                workTimeIterator.next().setEndTime(v);
-            }
-        });
-        return workTimeList;
-    }
 
 
 

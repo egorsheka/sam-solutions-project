@@ -10,15 +10,8 @@
 <body class="FonL app-contact-body">
 
 
-<nav class="navbar navbar-dark bg-dark" style="z-index: 2">
-    <h2 class="navbar-brand"></h2>
-    <div class="form-inline">
-        <a class="nav-link active app-nav-link-item my-2 my-sm-0"
-           th:href="${(#mvc.url('MC#getCookPersonalPage')).build()}" th:text="#{text.login}">LOGIN</a>
-    </div>
-</nav>
 
-<form th:action="@{/registration/singUp}" th:object="${cook}" method="post">
+<form th:action="@{/registration/singUpCook}" th:object="${cook}" method="post">
     <div class="container-profile">
         <div class="inner-profile">
 
@@ -31,7 +24,7 @@
                                placeholder="Your first name"/>
                     </div>
                     <div class="from-group div-profile cook-registr">
-                        <input type="text" th:value="${cook.surname}" name="surName" class="form-control"  style="width: 400px"
+                        <input type="text" th:value="${cook.surname}" name="surname" class="form-control"  style="width: 400px"
                                placeholder="Your last name"/>
                     </div>
 

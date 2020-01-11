@@ -1,7 +1,11 @@
 package by.sam.mvc.controllers.cook;
 
 
-import by.sam.mvc.models.menu.*;
+import by.sam.mvc.models.menu.Cuisine;
+import by.sam.mvc.models.menu.Dish;
+import by.sam.mvc.models.menu.DishType;
+import by.sam.mvc.models.menu.Menu;
+import by.sam.mvc.models.menu.MenuLuxury;
 import by.sam.mvc.service.menu.CuisineService;
 import by.sam.mvc.service.menu.MenuService;
 import by.sam.mvc.service.user.CookService;
@@ -9,22 +13,21 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
-
+//todo null
 @Controller
 public class MenuController {
 
     private final MenuService menuService;
     private final CookService cookService;
     private final CuisineService cuisineService;
-
-    private int cookId;
-
 
     public MenuController(MenuService menuService, CookService cookService, CuisineService cuisineService) {
         this.menuService = menuService;
@@ -34,17 +37,17 @@ public class MenuController {
 
 
     @GetMapping(path = "/menuPage")
-    public String getCookPersonalPage(Model model, @AuthenticationPrincipal UserDetails currentUser){
-        cookId = cookService.getAuthenticationCook(currentUser).getId();
-        model.addAttribute("menuList", cookService.read(cookId).getMenu());
+    public String getCookMenuPage(Model model, @AuthenticationPrincipal UserDetails currentUser){
+        model.addAttribute("menuList",
+                cookService.read(cookService.getAuthenticationCook(currentUser).getId()).getMenu());
         return "cook/menu/startMenu";
     }
 
 
-    //create new menu
+    //create menu methods
 
     @GetMapping(value = "/createMenu")
-    public String openCreateMenuPage(Model model) {
+    public String getCreateMenuPage(Model model) {
         model.addAttribute("newMenu", new Menu());
         return "cook/menu/createMenu";
     }
@@ -66,7 +69,8 @@ public class MenuController {
     }
 
     @PostMapping(value = "/saveMenu", params ={"saveNewMenu"})
-    public String submitChanges(@ModelAttribute Menu menu, Model model){
+    public String saveNewMenu(@ModelAttribute Menu menu, Model model, @AuthenticationPrincipal UserDetails currentUser){
+        int cookId = cookService.getAuthenticationCook(currentUser).getId();
         cookService.createMenuItem(cookId, menu);
         model.addAttribute( "menuList", cookService.read(cookId).getMenu());
         return "cook/menu/startMenu";
@@ -77,8 +81,9 @@ public class MenuController {
     // delete one menu
 
 
-    @PostMapping(value = "/editMenu", params = {"deleteMenu"})
-    public String deleteMenu(@RequestParam int deleteMenu, Model model) {
+    @PostMapping(value = "/selectMenu", params = {"deleteMenu"})
+    public String deleteMenu(@RequestParam int deleteMenu, Model model, @AuthenticationPrincipal UserDetails currentUser) {
+        int cookId = cookService.getAuthenticationCook(currentUser).getId();
         List<Menu> menus = cookService.read(cookId).getMenu();
         menus.remove(deleteMenu);
         cookService.updateMenu(cookId, menus);
@@ -88,14 +93,14 @@ public class MenuController {
 
     // edit one menu
 
-    @PostMapping(value = "/editMenu", params = {"editMenu"})
-    public String openEditMenuPage(@ModelAttribute Menu editMenu, Model model) {
+    @PostMapping(value = "/selectMenu", params = {"editMenu"})
+    public String getEditMenuPage(@ModelAttribute Menu editMenu, Model model) {
         Menu menu = menuService.read(editMenu.getId());
         model.addAttribute( "editMenu", menu);
         return "cook/menu/editMenu";
     }
 
-    @PostMapping(value = "/saveMenu", params ={"addEditDish"})
+    @PostMapping(value = "/editMenu", params ={"addEditDish"})
     public String addEditDishInMenu(@ModelAttribute Menu menu, Model model){
         if(menu.getDishes() == null){menu.setDishes(new ArrayList<>());}
         menu.getDishes().add(new Dish("", DishType.APPETISER, new Cuisine()));
@@ -103,30 +108,29 @@ public class MenuController {
         return "cook/menu/editMenu";
     }
 
-    @PostMapping(value = "/saveMenu", params ={"removeEditDish"})
+    @PostMapping(value = "/editMenu", params ={"removeEditDish"})
     public String removeEditDishInMenu(@ModelAttribute Menu menu, Model model, @RequestParam int removeEditDish){
         menu.getDishes().remove(removeEditDish);
         model.addAttribute("editMenu", menu);
         return "cook/menu/editMenu";
     }
 
-    @PostMapping(value = "/saveMenu", params = {"saveEditMenu"} )
-    public String submitNewMenu(@ModelAttribute Menu menu, Model model) {
+    @PostMapping(value = "/editMenu", params = {"saveEditMenu"} )
+    public String saveEditMenu(@ModelAttribute Menu menu, Model model, @AuthenticationPrincipal UserDetails currentUser) {
+        int cookId = cookService.getAuthenticationCook(currentUser).getId();
         cookService.updateMenuItem(cookId, menu);
         model.addAttribute( "menuList", cookService.read(cookId).getMenu());
         return "cook/menu/startMenu";
     }
 
 
+    // view one menu
 
-    //todo
-    // see one menu
-
-    @PostMapping(value = "/editMenu", params = {"seeMore"})
-    public String openSeeMoreMenuPage(@ModelAttribute Menu editMenu, Model model) {
+    @PostMapping(value = "/selectMenu", params = {"seeMore"})
+    public String getViewMoreMenuPage(@ModelAttribute Menu editMenu, Model model) {
         Menu menu = menuService.read(editMenu.getId());
         model.addAttribute( "editMenu", menu);
-        return "cook/seeMoreMenu";
+        return "cook/menu/viewMoreMenu";
     }
 
 

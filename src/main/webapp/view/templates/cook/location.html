@@ -1,7 +1,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header-menu"></head>
+<head>
+    <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+    <div th:replace = "fragments/header :: header-menu"></div>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/location.css}">
+</head>
 <div th:replace="fragments/cookNavbar :: cookNavbar"></div>
-<div class="first-div-label">
+<div class="first-div-label" style="margin-top: 65px">
     <label class="first-label"> Your preferable location</label>
 </div>
 <div class="second-div-label">
@@ -347,7 +351,7 @@
         var obj = {"id": select.value};
         //http://sc0489:8080/personalcook_war_exploded/
         //http://localhost:8084/sam_solutions_project_war/
-        fetch("http://localhost:8084/sam_solutions_project_war/getAllDistricts", { // try not to specify server here
+        fetch("http://localhost:8084/sam_solutions_project_war/getCookDistrictsByTown", { // try not to specify server here
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'

@@ -1,7 +1,7 @@
 package by.sam.mvc.controllers;
 
 
-import by.sam.mvc.models.user.Client;
+import by.sam.mvc.dto.PersonDto;
 import by.sam.mvc.models.user.Cook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,20 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class UserSingInController {
 
-    // Login form
+
+
     @RequestMapping("/login")
     public String login() {
-
         return "login";
     }
 
-    // Login form with error
     @RequestMapping("/login-error")
     public String loginError(Model model) {
         model.addAttribute("loginError", true);
         return "login";
     }
-
 
     @PostMapping("/signIn")
     public String singIn(@ModelAttribute Cook user, Model model) {
@@ -33,15 +31,9 @@ public class UserSingInController {
         return "login";
     }
 
-    @PostMapping("/signUp")
-    public String singUp(@ModelAttribute Client client, Model model) {
-
-        return "loginOrSingUp";
-    }
-
     @ModelAttribute
     public void getAllDishTypes(Model model){
-        model.addAttribute("user", new Cook());
+        model.addAttribute("user", new PersonDto());
     }
 
 

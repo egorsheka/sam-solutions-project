@@ -3,10 +3,11 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link  rel="stylesheet" type="text/css" th:href="@{/css/style.css}" >
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
 </head>
 
 <!--<body>-->
@@ -92,7 +93,7 @@
                            aria-describedby="emailHelp" placeholder="Enter email">
 
 
-                    <input type="password" th:value="${user.password}" name="password"  class="form-control input-login"
+                    <input type="password" th:value="${user.password}" name="password" class="form-control input-login"
                            placeholder="Password">
 
                 </div>
@@ -113,56 +114,60 @@
         </form>
 
         <div class="column-profile">
-            <form th:action="@{/signUp}" th:object="${user}" method="post">
-            <div id="registrationDiv" style=" display: none">
+            <form th:action="@{/registration/}" th:object="${user}" method="post" >
+                <div id="registrationDiv" style=" display: none">
 
-                <div class="row justify-content-center from-group cook-registr">
-                    <input type="text" th:value="${user.name}" th:name="name" class="form-control input-login" style="margin-top: 20px"
-                           placeholder="Your first name"/>
+                    <div class="row justify-content-center from-group cook-registr">
+                        <input type="text" th:value="${user.name}" th:name="name" class="form-control input-login"
+                               style="margin-top: 20px"
+                               placeholder="Your first name"/>
+                    </div>
+
+
+                    <div class="row justify-content-center from-group   cook-registr">
+                        <input type="text" th:value="${user.surname}" th:name="surname" class="form-control input-login"
+                               placeholder="Your last name"/>
+                    </div>
+
+                    <div class="row justify-content-center from-group  -right" style="margin-bottom: 30px">
+                        <input type="text" th:value="${user.mobile}" th:name="mobile" class="form-control input-login"
+                               placeholder="Phone number">
+                    </div>
+
+                    <div class="row justify-content-center from-group   cook-registr" style="margin-top: -14.5px">
+
+                        <input type="email" th:value="${user.email}" th:name="email" class="form-control input-login"
+                               aria-describedby="emailHelp"
+                               placeholder="Enter email">
+                    </div>
+                    <div class="row justify-content-center from-group   cook-registr">
+
+                        <input type="password" th:value="${user.password}" th:name="password"
+                               class="form-control input-login"
+                               placeholder="Password">
+                    </div>
+
                 </div>
 
+                <label id="topLabel" class="row justify-content-center label-login" style="margin-top: 120px">I don't
+                    have an
+                    account yet</label>
 
-                <div class="row justify-content-center from-group   cook-registr">
-                    <input type="text"th:value="${user.surname}" th:name="surName" class="form-control input-login"
-                           placeholder="Your last name"/>
+                <div class="row justify-content-center">
+                    <button id="singUp" type="submit" class="btn btn-classic save"
+                            style="display: inline-block;  width : 250px; background-color: #7f262a">SING UP
+                    </button>
                 </div>
 
-                <div class="row justify-content-center from-group  -right" style="margin-bottom: 30px">
-                    <input type="text" th:value="${user.mobile}" th:name="mobile" class="form-control input-login" placeholder="Phone number">
-                </div>
-
-                <div class="row justify-content-center from-group   cook-registr" style="margin-top: -14.5px">
-
-                    <input type="email" th:value="${user.email}" th:name="email" class="form-control input-login"
-                           aria-describedby="emailHelp"
-                           placeholder="Enter email">
-                </div>
-                <div class="row justify-content-center from-group   cook-registr">
-
-                    <input type="password"th:value="${user.password}" th:name="password" class="form-control input-login"
-                           placeholder="Password">
-                </div>
-
-            </div>
-
-            <label id="topLabel" class="row justify-content-center label-login" style="margin-top: 120px">I don't have an
-                account yet</label>
-
-            <div class="row justify-content-center">
-                <button id="singUp" type="submit" class="btn btn-classic save"
-                        style="display: inline-block;  width : 250px; background-color: #7f262a">SING UP
-                </button>
-            </div>
-
-            <div class="row justify-content-center">
-                <a class="link-login" th:href="${(#mvc.url('RC#showRegistrationForm')).build()}" th:text="#{text.iamchef}" style="text-decoration: underline;
+                <div class="row justify-content-center">
+                    <a class="link-login" th:href="${(#mvc.url('RC#showRegistrationFormForCook')).build()}"
+                       th:text="#{text.iamchef}" style="text-decoration: underline;
   text-decoration-line: underline;
   text-decoration-style: initial;
   text-decoration-color: initial;">I'm a chef and would like to join your team</a>
-            </div>
+                </div>
             </form>
         </div>
-
 
 
     </div>
@@ -174,6 +179,15 @@
 
 <script>
 
+    var singUp = document.getElementById('singUp');
+    var registrationDiv = document.getElementById('registrationDiv');
+    var topLabel = document.getElementById('topLabel');
+    var columnRight = document.getElementById('columnRight');
+
+    registrationDiv.setAttribute("style", 'display: initial');
+    topLabel.setAttribute("style", "display: none");
+    singUp.setAttribute("style", "margin-top: 10px; display: inline-block;  width : 250px; background-color: #7f262a");
+    columnRight.setAttribute("style", "height: 512px")
 
 
 </script>

@@ -10,15 +10,9 @@
 <body class="FonL app-contact-body">
 
 
-<nav class="navbar navbar-dark bg-dark" style="z-index: 2">
-    <h2 class="navbar-brand"></h2>
-    <div class="form-inline">
-        <a class="nav-link active app-nav-link-item my-2 my-sm-0"
-           th:href="${(#mvc.url('MC#getCookPersonalPage')).build()}" th:text="#{text.login}">LOGIN</a>
-    </div>
-</nav>
 
-<form th:action="@{/registration/singUp}"  method="get">
+
+<form th:action="@{/registration/}" method="get">
     <div class="container-profile">
         <div class="inner-profile">
 

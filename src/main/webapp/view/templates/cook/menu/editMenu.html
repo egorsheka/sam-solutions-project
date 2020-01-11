@@ -4,7 +4,7 @@
     <body>
         <div th:replace="fragments/cookNavbar :: cookNavbar"></div>
 
-        <form action="#" th:action="@{/saveMenu}" th:object="${editMenu}" method="post">
+        <form action="#" th:action="@{/editMenu}" th:object="${editMenu}" method="post">
             <div class="container-new-menu">
 
                 <input type="hidden" th:value="${editMenu.id}" name="id">

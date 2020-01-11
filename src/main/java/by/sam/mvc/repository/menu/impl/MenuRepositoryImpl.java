@@ -12,7 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-
+//TODO
 @Repository
 public class MenuRepositoryImpl implements MenuRepository {
 
@@ -21,8 +21,7 @@ public class MenuRepositoryImpl implements MenuRepository {
 
     private final DishRepository dishRepository;
 
-    //SQL
-    private static String FIND_ALL_QUERY = "SELECT * FROM menus";
+
 
     public MenuRepositoryImpl(DishRepository dishRepository) {
         this.dishRepository = dishRepository;
@@ -63,7 +62,5 @@ public class MenuRepositoryImpl implements MenuRepository {
         manager.remove(menu);
     }
 
-    public List<Menu> findAll() {
-        return manager.createNativeQuery(FIND_ALL_QUERY, Menu.class).getResultList();
-    }
+
 }

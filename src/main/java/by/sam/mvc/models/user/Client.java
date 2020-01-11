@@ -1,26 +1,26 @@
 package by.sam.mvc.models.user;
 
-import by.sam.mvc.models.Order;
-import by.sam.mvc.models.location.District;
+import javax.persistence.*;
 
-import java.util.List;
-
+@Entity
+@Table(name = "clients")
 public class Client {
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String name;
-    private String surName;
+    private String surname;
+    @Column(unique = true)
     private String email;
     private String password;
     private String mobile;
-
-    private District district;
     private String address;
-    private List<Order> orders;
 
-
-
+    @ManyToOne
+    private UserEntity userEntity;
 
 
 
@@ -40,12 +40,12 @@ public class Client {
         this.name = name;
     }
 
-    public String getSurName() {
-        return surName;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setSurName(String surName) {
-        this.surName = surName;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
     public String getEmail() {
@@ -72,14 +72,6 @@ public class Client {
         this.mobile = mobile;
     }
 
-    public District getDistrict() {
-        return district;
-    }
-
-    public void setDistrict(District district) {
-        this.district = district;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -88,15 +80,11 @@ public class Client {
         this.address = address;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public UserEntity getUserEntity() {
+        return userEntity;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
-
-
-
-
 }

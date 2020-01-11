@@ -13,8 +13,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Collection;
 
+// todo
 public class DefaultUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
-
 
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
@@ -33,7 +33,7 @@ public class DefaultUrlAuthenticationSuccessHandler implements AuthenticationSuc
         String targetUrl = determineTargetUrl(authentication);
 
         if (response.isCommitted()) {
-                    //"Response has already been committed. Unable to redirect to "
+            //"Response has already been committed. Unable to redirect to "
             return;
         }
 
@@ -46,8 +46,10 @@ public class DefaultUrlAuthenticationSuccessHandler implements AuthenticationSuc
         boolean isCook = false;
         Collection<? extends GrantedAuthority> authorities
                 = authentication.getAuthorities();
+
         for (GrantedAuthority grantedAuthority : authorities) {
-            if (grantedAuthority.getAuthority().equals("USER")) {
+
+            if (grantedAuthority.getAuthority().equals("CLIENT")) {
                 isUser = true;
                 break;
             }
@@ -55,7 +57,7 @@ public class DefaultUrlAuthenticationSuccessHandler implements AuthenticationSuc
                 isAdmin = true;
                 break;
             }
-            if(grantedAuthority.getAuthority().equals("COOK")){
+            if (grantedAuthority.getAuthority().equals("COOK")) {
                 isCook = true;
                 break;
             }
@@ -63,12 +65,12 @@ public class DefaultUrlAuthenticationSuccessHandler implements AuthenticationSuc
         }
 
         if (isUser) {
-            return "";
+            return "/confirmMenu";
         } else if (isAdmin) {
             return "";
-        } else if(isCook){
+        } else if (isCook) {
             return "/cookPage";
-        }else {
+        } else {
             throw new IllegalStateException();
         }
     }

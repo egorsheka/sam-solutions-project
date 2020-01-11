@@ -1,11 +1,8 @@
 package by.sam.mvc.dto;
 
 import by.sam.mvc.models.location.Town;
-import by.sam.mvc.models.menu.Menu;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.time.LocalDate;
-import java.util.List;
 
 public class OrderDto {
 
@@ -19,6 +16,8 @@ public class OrderDto {
     private int menuId;
     private double price;
     private int countOfGuests;
+    private String address;
+    private int clientId;
 
 
 
@@ -71,5 +70,20 @@ public class OrderDto {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public int getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
     }
 }
