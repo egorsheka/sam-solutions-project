@@ -60,11 +60,12 @@ public class CookRepositoryImpl implements CookRepository {
         return manager.createQuery("from Cook", Cook.class).getResultList();
     }
 
+
     @Override
-    public List<Menu> getMenuListByCookId(int id) {
-        return manager.createQuery("select cook.menu from Cook cook where cook.id = :id")
-                .setParameter("id", id)
-                .getResultList();
+    public Cook getCookByMenuId(int menuId) {
+        return read((int)manager.createNativeQuery("select cook_id from cooks_menus where menu_id = ?")
+                .setParameter(1, menuId)
+                .getSingleResult());
     }
 
     @Override
@@ -80,6 +81,8 @@ public class CookRepositoryImpl implements CookRepository {
             Hibernate.initialize(cook.getDistricts());
         if(!cook.getWorkTime().isEmpty())
             Hibernate.initialize(cook.getWorkTime());
+        if(!cook.getOrders().isEmpty())
+            Hibernate.initialize(cook.getOrders());
         if(!cook.getMenu().isEmpty()){
             Hibernate.initialize(cook.getMenu());
             for(Menu menu: cook.getMenu()){

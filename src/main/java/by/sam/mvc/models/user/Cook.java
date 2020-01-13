@@ -1,5 +1,6 @@
 package by.sam.mvc.models.user;
 
+import by.sam.mvc.models.order.Order;
 import by.sam.mvc.models.worktime.WorkTime;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.menu.Menu;
@@ -44,6 +45,9 @@ public class Cook {
     @OneToMany(cascade = {CascadeType.ALL})
     private List<WorkTime> workTime = new ArrayList<>(7);
 
+    @OneToMany(cascade = {CascadeType.ALL})
+    private List<Order> orders = new ArrayList<>();
+
     @ManyToOne
     private UserEntity userEntity;
 
@@ -52,24 +56,6 @@ public class Cook {
     public Cook(){}
 
 
-
-    public Cook(String name, List<District> districts) {
-        this.name = name;
-        this.districts = districts;
-    }
-
-    public Cook(int id, String name, List<District> districts) {
-        this.id = id;
-        this.name = name;
-        this.districts = districts;
-    }
-
-    public Cook(int id, String name, String email, String password) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-    }
 
     public int getId() {
         return id;
@@ -162,5 +148,13 @@ public class Cook {
 
     public void setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

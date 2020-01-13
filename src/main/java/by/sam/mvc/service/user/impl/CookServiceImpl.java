@@ -5,6 +5,7 @@ import by.sam.mvc.mail.GmailSenderService;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.location.Town;
 import by.sam.mvc.models.menu.Menu;
+import by.sam.mvc.models.order.Order;
 import by.sam.mvc.models.user.Cook;
 import by.sam.mvc.models.user.Role;
 import by.sam.mvc.models.user.UserEntity;
@@ -12,6 +13,7 @@ import by.sam.mvc.models.worktime.WorkTime;
 import by.sam.mvc.repository.user.CookRepository;
 import by.sam.mvc.service.location.DistrictService;
 import by.sam.mvc.service.menu.MenuService;
+import by.sam.mvc.service.order.OrderService;
 import by.sam.mvc.service.user.CookService;
 import by.sam.mvc.service.user.UserService;
 import by.sam.mvc.service.worktime.WorkTimeService;
@@ -40,13 +42,16 @@ public class CookServiceImpl implements CookService {
 
 
 
-    public CookServiceImpl(CookRepository cookRepository, MenuService menuService, DistrictService districtService, WorkTimeService workTimeService, UserService userService, GmailSenderService mailSender) {
+
+    public CookServiceImpl(CookRepository cookRepository, MenuService menuService, DistrictService districtService,
+                           WorkTimeService workTimeService, UserService userService, GmailSenderService mailSender) {
         this.cookRepository = cookRepository;
         this.menuService = menuService;
         this.districtService = districtService;
         this.workTimeService = workTimeService;
         this.userService = userService;
         this.mailSender = mailSender;
+
     }
 
     @Transactional
@@ -166,16 +171,20 @@ public class CookServiceImpl implements CookService {
         cookRepository.update(cook);
     }
 
+
+
+
+
     @Transactional
     @Override
-    public void addMenuItem(int id, Menu menu) {
-        Cook cook = cookRepository.read(id);
+    public void createMenuItem(int id, Menu menu) {
         menuService.create(menu);
+        Cook cook = cookRepository.read(id);
         cook.getMenu().add(menu);
         cookRepository.update(cook);
     }
 
-
+    //todo check delete menu or not
     //todo newMenu = menuService.read(id);
     //todo cook.add(newM)
     @Transactional
@@ -191,27 +200,36 @@ public class CookServiceImpl implements CookService {
         cookRepository.update(cook);
     }
 
+
+
+
     @Transactional
     @Override
-    public void createMenuItem(int id, Menu menu) {
-        menuService.create(menu);
+    public void createOrderItem(int id, Order order) {
         Cook cook = cookRepository.read(id);
-        cook.getMenu().add(menu);
+        cook.getOrders().add(order);
         cookRepository.update(cook);
     }
 
-
+    //todo check delete order or not
     @Transactional
     @Override
-    public void deleteMenuItem(int cookId, int menuId) {
-        Cook cook = cookRepository.read(cookId);
-        Menu menu = menuService.read(menuId);
-
-        cook.getMenu().remove(menu);
-
-        menuService.delete(menuId);
-        cookRepository.update(cook);
+    public void updateOrderItem(int id, Order order) {
+//        Cook cook = cookRepository.read(id);
+//        Order oldOrder = orderService.read(order.getId());
+//        cook.getOrders().remove(oldOrder);
+//        cook.getOrders().add(order);
+//
+//        orderService.update(order);
+//
+//        cookRepository.update(cook);
     }
+
+    @Override
+    public Cook getCookByMenuId(int menuId) {
+        return cookRepository.getCookByMenuId(menuId);
+    }
+
 
     @Transactional
     @Override

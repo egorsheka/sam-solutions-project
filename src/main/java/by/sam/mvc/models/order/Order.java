@@ -4,12 +4,7 @@ import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.menu.Menu;
 import by.sam.mvc.models.user.Client;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.ManyToOne;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 
@@ -32,6 +27,10 @@ public class Order {
     private Menu menu;
     @ManyToOne
     private Client client;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_type")
+    private OrderType orderType;
 
     public int getId() {
         return id;
@@ -103,5 +102,13 @@ public class Order {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public OrderType getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(OrderType orderType) {
+        this.orderType = orderType;
     }
 }

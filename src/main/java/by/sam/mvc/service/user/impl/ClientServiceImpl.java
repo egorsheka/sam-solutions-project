@@ -1,11 +1,13 @@
 package by.sam.mvc.service.user.impl;
 
+import by.sam.mvc.models.order.Order;
 import by.sam.mvc.models.user.Client;
+import by.sam.mvc.models.user.Cook;
 import by.sam.mvc.models.user.Role;
 import by.sam.mvc.models.user.UserEntity;
 import by.sam.mvc.repository.user.ClientRepository;
+import by.sam.mvc.service.order.OrderService;
 import by.sam.mvc.service.user.ClientService;
-import by.sam.mvc.service.user.RoleService;
 import by.sam.mvc.service.user.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -16,12 +18,13 @@ public class ClientServiceImpl implements ClientService {
 
     private ClientRepository clientRepository;
     private UserService userService;
-    private RoleService roleService;
 
-    public ClientServiceImpl(ClientRepository clientRepository, UserService userService, RoleService roleService) {
+
+
+    public ClientServiceImpl(ClientRepository clientRepository, UserService userService) {
         this.clientRepository = clientRepository;
         this.userService = userService;
-        this.roleService = roleService;
+
     }
 
     @Transactional
@@ -75,5 +78,28 @@ public class ClientServiceImpl implements ClientService {
         return clientRepository.read(currentUser.getUsername());
     }
 
+
+
+    @Transactional
+    @Override
+    public void createOrderItem(int id, Order order) {
+        Client client = clientRepository.read(id);
+        client.getOrders().add(order);
+        clientRepository.update(client);
+    }
+
+    //todo check delete order or not
+    @Transactional
+    @Override
+    public void updateOrderItem(int id, Order order) {
+//        Client client = clientRepository.read(id);
+//        Order oldOrder = orderService.read(order.getId());
+//        client.getOrders().remove(oldOrder);
+//        client.getOrders().add(order);
+//
+//        orderService.update(order);
+//
+//        clientRepository.update(client);
+    }
 
 }

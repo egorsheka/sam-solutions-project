@@ -1,6 +1,10 @@
 package by.sam.mvc.models.user;
 
+import by.sam.mvc.models.order.Order;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "clients")
@@ -18,6 +22,9 @@ public class Client {
     private String password;
     private String mobile;
     private String address;
+
+    @OneToMany(cascade = {CascadeType.ALL})
+    private List<Order> orders = new ArrayList<>();
 
     @ManyToOne
     private UserEntity userEntity;
@@ -86,5 +93,13 @@ public class Client {
 
     public void setUserEntity(UserEntity userEntity) {
         this.userEntity = userEntity;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

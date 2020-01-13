@@ -38,7 +38,21 @@ INSERT INTO public.cooks_districts (cook_id, districts_id) VALUES (1, 2);
 INSERT INTO public.cooks_districts (cook_id, districts_id) VALUES (1, 4);
 
 
+INSERT INTO public.work_times (id, week_day, end_time, start_time) VALUES (20, 'MONDAY', '23:00', '00:00');
+INSERT INTO public.work_times (id, week_day, end_time, start_time) VALUES (21, 'TUESDAY', '23:00', '00:00');
+INSERT INTO public.work_times (id, week_day, end_time, start_time) VALUES (22, 'WEDNESDAY', '23:00', '00:00');
+INSERT INTO public.work_times (id, week_day, end_time, start_time) VALUES (23, 'THURSDAY', '23:00', '00:00');
+INSERT INTO public.work_times (id, week_day, end_time, start_time) VALUES (24, 'FRIDAY', '23:00', '00:00');
+INSERT INTO public.work_times (id, week_day, end_time, start_time) VALUES (25, 'SATURDAY', '23:00', '00:00');
+INSERT INTO public.work_times (id, week_day, end_time, start_time) VALUES (26, 'SUNDAY', '23:00', '00:00');
 
+INSERT INTO public.cooks_work_times (cook_id, worktime_id) VALUES (1, 20);
+INSERT INTO public.cooks_work_times (cook_id, worktime_id) VALUES (1, 21);
+INSERT INTO public.cooks_work_times (cook_id, worktime_id) VALUES (1, 22);
+INSERT INTO public.cooks_work_times (cook_id, worktime_id) VALUES (1, 23);
+INSERT INTO public.cooks_work_times (cook_id, worktime_id) VALUES (1, 24);
+INSERT INTO public.cooks_work_times (cook_id, worktime_id) VALUES (1, 25);
+INSERT INTO public.cooks_work_times (cook_id, worktime_id) VALUES (1, 26);
 
 
 INSERT INTO public.cuisines (id, name) VALUES (1, 'Austria');
