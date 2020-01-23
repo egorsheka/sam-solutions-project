@@ -5,11 +5,11 @@
     <div th:replace="fragments/header :: header-menu"></div>
 </head>
 <body class="FonL app-contact-body">
-<div th:replace="fragments/cookNavbar :: cookNavbar"></div>
+<div th:replace="fragments/clientNavbar :: clientNavbar"></div>
 
 <div class="row justify-content-center" style="margin-top: 100px">
     <div class="list-group" style="width: 600px">
-        <form action="#" th:action="@{/order}" method="post">
+        <form action="#" th:action="@{/clientOrder}" method="post">
         <button href="#" th:value="${order.id}" name = "orderId" th:each="order, item : ${orders}"
            class="list-group-item list-group-item-action flex-column align-items-start">
             <input type="hidden" id="countOfOrder" th:value="${orders.size()}">
@@ -24,14 +24,11 @@
                     <label class="main-label" th:text="${' at ' + order.eventTime}"
                            style="color: #333333; font-size: 20px"></label>
                 </div>
-<!--                281-->
-                <small style="margin-left: 242px" th:if="${order.orderType.name() == 'NEW'}"> <span class="badge badge-success">new</span></small>
-                <small style="margin-left: 242px;" th:if="${order.orderType.name() == 'IN_PROCESS'}"> <span class="badge badge-pill badge-info">in process</span></small>
                 <small style="margin-left: 242px" th:if="${order.orderType.name() == 'CLOSED'}"> <span class="badge badge-pill badge-secondary">closed</span></small>
             </div>
             <p class="mb-1" th:text="${order.menu.name}">Draniki po yzbecki</p>
             <small>
-                <label>Income:</label>
+                <label>Price:</label>
                 <label th:id="${'totalPrice' + item.index}"></label>
                 <label> руб.</label>
                 <label style="visibility: hidden" th:text="${order.menu.price}" th:id="${'unitPrice' + item.index}"/>

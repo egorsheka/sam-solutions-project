@@ -67,15 +67,15 @@ public class CookServiceImpl implements CookService {
         UserEntity userEntity = new UserEntity();
         userEntity.setEmail(cook.getEmail());
         userEntity.setPassword(cook.getPassword());
-        //
+        //todo
         // set role by userentity Service
         userEntity.setRole(new Role("COOK"));
 
         //
         userEntity.setVerify(false);
         userEntity.setIdVerification(UUID.randomUUID().toString().split("-")[4]);
-//todo еренести в ресурсы через mailSendrt
-        mailSender.send("Confirm your registration", "http://localhost:8084/sam_solutions_project_war/registration/confirm/" + userEntity.getIdVerification(), cook.getEmail());
+        //todo еренести в ресурсы через mailSendrt
+        //mailSender.send("Confirm your registration", "http://localhost:8084/sam_solutions_project_war/registration/confirm/" + userEntity.getIdVerification(), cook.getEmail());
 
 
 
@@ -84,6 +84,7 @@ public class CookServiceImpl implements CookService {
         Cook newCook = new Cook();
 
         newCook.setName(cook.getName());
+        newCook.setSurname(cook.getSurname());
         newCook.setPassword(cook.getSurname());
         newCook.setEmail(cook.getEmail());
         newCook.setPassword(cook.getPassword());
@@ -166,7 +167,11 @@ public class CookServiceImpl implements CookService {
     @Transactional
     @Override
     public void updateMenu(int id, List<Menu> menus) {
+
         Cook cook = cookRepository.read(id);
+        for(Menu menu: cook.getMenu()){
+            menuService.delete(menu.getId());
+        }
         cook.setMenu(menus);
         cookRepository.update(cook);
     }
@@ -225,9 +230,17 @@ public class CookServiceImpl implements CookService {
 //        cookRepository.update(cook);
     }
 
+    @Transactional
     @Override
     public Cook getCookByMenuId(int menuId) {
         return cookRepository.getCookByMenuId(menuId);
+    }
+
+    @Transactional
+    @Override
+    public boolean isAdmissibleCountOfMenu(int id) {
+        Cook cook = read(id);
+        return cook.getMenu().size() < 6;
     }
 
 

@@ -47,9 +47,14 @@ public class MenuController {
     //create menu methods
 
     @GetMapping(value = "/createMenu")
-    public String getCreateMenuPage(Model model) {
+    public String getCreateMenuPage(Model model, @AuthenticationPrincipal UserDetails currentUser) {
+
         model.addAttribute("newMenu", new Menu());
-        return "cook/menu/createMenu";
+        if(cookService.isAdmissibleCountOfMenu(cookService.getAuthenticationCook(currentUser).getId())){
+            return "cook/menu/createMenu";
+        }else {
+            return "redirect:/menuPage";
+        }
     }
 
 

@@ -8,4 +8,6 @@ import by.sam.mvc.service.Service;
 public interface OrderService extends Service<Order> {
 
     void create(OrderDto orderDto);
+    void makeOrderInProcess(int id);
+    void makeOrderClosed(int id);
 }

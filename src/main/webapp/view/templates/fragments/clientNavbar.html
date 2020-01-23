@@ -1,0 +1,24 @@
+<body th:fragment = "clientNavbar">
+<nav class="navbar navbar-dark bg-dark" style="position: fixed; top: -3px; width: 100%;z-index: 2" >
+    <a class="nav-link active app-nav-link-item" style="color: #343a40">_</a>
+    <div class="form-inline  app-nav-bar-container" style="margin-left: 60%">
+        <div class="btn-group" style="flex: 2; width: 110px;">
+            <button type="button" class="" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false"
+                    style="position: absolute; right: 0;  top: -15px; color:#ca6a45;  background-color: #343a40!important; border: 0;font-size: 20px;font-family: Bree Serif, serif;">
+                My account
+            </button>
+            <div class="dropdown-menu" style="right: 0; left: auto; top: 30px; background-color: #343a40!important;">
+                <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="${(#mvc.url('MPC#getMainPage')).build()}">Main page</a>
+                <div class="dropdown-divider" style="color: whitesmoke;"></div>
+                <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="${(#mvc.url('COC#getOrdersPage')).build()}">My orders</a>
+                <div class="dropdown-divider" style="color: whitesmoke;"></div>
+                <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="@{/logout}">Logout</a>
+            </div>
+        </div>
+
+    </div>
+</nav>
+</body>
+
+

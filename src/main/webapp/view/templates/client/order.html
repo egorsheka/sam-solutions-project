@@ -6,10 +6,10 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/order.css}">
 </head>
 <body class="FonL app-contact-body">
-<div th:replace="fragments/cookNavbar :: cookNavbar"></div>
+<div th:replace="fragments/clientNavbar :: clientNavbar"></div>
 <div class="row justify-content-center" style="margin-top: 100px;">
     <form action="#" th:action="@{/confirmOrder}" method="post">
-    <div class="card" style="width: 470px; height: 570px; border: 0px;">
+    <div class="card" style="width: 470px; height: 480px; border: 0px;">
 
         <div style="margin-top: 15px; margin-left: 10px">
             <label class="main-label" style="color: #333333; font-size: 15px"><b/>Location</label>
@@ -40,18 +40,18 @@
 
         <div style="background-color: rgba(72,71,69,0.86); height: 5px"></div>
         <div style="margin-top: 15px; margin-left: 10px">
-            <label class="main-label" style="color: #333333; font-size: 15px">Client</label>
+            <label class="main-label" style="color: #333333; font-size: 15px">Cook</label>
         </div>
 
         <div style=" margin-left: 20px">
 
-            <div><label class="main-label" th:text="${'🔸 ' + order.client.name + ' ' + order.client.surname}"
+            <div><label class="main-label" th:text="${'🔸 ' + order.cook.name + ' ' + order.cook.surname}"
                         style="color: #333333; font-size: 14px"></label></div>
             <div><label class="main-label"
-                        th:text="${'🔸 ' + order.client.mobile}"
+                        th:text="${'🔸 ' + order.cook.mobile}"
                         style="color: #333333; font-size: 14px"> +375447161038</label>
             </div>
-            <div><label class="main-label" th:text="${'🔸 ' + order.client.email}"
+            <div><label class="main-label" th:text="${'🔸 ' + order.cook.email}"
                         style="color: #333333; font-size: 14px">egorsheka@gmail.com</label>
             </div>
 
@@ -66,25 +66,21 @@
         </div>
         <div style="background-color: rgba(72,71,69,0.86); height: 5px"></div>
         <div style="margin-top: 15px; margin-left: 10px">
-            <label class="main-label" style="color: #333333; font-size: 15px">Number of guests and total
-                income</label>
+            <label class="main-label" style="color: #333333; font-size: 15px">Total price + booking fee</label>
         </div>
+
 
 
         <div style=" margin-left: 20px">
             <label class="main-label" id="countX" th:text="${order.countOfGuests}" style="color: #333333; font-size: 14px"></label>
             <label class="main-label" style="color: #333333; font-size: 14px"> × </label>
             <label class="main-label" id="unitPrice" th:text="${order.menu.price}" style="color: #333333; font-size: 14px"></label>
+            <label class="main-label"  style="color: #333333; font-size: 14px"> + 20</label>
             <label class="main-label"  style="color: #333333; font-size: 14px"> = </label>
             <label class="main-label" id="totalPrice" style="color: #333333; font-size: 14px"></label>
             <label class="main-label"  style="color: #333333; font-size: 14px"> руб.</label>
         </div>
 
-        <div style="position: absolute;right: 30px;  bottom:20px; width: 200px">
-            <button class="btn btn-classic save" th:value="${order.id}" name = "orderId" type="submit"
-                    style="display: inline-block; margin-top: 12px;font-size: 15px;  width : 200px;">CONFIRM BOOKING
-            </button>
-        </div>
 
 
     </div>

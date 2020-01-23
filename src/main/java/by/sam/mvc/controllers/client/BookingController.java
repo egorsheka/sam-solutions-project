@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -87,11 +88,14 @@ public class BookingController {
     }
 
     @PostMapping(value = "/makeOrder")
-    public String makeOrder(@ModelAttribute OrderDto order,  @AuthenticationPrincipal UserDetails currentUser) {
+    public String makeOrder(@ModelAttribute OrderDto order,  @AuthenticationPrincipal UserDetails currentUser, Model model){
         if(currentUser != null){
             order.setClientId(clientService.getAuthenticationCook(currentUser).getId());
         }
         orderService.create(order);
+        OrderDto dto = new OrderDto();
+        dto.setDate(LocalDate.now());
+        model.addAttribute("order", dto);
         return "mainPage";
     }
 

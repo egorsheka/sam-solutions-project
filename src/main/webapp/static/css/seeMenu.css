@@ -29,6 +29,7 @@
 }
 
 .main-label{
+    text-transform: uppercase;
     font-family: Gotham,sans-serif;
     font-size: 13px; line-height: 21px;
     color:#f39939; font-weight: bold;

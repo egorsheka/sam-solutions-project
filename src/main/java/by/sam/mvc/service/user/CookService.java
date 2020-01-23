@@ -31,6 +31,8 @@ public interface CookService extends Service<Cook> {
 
     Cook getCookByMenuId(int menuId);
 
+    boolean isAdmissibleCountOfMenu(int id);
+
     List<WorkTimeDto> readWorkTimeDto(int id);
 
     List<DistrictDto> readCookLocation(int id);

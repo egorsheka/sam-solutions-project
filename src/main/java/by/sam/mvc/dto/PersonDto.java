@@ -38,14 +38,6 @@ public class PersonDto {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -76,5 +68,13 @@ public class PersonDto {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 }

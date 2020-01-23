@@ -68,11 +68,34 @@ public class OrderServiceImpl implements OrderService {
         order.setDistrict(districtService.read(orderDto.getDistrict().getId()));
         order.setAddress(orderDto.getAddress());
         order.setMenu(menuService.read(orderDto.getMenuId()));
-        order.setClient(clientService.read(orderDto.getClientId()));
+
+        Client client = clientService.read(orderDto.getClientId());
+        Cook cook = cookService.getCookByMenuId(orderDto.getMenuId());
+        order.setClient(client);
+        order.setCook(cook);
         order.setOrderType(OrderType.valueOf("NEW"));
         orderRepository.create(order);
 
-        cookService.createOrderItem(cookService.getCookByMenuId(orderDto.getMenuId()).getId(), order);
+        cookService.createOrderItem(cook.getId(), order);
+
+        client.setAddress(orderDto.getAddress());
+        clientService.update(client);
         clientService.createOrderItem(orderDto.getClientId(), order);
+    }
+
+    @Transactional
+    @Override
+    public void makeOrderInProcess(int id) {
+        Order order = read(id);
+        order.setOrderType(OrderType.IN_PROCESS);
+        update(order);
+    }
+
+    @Transactional
+    @Override
+    public void makeOrderClosed(int id) {
+        Order order = read(id);
+        order.setOrderType(OrderType.CLOSED);
+        update(order);
     }
 }

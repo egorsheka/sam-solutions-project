@@ -3,6 +3,7 @@ package by.sam.mvc.models.order;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.menu.Menu;
 import by.sam.mvc.models.user.Client;
+import by.sam.mvc.models.user.Cook;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -27,6 +28,8 @@ public class Order {
     private Menu menu;
     @ManyToOne
     private Client client;
+    @ManyToOne
+    private Cook cook;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "order_type")
@@ -110,5 +113,13 @@ public class Order {
 
     public void setOrderType(OrderType orderType) {
         this.orderType = orderType;
+    }
+
+    public Cook getCook() {
+        return cook;
+    }
+
+    public void setCook(Cook cook) {
+        this.cook = cook;
     }
 }

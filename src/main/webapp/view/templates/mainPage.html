@@ -12,6 +12,9 @@
 <div sec:authorize="hasAuthority('COOK')">
     <div th:replace = "fragments/cookNavbar :: cookNavbar"></div>
 </div>
+<div sec:authorize="hasAuthority('CLIENT')">
+    <div th:replace = "fragments/clientNavbar :: clientNavbar"></div>
+</div>
 <div sec:authorize="!isAuthenticated()">
     <nav class="navbar navbar-dark bg-dark" style="position: fixed; top: -3px; width: 100%;z-index: 2">
         <a class="navbar-brand"></a>

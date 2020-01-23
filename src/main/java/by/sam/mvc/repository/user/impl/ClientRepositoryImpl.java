@@ -5,6 +5,7 @@ import by.sam.mvc.models.user.Cook;
 import by.sam.mvc.repository.user.ClientRepository;
 import org.springframework.stereotype.Repository;
 import org.hibernate.Hibernate;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -21,7 +22,10 @@ public class ClientRepositoryImpl implements ClientRepository {
 
     @Override
     public Client read(int id) {
-        return manager.find(Client.class, id);
+        Client client = manager.find(Client.class, id);
+        if (!client.getOrders().isEmpty())
+            Hibernate.initialize(client.getOrders());
+        return client;
     }
 
     @Override
@@ -37,9 +41,11 @@ public class ClientRepositoryImpl implements ClientRepository {
 
     @Override
     public Client read(String email) {
-        Client client =  manager.createQuery("from Client c where c.email = :email", Client.class)
+        Client client = manager.createQuery("from Client c where c.email = :email", Client.class)
                 .setParameter("email", email)
                 .getSingleResult();
+        if (!client.getOrders().isEmpty())
+            Hibernate.initialize(client.getOrders());
         return client;
     }
 }

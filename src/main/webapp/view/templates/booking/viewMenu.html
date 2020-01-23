@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <title>menu</title>
 
-
     <script type="text/javascript" th:src="@{/script/jquery.js}"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -30,10 +29,13 @@
 
 
 </head>
-<body style="background-color: #f9f8f6;">
+<body style="background-color: #f9f8f6">
 
 <div sec:authorize="hasAuthority('COOK')">
     <div th:replace = "fragments/cookNavbar :: cookNavbar"></div>
+</div>
+<div sec:authorize="hasAuthority('CLIENT')">
+    <div th:replace = "fragments/clientNavbar :: clientNavbar"></div>
 </div>
 <div sec:authorize="!isAuthenticated()">
     <nav class="navbar navbar-dark bg-dark" style="position: fixed; top: -3px; width: 100%;z-index: 2">

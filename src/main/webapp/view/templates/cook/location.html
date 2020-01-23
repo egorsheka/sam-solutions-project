@@ -22,12 +22,12 @@
         <input type="hidden" id="inputFindDistrict" class="form-control" placeholder="find district"
                style=";width: 230px; margin: auto; margin-top: 15px; margin-bottom: 10px;  "/>
 
-        <div class="pagination-container" id="mainDiv">
+        <div class="pagination-container">
             <div id="divDistricts">
 
             </div>
 
-            <div class="row justify-content-center" style="position: absolute; bottom: 80px; left: 158px">
+            <div class="row justify-content-center" style="position: absolute; bottom: 80px; left: 158px; visibility: hidden"  id="mainDiv">
                 <nav aria-label="Page navigation example">
                     <div class="pagination pagination-centered">
                         <ul class="pagination">
@@ -168,8 +168,32 @@
     }
     }))
     }))
+
+
+
+
     input3 = document.querySelector("#inputFindDistrict");
     input3.oninput = function () {
+
+
+        var els = document.querySelectorAll(
+            'input[name=additional]'
+        );
+        var msg = [];
+        Array.prototype.forEach.call(els, function (cb) {
+            if (cb.checked) {
+                var selected = {id: cb.id};
+                msg.push(selected);
+            }
+
+        });
+
+
+        /////////
+
+
+
+
         var intArr = [];
         for (var i = 0; i < districts.length; i++) {
             if (districts[i].name.toLowerCase().startsWith(this.value)) {
@@ -224,11 +248,25 @@
             }
         }
 
-        for (var i = 0; i < districtsCook.length; i++) {
-            $('#' + districtsCook[i].id).prop('checked', true);
+        for (var i = 0; i < msg.length; i++) {
+            $('#' + msg[i].id).prop('checked', true);
         }
 
 
+
+
+
+////////
+//
+
+//
+//         f2(function () {
+//             for (var i = 0; i < msg.length; i++) {
+//                 console.log('districtsCook[i].id = ' + msg[i].id);
+//                 $('#' + msg[i].id).prop('checked', true);
+//             }
+//         });
+        ////
 
 
     };
@@ -277,7 +315,7 @@
         var obj = {"id": select.value};
         //http://sc0489:8080/personalcook_war_exploded/
         //http://localhost:8084/sam_solutions_project_war/
-        fetch("http://localhost:8084/sam_solutions_project_war/getDistricts", { // try not to specify server here
+        fetch("http://localhost:8084/sam_solutions_project_war/getDistrictsByTown", { // try not to specify server here
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json;charset=utf-8'
@@ -375,6 +413,12 @@
             var disObject = {id: item.id, name: item.name.toString()};
         districts.push(disObject);
     })
+        if(districts.length > 10){
+            var mainDiv = document.getElementById("mainDiv");
+            mainDiv.setAttribute("style", 'position: absolute; bottom: 80px; left: 158px;visibility: visible');
+        }
+
+
         x = 1;
         for (var i = 0, j = 1; i < districts.length; i++, j++) {
             if (i % 10 === 0) {

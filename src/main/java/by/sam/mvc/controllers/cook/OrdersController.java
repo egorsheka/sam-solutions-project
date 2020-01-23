@@ -30,8 +30,16 @@ public class OrdersController {
 
 
     @PostMapping(path = "order")
-    public String getOrderPage(Model model, @RequestParam int ordersId) {
-        model.addAttribute("order", orderService.read(ordersId));
+    public String getOrderPage(Model model, @RequestParam int orderId) {
+        model.addAttribute("order", orderService.read(orderId));
         return "cook/order";
+    }
+
+
+    @PostMapping(path = "confirmOrder")
+    public String confirmOrder(Model model, @AuthenticationPrincipal UserDetails currentUser, @RequestParam int orderId) {
+        orderService.makeOrderInProcess(orderId);
+        model.addAttribute("orders", cookService.getAuthenticationCook(currentUser).getOrders());
+        return "cook/orders";
     }
 }

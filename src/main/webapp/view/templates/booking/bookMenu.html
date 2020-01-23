@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">>
 <head>
     <meta charset="UTF-8">
     <title>menu</title>
-
 
     <script type="text/javascript" th:src="@{/script/jquery.js}"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" th:href="@{/css/seeMenu.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/newMenu.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/viewMenu.css}">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 
 
@@ -34,11 +35,14 @@
 <div sec:authorize="hasAuthority('COOK')">
     <div th:replace = "fragments/cookNavbar :: cookNavbar"></div>
 </div>
+<div sec:authorize="hasAuthority('CLIENT')">
+    <div th:replace = "fragments/clientNavbar :: clientNavbar"></div>
+</div>
 <div sec:authorize="!isAuthenticated()">
     <nav class="navbar navbar-dark bg-dark" style="position: fixed; top: -3px; width: 100%;z-index: 2">
         <a class="navbar-brand"></a>
 
-        <div class="form-inline  app-nav-bar-container" style="margin-left: 85%">
+        <div class="form-inline  app-nav-bar-container" style="width: 70px">
             <a class="nav-link active app-nav-link-item"
                th:href="${(#mvc.url('USIC#login')).build()}" th:text="#{text.login}" style="flex:1; width: 30px" >Login</a>
 
@@ -46,8 +50,9 @@
     </nav>
 </div>
 
+
 <form action="#" th:action="@{/bookMenu}" th:object="${orderDto}" method="post" >
-<div class="row justify-content-center" style="margin-top: 100px; margin-bottom: 200px">
+<div class="row justify-content-center" style="margin-top: 100px;">
     <div class="card d-inline-block" style="width: 580px; border: 0px; margin-left: 70px">
 
         <div class="row justify-content-center" style="margin-top: 15px">
