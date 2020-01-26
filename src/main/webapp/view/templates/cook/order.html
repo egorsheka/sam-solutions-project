@@ -12,35 +12,39 @@
     <div class="card" style="width: 470px; height: 570px; border: 0px;">
 
         <div style="margin-top: 15px; margin-left: 10px">
-            <label class="main-label" style="color: #333333; font-size: 15px"><b/>Location</label>
+            <label class="main-label" style="color: #333333; font-size: 15px"><b th:text="#{text.Location}"></b></label>
         </div>
 
 
         <div style=" margin-left: 20px">
             <label class="main-label"
+
                    th:text="${order.district.town.name + ', ' + order.district.name + ', ' + order.address}"
-                   style="color: #333333; font-size: 14px"></label>
+                   style="color: #333333; font-size: 14px"><b></b></label>
         </div>
 
         <div style="background-color: rgba(72,71,69,0.86); height: 5px"></div>
 
 
         <div style="margin-top: 15px; margin-left: 10px">
-            <label class="main-label" style="color: #333333; font-size: 15px">Start time</label>
+            <label class="main-label" style="color: #333333; font-size: 15px" ><b th:text="#{text.Start_time}"></b></label>
         </div>
         <div style=" margin-left: 20px">
-            <label class="main-label" th:text="${order.date.dayOfWeek + ', '}"
+            <label class="main-label" th:text="#{${'text.day.' + order.date.dayOfWeek}}"
                    style="color: #333333; font-size: 14px"></label>
             <label class="main-label"
-                   th:text="${order.date.dayOfMonth +'/' + order.date.monthValue + '/' + order.date.year}"
+                   th:text="${order.date.dayOfMonth +'/' + order.date.monthValue + '/' + order.date.year + ' '}"
                    style="color: #333333; font-size: 14px"></label>
-            <label class="main-label" th:text="${' at ' + order.eventTime}"
+
+            <label class="main-label" th:text="#{text.at}"
+                   style="color: #333333; font-size: 14px"></label>
+            <label class="main-label" th:text="${order.eventTime}"
                    style="color: #333333; font-size: 14px"></label>
         </div>
 
         <div style="background-color: rgba(72,71,69,0.86); height: 5px"></div>
         <div style="margin-top: 15px; margin-left: 10px">
-            <label class="main-label" style="color: #333333; font-size: 15px">Client</label>
+            <label class="main-label" style="color: #333333; font-size: 15px" ><b th:text="#{text.Client}"></b></label>
         </div>
 
         <div style=" margin-left: 20px">
@@ -58,7 +62,7 @@
         </div>
         <div style="background-color: rgba(72,71,69,0.86); height: 5px"></div>
         <div style="margin-top: 15px; margin-left: 10px">
-            <label class="main-label" style="color: #333333; font-size: 15px">Name of menu</label>
+            <label class="main-label" style="color: #333333; font-size: 15px"  ><b th:text="#{text.Name_of_menu}"></b></label>
         </div>
         <div style=" margin-left: 20px">
             <label class="main-label" th:text="${order.menu.name}"
@@ -66,8 +70,7 @@
         </div>
         <div style="background-color: rgba(72,71,69,0.86); height: 5px"></div>
         <div style="margin-top: 15px; margin-left: 10px">
-            <label class="main-label" style="color: #333333; font-size: 15px">Number of guests and total
-                income</label>
+            <label class="main-label" style="color: #333333; font-size: 15px" ><b th:text="#{text.Number_of_guests_and_total_income}"></b></label>
         </div>
 
 
@@ -77,12 +80,12 @@
             <label class="main-label" id="unitPrice" th:text="${order.menu.price}" style="color: #333333; font-size: 14px"></label>
             <label class="main-label"  style="color: #333333; font-size: 14px"> = </label>
             <label class="main-label" id="totalPrice" style="color: #333333; font-size: 14px"></label>
-            <label class="main-label"  style="color: #333333; font-size: 14px"> руб.</label>
+            <label class="main-label"  style="color: #333333; font-size: 14px" th:text="#{text.rub}"> руб.</label>
         </div>
 
         <div style="position: absolute;right: 30px;  bottom:20px; width: 200px">
             <button class="btn btn-classic save" th:value="${order.id}" name = "orderId" type="submit"
-                    style="display: inline-block; margin-top: 12px;font-size: 15px;  width : 200px;">CONFIRM BOOKING
+                    style="display: inline-block; margin-top: 12px;font-size: 15px;  width : 200px;" th:text="#{text.CONFIRM_BOOKING}">CONFIRM BOOKING
             </button>
         </div>
 

@@ -4,6 +4,9 @@ import by.sam.mvc.dto.PersonDto;
 import by.sam.mvc.dto.OrderDto;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.location.Town;
+import by.sam.mvc.models.menu.Cuisine;
+import by.sam.mvc.models.menu.Menu;
+import by.sam.mvc.service.menu.CuisineService;
 import by.sam.mvc.service.order.OrderService;
 import by.sam.mvc.service.location.DistrictService;
 import by.sam.mvc.service.location.TownService;
@@ -14,15 +17,13 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 // todo null
@@ -36,21 +37,36 @@ public class BookingController {
     private TownService townService;
     private ClientService clientService;
     private OrderService orderService;
+    private CuisineService cuisineService;
 
     public BookingController(CookService cookService, MenuService menuService, DistrictService districtService,
-                             TownService townService, ClientService clientService, OrderService orderService) {
+                             TownService townService, ClientService clientService, OrderService orderService, CuisineService cuisineService) {
         this.cookService = cookService;
         this.menuService = menuService;
         this.districtService = districtService;
         this.townService = townService;
         this.clientService = clientService;
         this.orderService = orderService;
+        this.cuisineService = cuisineService;
     }
 
     @PostMapping(value = "/viewMenu")
     public String viewMenu(@ModelAttribute("orderDto") OrderDto order, Model model) {
-        model.addAttribute("menuList",  cookService.findAllMenuByOrder(order));
+        List<Menu> menus = cookService.findAllMenuByOrder(order);
+        model.addAttribute("menuList",  menus);
+        List<Cuisine> cuisines = new ArrayList<>();
+        cuisines.add(new Cuisine());
+        cuisines.add(new Cuisine());
+        cuisines.add(new Cuisine());
+        cuisines.add(new Cuisine());
+        cuisines.add(new Cuisine());
+
+
+
+
+        order.setCuisineList(cuisines);
         model.addAttribute("order",  order);
+        model.addAttribute("allCuisines", cuisineService.findAll());
         return "booking/viewMenu";
     }
 
@@ -96,7 +112,7 @@ public class BookingController {
         OrderDto dto = new OrderDto();
         dto.setDate(LocalDate.now());
         model.addAttribute("order", dto);
-        return "mainPage";
+        return "redirect:/";
     }
 
 

@@ -23,8 +23,9 @@
                 <form action="#" th:action="@{/selectMenu}" th:object="${menuItem}" method="post">
                     <div>
                         <input type="hidden" th:value="${menuItem.id}" th:name="id"/>
-                        <label>price for one guest</label>
+                        <label th:text="#{text.rice_for_one_guest}">price for one guest</label>
                         <label th:text="${menuItem.price}" th:value="${menuItem.price}" th:name="price">alesia</label>
+                        <label th:text="#{text.rub}">руб.</label>
                         <div style="background-color: #444444; margin-left: 10px; margin-right: 10px; margin-bottom: 10px">
                             <div style="width: 100%; margin: 0 auto">
                                 <button type="submit" th:text="#{text.see_more}" name="seeMore" class="btn btn-classic save"

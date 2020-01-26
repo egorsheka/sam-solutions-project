@@ -22,7 +22,7 @@
             <div class="custom-control custom-checkbox custom-control-inline"
                  style="float: left; width: 100px; height: 100px;">
                 <input type="checkbox" class="custom-control-input" id="MONDAY">
-                <label class="custom-control-label" for="MONDAY">Monday</label>
+                <label class="custom-control-label" for="MONDAY" th:text="#{text.day.MONDAY}">Monday</label>
                 <div id="div1" style="display: none; z-index: 2; width: 10px;">
                     <select id="selectStart1" class="form-control" placeholder="from"
                             style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px; padding: 3px">
@@ -89,7 +89,7 @@
             <div class="custom-control custom-checkbox custom-control-inline"
                  style="float: left; width: 100px; height: 100px;">
                 <input type="checkbox" class="custom-control-input" id="TUESDAY">
-                <label class="custom-control-label" for="TUESDAY">Tuesday</label>
+                <label class="custom-control-label" for="TUESDAY" th:text="#{text.day.THURSDAY}">Tuesday</label>
                 <div id="div2" style="display: none; z-index: 2; width: 10px">
                     <select id="selectStart2" class="form-control" placeholder="from"
                             style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px; padding: 3px">
@@ -155,7 +155,7 @@
             <div class="custom-control custom-checkbox custom-control-inline"
                  style="float: left; width: 100px; height: 100px;">
                 <input type="checkbox" class="custom-control-input" id="WEDNESDAY">
-                <label class="custom-control-label" for="WEDNESDAY">Wednesday</label>
+                <label class="custom-control-label" for="WEDNESDAY" th:text="#{text.day.WEDNESDAY}">Wednesday</label>
                 <div id="div3" style="display: none; z-index: 2; width: 10px">
                     <select id="selectStart3" class="form-control" placeholder="from"
                             style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px; padding: 3px">
@@ -221,7 +221,7 @@
             <div class="custom-control custom-checkbox custom-control-inline"
                  style="float: left; width: 100px; height: 100px;">
                 <input type="checkbox" class="custom-control-input" id="THURSDAY">
-                <label class="custom-control-label" for="THURSDAY">Thursday</label>
+                <label class="custom-control-label" for="THURSDAY" th:text="#{text.day.THURSDAY}">Thursday</label>
                 <div id="div4" style="display: none; z-index: 2; width: 10px">
                     <select id="selectStart4" class="form-control" placeholder="from"
                             style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px; padding: 3px">
@@ -287,7 +287,7 @@
             <div class="custom-control custom-checkbox custom-control-inline"
                  style="float: left; width: 100px; height: 100px;">
                 <input type="checkbox" class="custom-control-input" id="FRIDAY">
-                <label class="custom-control-label" for="FRIDAY">Friday</label>
+                <label class="custom-control-label" for="FRIDAY" th:text="#{text.day.FRIDAY}">Friday</label>
                 <div id="div5" style="display: none; z-index: 2; width: 10px">
                     <select id="selectStart5" class="form-control" placeholder="from"
                             style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px; padding: 3px">
@@ -354,7 +354,7 @@
             <div class="custom-control custom-checkbox custom-control-inline"
                  style="float: left; width: 100px; height: 100px;">
                 <input type="checkbox" class="custom-control-input" id="SATURDAY">
-                <label class="custom-control-label" for="SATURDAY">Saturday</label>
+                <label class="custom-control-label" for="SATURDAY" th:text="#{text.day.SATURDAY}">Saturday</label>
                 <div id="div6" style="display: none; z-index: 2; width: 10px">
                     <select id="selectStart6" class="form-control" placeholder="from"
                             style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px; padding: 3px">
@@ -421,7 +421,7 @@
             <div class="custom-control custom-checkbox custom-control-inline"
                  style="float: left; width: 100px; height: 100px;">
                 <input type="checkbox" class="custom-control-input" id="SUNDAY">
-                <label class="custom-control-label" for="SUNDAY">Sunday</label>
+                <label class="custom-control-label" for="SUNDAY" th:text="#{text.day.SUNDAY}">Sunday</label>
                 <div id="div7" style="display: none; z-index: 2; width: 10px">
                     <select id="selectStart7" class="form-control" placeholder="from"
                             style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px; padding: 3px">
@@ -488,7 +488,7 @@
 
         <div class="row justify-content-center" style="margin-top: 50px">
             <button class="btn btn-classic save" id="saveButton"
-                    style="display: inline-block; margin-bottom: 30px;  width : 250px;">SAVE
+                    style="display: inline-block; margin-bottom: 30px;  width : 250px;" th:text="#{text.SAVE}">SAVE
             </button>
         </div>
     </div>

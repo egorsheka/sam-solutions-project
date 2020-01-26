@@ -29,6 +29,7 @@ public interface CookService extends Service<Cook> {
     void createOrderItem(int id, Order order);
     void updateOrderItem(int id, Order order);
 
+
     Cook getCookByMenuId(int menuId);
 
     boolean isAdmissibleCountOfMenu(int id);
@@ -45,6 +46,7 @@ public interface CookService extends Service<Cook> {
 
     List<Cook> filterCooksByWorkTime(List<Cook> cooks, DayOfWeek weekDay, LocalTime time);
 
-
+    CookProfileDto fillCookProfileDto(Cook cook);
+    void updateProfileData(CookProfileDto dto);
 
 }

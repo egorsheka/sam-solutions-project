@@ -1,4 +1,15 @@
- const selectDistrict = document.getElementById('selectDistricts');
+
+
+
+
+
+
+
+  const language = document.getElementById('language');
+    if(language != null){
+        language.innerHTML = '<button type="button" class="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position: absolute; right: 0;  top: -15px; color:#ca6a45;  background-color: #343a40!important; border: 0;font-size: 20px;font-family: Bree Serif, serif;">Language </button><div class="dropdown-menu" style="right: 0; left: auto; top: 30px; background-color: #343a40!important;"><a class="dropdown-item app-nav-link-item" style="color: whitesmoke;" href="?lang=ru_RU">Russian</a> <div class="dropdown-divider" style="color: whitesmoke;"></div><a class="dropdown-item app-nav-link-item" style="color: whitesmoke;" href="?lang=de">Deutsch</a> <div class="dropdown-divider" style="color: whitesmoke;"></div> <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;" href="?lang=en_US">English</a></div>';
+    }
+  const selectDistrict = document.getElementById('selectDistricts');
  const date = document.getElementById('orderedDate');
  if(date.value == ""){
      const date = new Date();

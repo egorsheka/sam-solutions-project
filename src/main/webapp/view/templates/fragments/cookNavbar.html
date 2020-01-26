@@ -1,6 +1,15 @@
 <body th:fragment = "cookNavbar">
 <nav class="navbar navbar-dark bg-dark" style="position: fixed; top: -3px; width: 100%;z-index: 2" >
     <div class="form-inline  app-nav-bar-container" style="margin-left: 60%">
+        <div class="btn-group" style="flex: 2; " id="language">
+            <div class="dropdown-menu" style="right: 0; left: auto; top: 30px; background-color: #343a40!important;">
+                <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="@{?lang=ru_RU}" th:text="#{text.Russian}">Russian</a>
+                <div class="dropdown-divider" style="color: whitesmoke;"></div>
+                <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="@{?lang=de}" th:text="#{text.Deutsch}">Deutsch</a>
+                <div class="dropdown-divider" style="color: whitesmoke;"></div>
+                <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="@{?lang=en_US}" th:text="#{text.English}">English</a>
+            </div>
+        </div>
         <a class="nav-link active app-nav-link-item" th:href="${(#mvc.url('OC#getOrdersPage')).build()}" th:text="#{text.orders}" style="flex:1" >Orders</a>
         <a class="nav-link active app-nav-link-item"  th:href="${(#mvc.url('PC#getProfilePage')).build()}" th:text="#{text.profile}" style="flex:1">Profile</a>
         <a class="nav-link active app-nav-link-item" th:href="${(#mvc.url('WTC#getTimeWorkPage')).build()}" th:text="#{text.workingHours}" style="flex:1.5" >Time Work</a>
@@ -9,13 +18,13 @@
         <div class="btn-group" style="flex: 2; ">
             <button type="button" class="" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false"
-                    style="position: absolute; right: 0;  top: -15px; color:#ca6a45;  background-color: #343a40!important; border: 0;font-size: 20px;font-family: Bree Serif, serif;">
+                    style="position: absolute; right: 0;  top: -15px; color:#ca6a45;  background-color: #343a40!important; border: 0;font-size: 20px;font-family: Bree Serif, serif;" th:text="#{text.My_account}">
                 My account
             </button>
             <div class="dropdown-menu" style="right: 0; left: auto; top: 30px; background-color: #343a40!important;">
-                <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="${(#mvc.url('MPC#getMainPage')).build()}">Main page</a>
+                <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="${(#mvc.url('MPC#getMainPage')).build()}" th:text="#{text.Maim_page}">Main page</a>
                 <div class="dropdown-divider" style="color: whitesmoke;"></div>
-                <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="@{/logout}">Logout</a>
+                <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="@{/logout}" th:text="#{text.Logout}">Logout</a>
             </div>
         </div>
 

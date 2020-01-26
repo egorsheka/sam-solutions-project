@@ -12,7 +12,7 @@
     <div class="card" style="width: 470px; height: 480px; border: 0px;">
 
         <div style="margin-top: 15px; margin-left: 10px">
-            <label class="main-label" style="color: #333333; font-size: 15px"><b/>Location</label>
+            <label class="main-label" style="color: #333333; font-size: 15px"><b th:text="#{text.Location}"></b></label>
         </div>
 
 
@@ -26,21 +26,22 @@
 
 
         <div style="margin-top: 15px; margin-left: 10px">
-            <label class="main-label" style="color: #333333; font-size: 15px">Start time</label>
+            <label class="main-label" style="color: #333333; font-size: 15px" ><b th:text="#{text.Start_time}"></b></label>
         </div>
         <div style=" margin-left: 20px">
-            <label class="main-label" th:text="${order.date.dayOfWeek + ', '}"
+            <label class="main-label" th:text="#{${'text.day.' + order.date.dayOfWeek}}"
                    style="color: #333333; font-size: 14px"></label>
             <label class="main-label"
                    th:text="${order.date.dayOfMonth +'/' + order.date.monthValue + '/' + order.date.year}"
                    style="color: #333333; font-size: 14px"></label>
-            <label class="main-label" th:text="${' at ' + order.eventTime}"
+            <label class="main-label" th:text="#{text.at}" style="color: #333333; font-size: 20px"></label>
+            <label class="main-label" th:text="${order.eventTime}"
                    style="color: #333333; font-size: 14px"></label>
         </div>
 
         <div style="background-color: rgba(72,71,69,0.86); height: 5px"></div>
         <div style="margin-top: 15px; margin-left: 10px">
-            <label class="main-label" style="color: #333333; font-size: 15px">Cook</label>
+            <label class="main-label" style="color: #333333; font-size: 15px"><b th:text="#{text.Cook}"></b></label>
         </div>
 
         <div style=" margin-left: 20px">
@@ -58,7 +59,7 @@
         </div>
         <div style="background-color: rgba(72,71,69,0.86); height: 5px"></div>
         <div style="margin-top: 15px; margin-left: 10px">
-            <label class="main-label" style="color: #333333; font-size: 15px">Name of menu</label>
+            <label class="main-label" style="color: #333333; font-size: 15px" ><b th:text="#{text.Name_of_menu}"></b></label>
         </div>
         <div style=" margin-left: 20px">
             <label class="main-label" th:text="${order.menu.name}"
@@ -66,7 +67,7 @@
         </div>
         <div style="background-color: rgba(72,71,69,0.86); height: 5px"></div>
         <div style="margin-top: 15px; margin-left: 10px">
-            <label class="main-label" style="color: #333333; font-size: 15px">Total price + booking fee</label>
+            <label class="main-label" style="color: #333333; font-size: 15px"><b th:text="#{text.Total_price_booking_fee}"></b></label>
         </div>
 
 
@@ -78,7 +79,7 @@
             <label class="main-label"  style="color: #333333; font-size: 14px"> + 20</label>
             <label class="main-label"  style="color: #333333; font-size: 14px"> = </label>
             <label class="main-label" id="totalPrice" style="color: #333333; font-size: 14px"></label>
-            <label class="main-label"  style="color: #333333; font-size: 14px"> руб.</label>
+            <label class="main-label"  style="color: #333333; font-size: 14px" th:text="#{text.rub}" > руб.</label>
         </div>
 
 

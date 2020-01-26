@@ -45,7 +45,7 @@
 
         <div class="form-inline  app-nav-bar-container" style="width: 70px">
             <a class="nav-link active app-nav-link-item"
-               th:href="${(#mvc.url('USIC#login')).build()}" th:text="#{text.login}" style="flex:1; width: 30px" >Login</a>
+               th:href="${(#mvc.url('USIC#login')).build()}" th:text="#{text.login}" style="flex:1; width: 30px; margin-left: -30px;" >Login</a>
 
         </div>
     </nav>
@@ -57,13 +57,14 @@
     <div class="card d-inline-block" style="width: 470px; height: 550px; border: 0px; margin-left: 70px">
 
         <div style="margin-top: 15px; margin-left: 10px">
-            <label class="main-label" style="color: #333333; font-size: 15px">Start time</label>
+            <label class="main-label2" style="color: #333333; font-size: 15px" th:text="#{text.Start_time}">Start time</label>
         </div>
 
         <div style=" margin-left: 10px">
-            <label class="main-label" th:text="${order.date.dayOfWeek + ', '}" style="color: #333333; font-size: 14px">Friday, January 17th 2020 at 2:00 pm</label>
-            <label class="main-label" th:text="${order.date.dayOfMonth +'/' + order.date.monthValue + '/' + order.date.year}" style="color: #333333; font-size: 14px">Friday, January 17th 2020 at 2:00 pm</label>
-            <label class="main-label" th:text="${' at ' + order.time}" style="color: #333333; font-size: 14px">Friday, January 17th 2020 at 2:00 pm</label>
+            <label class="main-label2" th:text="#{${'text.day.' + order.date.dayOfWeek}}" style="color: #333333; font-size: 14px">Friday, January 17th 2020 at 2:00 pm</label>
+            <label class="main-label2" th:text="${order.date.dayOfMonth +'/' + order.date.monthValue + '/' + order.date.year +' '}" style="color: #333333; font-size: 14px">Friday, January 17th 2020 at 2:00 pm</label>
+            <label class="main-label2" th:text="#{text.at}" style="color: #333333; font-size: 14px"></label>
+            <label class="main-label2" th:text="${' ' + order.time}" style="color: #333333; font-size: 14px">Friday, January 17th 2020 at 2:00 pm</label>
         </div>
 
 
@@ -73,16 +74,16 @@
         </div>
 
         <div style="margin-top: 15px; margin-left: 10px">
-            <label class="main-label" style="color: #333333; font-size: 15px">Specific instructions</label>
+            <label class="main-label2" style="color: #333333; font-size: 15px" th:text="#{text.Specific_instructions}">Specific instructions</label>
         </div>
 
         <div style="margin-top: -8px; margin-left: 10px">
-            <label class="main-label" style="color: #333333; font-size: 12px">Inform our team and your chef</label>
+            <label class="main-label2" style="color: #333333; font-size: 12px" th:text="#{text.Inform_our_team}">Inform our team and your chef</label>
         </div>
 
         <div class="form-group" style="margin-left: 10px; margin-top: -10px; width: 440px">
             <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="2"
-                      placeholder="Please indicate if you would like to change something or have any dietary requirements."></textarea>
+                      th:placeholder="#{text.Please_indicate_if_you_would}"></textarea>
         </div>
 
 
@@ -94,57 +95,57 @@
 
         <div>
             <div class="d-inline-block" style="margin-top: 15px; margin-left: 10px">
-                <label class="main-label" style="color: #333333">First Name*</label>
+                <label class="main-label2" style="color: #333333" th:text="#{text.First_name}">First Name</label>
             </div>
-            <div class="d-inline-block">
+            <div class="d-inline-block" style="position:absolute; right: 0">
                 <input type="text" th:name="name" th:value="${user.name}" class="form-control"
-                       style="width: 340px; height: 30px; margin-left: 20px"
-                       placeholder="Your first name"/>
+                       style="width: 330px;height: 30px; position:absolute; top:13px; left:-350px;"
+                       th:placeholder="#{text.Your_first_name}"/>
             </div>
         </div>
 
         <div>
             <div class="d-inline-block" style="margin-top: 15px; margin-left: 10px">
-                <label class="main-label" style="color: #333333">Last Name*</label>
+                <label class="main-label2" style="color: #333333" th:text="#{text.Last_name}">Last Name*</label>
             </div>
-            <div class="d-inline-block">
+            <div class="d-inline-block" style="position:absolute; right: 0">
                 <input type="text" th:name="surname" th:value="${user.surname}" class="form-control"
-                       style="width: 340px;height: 30px; margin-left: 20px"
-                       placeholder="Your last name"/>
+                       style="width: 330px;height: 30px; position:absolute; top:13px; left:-350px;"
+                       th:placeholder="#{text.Your_last_name}"/>
             </div>
         </div>
 
 
         <div>
             <div class="d-inline-block" style="margin-top: 15px; margin-left: 10px">
-                <label class="main-label" style="color: #333333">Phone*</label>
+                <label class="main-label2" style="color: #333333" th:text="#{text.Phone_number}">Phone*</label>
             </div>
-            <div class="d-inline-block">
+            <div class="d-inline-block" style="position:absolute; right: 0">
                 <input type="text" th:name="mobile" th:value="${user.mobile}" class="form-control"
-                       style="width: 340px; height: 30px; margin-left: 45px"
-                       placeholder="Your phone"/>
+                      style="width: 330px;height: 30px; position:absolute; top:13px; left:-350px;"
+                       th:placeholder="#{text.Your_Phone}"/>
             </div>
         </div>
 
         <div>
             <div class="d-inline-block" style="margin-top: 15px; margin-left: 10px">
-                <label class="main-label" style="color: #333333">Address line*</label>
+                <label class="main-label2" style="color: #333333" th:text="#{text.Address}">Address line*</label>
             </div>
-            <div class="d-inline-block">
+            <div class="d-inline-block" style="position:absolute; right: 0">
                 <input type="text" class="form-control" th:name="address" th:value="${order.address}"
-                       style="width: 340px; height: 30px; margin-left: 7px"
-                       placeholder="Your address line"/>
+                      style="width: 330px;height: 30px; position:absolute; top:13px; left:-350px;"
+                       th:placeholder="#{text.Your_address}"/>
             </div>
         </div>
 
         <div>
             <div class="d-inline-block" style="margin-top: 15px; margin-left: 10px">
-                <label class="main-label" style="color: #333333">Town*</label>
+                <label class="main-label2" style="color: #333333" th:text="#{text.city}">Town*</label>
             </div>
-            <div class="d-inline-block">
+            <div class="d-inline-block" style="position:absolute; right: 0">
                 <input type="text" class="form-control"  th:value="${order.town.name}"
-                       style="width: 340px; height: 30px; margin-left: 52px"
-                       placeholder="Your city"/>
+                       style="width: 330px;height: 30px; position:absolute; top:13px; left:-350px;"
+                       th:placeholder="#{text.Your_town}"/>
             </div>
         </div>
 
@@ -154,22 +155,20 @@
     <div class="card d-inline-block "
          style="width: 18rem;height: 470px ;margin-left: 20px; background-color: white; border: 0px; background-color: #222;">
         <div style="margin-left: 10px; margin-top: 5px; height: 20px">
-            <label class="main-label2" style="color: #fff"><b>YOUR BOOKING DETAILS</b></label>
+            <label class="main-label2" style="color: #fff"><b th:text="#{text.YOUR_BOOKING_DETAILS}">YOUR BOOKING DETAILS</b></label>
         </div>
         <div style="color: whitesmoke;">
             <ul style="position: relative">
                 <li style="position: absolute; top: 0px">
-                    <label class="main-label2" style="color: whitesmoke; margin-left: 7px">In</label>
                     <label class="main-label2" th:text="${order.town.name}" style="color: whitesmoke; margin-left: 2px"></label>
                     <label class="main-label2"  style="color: whitesmoke; margin-left: -2px">, </label>
                     <label class="main-label2" th:text="${order.district.name}" style="color: whitesmoke; margin-left: 2px"></label>
                 </li>
                 <li style="position: absolute; top: 16px">
-                    <label class="main-label2" style="color: whitesmoke; margin-left: 7px">On </label>
                     <label class="main-label2" th:text="${order.date.dayOfMonth +'/' + order.date.monthValue + '/' + order.date.year}" style="color: whitesmoke; margin-left: 2px"></label>
                 </li>
                 <li style="position: absolute; top: 32px">
-                    <label class="main-label2" style="color: whitesmoke; margin-left: 7px">Service time </label>
+                    <label class="main-label2" style="color: whitesmoke; margin-left: 2px" th:text="#{text.Service_time}">Service time </label>
                     <label class="main-label2" th:text="${order.time}" style="color: whitesmoke; margin-left: 2px"></label>
                 </li>
             </ul>
@@ -186,7 +185,7 @@
         </div>
 
 
-        <label class="main-label2" style="position: relative; top: 30px;color: whitesmoke; margin-left: 10px"><b>YOUR
+        <label class="main-label2" style="position: relative; top: 30px;color: whitesmoke; margin-left: 10px"><b th:text="#{text.YOUR_CART}">YOUR
             CART</b></label>
 
         <div class="card-body" style="height: 5px">
@@ -194,7 +193,7 @@
                  style="position: absolute;left: 0px;  top:185px; width: 288px; border-color:  #000000;border-style: solid"></div>
         </div>
         <label class="main-label2"
-               style="color: whitesmoke; margin-left: 10px">Total number of guests</label>
+               style="color: whitesmoke; margin-left: 10px" th:text="#{text.Total_number_of_guests}">Total number of guests</label>
 
         <label class="main-label2" th:text="${order.countOfGuests}" id="selectGuests"
                style="color: whitesmoke; margin-left: 220px; position: relative; top: -30px">6</label>
@@ -205,12 +204,12 @@
         </div>
 
         <label class="main-label2"
-               style="color: whitesmoke; margin-left: 10px; position: relative; top: -60px">Unit price</label>
+               style="color: whitesmoke; margin-left: 10px; position: relative; top: -60px" th:text="#{text.Unit_price}">Unit price</label>
 
         <label class="main-label2" id="unitPrice" th:text="${order.price}"
-               style="color: whitesmoke; margin-left: 150px; position: relative; top: -60px">30</label>
+               style="color: whitesmoke;  position: absolute; top: 240px; left: 220px">30</label>
         <label class="main-label2"
-               style="color: whitesmoke;  position: relative; top: -60px"> руб</label>
+               style="color: whitesmoke;  position: absolute; top: 240px; left: 237px" th:text="#{text.rub}"> руб</label>
 
 
         <div class="card-body" style="height: 5px">
@@ -220,14 +219,14 @@
 
 
         <label class="main-label2"
-               style="color: whitesmoke; margin-left: 10px; position: relative; top: -94px">Menu x </label>
+               style="color: whitesmoke; margin-left: 10px; position: relative; top: -94px" th:text="#{text.Menu_X}">Menu x </label>
         <label class="main-label2" id="countX"
                style="color: whitesmoke; margin-left: 0px; position: relative; top: -94px">3</label>
 
         <label class="main-label2" id="priceX"
                style="color: whitesmoke;  position: absolute; top: 282px; right: 55px">90</label>
         <label class="main-label2"
-               style="color: whitesmoke;  position: absolute; top: 282px; right: 30px"> руб</label>
+               style="color: whitesmoke;  position: absolute; top: 282px; right: 27px"th:text="#{text.rub}"> руб</label>
 
 
         <div class="card-body" style="height: 5px">
@@ -237,12 +236,12 @@
 
 
         <label class="main-label2"
-               style="color: whitesmoke; margin-left: 10px; position: relative; top: -122px">Booking Fee</label>
+               style="color: whitesmoke; margin-left: 10px; position: relative; top: -122px" th:text="#{text.Booking_Fee}">Booking Fee</label>
 
         <label class="main-label2" id="bookingPrice"
                style="color: whitesmoke;  position: absolute; top: 327px; right: 54px">20</label>
         <label class="main-label2"
-               style="color: whitesmoke;  position: absolute; top: 327px; left: 238px"> руб</label>
+               style="color: whitesmoke;  position: absolute; top: 327px; left: 238px"th:text="#{text.rub}"> руб</label>
 
 
         <div class="card-body" style="height: 5px">
@@ -252,12 +251,12 @@
 
 
         <label class="main-label2"
-               style="color: rgb(243, 153, 57); margin-left: 10px; position: relative; top: -150px">Total</label>
+               style="color: rgb(243, 153, 57); margin-left: 10px; position: relative; top: -150px" th:text="#{text.Total}">Total</label>
 
         <label class="main-label2" id="totalPrice"
                style="color: rgb(243, 153, 57);  position: absolute; top: 369px; right: 55px">110</label>
         <label class="main-label2"
-               style="color: rgb(243, 153, 57);  position: absolute; top: 369px; right: 30px"> руб</label>
+               style="color: rgb(243, 153, 57);  position: absolute; top: 369px; right: 26px"th:text="#{text.rub}"> руб</label>
 
 
         <div class="card-body" style="height: 5px">
@@ -268,7 +267,7 @@
 
         <div class="row justify-content-center" style="position: absolute;left: 30px;  top:400px; width: 258px">
             <button class="btn btn-classic save"
-                    style="display: inline-block; margin-top: 12px;  width : 258px;">BOOK THIS MENU
+                    style="display: inline-block; margin-top: 12px;  width : 258px;" th:text="#{text.BOOK_THIS_MENU}">BOOK THIS MENU
             </button>
         </div>
 

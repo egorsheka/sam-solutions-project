@@ -12,3 +12,37 @@
     mix-blend-mode: normal;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
+
+.cuisine-card-selected{
+    font-size: 12px;
+    color: white;
+    background: #F39939;
+    font-family: GothamBook;
+    display: inline-block;
+    vertical-align: top
+}
+
+.cuisine-card{
+    font-size: 12px;
+    color: #999;
+    font-family: GothamBook;
+    display: inline-block;
+    vertical-align: top
+}
+
+.cuisine-card:hover{
+    background: #767676;
+    font-size: 12px;
+    font-family: GothamBook;
+    color: white;
+    display: inline-block;
+    vertical-align: top
+}
+
+.cuisine-card-label{
+    margin-right: 2px;
+    margin-left: 2px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+
+}

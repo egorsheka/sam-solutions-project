@@ -1,26 +1,34 @@
 package by.sam.mvc.service.menu.impl;
 
 
+import by.sam.mvc.models.menu.Cuisine;
 import by.sam.mvc.models.menu.Dish;
 import by.sam.mvc.models.menu.Menu;
 import by.sam.mvc.models.menu.MenuLuxury;
 import by.sam.mvc.repository.menu.MenuRepository;
+import by.sam.mvc.service.menu.CuisineService;
 import by.sam.mvc.service.menu.DishService;
 import by.sam.mvc.service.menu.MenuService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MenuServiceImpl implements MenuService {
 
     private final MenuRepository menuRepository;
     private final DishService dishService;
+    private final CuisineService cuisineService;
 
 
 
-    public MenuServiceImpl(MenuRepository menuRepository, DishService dishService) {
+    public MenuServiceImpl(MenuRepository menuRepository, DishService dishService, CuisineService cuisineService) {
         this.menuRepository = menuRepository;
         this.dishService = dishService;
+        this.cuisineService = cuisineService;
     }
 
 
@@ -38,6 +46,23 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public Menu read(int id) {
         return menuRepository.read(id);
+    }
+
+    @Override
+    public List<Menu> filterMenuByCuisine(List<Menu> menus, List<Cuisine> cuisines) {
+        List<Menu> orderMenu = new ArrayList<>();
+        for(Menu menu: menus){
+            nextMenu:
+            for(Dish dish: menu.getDishes()){
+                for(Cuisine cuisine: cuisines) {
+                    if (dish.getCuisine().getName().equals(cuisine.getName())){
+                        orderMenu.add(menu);
+                        break nextMenu;
+                    }
+                }
+            }
+        }
+        return orderMenu;
     }
 
 

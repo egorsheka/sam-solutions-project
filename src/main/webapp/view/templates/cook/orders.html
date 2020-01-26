@@ -15,25 +15,26 @@
             <input type="hidden" id="countOfOrder" th:value="${orders.size()}">
             <div class="d-flex w-100 justify-content-between">
                 <div class="mb-1">
-                    <label class="main-label" th:text="${order.date.dayOfWeek + ', '}"
+                    <label class="main-label" th:text="#{${'text.day.' + order.date.dayOfWeek}}"
                            style="color: #333333; font-size: 20px">Friday,
                         January 17th 2020 at 2:00 pm</label>
                     <label class="main-label"
                            th:text="${order.date.dayOfMonth +'/' + order.date.monthValue + '/' + order.date.year}"
                            style="color: #333333; font-size: 20px"></label>
-                    <label class="main-label" th:text="${' at ' + order.eventTime}"
+                    <label class="main-label" th:text="#{text.at}" style="color: #333333; font-size: 20px"></label>
+                    <label class="main-label" th:text="${order.eventTime}"
                            style="color: #333333; font-size: 20px"></label>
                 </div>
 <!--                281-->
-                <small style="margin-left: 242px" th:if="${order.orderType.name() == 'NEW'}"> <span class="badge badge-success">new</span></small>
-                <small style="margin-left: 242px;" th:if="${order.orderType.name() == 'IN_PROCESS'}"> <span class="badge badge-pill badge-info">in process</span></small>
-                <small style="margin-left: 242px" th:if="${order.orderType.name() == 'CLOSED'}"> <span class="badge badge-pill badge-secondary">closed</span></small>
+                <small style="margin-left: 242px" th:if="${order.orderType.name() == 'NEW'}"> <span class="badge badge-success" th:text="#{text.new}">new</span></small>
+                <small style="margin-left: 242px;" th:if="${order.orderType.name() == 'IN_PROCESS'}"> <span class="badge badge-pill badge-info" th:text="#{text.in_process}">in process</span></small>
+                <small style="margin-left: 242px" th:if="${order.orderType.name() == 'CLOSED'}"> <span class="badge badge-pill badge-secondary" th:text="#{text.closed}">closed</span></small>
             </div>
             <p class="mb-1" th:text="${order.menu.name}">Draniki po yzbecki</p>
             <small>
-                <label>Income:</label>
+                <label th:text="#{order.income}">Income:</label>
                 <label th:id="${'totalPrice' + item.index}"></label>
-                <label> руб.</label>
+                <label th:text="#{text.rub}"> руб.</label>
                 <label style="visibility: hidden" th:text="${order.menu.price}" th:id="${'unitPrice' + item.index}"/>
                 <label style="visibility: hidden" th:text="${order.countOfGuests}" th:id="${'countX' + item.index}"/>
             </small>
@@ -56,8 +57,6 @@
 
         totalPrice.innerHTML = (Number(unitPrice.innerHTML) * Number(countX.innerHTML) + '');
     }
-
-
 
 </script>
 

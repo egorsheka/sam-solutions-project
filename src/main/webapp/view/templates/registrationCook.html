@@ -21,29 +21,29 @@
                 <div class="column-profile-right">
                     <div class="from-group div-profile cook-registr">
                         <input type="text" th:value="${cook.name}" name="name" class="form-control" style="width: 400px; margin-top: 20px"
-                               placeholder="Your first name"/>
+                               th:placeholder="#{text.Your_first_name}"/>
                     </div>
                     <div class="from-group div-profile cook-registr">
                         <input type="text" th:value="${cook.surname}" name="surname" class="form-control"  style="width: 400px"
-                               placeholder="Your last name"/>
+                               th:placeholder="#{text.Your_last_name}"/>
                     </div>
 
                     <div class="from-group div-profile-right" style="margin-bottom: 30px">
-                        <input type="text" th:value="${cook.mobile}" name="mobile" class="form-control" style="width: 400px" placeholder="Phone number">
+                        <input type="text" th:value="${cook.mobile}" name="mobile" class="form-control" style="width: 400px"  th:placeholder="#{text.Your_Phone}"/>
                     </div>
 
                     <div class="from-group div-profile cook-registr" style="margin-top: -14.5px">
 
                         <input type="email" th:value="${cook.email}" name="email" id="email" class="form-control" style="width: 400px" aria-describedby="emailHelp"
-                               placeholder="Enter email">
+                               th:placeholder="#{text.Enter_email}">
                     </div>
                     <div class="from-group div-profile cook-registr">
 
-                        <input type="password" th:value="${cook.password}" name="password" id="password"  class="form-control" style="width: 400px" placeholder="Password">
+                        <input type="password" th:value="${cook.password}" name="password" id="password"  class="form-control" style="width: 400px"  th:placeholder="#{text.Enter_password}">
                     </div>
                     <div class="row justify-content-center cook-registr">
                         <button type="submit" class="btn btn-classic save"
-                                style="display: inline-block; margin-top: 12px;  width : 250px;">SING UP
+                                style="display: inline-block; margin-top: 12px;  width : 250px;" th:text="#{text.SING_UP}">SING UP
                         </button>
                     </div>
                 </div>

@@ -33,8 +33,9 @@
 
             <div>
                 <div class="row justify-content-center" style="margin-top: 25px">
-                    <label class="main-label"><b th:text="${dish.dishType}">SERVICE DESCRIPTION</b></label>
+                    <label class="main-label"><b th:text="#{${'text.type.' + dish.dishType}}">SERVICE DESCRIPTION</b></label>
                 </div>
+
 
                 <div style="margin-left: 30px; margin-right: 30px">
                     <label class="label-two" th:text="${dish.name}">

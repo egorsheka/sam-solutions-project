@@ -4,6 +4,7 @@ import by.sam.mvc.dto.*;
 import by.sam.mvc.mail.GmailSenderService;
 import by.sam.mvc.models.location.District;
 import by.sam.mvc.models.location.Town;
+import by.sam.mvc.models.menu.Cuisine;
 import by.sam.mvc.models.menu.Menu;
 import by.sam.mvc.models.order.Order;
 import by.sam.mvc.models.user.Cook;
@@ -17,6 +18,7 @@ import by.sam.mvc.service.order.OrderService;
 import by.sam.mvc.service.user.CookService;
 import by.sam.mvc.service.user.UserService;
 import by.sam.mvc.service.worktime.WorkTimeService;
+import org.osgi.dto.DTO;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -85,9 +87,8 @@ public class CookServiceImpl implements CookService {
 
         newCook.setName(cook.getName());
         newCook.setSurname(cook.getSurname());
-        newCook.setPassword(cook.getSurname());
-        newCook.setEmail(cook.getEmail());
         newCook.setPassword(cook.getPassword());
+        newCook.setEmail(cook.getEmail());
         newCook.setUserEntity(userEntity);
 
         cookRepository.create(newCook);
@@ -307,6 +308,44 @@ public class CookServiceImpl implements CookService {
         return filterCooks;
     }
 
+    @Override
+    public CookProfileDto fillCookProfileDto(Cook cook) {
+        CookProfileDto dto = new CookProfileDto();
+        dto.setId(cook.getId());
+        dto.setName(cook.getName());
+        dto.setSurname(cook.getSurname());
+        dto.setEmail(cook.getEmail());
+        dto.setPassword(cook.getSurname());
+        dto.setMobile(cook.getMobile());
+        dto.setAddress(cook.getAddress());
+        dto.setCity(cook.getCity());
+
+        if(cook.getBirthday() != null){
+            String[] dates =  cook.getBirthday().split("/");
+            dto.setBirthdayDay(dates[0]);
+            dto.setBirthdayMonth(dates[1]);
+            dto.setBirthdayYear(dates[2]);
+        }
+        return dto;
+    }
+
+    @Transactional
+    @Override
+    public void updateProfileData(CookProfileDto dto) {
+        Cook cook = read(dto.getId());
+        cook.setName(dto.getName());
+        cook.setSurname(dto.getSurname());
+        cook.setEmail(dto.getEmail());
+        cook.setPassword(dto.getPassword());
+        cook.getUserEntity().setEmail(dto.getEmail());
+        cook.getUserEntity().setPassword(dto.getPassword());
+        cook.setMobile(dto.getMobile());
+        cook.setAddress(dto.getAddress());
+        cook.setCity(dto.getCity());
+        cook.setBirthday(dto.getBirthdayDay() + "/" + dto.getBirthdayMonth() + "/" + dto.getBirthdayYear());
+        update(cook);
+    }
+
 
     @Transactional
     @Override
@@ -325,6 +364,20 @@ public class CookServiceImpl implements CookService {
         List<Menu> menus = new ArrayList<>();
         for (Cook cook : cooks) {
             menus.addAll(cook.getMenu());
+        }
+
+
+
+        if(dto.getCuisineList() != null){
+            List<Cuisine> cuisines = new ArrayList<>(dto.getCuisineList());
+            for(Cuisine cuisine: cuisines){
+                if(cuisine.getName() == null){
+                    dto.getCuisineList().remove(cuisine);
+                }
+            }
+            if(!dto.getCuisineList().isEmpty()){
+                menus = menuService.filterMenuByCuisine(menus, dto.getCuisineList());
+            }
         }
 
         return menus;

@@ -34,6 +34,8 @@ public class Cook {
     private String password;
     private String birthday;
     private String mobile;
+    private String address;
+    private String city;
 
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -156,5 +158,21 @@ public class Cook {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
