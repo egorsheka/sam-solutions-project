@@ -1,6 +1,6 @@
 package by.sam.mvc.repository.order.impl;
 
-import by.sam.mvc.models.order.Order;
+import by.sam.mvc.entity.order.Order;
 import by.sam.mvc.repository.order.OrderRepository;
 import org.springframework.stereotype.Repository;
 

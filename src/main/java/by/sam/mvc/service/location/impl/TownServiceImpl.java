@@ -1,7 +1,7 @@
 package by.sam.mvc.service.location.impl;
 
 
-import by.sam.mvc.models.location.Town;
+import by.sam.mvc.entity.location.Town;
 import by.sam.mvc.repository.location.TownRepository;
 import by.sam.mvc.service.location.TownService;
 import org.springframework.stereotype.Service;

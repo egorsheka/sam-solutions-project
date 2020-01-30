@@ -1,9 +1,9 @@
-package by.sam.mvc.models.user;
+package by.sam.mvc.entity.user;
 
-import by.sam.mvc.models.order.Order;
-import by.sam.mvc.models.worktime.WorkTime;
-import by.sam.mvc.models.location.District;
-import by.sam.mvc.models.menu.Menu;
+import by.sam.mvc.entity.order.Order;
+import by.sam.mvc.entity.worktime.WorkTime;
+import by.sam.mvc.entity.location.District;
+import by.sam.mvc.entity.menu.Menu;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

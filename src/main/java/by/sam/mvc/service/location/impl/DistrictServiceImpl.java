@@ -1,8 +1,8 @@
 package by.sam.mvc.service.location.impl;
 
-import by.sam.mvc.dto.DistrictDto;
-import by.sam.mvc.models.location.District;
-import by.sam.mvc.models.location.Town;
+import by.sam.mvc.model.DistrictDto;
+import by.sam.mvc.entity.location.District;
+import by.sam.mvc.entity.location.Town;
 import by.sam.mvc.repository.location.DistrictRepository;
 import by.sam.mvc.service.location.DistrictService;
 import by.sam.mvc.service.location.TownService;

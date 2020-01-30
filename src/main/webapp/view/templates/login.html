@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/inputForm.css}">
 </head>
 
 
@@ -18,17 +19,20 @@
 
         <form th:action="@{/signIn}" th:object="${user}" method="post">
             <div id="columnRight" class="column-profile-right">
-
-                <label class="row justify-content-center label-login" style="margin-top: 120px" th:text="#{text.I_have_an}">I have an
+                <label th:if="${loginError == true}"  class="row justify-content-center label-login" style="margin-top: 120px; color: red" th:text="#{text.Incorrect_login_or_password}"></label>
+                <label th:if="${loginError == false}" class="row justify-content-center label-login" style="margin-top: 120px" th:text="#{text.I_have_an}">I have an
                     account</label>
                 <div class="row justify-content-center">
 
+
                     <input type="name" th:value="${user.email}" name="email" class="form-control input-login"
-                           aria-describedby="emailHelp" th:placeholder="#{text.Enter_email}">
+                           aria-describedby="emailHelp" th:placeholder="#{text.Enter_email}" required>
+
+
 
 
                     <input type="password" th:value="${user.password}" name="password" class="form-control input-login"
-                           th:placeholder="#{text.Enter_password}">
+                           th:placeholder="#{text.Enter_password}" required>
 
                 </div>
 
@@ -44,36 +48,42 @@
             <form th:action="@{/registration/}" th:object="${user}" method="post" >
                 <div id="registrationDiv" style=" display: none">
 
-                    <label id="topLabel" class="row justify-content-center label-login" style="margin-top: 120px" th:text="#{text_I_dont_have}">I don't
+
+
+                    <label th:if="${user.exist == true}"  class="row justify-content-center label-login" style="margin-top: 120px; color: red" th:text="#{text.user_exist}">I don't
+                        have an
+                        account yet</label>
+                    <label th:if="${user.exist != true}" class="row justify-content-center label-login" style="margin-top: 120px" th:text="#{text_I_dont_have}">I don't
                         have an
                         account yet</label>
                     <div class="row justify-content-center from-group cook-registr">
-                        <input type="text" th:value="${user.name}" th:name="name" class="form-control input-login"
-                               th:placeholder="#{text.Your_first_name}"/>
+                        <input type="text" id="inputName" th:value="${user.name}" th:name="name" class="form-control input-login"
+                               th:placeholder="#{text.Your_first_name}" required/>
                     </div>
 
 
                     <div class="row justify-content-center from-group   cook-registr">
-                        <input type="text" th:value="${user.surname}" th:name="surname" class="form-control input-login"
-                               th:placeholder="#{text.Your_last_name}"/>
+                        <input type="text" id="inputSurname"  th:value="${user.surname}" th:name="surname" class="form-control input-login"
+                               th:placeholder="#{text.Your_last_name}" required/>
                     </div>
 
                     <div class="row justify-content-center from-group  -right" style="margin-bottom: 30px">
-                        <input type="text" th:value="${user.mobile}" th:name="mobile" class="form-control input-login"
-                               th:placeholder="#{text.Your_Phone}"/>
+                        <input type="text" id="inputMobile" th:value="${user.mobile}" th:name="mobile" pattern="\+*[0-9]+" class="form-control input-login"
+                               th:placeholder="#{text.Your_Phone}"  required/>
                     </div>
 
                     <div class="row justify-content-center from-group   cook-registr" style="margin-top: -14.5px">
 
-                        <input type="email" th:value="${user.email}" th:name="email" class="form-control input-login"
-                               aria-describedby="emailHelp"
-                               th:placeholder="#{text.Enter_email}">
+                        <input type="email" id="inputEmail" th:field="${user.email}" class="form-control input-login"
+                               th:placeholder="#{text.Enter_email}" required>
+
+
                     </div>
                     <div class="row justify-content-center from-group   cook-registr">
 
-                        <input type="password" th:value="${user.password}" th:name="password"
+                        <input type="password" id="inputPassword" th:value="${user.password}" th:name="password"
                                class="form-control input-login"
-                               th:placeholder="#{text.Enter_password}">
+                               th:placeholder="#{text.Enter_password}" required>
                     </div>
 
                 </div>
@@ -101,14 +111,31 @@
 </div>
 </body>
 
+<label id="1" style="display: none"  th:text="#{text.please_fill_out_this_field}"></label>
+<label id="2" style="display: none"  th:text="#{text.does_not_match_type}"></label>
+
 </html>
 
 
+
+<script type="text/javascript" th:src="@{/script/jquery.js}"></script>
+
 <script>
 
+    $('input').on('input invalid', function() {
+        this.setCustomValidity('')
+        if (this.validity.valueMissing) {
+            this.setCustomValidity($("#1").text())
+        }
+        if (this.validity.typeMismatch) {
+            this.setCustomValidity($("#2").text())
+        }
+        if (this.validity.patternMismatch) {
+            this.setCustomValidity($("#2").text())
+        }
+    })
     var singUp = document.getElementById('singUp');
     var registrationDiv = document.getElementById('registrationDiv');
-    var topLabel = document.getElementById('topLabel');
     var columnRight = document.getElementById('columnRight');
 
     registrationDiv.setAttribute("style", 'display: initial');

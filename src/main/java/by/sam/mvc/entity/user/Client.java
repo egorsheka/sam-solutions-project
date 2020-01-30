@@ -1,6 +1,6 @@
-package by.sam.mvc.models.user;
+package by.sam.mvc.entity.user;
 
-import by.sam.mvc.models.order.Order;
+import by.sam.mvc.entity.order.Order;
 
 import javax.persistence.*;
 import java.util.ArrayList;

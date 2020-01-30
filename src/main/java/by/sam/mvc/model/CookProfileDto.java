@@ -1,17 +1,33 @@
-package by.sam.mvc.dto;
+package by.sam.mvc.model;
+
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
 
 public class CookProfileDto {
 
     private int id;
+    @NotEmpty
     private String name;
+    @NotEmpty
     private String surname;
+    @Email
+    @NotEmpty
     private String email;
+    @NotEmpty
     private String password;
+    @Digits(integer=2, fraction=0)
     private String birthdayDay;
+    @NotEmpty
     private String birthdayMonth;
+    @Digits(integer=4, fraction=0)
     private String birthdayYear;
+    @NotEmpty
     private String mobile;
+    @NotEmpty
     private String address;
+    @NotEmpty
     private String city;
 
     public String getName() {

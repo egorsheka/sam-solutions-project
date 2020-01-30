@@ -1,6 +1,6 @@
 package by.sam.mvc.repository.worktime;
 
-import by.sam.mvc.models.worktime.WorkTime;
+import by.sam.mvc.entity.worktime.WorkTime;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

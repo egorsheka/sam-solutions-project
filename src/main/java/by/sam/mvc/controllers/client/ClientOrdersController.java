@@ -1,6 +1,6 @@
 package by.sam.mvc.controllers.client;
 
-import by.sam.mvc.models.order.Order;
+import by.sam.mvc.entity.order.Order;
 import by.sam.mvc.service.order.OrderService;
 import by.sam.mvc.service.user.ClientService;
 import by.sam.mvc.service.user.CookService;

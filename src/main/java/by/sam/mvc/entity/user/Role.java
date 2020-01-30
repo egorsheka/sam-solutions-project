@@ -1,4 +1,4 @@
-package by.sam.mvc.models.user;
+package by.sam.mvc.entity.user;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

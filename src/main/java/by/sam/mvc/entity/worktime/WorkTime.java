@@ -1,4 +1,4 @@
-package by.sam.mvc.models.worktime;
+package by.sam.mvc.entity.worktime;
 
 
 import javax.persistence.*;

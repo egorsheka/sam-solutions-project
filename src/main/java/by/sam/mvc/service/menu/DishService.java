@@ -1,6 +1,6 @@
 package by.sam.mvc.service.menu;
 
-import by.sam.mvc.models.menu.Dish;
+import by.sam.mvc.entity.menu.Dish;
 
 public interface DishService {
     void create(Dish dish);

@@ -1,12 +1,10 @@
 package by.sam.mvc.service.user.impl;
 
-import by.sam.mvc.models.user.UserEntity;
+import by.sam.mvc.entity.user.UserEntity;
 import by.sam.mvc.repository.user.UserRepository;
 import by.sam.mvc.service.user.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 
 @Service

@@ -1,7 +1,6 @@
 package by.sam.mvc.repository.user;
 
-import by.sam.mvc.models.user.Role;
-import by.sam.mvc.repository.Repository;
+import by.sam.mvc.entity.user.Role;
 
 public interface RoleRepository {
 

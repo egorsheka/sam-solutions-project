@@ -1,7 +1,7 @@
 package by.sam.mvc.repository.menu.impl;
 
-import by.sam.mvc.models.menu.Dish;
-import by.sam.mvc.models.menu.Menu;
+import by.sam.mvc.entity.menu.Dish;
+import by.sam.mvc.entity.menu.Menu;
 import by.sam.mvc.repository.menu.DishRepository;
 import by.sam.mvc.repository.menu.MenuRepository;
 import org.hibernate.Hibernate;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.util.List;
 
 //TODO
 @Repository

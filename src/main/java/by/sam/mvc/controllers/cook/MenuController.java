@@ -1,11 +1,11 @@
 package by.sam.mvc.controllers.cook;
 
 
-import by.sam.mvc.models.menu.Cuisine;
-import by.sam.mvc.models.menu.Dish;
-import by.sam.mvc.models.menu.DishType;
-import by.sam.mvc.models.menu.Menu;
-import by.sam.mvc.models.menu.MenuLuxury;
+import by.sam.mvc.entity.menu.Cuisine;
+import by.sam.mvc.entity.menu.Dish;
+import by.sam.mvc.entity.menu.DishType;
+import by.sam.mvc.entity.menu.Menu;
+import by.sam.mvc.entity.menu.MenuLuxury;
 import by.sam.mvc.service.menu.CuisineService;
 import by.sam.mvc.service.menu.MenuService;
 import by.sam.mvc.service.user.CookService;
@@ -13,11 +13,13 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,7 +56,7 @@ public class MenuController {
             return "cook/menu/createMenu";
         }else {
             return "redirect:/menuPage";
-        }
+    }
     }
 
 
@@ -74,12 +76,17 @@ public class MenuController {
     }
 
     @PostMapping(value = "/saveMenu", params ={"saveNewMenu"})
-    public String saveNewMenu(@ModelAttribute Menu menu, Model model, @AuthenticationPrincipal UserDetails currentUser){
+    public String saveNewMenu(@Valid @ModelAttribute("newMenu") Menu newMenu, BindingResult bindingResult, Model model, @AuthenticationPrincipal UserDetails currentUser){
+        if(bindingResult.hasErrors()){
+             return  "redirect:/createMenu";
+        }
         int cookId = cookService.getAuthenticationCook(currentUser).getId();
-        cookService.createMenuItem(cookId, menu);
+        cookService.createMenuItem(cookId, newMenu);
         model.addAttribute( "menuList", cookService.read(cookId).getMenu());
         return "cook/menu/startMenu";
     }
+
+
 
 
 
@@ -90,8 +97,7 @@ public class MenuController {
     public String deleteMenu(@RequestParam int deleteMenu, Model model, @AuthenticationPrincipal UserDetails currentUser) {
         int cookId = cookService.getAuthenticationCook(currentUser).getId();
         List<Menu> menus = cookService.read(cookId).getMenu();
-        menus.remove(deleteMenu);
-        cookService.updateMenu(cookId, menus);
+        cookService.updateMenu(cookId, menus.remove(deleteMenu));
         model.addAttribute("menuList", menus);
         return "cook/menu/startMenu";
     }
@@ -121,7 +127,12 @@ public class MenuController {
     }
 
     @PostMapping(value = "/editMenu", params = {"saveEditMenu"} )
-    public String saveEditMenu(@ModelAttribute Menu menu, Model model, @AuthenticationPrincipal UserDetails currentUser) {
+    public String saveEditMenu(@Valid @ModelAttribute("menu") Menu menu, BindingResult bindingResult, Model model, @AuthenticationPrincipal UserDetails currentUser) {
+        if(bindingResult.hasErrors()){
+            Menu editMenu = menuService.read(menu.getId());
+            model.addAttribute( "editMenu", editMenu);
+            return  "redirect:/editMenu";
+        }
         int cookId = cookService.getAuthenticationCook(currentUser).getId();
         cookService.updateMenuItem(cookId, menu);
         model.addAttribute( "menuList", cookService.read(cookId).getMenu());

@@ -1,28 +1,23 @@
 package by.sam.mvc.controllers;
 
 
-import by.sam.mvc.dto.PersonDto;
-import by.sam.mvc.models.user.Client;
-import by.sam.mvc.models.user.Cook;
-import by.sam.mvc.models.user.UserEntity;
+import by.sam.mvc.entity.user.Cook;
+import by.sam.mvc.entity.user.UserEntity;
+import by.sam.mvc.model.PersonDto;
 import by.sam.mvc.service.user.ClientService;
 import by.sam.mvc.service.user.CookService;
 import by.sam.mvc.service.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
+import javax.validation.Valid;
 
 // todo null
 @Controller
 @RequestMapping("/registration")
 public class RegistrationController {
-
     private final CookService cookService;
     private final UserService userService;
     private final ClientService clientService;
@@ -41,22 +36,33 @@ public class RegistrationController {
 
 
     @PostMapping("/singUpCook")
-    public String registerCook(@ModelAttribute("user") PersonDto cook) {
-        cookService.create(cook);
+    public String registerCook(@Valid @ModelAttribute("cook") PersonDto cook, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            return "registrationCook";
+        }
+        if (!cookService.create(cook)) {
+            cook.setExist(true);
+            return "registrationCook";
+        }
         return "confirmRegistration";
     }
 
 
     @GetMapping("/")
-    public String getRegisterClient(Model model) {
-        model.addAttribute("user", new PersonDto());
+    public String getRegisterClient(@ModelAttribute("user") PersonDto user) {
+
         return "login";
     }
 
     @PostMapping(value = "/")
-    public String singUp(@ModelAttribute Client client, Model model) {
-        clientService.create(client);
-        model.addAttribute("user", new PersonDto());
+    public String singUp(@Valid @ModelAttribute("user") PersonDto user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "login";
+        }
+        if (!clientService.create(user)) {
+            user.setExist(true);
+        }
         return "login";
     }
 
@@ -71,7 +77,10 @@ public class RegistrationController {
         return "login";
     }
 
-
+    @ModelAttribute("loginError")
+    public boolean getTownList() {
+        return false;
+    }
 
 
 }

@@ -1,8 +1,8 @@
 package by.sam.mvc.service.menu;
 
 
-import by.sam.mvc.models.menu.Cuisine;
-import by.sam.mvc.models.menu.Menu;
+import by.sam.mvc.entity.menu.Cuisine;
+import by.sam.mvc.entity.menu.Menu;
 
 import java.util.List;
 

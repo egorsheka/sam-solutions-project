@@ -1,10 +1,10 @@
 package by.sam.mvc.service.order.impl;
 
-import by.sam.mvc.dto.OrderDto;
-import by.sam.mvc.models.order.Order;
-import by.sam.mvc.models.order.OrderType;
-import by.sam.mvc.models.user.Client;
-import by.sam.mvc.models.user.Cook;
+import by.sam.mvc.model.OrderDto;
+import by.sam.mvc.entity.order.Order;
+import by.sam.mvc.entity.order.OrderType;
+import by.sam.mvc.entity.user.Client;
+import by.sam.mvc.entity.user.Cook;
 import by.sam.mvc.repository.order.OrderRepository;
 import by.sam.mvc.service.location.DistrictService;
 import by.sam.mvc.service.menu.MenuService;
@@ -70,6 +70,9 @@ public class OrderServiceImpl implements OrderService {
         order.setMenu(menuService.read(orderDto.getMenuId()));
 
         Client client = clientService.read(orderDto.getClientId());
+        client.setName(orderDto.getClientName());
+        client.setSurname(orderDto.getClientSurName());
+        client.setMobile(orderDto.getClientMobile());
         Cook cook = cookService.getCookByMenuId(orderDto.getMenuId());
         order.setClient(client);
         order.setCook(cook);

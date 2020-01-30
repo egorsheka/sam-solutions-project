@@ -46,14 +46,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "/signUp", "/registration/**" , "/selectMenu", "/getDistrictsByTown" , "/bookMenu", "/registration/confirm/**", "/registration/confirm/**", "/saveTimeWorkData", "/timeWorkData", "/viewMenu", "/getAllTowns", "/getCookDistricts" , "/saveCookDistricts" , "/getDistricts", "/getAllDistricts",
+                .antMatchers("/saveMenu", "/",  "/signUp", "/registration/**" , "/selectMenu", "/getDistrictsByTown" , "/bookMenu", "/registration/confirm/**", "/registration/confirm/**", "/saveTimeWorkData", "/timeWorkData", "/viewMenu", "/getAllTowns", "/getCookDistricts" , "/saveCookDistricts" , "/getDistricts", "/getAllDistricts",
                         "/resources/**", "/script/**", "/css/**", "/images/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/signIn")
-                .failureUrl("/login?error")
+                .failureUrl("/login-error")
                 .successHandler(myAuthenticationSuccessHandler())
                 .usernameParameter("email")
                 .passwordParameter("password")

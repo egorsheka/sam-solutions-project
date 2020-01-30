@@ -1,11 +1,11 @@
 package by.sam.mvc.controllers.client;
 
-import by.sam.mvc.dto.PersonDto;
-import by.sam.mvc.dto.OrderDto;
-import by.sam.mvc.models.location.District;
-import by.sam.mvc.models.location.Town;
-import by.sam.mvc.models.menu.Cuisine;
-import by.sam.mvc.models.menu.Menu;
+import by.sam.mvc.model.PersonDto;
+import by.sam.mvc.model.OrderDto;
+import by.sam.mvc.entity.location.District;
+import by.sam.mvc.entity.location.Town;
+import by.sam.mvc.entity.menu.Cuisine;
+import by.sam.mvc.entity.menu.Menu;
 import by.sam.mvc.service.menu.CuisineService;
 import by.sam.mvc.service.order.OrderService;
 import by.sam.mvc.service.location.DistrictService;
@@ -17,13 +17,14 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 // todo null
@@ -82,8 +83,9 @@ public class BookingController {
 
     @PostMapping(value = "/bookMenu")
     public String bookMenu(@ModelAttribute OrderDto order, Model model, @AuthenticationPrincipal UserDetails currentUser) {
-        model.addAttribute("user", new PersonDto());
         if(currentUser == null){
+            model.addAttribute("loginError", false);
+            model.addAttribute("user", new PersonDto());
             return "login";
         }
         model.addAttribute("order",  order);
@@ -92,21 +94,25 @@ public class BookingController {
     }
 
     @GetMapping(value = "/confirmMenu")
-    public ModelAndView confirmMenu(@SessionAttribute(value = "orderDto", required = false) OrderDto orderDto, Model model, @AuthenticationPrincipal UserDetails currentUser) {
+    public String confirmMenu(@SessionAttribute(value = "orderDto", required = false) OrderDto orderDto, Model model,
+                              @AuthenticationPrincipal UserDetails currentUser) {
         if (orderDto == null) {
-            return new ModelAndView("redirect:/");
+            return "redirect:/";
         }
-        int id = clientService.getAuthenticationCook(currentUser).getId();
-        orderDto.setClientId(id);
-        model.addAttribute("user",  clientService.read(id));
+        orderDto.setClient(clientService.read(clientService.getAuthenticationCook(currentUser).getId()));
         model.addAttribute("order",  orderDto);
-        return new ModelAndView("booking/confirmMenu", "model", model);
+        return "booking/confirmMenu";
     }
 
     @PostMapping(value = "/makeOrder")
-    public String makeOrder(@ModelAttribute OrderDto order,  @AuthenticationPrincipal UserDetails currentUser, Model model){
+    public String makeOrder(@Valid @ModelAttribute OrderDto order, BindingResult bindingResult,
+                            @AuthenticationPrincipal UserDetails currentUser, Model model){
         if(currentUser != null){
             order.setClientId(clientService.getAuthenticationCook(currentUser).getId());
+        }
+        if(bindingResult.hasErrors()){
+            model.addAttribute("order",  order);
+            return "redirect:/confirmMenu";
         }
         orderService.create(order);
         OrderDto dto = new OrderDto();

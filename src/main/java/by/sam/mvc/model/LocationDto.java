@@ -1,7 +1,7 @@
-package by.sam.mvc.dto;
+package by.sam.mvc.model;
 
-import by.sam.mvc.models.location.District;
-import by.sam.mvc.models.location.Town;
+import by.sam.mvc.entity.location.District;
+import by.sam.mvc.entity.location.Town;
 
 import java.util.List;
 

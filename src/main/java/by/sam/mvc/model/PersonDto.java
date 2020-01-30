@@ -1,14 +1,32 @@
-package by.sam.mvc.dto;
+package by.sam.mvc.model;
+
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 public class PersonDto {
 
     private int id;
+    @NotEmpty
+    @Size(min=2, max = 30)
     private String name;
+    @NotEmpty
+    @Size(min=2, max = 30)
     private String surname;
+
+    @Email
     private String email;
+
+    @NotEmpty
     private String password;
+
     private String birthday;
+
+    @NotEmpty
     private String mobile;
+
+    private boolean exist;
 
     public PersonDto() {}
 
@@ -29,6 +47,7 @@ public class PersonDto {
     public void setId(int id) {
         this.id = id;
     }
+
 
     public String getName() {
         return name;
@@ -76,5 +95,27 @@ public class PersonDto {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public boolean getExist() {
+        return exist;
+    }
+
+    public void setExist(boolean exist) {
+        this.exist = exist;
+    }
+
+    @Override
+    public String toString() {
+        return "PersonDto{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", exist=" + exist +
+                '}';
     }
 }

@@ -1,5 +1,5 @@
 package by.sam.mvc.repository.menu.impl;
-import by.sam.mvc.models.menu.Dish;
+import by.sam.mvc.entity.menu.Dish;
 import by.sam.mvc.repository.menu.DishRepository;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;

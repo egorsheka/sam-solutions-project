@@ -1,15 +1,9 @@
 package by.sam.mvc.service.worktime;
 
-import by.sam.mvc.models.worktime.WorkTime;
+import by.sam.mvc.entity.worktime.WorkTime;
 import by.sam.mvc.repository.worktime.WorkTimeRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.DayOfWeek;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 
 @Service

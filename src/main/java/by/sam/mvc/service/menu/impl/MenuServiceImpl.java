@@ -1,10 +1,10 @@
 package by.sam.mvc.service.menu.impl;
 
 
-import by.sam.mvc.models.menu.Cuisine;
-import by.sam.mvc.models.menu.Dish;
-import by.sam.mvc.models.menu.Menu;
-import by.sam.mvc.models.menu.MenuLuxury;
+import by.sam.mvc.entity.menu.Cuisine;
+import by.sam.mvc.entity.menu.Dish;
+import by.sam.mvc.entity.menu.Menu;
+import by.sam.mvc.entity.menu.MenuLuxury;
 import by.sam.mvc.repository.menu.MenuRepository;
 import by.sam.mvc.service.menu.CuisineService;
 import by.sam.mvc.service.menu.DishService;
@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class MenuServiceImpl implements MenuService {

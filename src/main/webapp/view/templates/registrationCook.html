@@ -19,27 +19,28 @@
             <form name="form" action="cookData" method="post">
 
                 <div class="column-profile-right">
+                    <label th:if="${cook.exist == true}"  class="row justify-content-center label-login" style="margin-top: 20px; color: red" th:text="#{text.user_exist}"></label>
                     <div class="from-group div-profile cook-registr">
                         <input type="text" th:value="${cook.name}" name="name" class="form-control" style="width: 400px; margin-top: 20px"
-                               th:placeholder="#{text.Your_first_name}"/>
+                               th:placeholder="#{text.Your_first_name}" required/>
                     </div>
                     <div class="from-group div-profile cook-registr">
                         <input type="text" th:value="${cook.surname}" name="surname" class="form-control"  style="width: 400px"
-                               th:placeholder="#{text.Your_last_name}"/>
+                               th:placeholder="#{text.Your_last_name}" required/>
                     </div>
 
                     <div class="from-group div-profile-right" style="margin-bottom: 30px">
-                        <input type="text" th:value="${cook.mobile}" name="mobile" class="form-control" style="width: 400px"  th:placeholder="#{text.Your_Phone}"/>
+                        <input type="text" th:value="${cook.mobile}" name="mobile" class="form-control" style="width: 400px" pattern="\+*[0-9]+"  th:placeholder="#{text.Your_Phone}" required/>
                     </div>
 
                     <div class="from-group div-profile cook-registr" style="margin-top: -14.5px">
 
                         <input type="email" th:value="${cook.email}" name="email" id="email" class="form-control" style="width: 400px" aria-describedby="emailHelp"
-                               th:placeholder="#{text.Enter_email}">
+                               th:placeholder="#{text.Enter_email}" required>
                     </div>
                     <div class="from-group div-profile cook-registr">
 
-                        <input type="password" th:value="${cook.password}" name="password" id="password"  class="form-control" style="width: 400px"  th:placeholder="#{text.Enter_password}">
+                        <input type="password" th:value="${cook.password}" name="password" id="password"  class="form-control" style="width: 400px"  th:placeholder="#{text.Enter_password}" required>
                     </div>
                     <div class="row justify-content-center cook-registr">
                         <button type="submit" class="btn btn-classic save"
@@ -54,6 +55,28 @@
         </div>
     </div>
 </form>
+<label id="1" style="display: none"  th:text="#{text.please_fill_out_this_field}"></label>
+<label id="2" style="display: none"  th:text="#{text.does_not_match_type}"></label>
+
+
+
+<script type="text/javascript" th:src="@{/script/jquery.js}"></script>
+<script>
+
+    $('input').on('input invalid', function() {
+        this.setCustomValidity('')
+        if (this.validity.valueMissing) {
+            this.setCustomValidity($("#1").text())
+        }
+        if (this.validity.typeMismatch) {
+            this.setCustomValidity($("#2").text())
+        }
+        if (this.validity.patternMismatch) {
+            this.setCustomValidity($("#2").text())
+        }
+    })
+
+</script>
 
 
 </body>

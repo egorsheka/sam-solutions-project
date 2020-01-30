@@ -1,6 +1,6 @@
 package by.sam.mvc.repository.menu.dao.dish;
 
-import by.sam.mvc.models.menu.Dish;
+import by.sam.mvc.entity.menu.Dish;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 

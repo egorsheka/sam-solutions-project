@@ -1,19 +1,16 @@
 package by.sam.mvc.controllers;
 
 
-import by.sam.mvc.dto.DistrictDto;
-import by.sam.mvc.dto.OrderDto;
-import by.sam.mvc.models.location.Town;
+import by.sam.mvc.model.DistrictDto;
+import by.sam.mvc.model.OrderDto;
+import by.sam.mvc.entity.location.Town;
 import by.sam.mvc.service.location.DistrictService;
 import by.sam.mvc.service.location.TownService;
-import by.sam.mvc.service.menu.MenuService;
-import by.sam.mvc.service.user.CookService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

@@ -1,9 +1,9 @@
-package by.sam.mvc.models.order;
+package by.sam.mvc.entity.order;
 
-import by.sam.mvc.models.location.District;
-import by.sam.mvc.models.menu.Menu;
-import by.sam.mvc.models.user.Client;
-import by.sam.mvc.models.user.Cook;
+import by.sam.mvc.entity.location.District;
+import by.sam.mvc.entity.menu.Menu;
+import by.sam.mvc.entity.user.Client;
+import by.sam.mvc.entity.user.Cook;
 
 import javax.persistence.*;
 import java.time.LocalDate;

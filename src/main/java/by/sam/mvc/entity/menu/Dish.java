@@ -1,4 +1,4 @@
-package by.sam.mvc.models.menu;
+package by.sam.mvc.entity.menu;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -20,6 +22,7 @@ public class Dish {
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private int id;
 
+    @NotEmpty
     private String name;
 
     @Enumerated(EnumType.STRING)

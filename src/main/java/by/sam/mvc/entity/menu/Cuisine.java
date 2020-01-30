@@ -1,4 +1,4 @@
-package by.sam.mvc.models.menu;
+package by.sam.mvc.entity.menu;
 
 import javax.persistence.*;
 import java.util.ArrayList;

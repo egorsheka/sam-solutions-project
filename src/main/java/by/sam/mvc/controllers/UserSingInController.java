@@ -1,10 +1,12 @@
 package by.sam.mvc.controllers;
 
 
-import by.sam.mvc.dto.PersonDto;
-import by.sam.mvc.models.user.Cook;
+import by.sam.mvc.model.PersonDto;
+import by.sam.mvc.entity.user.Cook;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,12 +16,13 @@ public class UserSingInController {
 
 
 
-    @RequestMapping("/login")
-    public String login() {
+    @GetMapping("/login")
+    public String login(Model model) {
+        model.addAttribute("loginError", false);
         return "login";
     }
 
-    @RequestMapping("/login-error")
+    @GetMapping("/login-error")
     public String loginError(Model model) {
         model.addAttribute("loginError", true);
         return "login";
@@ -27,7 +30,6 @@ public class UserSingInController {
 
     @PostMapping("/signIn")
     public String singIn(@ModelAttribute Cook user, Model model) {
-        model.addAttribute("loginError", true);
         return "login";
     }
 

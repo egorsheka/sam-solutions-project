@@ -1,6 +1,6 @@
 package by.sam.mvc.service.user.impl;
 
-import by.sam.mvc.models.user.Role;
+import by.sam.mvc.entity.user.Role;
 import by.sam.mvc.repository.user.RoleRepository;
 import by.sam.mvc.service.user.RoleService;
 import org.springframework.stereotype.Service;

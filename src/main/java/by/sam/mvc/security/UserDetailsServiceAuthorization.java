@@ -1,7 +1,7 @@
 package by.sam.mvc.security;
 
 
-import by.sam.mvc.models.user.UserEntity;
+import by.sam.mvc.entity.user.UserEntity;
 import by.sam.mvc.service.user.UserService;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

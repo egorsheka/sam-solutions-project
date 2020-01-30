@@ -1,7 +1,19 @@
-package by.sam.mvc.models.menu;
+package by.sam.mvc.entity.menu;
 
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +27,10 @@ public class Menu{
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
-
+    @NotEmpty
     private String name;
+    @NotNull
+    @Digits(integer=3, fraction=2)
     private BigDecimal price;
 
     @Enumerated(EnumType.STRING)

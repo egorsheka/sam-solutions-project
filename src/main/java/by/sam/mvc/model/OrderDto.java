@@ -1,12 +1,16 @@
-package by.sam.mvc.dto;
+package by.sam.mvc.model;
 
-import by.sam.mvc.models.location.Town;
-import by.sam.mvc.models.menu.Cuisine;
+import by.sam.mvc.entity.location.Town;
+import by.sam.mvc.entity.menu.Cuisine;
+import by.sam.mvc.entity.user.Client;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.List;
 
 public class OrderDto {
+
 
 
     private Town town;
@@ -18,8 +22,21 @@ public class OrderDto {
     private int menuId;
     private double price;
     private int countOfGuests;
+    @NotEmpty
     private String address;
+
     private int clientId;
+    @NotEmpty
+    private String clientName;
+    @NotEmpty
+    private String clientSurName;
+    @NotEmpty
+    private String clientMobile;
+
+
+
+
+
     private List<Cuisine> cuisineList;
 
 
@@ -96,5 +113,36 @@ public class OrderDto {
 
     public void setCuisineList(List<Cuisine> cuisineList) {
         this.cuisineList = cuisineList;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+
+    public String getClientSurName() {
+        return clientSurName;
+    }
+
+    public void setClientSurName(String clientSurName) {
+        this.clientSurName = clientSurName;
+    }
+
+    public String getClientMobile() {
+        return clientMobile;
+    }
+
+    public void setClientMobile(String clientMobile) {
+        this.clientMobile = clientMobile;
+    }
+
+    public void setClient(Client client){
+        this.clientId = client.getId();
+        this.clientName = client.getName();
+        this.clientSurName = client.getSurname();
+        this.clientMobile = client.getMobile();
     }
 }

@@ -1,7 +1,7 @@
 package by.sam.mvc.repository.location.impl;
 
 
-import by.sam.mvc.models.location.Town;
+import by.sam.mvc.entity.location.Town;
 import by.sam.mvc.repository.location.TownRepository;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;

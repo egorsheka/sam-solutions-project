@@ -9,7 +9,7 @@
 
                 <input type="hidden" th:value="${editMenu.id}" name="id">
                 <input type="text" th:value="${editMenu.name}" name="name" class="form-control menu-name"
-                       th:placeholder="#{text.menu_title}"/>
+                       th:placeholder="#{text.menu_title}" required/>
 
 
                 <div class="advice-block text-center please-fill-the-sections">
@@ -34,7 +34,7 @@
                                     <label class="form-check-label">
                                     </label>
                                     <input type="text" th:value="${editMenu.price}" th:name="price" class="form-control"
-                                           placeholder="price"
+                                           th:placeholder="#{text.price}" required pattern="[0-9]{1,3}(.[0-9]{1,2})?"
                                            style="width: 70px; margin-left: 5px; margin-right: 2px; position: relative; bottom: 8px"/>
                                     <label class="form-check-label" th:text="#{text.rub}">руб.</label>
                                 </div>
@@ -87,8 +87,7 @@
 
                                     <input type="text" class="form-control"th:placeholder="#{text.dish_title}"
                                            th:field="*{dishes[__${item.index}__].name}"
-
-                                           style="font-size: 16px; width: 54rem;"/>
+                                           style="font-size: 16px; width: 54rem;" required/>
 
                                     <input type="hidden" class="form-control" placeholder="dish title"
                                            th:field="*{dishes[__${item.index}__].id}"/>
@@ -135,11 +134,31 @@
 
             </div>
         </form>
+        <label id="1" style="display: none"  th:text="#{text.please_fill_out_this_field}"></label>
+        <label id="2" style="display: none"  th:text="#{text.does_not_match_type}"></label>
+        <label id="3" style="display: none"  th:text="#{text.enter_a_price_of_3}"></label>
 
+        <script type="text/javascript" th:src="@{/script/jquery.js}"></script>
 
+        <script>
+            $('input').on('input invalid', function() {
+                this.setCustomValidity('')
+                if (this.validity.valueMissing) {
+                    this.setCustomValidity($("#1").text())
+                }
+                if (this.validity.typeMismatch) {
+                    this.setCustomValidity($("#2").text())
+                }
+                if (this.validity.patternMismatch) {
+                    this.setCustomValidity($("#3").text())
+                }
+            })
+        </script>
 
 
     </body>
+
+
 </html>
 
 

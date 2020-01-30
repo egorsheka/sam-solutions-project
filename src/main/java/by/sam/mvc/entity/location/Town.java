@@ -1,4 +1,4 @@
-package by.sam.mvc.models.location;
+package by.sam.mvc.entity.location;
 
 
 import javax.persistence.CascadeType;

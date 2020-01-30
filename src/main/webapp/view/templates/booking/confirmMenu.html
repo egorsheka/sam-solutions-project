@@ -98,9 +98,9 @@
                 <label class="main-label2" style="color: #333333" th:text="#{text.First_name}">First Name</label>
             </div>
             <div class="d-inline-block" style="position:absolute; right: 0">
-                <input type="text" th:name="name" th:value="${user.name}" class="form-control"
+                <input type="text" th:value="${order.clientName}" th:name="clientName" class="form-control"
                        style="width: 330px;height: 30px; position:absolute; top:13px; left:-350px;"
-                       th:placeholder="#{text.Your_first_name}"/>
+                       th:placeholder="#{text.Your_first_name}" required/>
             </div>
         </div>
 
@@ -109,9 +109,9 @@
                 <label class="main-label2" style="color: #333333" th:text="#{text.Last_name}">Last Name*</label>
             </div>
             <div class="d-inline-block" style="position:absolute; right: 0">
-                <input type="text" th:name="surname" th:value="${user.surname}" class="form-control"
+                <input type="text" th:value="${order.clientSurName}" th:name="clientSurName" class="form-control"
                        style="width: 330px;height: 30px; position:absolute; top:13px; left:-350px;"
-                       th:placeholder="#{text.Your_last_name}"/>
+                       th:placeholder="#{text.Your_last_name}" required/>
             </div>
         </div>
 
@@ -121,9 +121,9 @@
                 <label class="main-label2" style="color: #333333" th:text="#{text.Phone_number}">Phone*</label>
             </div>
             <div class="d-inline-block" style="position:absolute; right: 0">
-                <input type="text" th:name="mobile" th:value="${user.mobile}" class="form-control"
+                <input type="text" th:value="${order.clientMobile}" th:name="clientMobile" class="form-control"
                       style="width: 330px;height: 30px; position:absolute; top:13px; left:-350px;"
-                       th:placeholder="#{text.Your_Phone}"/>
+                       th:placeholder="#{text.Your_Phone}" required pattern="\+*[0-9]+"/>
             </div>
         </div>
 
@@ -134,7 +134,7 @@
             <div class="d-inline-block" style="position:absolute; right: 0">
                 <input type="text" class="form-control" th:name="address" th:value="${order.address}"
                       style="width: 330px;height: 30px; position:absolute; top:13px; left:-350px;"
-                       th:placeholder="#{text.Your_address}"/>
+                       th:placeholder="#{text.Your_address}" required/>
             </div>
         </div>
 
@@ -145,7 +145,7 @@
             <div class="d-inline-block" style="position:absolute; right: 0">
                 <input type="text" class="form-control"  th:value="${order.town.name}"
                        style="width: 330px;height: 30px; position:absolute; top:13px; left:-350px;"
-                       th:placeholder="#{text.Your_town}"/>
+                       th:placeholder="#{text.Your_town}" required/>
             </div>
         </div>
 
@@ -169,7 +169,7 @@
                 </li>
                 <li style="position: absolute; top: 32px">
                     <label class="main-label2" style="color: whitesmoke; margin-left: 2px" th:text="#{text.Service_time}">Service time </label>
-                    <label class="main-label2" th:text="${order.time}" style="color: whitesmoke; margin-left: 2px"></label>
+                    <label class="main-label2" th:text="${order.time}" style="color: whitesmoke; margin-left: 2px" ></label>
                 </li>
             </ul>
         </div>
@@ -277,6 +277,32 @@
 </div>
 </form>
 
+
+
+<label id="1" style="display: none"  th:text="#{text.please_fill_out_this_field}"></label>
+<label id="2" style="display: none"  th:text="#{text.does_not_match_type}"></label>
+
+
+
+
+
+<script type="text/javascript" th:src="@{/script/jquery.js}"></script>
+
+<script>
+
+    $('input').on('input invalid', function() {
+        this.setCustomValidity('')
+        if (this.validity.valueMissing) {
+            this.setCustomValidity($("#1").text())
+        }
+        if (this.validity.typeMismatch) {
+            this.setCustomValidity($("#2").text())
+        }
+        if (this.validity.patternMismatch) {
+            this.setCustomValidity($("#2").text())
+        }
+    })
+</script>
 <script>
 
     const selectGuests = document.getElementById('selectGuests');

@@ -1,6 +1,6 @@
 package by.sam.mvc.service.menu.impl;
 
-import by.sam.mvc.models.menu.Cuisine;
+import by.sam.mvc.entity.menu.Cuisine;
 import by.sam.mvc.repository.menu.CuisineRepository;
 import by.sam.mvc.service.menu.CuisineService;
 import org.springframework.stereotype.Service;

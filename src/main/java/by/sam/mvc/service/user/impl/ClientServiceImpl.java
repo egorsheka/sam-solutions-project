@@ -1,35 +1,40 @@
 package by.sam.mvc.service.user.impl;
 
-import by.sam.mvc.models.order.Order;
-import by.sam.mvc.models.user.Client;
-import by.sam.mvc.models.user.Cook;
-import by.sam.mvc.models.user.Role;
-import by.sam.mvc.models.user.UserEntity;
+import by.sam.mvc.entity.order.Order;
+import by.sam.mvc.entity.user.Client;
+import by.sam.mvc.entity.user.Role;
+import by.sam.mvc.entity.user.UserEntity;
+import by.sam.mvc.model.PersonDto;
 import by.sam.mvc.repository.user.ClientRepository;
-import by.sam.mvc.service.order.OrderService;
+import by.sam.mvc.service.RegistrationValidator;
 import by.sam.mvc.service.user.ClientService;
 import by.sam.mvc.service.user.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.Errors;
+
+import javax.persistence.NoResultException;
 
 @Service
 public class ClientServiceImpl implements ClientService {
 
     private ClientRepository clientRepository;
     private UserService userService;
+    private RegistrationValidator registrationValidator;
 
 
 
-    public ClientServiceImpl(ClientRepository clientRepository, UserService userService) {
+    public ClientServiceImpl(ClientRepository clientRepository, UserService userService, RegistrationValidator registrationValidator) {
         this.clientRepository = clientRepository;
         this.userService = userService;
 
+        this.registrationValidator = registrationValidator;
     }
 
     @Transactional
     @Override
-    public void create(Client client) {
+    public boolean create(PersonDto client) {
         UserEntity userEntity = new UserEntity();
         userEntity.setEmail(client.getEmail());
         userEntity.setPassword(client.getPassword());
@@ -38,6 +43,13 @@ public class ClientServiceImpl implements ClientService {
         userEntity.setVerify(true);
         //userEntity.setIdVerification(UUID.randomUUID().toString().split("-")[4]);
         //mailSender.send("vikulya0102@gmail.com", "Pdhjw2ks", "Confirm your registration", "http://localhost:8084/sam_solutions_project_war/registration/confirm/" + userEntity.getIdVerification(), cook.getEmail());
+
+        try {
+            UserEntity user = userService.read(client.getEmail());
+            if (user != null){
+                return false;
+            }
+        }catch (NoResultException e){}
 
         userService.create(userEntity);
 
@@ -50,7 +62,10 @@ public class ClientServiceImpl implements ClientService {
         newClient.setUserEntity(userEntity);
 
         clientRepository.create(newClient);
+        return true;
     }
+
+
 
     @Transactional
     @Override

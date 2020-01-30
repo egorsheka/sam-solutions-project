@@ -1,8 +1,8 @@
 package by.sam.mvc.controllers.cook;
 
 
-import by.sam.mvc.dto.DistrictDto;
-import by.sam.mvc.models.location.Town;
+import by.sam.mvc.model.DistrictDto;
+import by.sam.mvc.entity.location.Town;
 import by.sam.mvc.service.user.CookService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;

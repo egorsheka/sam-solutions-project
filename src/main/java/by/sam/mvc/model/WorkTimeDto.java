@@ -1,4 +1,4 @@
-package by.sam.mvc.dto;
+package by.sam.mvc.model;
 
 public class WorkTimeDto {
 
