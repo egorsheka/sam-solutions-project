@@ -1,6 +1,27 @@
 package by.sam.mvc.controllers.cook;
 
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.web.FilterChainProxy;
+import org.springframework.security.web.method.annotation.AuthenticationPrincipalArgumentResolver;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
 import by.sam.mvc.config.ThymeleafConfig;
 import by.sam.mvc.entity.menu.Cuisine;
 import by.sam.mvc.entity.menu.Dish;
@@ -9,27 +30,6 @@ import by.sam.mvc.entity.menu.Menu;
 import by.sam.mvc.service.menu.CuisineService;
 import by.sam.mvc.service.menu.MenuService;
 import by.sam.mvc.service.user.CookService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.http.MediaType;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.web.FilterChainProxy;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
@@ -75,7 +75,8 @@ public class MenuControllerTest {
 
         mockMvc = MockMvcBuilders.standaloneSetup(controller)
                 .apply(springSecurity(springSecurityFilterChain))
-                .build();
+            .setCustomArgumentResolvers(new AuthenticationPrincipalArgumentResolver())
+            .build();
 
 
 
