@@ -32,6 +32,12 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
+    public Long getUserCount(String email) {
+        return userRepository.getUserCount(email);
+    }
+
+    @Transactional
+    @Override
     public void update(UserEntity userEntity) {
         userRepository.update(userEntity);
     }

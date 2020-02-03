@@ -68,12 +68,10 @@ public class MenuServiceImpl implements MenuService {
     @Transactional
     @Override
     public void update(Menu menu) {
-        menu.setLuxury(MenuLuxury.PRESTIGE);
         Menu updateMenu = menuRepository.read(menu.getId());
 
         updateMenu.setName(menu.getName());
         updateMenu.setPrice(menu.getPrice());
-        updateMenu.setLuxury(menu.getLuxury());
         updateMenu.setDishes(menu.getDishes());
 
 

@@ -23,6 +23,13 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public Long getUserCount(String email) {
+        return (Long)manager.createQuery("select count(*) from UserEntity u where u.email = :email")
+                .setParameter("email", email)
+                .getSingleResult();
+    }
+
+    @Override
     public Role readRole(String role) {
        return manager.createQuery("from Role r where r.name = :name", Role.class)
                 .setParameter("name", role)

@@ -33,29 +33,23 @@ public class Menu{
     @Digits(integer=3, fraction=2)
     private BigDecimal price;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "luxury_type")
-    private MenuLuxury luxury;
-
-
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Dish> dishes = new ArrayList<>();
 
 
     public Menu() {}
 
-    public Menu(String name, BigDecimal price, MenuLuxury luxury, List<Dish> dishes) {
+    public Menu(String name, BigDecimal price, List<Dish> dishes) {
         this.name = name;
         this.price = price;
-        this.luxury = luxury;
         this.dishes = dishes;
     }
 
-    public Menu(int id, String name, BigDecimal price, MenuLuxury luxury, List<Dish> dishes) {
+    public Menu(int id, String name, BigDecimal price, List<Dish> dishes) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.luxury = luxury;
+
         this.dishes = dishes;
     }
 
@@ -75,9 +69,6 @@ public class Menu{
         return price;
     }
 
-    public MenuLuxury getLuxury() {
-        return luxury;
-    }
 
     public void setId(int id) {
         this.id = id;
@@ -95,9 +86,6 @@ public class Menu{
         this.price = price;
     }
 
-    public void setLuxury(MenuLuxury luxury) {
-        this.luxury = luxury;
-    }
 
 
     @Override
@@ -108,13 +96,12 @@ public class Menu{
         return id == menu.id &&
                 Objects.equals(name, menu.name) &&
                 Objects.equals(price, menu.price) &&
-                luxury == menu.luxury &&
                 Objects.equals(dishes, menu.dishes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, luxury, dishes);
+        return Objects.hash(id, name, price, dishes);
     }
 
 

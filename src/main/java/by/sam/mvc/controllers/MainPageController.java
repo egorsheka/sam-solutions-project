@@ -39,7 +39,7 @@ public class MainPageController {
     }
 
     @GetMapping(path = "/")
-    public String getMainPage(Model model){
+    public String getMainPage(){
         return "mainPage";
     }
 

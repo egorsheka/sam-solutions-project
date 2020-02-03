@@ -10,7 +10,6 @@ import by.sam.mvc.service.menu.CuisineService;
 import by.sam.mvc.service.menu.MenuService;
 import by.sam.mvc.service.user.CookService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,7 +38,8 @@ public class MenuController {
 
 
     @GetMapping(path = "/menuPage")
-    public String getCookMenuPage(Model model, @AuthenticationPrincipal UserDetails currentUser){
+    public String getCookMenuPage(Model model, @AuthenticationPrincipal org.springframework.security.core.userdetails.User currentUser){
+
         model.addAttribute("menuList",
                 cookService.read(cookService.getAuthenticationCook(currentUser).getId()).getMenu());
         return "cook/menu/startMenu";
@@ -49,7 +49,7 @@ public class MenuController {
     //create menu methods
 
     @GetMapping(value = "/createMenu")
-    public String getCreateMenuPage(Model model, @AuthenticationPrincipal UserDetails currentUser) {
+    public String getCreateMenuPage(Model model, @AuthenticationPrincipal org.springframework.security.core.userdetails.User currentUser) {
 
         model.addAttribute("newMenu", new Menu());
         if(cookService.isAdmissibleCountOfMenu(cookService.getAuthenticationCook(currentUser).getId())){
@@ -76,7 +76,7 @@ public class MenuController {
     }
 
     @PostMapping(value = "/saveMenu", params ={"saveNewMenu"})
-    public String saveNewMenu(@Valid @ModelAttribute("newMenu") Menu newMenu, BindingResult bindingResult, Model model, @AuthenticationPrincipal UserDetails currentUser){
+    public String saveNewMenu(@Valid @ModelAttribute("newMenu") Menu newMenu, BindingResult bindingResult, Model model, @AuthenticationPrincipal org.springframework.security.core.userdetails.User currentUser){
         if(bindingResult.hasErrors()){
              return  "redirect:/createMenu";
         }
@@ -94,7 +94,7 @@ public class MenuController {
 
 
     @PostMapping(value = "/selectMenu", params = {"deleteMenu"})
-    public String deleteMenu(@RequestParam int deleteMenu, Model model, @AuthenticationPrincipal UserDetails currentUser) {
+    public String deleteMenu(@RequestParam int deleteMenu, Model model, @AuthenticationPrincipal org.springframework.security.core.userdetails.User currentUser) {
         int cookId = cookService.getAuthenticationCook(currentUser).getId();
         List<Menu> menus = cookService.read(cookId).getMenu();
         cookService.updateMenu(cookId, menus.remove(deleteMenu));
@@ -127,7 +127,7 @@ public class MenuController {
     }
 
     @PostMapping(value = "/editMenu", params = {"saveEditMenu"} )
-    public String saveEditMenu(@Valid @ModelAttribute("menu") Menu menu, BindingResult bindingResult, Model model, @AuthenticationPrincipal UserDetails currentUser) {
+    public String saveEditMenu(@Valid @ModelAttribute("menu") Menu menu, BindingResult bindingResult, Model model, @AuthenticationPrincipal org.springframework.security.core.userdetails.User currentUser) {
         if(bindingResult.hasErrors()){
             Menu editMenu = menuService.read(menu.getId());
             model.addAttribute( "editMenu", editMenu);
@@ -154,19 +154,19 @@ public class MenuController {
 
 
 
-    @ModelAttribute
-    public void getAllLuxuryTypes(Model model){
-        model.addAttribute("allTypesLuxury", MenuLuxury.values());
-    }
-
-    @ModelAttribute
-    public void getAllDishTypes(Model model){
-        model.addAttribute("allTypesDish", DishType.values());
-    }
-
-    @ModelAttribute
-    public void getAllCuisines(Model model){
-        model.addAttribute("allCuisines", cuisineService.findAll());}
+//    @ModelAttribute
+//    public void getAllLuxuryTypes(Model model){
+//        model.addAttribute("allTypesLuxury", MenuLuxury.values());
+//    }
+//
+//    @ModelAttribute
+//    public void getAllDishTypes(Model model){
+//        model.addAttribute("allTypesDish", DishType.values());
+//    }
+//
+//    @ModelAttribute
+//    public void getAllCuisines(Model model){
+//        model.addAttribute("allCuisines", cuisineService.findAll());}
 
 
 

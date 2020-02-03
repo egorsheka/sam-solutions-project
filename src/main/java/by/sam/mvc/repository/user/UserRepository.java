@@ -6,7 +6,13 @@ import by.sam.mvc.repository.Repository;
 
 public interface UserRepository extends Repository<UserEntity> {
 
+
+
     UserEntity read(String email);
+    Long getUserCount(String email);
+
+
+
     Role readRole(String role);
     boolean isVerifyUser(String id);
 

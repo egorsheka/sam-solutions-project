@@ -62,7 +62,7 @@ public class CookServiceImpl implements CookService {
     }
 
     //todo
-    @Transactional
+    @Transactional(noRollbackFor = Exception.class)
     @Override
     public boolean create(PersonDto cook) {
         UserEntity userEntity = new UserEntity();
@@ -78,16 +78,12 @@ public class CookServiceImpl implements CookService {
         //todo еренести в ресурсы через mailSendrt
         //mailSender.send("Confirm your registration", "http://localhost:8084/sam_solutions_project_war/registration/confirm/" + userEntity.getIdVerification(), cook.getEmail());
 
+        if(userService.getUserCount(cook.getEmail()) != 0){
+            return false;
+        }
 
-        try {
-            UserEntity user = userService.read(cook.getEmail());
-            if (user != null){
-                return false;
-            }
-        }catch (NoResultException e){}
 
         userService.create(userEntity);
-
         Cook newCook = new Cook();
 
         newCook.setName(cook.getName());
