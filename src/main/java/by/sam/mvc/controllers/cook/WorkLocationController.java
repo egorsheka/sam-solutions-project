@@ -38,7 +38,7 @@ public class WorkLocationController {
     //todo
     @PostMapping(value = "/getCookDistricts")
     @ResponseBody
-    public List<DistrictDto> getCookWorkLocation(@RequestBody int i, @AuthenticationPrincipal UserDetails currentUser) {
+    public List<DistrictDto> getCookWorkLocation(@AuthenticationPrincipal UserDetails currentUser) {
         return cookService.readCookLocation(cookService.getAuthenticationCook(currentUser).getId());
     }
 

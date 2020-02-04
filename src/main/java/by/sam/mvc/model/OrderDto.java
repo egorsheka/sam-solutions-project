@@ -33,10 +33,6 @@ public class OrderDto {
     @NotEmpty
     private String clientMobile;
 
-
-
-
-
     private List<Cuisine> cuisineList;
 
 

@@ -6,10 +6,12 @@ import by.sam.mvc.entity.menu.Dish;
 import by.sam.mvc.entity.menu.DishType;
 import by.sam.mvc.entity.menu.Menu;
 import by.sam.mvc.entity.menu.MenuLuxury;
+import by.sam.mvc.entity.user.Cook;
 import by.sam.mvc.service.menu.CuisineService;
 import by.sam.mvc.service.menu.MenuService;
 import by.sam.mvc.service.user.CookService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -39,9 +41,8 @@ public class MenuController {
 
     @GetMapping(path = "/menuPage")
     public String getCookMenuPage(Model model, @AuthenticationPrincipal org.springframework.security.core.userdetails.User currentUser){
-
-        model.addAttribute("menuList",
-                cookService.read(cookService.getAuthenticationCook(currentUser).getId()).getMenu());
+        Cook cook = cookService.getAuthenticationCook(currentUser);
+        model.addAttribute("menuList", cook.getMenu());
         return "cook/menu/startMenu";
     }
 
@@ -49,7 +50,7 @@ public class MenuController {
     //create menu methods
 
     @GetMapping(value = "/createMenu")
-    public String getCreateMenuPage(Model model, @AuthenticationPrincipal org.springframework.security.core.userdetails.User currentUser) {
+    public String getCreateMenuPage(Model model, @AuthenticationPrincipal UserDetails currentUser) {
 
         model.addAttribute("newMenu", new Menu());
         if(cookService.isAdmissibleCountOfMenu(cookService.getAuthenticationCook(currentUser).getId())){
@@ -154,19 +155,19 @@ public class MenuController {
 
 
 
-//    @ModelAttribute
-//    public void getAllLuxuryTypes(Model model){
-//        model.addAttribute("allTypesLuxury", MenuLuxury.values());
-//    }
-//
-//    @ModelAttribute
-//    public void getAllDishTypes(Model model){
-//        model.addAttribute("allTypesDish", DishType.values());
-//    }
-//
-//    @ModelAttribute
-//    public void getAllCuisines(Model model){
-//        model.addAttribute("allCuisines", cuisineService.findAll());}
+    @ModelAttribute
+    public void getAllLuxuryTypes(Model model){
+        model.addAttribute("allTypesLuxury", MenuLuxury.values());
+    }
+
+    @ModelAttribute
+    public void getAllDishTypes(Model model){
+        model.addAttribute("allTypesDish", DishType.values());
+    }
+
+    @ModelAttribute
+    public void getAllCuisines(Model model){
+        model.addAttribute("allCuisines", cuisineService.findAll());}
 
 
 

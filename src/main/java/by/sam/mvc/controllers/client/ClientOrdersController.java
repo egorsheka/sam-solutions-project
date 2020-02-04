@@ -27,7 +27,7 @@ public class ClientOrdersController {
 
     @GetMapping(path = "client/orders")
     public String getOrdersPage(Model model, @AuthenticationPrincipal UserDetails currentUser) {
-        model.addAttribute("orders", clientService.getAuthenticationCook(currentUser).getOrders());
+        model.addAttribute("orders", clientService.getAuthenticationClient(currentUser).getOrders());
         return "client/orders";
     }
 

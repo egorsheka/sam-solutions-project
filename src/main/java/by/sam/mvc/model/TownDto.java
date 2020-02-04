@@ -1,15 +1,13 @@
 package by.sam.mvc.model;
 
-public class DistrictDto {
-
+public class TownDto {
     private int id;
     private String name;
 
-    public DistrictDto() {
+    public TownDto() {
     }
 
-    public DistrictDto(int id) { this.id = id; }
-    public DistrictDto(int id, String name) {
+    public TownDto(int id, String name) {
         this.id = id;
         this.name = name;
     }

@@ -89,7 +89,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Transactional
     @Override
-    public Client getAuthenticationCook(UserDetails currentUser) {
+    public Client getAuthenticationClient(UserDetails currentUser) {
         return clientRepository.read(currentUser.getUsername());
     }
 

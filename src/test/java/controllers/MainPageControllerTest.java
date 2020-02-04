@@ -1,4 +1,4 @@
-package by.sam.mvc.controllers.cook;
+package controllers;
 
 
 import by.sam.mvc.config.ThymeleafConfig;
@@ -29,6 +29,7 @@ import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
@@ -47,12 +48,8 @@ public class MainPageControllerTest {
 
     private MockMvc mockMvc;
 
-    @Autowired
-    private WebApplicationContext wac;
-
-
     @Before
-    public void setup() throws Exception {
+    public void setup(){
         MockitoAnnotations.initMocks(this);
 
         MainPageController controller = new MainPageController(townService, districtService);
@@ -64,7 +61,7 @@ public class MainPageControllerTest {
 
 
     @Test
-    public void test() throws Exception {
+    public void getTownList_ShouldAddMenuListToModel() throws Exception {
 
 
         List<Town> towns = new ArrayList<>();
@@ -80,10 +77,6 @@ public class MainPageControllerTest {
                                 hasProperty("name", is("Minsk"))
                         )
                 )));
-// todo to ask why result is 2
-//verify(townService, times(1)).findAll();
-// todo to ask why is exceptions. how was it supposed to be?
-//verifyNoMoreInteractions(townService);
     }
 
 }

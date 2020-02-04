@@ -4,6 +4,7 @@ package by.sam.mvc.controllers;
 import by.sam.mvc.model.DistrictDto;
 import by.sam.mvc.model.OrderDto;
 import by.sam.mvc.entity.location.Town;
+import by.sam.mvc.model.TownDto;
 import by.sam.mvc.service.location.DistrictService;
 import by.sam.mvc.service.location.TownService;
 import org.springframework.stereotype.Controller;
@@ -29,13 +30,10 @@ public class MainPageController {
         this.districtService = districtService;
     }
 
-    //todo
-    // ок, что контролер выаолняет преобразование?
-    @PostMapping(value = "/getAllTowns")
+    @GetMapping(value = "/getAllTowns")
     @ResponseBody
-    public List<DistrictDto> getAllTowns(@RequestBody int i) {
-        List<DistrictDto> list = townService.findAll().stream().map(d -> new DistrictDto(d.getId(), d.getName())).collect(Collectors.toList());
-        return list;
+    public List<TownDto> getAllTowns() {
+        return townService.findAllTownDto();
     }
 
     @GetMapping(path = "/")

@@ -17,7 +17,7 @@ import javax.validation.Valid;
 // todo null
 @Controller
 @RequestMapping("/registration")
-public class RegistrationController {
+public class  RegistrationController {
     private final CookService cookService;
     private final UserService userService;
     private final ClientService clientService;

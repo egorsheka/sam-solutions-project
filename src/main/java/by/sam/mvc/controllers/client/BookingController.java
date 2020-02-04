@@ -19,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -63,15 +62,13 @@ public class BookingController {
         cuisines.add(new Cuisine());
 
 
-
-
         order.setCuisineList(cuisines);
         model.addAttribute("order",  order);
         model.addAttribute("allCuisines", cuisineService.findAll());
         return "booking/viewMenu";
     }
 
-    @PostMapping(value = "/selectMenu")
+    @PostMapping(value = "/selectTheMenu")
     public String selectMenu(@ModelAttribute OrderDto order, Model model) {
         District district = districtService.read(order.getDistrict().getId());
         order.getDistrict().setName(district.getName());
@@ -89,7 +86,6 @@ public class BookingController {
             return "login";
         }
         model.addAttribute("order",  order);
-        model.addAttribute("user", clientService.read(clientService.getAuthenticationCook(currentUser).getId()));
         return "booking/confirmMenu";
     }
 
@@ -99,7 +95,7 @@ public class BookingController {
         if (orderDto == null) {
             return "redirect:/";
         }
-        orderDto.setClient(clientService.read(clientService.getAuthenticationCook(currentUser).getId()));
+        orderDto.setClient(clientService.getAuthenticationClient(currentUser));
         model.addAttribute("order",  orderDto);
         return "booking/confirmMenu";
     }
@@ -108,7 +104,7 @@ public class BookingController {
     public String makeOrder(@Valid @ModelAttribute OrderDto order, BindingResult bindingResult,
                             @AuthenticationPrincipal UserDetails currentUser, Model model){
         if(currentUser != null){
-            order.setClientId(clientService.getAuthenticationCook(currentUser).getId());
+            order.setClientId(clientService.getAuthenticationClient(currentUser).getId());
         }
         if(bindingResult.hasErrors()){
             model.addAttribute("order",  order);

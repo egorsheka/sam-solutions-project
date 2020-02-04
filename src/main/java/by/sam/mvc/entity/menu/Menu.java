@@ -33,6 +33,7 @@ public class Menu{
     @Digits(integer=3, fraction=2)
     private BigDecimal price;
 
+    @NotEmpty
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Dish> dishes = new ArrayList<>();
 
