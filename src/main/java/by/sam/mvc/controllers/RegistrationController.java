@@ -69,9 +69,7 @@ public class  RegistrationController {
     @GetMapping(value = "/confirm/{id}")
     public String confirmRegistration(@PathVariable String id, Model model) {
         if(userService.isVerifyUser(id)){
-            UserEntity user = userService.read(id);
-            user.setVerify(true);
-            userService.update(user);
+            userService.verifyUser(id);
         }
         model.addAttribute("user", new Cook());
         return "login";

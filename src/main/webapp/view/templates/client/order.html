@@ -9,7 +9,7 @@
 <div th:replace="fragments/clientNavbar :: clientNavbar"></div>
 <div class="row justify-content-center" style="margin-top: 100px;">
     <form action="#" th:action="@{/confirmOrder}" method="post">
-    <div class="card" style="width: 470px; height: 480px; border: 0px;">
+    <div class="card" style="width: 470px; height: 560px; border: 0px;">
 
         <div style="margin-top: 15px; margin-left: 10px">
             <label class="main-label" style="color: #333333; font-size: 15px"><b th:text="#{text.Location}"></b></label>
@@ -82,7 +82,15 @@
             <label class="main-label"  style="color: #333333; font-size: 14px" th:text="#{text.rub}" > руб.</label>
         </div>
 
-
+        <div style="position: absolute;right: 30px;  bottom:20px; width: 200px">
+        <label  th:if="${order.orderType.name() != 'CLOSED'}" th:text="#{text.confirm_if_the_cook}">confirm if the cook has provided you with his services</label>
+        <button th:if="${order.orderType.name() != 'CLOSED'}" name="confirm" class="btn btn-classic save" th:value="${order.id}"  type="submit"
+                style="display: inline-block; margin-top: 12px;font-size: 15px;  width : 200px;" th:text="#{text.finish_order}">CONFIRM BOOKING
+        </button>
+        <button th:if="${order.orderType.name() == 'CLOSED'}" name="back" class="btn btn-classic save"  type="submit"
+                style="display: inline-block; margin-top: 12px;font-size: 15px;  width : 200px;" th:text="#{text.back}">CONFIRM BOOKING
+        </button>
+            </div>
 
     </div>
     </form>

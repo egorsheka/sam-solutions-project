@@ -26,9 +26,9 @@
                            style="color: #333333; font-size: 20px"></label>
                 </div>
 <!--                281-->
-                <small style="margin-left: 242px" th:if="${order.orderType.name() == 'NEW'}"> <span class="badge badge-success" th:text="#{text.new}">new</span></small>
-                <small style="margin-left: 242px;" th:if="${order.orderType.name() == 'IN_PROCESS'}"> <span class="badge badge-pill badge-info" th:text="#{text.in_process}">in process</span></small>
-                <small style="margin-left: 242px" th:if="${order.orderType.name() == 'CLOSED'}"> <span class="badge badge-pill badge-secondary" th:text="#{text.closed}">closed</span></small>
+                <small style="position: absolute; right:50px" th:if="${order.orderType.name() == 'NEW'}"> <span class="badge badge-success" th:text="#{text.new}">new</span></small>
+                <small style="position: absolute; right:50px" th:if="${order.orderType.name() == 'IN_PROCESS'}"> <span class="badge badge-pill badge-info" th:text="#{text.in_process}">in process</span></small>
+                <small style="position: absolute; right:50px" th:if="${order.orderType.name() == 'CLOSED'}"> <span class="badge badge-pill badge-secondary" th:text="#{text.closed}">closed</span></small>
             </div>
             <p class="mb-1" th:text="${order.menu.name}">Draniki po yzbecki</p>
             <small>

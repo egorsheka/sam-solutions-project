@@ -98,7 +98,7 @@ public class MenuController {
     public String deleteMenu(@RequestParam int deleteMenu, Model model, @AuthenticationPrincipal org.springframework.security.core.userdetails.User currentUser) {
         int cookId = cookService.getAuthenticationCook(currentUser).getId();
         List<Menu> menus = cookService.read(cookId).getMenu();
-        cookService.updateMenu(cookId, menus.remove(deleteMenu));
+        cookService.deleteMenuItem(cookId, menus.remove(deleteMenu));
         model.addAttribute("menuList", menus);
         return "cook/menu/startMenu";
     }

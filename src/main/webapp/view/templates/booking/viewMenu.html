@@ -265,7 +265,7 @@
                     <label th:text="${menuItem.price}"></label>
                     <label th:text="#{text.Price_per_guest}">Price per guest </label>
                 </div>
-                <form action="#" th:action="@{/selectMenu}" th:object="${orderDto}" method="post">
+                <form action="#" th:action="@{/selectTheMenu}" th:object="${orderDto}" method="post">
                     <input type="hidden" th:value="${menuItem.id}" th:name="menuId">
                     <input type="hidden" th:field="${order.district.id}" th:value="${order.district.id}">
                     <input type="hidden" th:name="date" th:value="${order.date}">

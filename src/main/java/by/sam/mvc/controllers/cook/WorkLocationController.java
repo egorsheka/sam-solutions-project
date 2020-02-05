@@ -32,7 +32,7 @@ public class WorkLocationController {
     @PostMapping(value = "/getCookDistrictsByTown")
     @ResponseBody
     public List<DistrictDto> getSortedDistrictDtoListByTown(@RequestBody Town town, @AuthenticationPrincipal UserDetails currentUser) {
-        return cookService.getSortedDistrictDtoListByTown(town, cookService.getAuthenticationCook(currentUser).getId());
+        return cookService.getSortedDistrictCookDtoListByTown(town, cookService.getAuthenticationCook(currentUser).getId());
     }
 
     //todo

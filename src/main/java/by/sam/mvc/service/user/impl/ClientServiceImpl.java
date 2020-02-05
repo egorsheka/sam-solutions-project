@@ -4,52 +4,48 @@ import by.sam.mvc.entity.order.Order;
 import by.sam.mvc.entity.user.Client;
 import by.sam.mvc.entity.user.Role;
 import by.sam.mvc.entity.user.UserEntity;
+import by.sam.mvc.mail.GmailSenderService;
 import by.sam.mvc.model.PersonDto;
 import by.sam.mvc.repository.user.ClientRepository;
-import by.sam.mvc.service.RegistrationValidator;
 import by.sam.mvc.service.user.ClientService;
 import by.sam.mvc.service.user.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.Errors;
 
-import javax.persistence.NoResultException;
+import java.util.UUID;
+
 
 @Service
 public class ClientServiceImpl implements ClientService {
 
     private ClientRepository clientRepository;
     private UserService userService;
-    private RegistrationValidator registrationValidator;
+    private GmailSenderService mailSender;
 
 
 
-    public ClientServiceImpl(ClientRepository clientRepository, UserService userService, RegistrationValidator registrationValidator) {
+    public ClientServiceImpl(ClientRepository clientRepository, UserService userService, GmailSenderService gmailSenderService) {
         this.clientRepository = clientRepository;
         this.userService = userService;
-
-        this.registrationValidator = registrationValidator;
+        this.mailSender = gmailSenderService;
     }
 
     @Transactional
     @Override
     public boolean create(PersonDto client) {
+        if (userService.getUserCount(client.getEmail()) != 0) {
+            return false;
+        }
+
         UserEntity userEntity = new UserEntity();
         userEntity.setEmail(client.getEmail());
         userEntity.setPassword(client.getPassword());
         userEntity.setRole(new Role("CLIENT"));
 
-        userEntity.setVerify(true);
-        //userEntity.setIdVerification(UUID.randomUUID().toString().split("-")[4]);
-        //mailSender.send("vikulya0102@gmail.com", "Pdhjw2ks", "Confirm your registration", "http://localhost:8084/sam_solutions_project_war/registration/confirm/" + userEntity.getIdVerification(), cook.getEmail());
-
-        try {
-            UserEntity user = userService.read(client.getEmail());
-            if (user != null){
-                return false;
-            }
-        }catch (NoResultException e){}
+        userEntity.setVerify(false);
+        userEntity.setIdVerification(UUID.randomUUID().toString().split("-")[4]);
+        mailSender.send("Confirm your registration", "http://localhost:8084/sam_solutions_project_war/registration/confirm/" + userEntity.getIdVerification(), client.getEmail());
 
         userService.create(userEntity);
 

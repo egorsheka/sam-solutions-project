@@ -22,6 +22,10 @@ public class District {
 
     public District() {}
 
+    public District(int id) {
+       this.id = id;
+    }
+
     public District(String name, Town town) {
         this.name = name;
         this.town = town;

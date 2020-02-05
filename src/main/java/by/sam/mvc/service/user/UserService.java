@@ -8,5 +8,6 @@ public interface UserService {
     Long getUserCount(String email);
     void update(UserEntity userEntity);
     boolean isVerifyUser(String id);
+    void verifyUser(String id);
 
 }

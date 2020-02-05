@@ -21,7 +21,7 @@ public interface CookService extends Service<Cook> {
     void updateDistricts(int cookId, List<DistrictDto> dtoList);
     boolean updateWorkTime(int id, List<WorkTimeDto> times);
 
-    void updateMenu(int id, Menu menu);
+    void deleteMenuItem(int id, Menu menu);
 
     void createMenuItem(int id, Menu menu);
     void updateMenuItem(int id, Menu menu);
@@ -38,13 +38,13 @@ public interface CookService extends Service<Cook> {
 
     List<DistrictDto> readCookLocation(int id);
 
-    List<DistrictDto> getSortedDistrictDtoListByTown(Town town, int id);
+    List<DistrictDto> getSortedDistrictCookDtoListByTown(Town town, int id);
 
     List<Cook> getCooksByDistrictId(int id);
 
     List<Menu> findAllMenuByOrder(OrderDto dto);
 
-    List<Cook> filterCooksByWorkTime(List<Cook> cooks, DayOfWeek weekDay, LocalTime time);
+    List<Cook> filterCooksByWorkTime(List<Cook> cooks, OrderDto dto);
 
     CookProfileDto fillCookProfileDto(Cook cook);
     void updateProfileData(CookProfileDto dto);

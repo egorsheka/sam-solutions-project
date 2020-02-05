@@ -1,6 +1,7 @@
 package by.sam.mvc.controllers.cook;
 
 
+import by.sam.mvc.entity.user.Cook;
 import by.sam.mvc.service.order.OrderService;
 import by.sam.mvc.service.user.CookService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,7 +25,8 @@ public class OrdersController {
 
     @GetMapping(path = "orders")
     public String getOrdersPage(Model model, @AuthenticationPrincipal UserDetails currentUser) {
-        model.addAttribute("orders", cookService.getAuthenticationCook(currentUser).getOrders());
+        Cook cook = cookService.getAuthenticationCook(currentUser);
+        model.addAttribute("orders",orderService.sortOrders(cook.getOrders()));
         return "cook/orders";
     }
 
@@ -36,10 +38,19 @@ public class OrdersController {
     }
 
 
-    @PostMapping(path = "confirmOrder")
-    public String confirmOrder(Model model, @AuthenticationPrincipal UserDetails currentUser, @RequestParam int orderId) {
-        orderService.makeOrderInProcess(orderId);
-        model.addAttribute("orders", cookService.getAuthenticationCook(currentUser).getOrders());
-        return "cook/orders";
+    @PostMapping(path = "confirmOrder", params = {"_new"})
+    public String confirmOrder(@AuthenticationPrincipal UserDetails currentUser, @RequestParam int _new) {
+        orderService.makeOrderInProcess(_new);
+        return "redirect:/orders";
+    }
+
+    @PostMapping(path = "confirmOrder", params = {"inProcess"})
+    public String closeOrder(@AuthenticationPrincipal UserDetails currentUser, @RequestParam int inProcess) {
+        orderService.sendMailClientToConfirmService(inProcess);
+        return "redirect:/orders";
+    }
+    @PostMapping(path = "confirmOrder", params = {"closed"})
+    public String back() {
+        return "redirect:/orders";
     }
 }

@@ -4,6 +4,7 @@ import by.sam.mvc.entity.user.Role;
 import by.sam.mvc.entity.user.UserEntity;
 import by.sam.mvc.repository.user.UserRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -48,9 +49,21 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public UserEntity getUserByIdVerification(String id) {
+
+        return manager.createQuery("from UserEntity u where u.idVerification = :idVerification", UserEntity.class)
+                .setParameter("idVerification", id)
+                .getResultList()
+                .stream()
+                .findFirst()
+                .get();
+    }
+
+    @Override
     public void create(UserEntity userEntity) {
         manager.persist(userEntity);
     }
+
 
     @Override
     public UserEntity read(int id) {

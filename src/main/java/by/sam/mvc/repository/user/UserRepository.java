@@ -15,5 +15,6 @@ public interface UserRepository extends Repository<UserEntity> {
 
     Role readRole(String role);
     boolean isVerifyUser(String id);
+    UserEntity getUserByIdVerification(String id);
 
 }

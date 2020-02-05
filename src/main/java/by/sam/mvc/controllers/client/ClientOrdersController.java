@@ -1,6 +1,7 @@
 package by.sam.mvc.controllers.client;
 
 import by.sam.mvc.entity.order.Order;
+import by.sam.mvc.entity.user.Client;
 import by.sam.mvc.service.order.OrderService;
 import by.sam.mvc.service.user.ClientService;
 import by.sam.mvc.service.user.CookService;
@@ -27,7 +28,8 @@ public class ClientOrdersController {
 
     @GetMapping(path = "client/orders")
     public String getOrdersPage(Model model, @AuthenticationPrincipal UserDetails currentUser) {
-        model.addAttribute("orders", clientService.getAuthenticationClient(currentUser).getOrders());
+        Client client = clientService.getAuthenticationClient(currentUser);
+        model.addAttribute("orders", orderService.sortOrders(client.getOrders()));
         return "client/orders";
     }
 
@@ -37,6 +39,17 @@ public class ClientOrdersController {
         model.addAttribute("order", order);
         model.addAttribute("cook", order.getCook());
         return "client/order";
+    }
+
+    @PostMapping(path = "confirmOrder", params = {"confirm"})
+    public String confirmOrder(@RequestParam int confirm) {
+        orderService.makeOrderClosed(confirm);
+        return "redirect:/client/orders";
+    }
+
+    @PostMapping(path = "confirmOrder", params = {"back"})
+    public String back() {
+        return "redirect:/client/orders";
     }
 
 

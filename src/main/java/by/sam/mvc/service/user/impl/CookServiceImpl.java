@@ -34,14 +34,13 @@ import java.util.stream.Collectors;
 @Service
 public class CookServiceImpl implements CookService {
 
+
     private final CookRepository cookRepository;
     private final MenuService menuService;
     private final DistrictService districtService;
     private final WorkTimeService workTimeService;
     private final UserService userService;
     private final GmailSenderService mailSender;
-
-
 
 
     public CookServiceImpl(CookRepository cookRepository, MenuService menuService, DistrictService districtService,
@@ -65,6 +64,9 @@ public class CookServiceImpl implements CookService {
     @Transactional(noRollbackFor = Exception.class)
     @Override
     public boolean create(PersonDto cook) {
+        if (userService.getUserCount(cook.getEmail()) != 0) {
+            return false;
+        }
         UserEntity userEntity = new UserEntity();
         userEntity.setEmail(cook.getEmail());
         userEntity.setPassword(cook.getPassword());
@@ -78,9 +80,7 @@ public class CookServiceImpl implements CookService {
         //todo еренести в ресурсы через mailSendrt
         //mailSender.send("Confirm your registration", "http://localhost:8084/sam_solutions_project_war/registration/confirm/" + userEntity.getIdVerification(), cook.getEmail());
 
-        if(userService.getUserCount(cook.getEmail()) != 0){
-            return false;
-        }
+
 
 
         userService.create(userEntity);
@@ -135,7 +135,7 @@ public class CookServiceImpl implements CookService {
     @Override
     public void updateDistricts(int cookId, List<DistrictDto> dtoList) {
         List<District> districts = new ArrayList<>();
-        for(DistrictDto dto: dtoList){
+        for (DistrictDto dto : dtoList) {
             districts.add(districtService.read(dto.getId()));
         }
         Cook cook = cookRepository.read(cookId);
@@ -149,18 +149,10 @@ public class CookServiceImpl implements CookService {
 
         List<WorkTime> timeList = times.stream().map(time ->
                 new WorkTime(DayOfWeek.valueOf(time.getDay().toUpperCase()), time.getStartTime(), time.getEndTime())).collect(Collectors.toList());
-        for (WorkTime workTime: timeList){
-            if(!(workTime.getStartTime().matches("((0|1)\\d|2[0-4]):[0-5]\\d") && workTime.getEndTime().matches("((0|1)\\d|2[0-4]):[0-5]\\d"))){
+        for (WorkTime workTime : timeList) {
+            if (!(workTime.getStartTime().matches("((0|1)\\d|2[0-4]):[0-5]\\d") && workTime.getEndTime().matches("((0|1)\\d|2[0-4]):[0-5]\\d"))) {
                 return false;
             }
-//            String[] startTime = workTime.getStartTime().split(":");
-//            String[] endTime = workTime.getEndTime().split(":");
-//
-//            int startTimeInteger = Integer.parseInt(startTime[0])*100 + Integer.parseInt(startTime[1]);
-//            int endTimeInteger = Integer.parseInt(endTime[0])*100 + Integer.parseInt(endTime[1]);
-//            if (startTimeInteger > endTimeInteger){
-//                return false;
-//            }
         }
 
         Cook cook = cookRepository.read(id);
@@ -175,26 +167,10 @@ public class CookServiceImpl implements CookService {
             }
         }
 
-
-
         cook.setWorkTime(timeList);
         cookRepository.update(cook);
         return true;
     }
-
-    @Transactional
-    @Override
-    public void updateMenu(int id, Menu menu) {
-
-        Cook cook = cookRepository.read(id);
-        cook.getMenu().remove(menuService.read(menu.getId()));
-        cookRepository.update(cook);
-        menuService.delete(menu.getId());
-    }
-
-
-
-
 
     @Transactional
     @Override
@@ -204,6 +180,17 @@ public class CookServiceImpl implements CookService {
         cook.getMenu().add(menu);
         cookRepository.update(cook);
     }
+
+    @Transactional
+    @Override
+    public void deleteMenuItem(int id, Menu menu) {
+
+        Cook cook = cookRepository.read(id);
+        cook.getMenu().remove(menuService.read(menu.getId()));
+        cookRepository.update(cook);
+        menuService.delete(menu.getId());
+    }
+
 
     //todo check delete menu or not
     //todo newMenu = menuService.read(id);
@@ -220,8 +207,6 @@ public class CookServiceImpl implements CookService {
 
         cookRepository.update(cook);
     }
-
-
 
 
     @Transactional
@@ -276,7 +261,7 @@ public class CookServiceImpl implements CookService {
         Cook cook = read(id);
         List<District> districts = cook.getDistricts();
         List<DistrictDto> districtList = new ArrayList<>();
-        if(districts != null && !districts.isEmpty()) {
+        if (districts != null && !districts.isEmpty()) {
             districtList.add(new DistrictDto(districts.get(0).getTown().getId(), districts.get(0).getTown().getName()));
             for (District district : districts) {
                 districtList.add(new DistrictDto(district.getId(), district.getName()));
@@ -287,41 +272,21 @@ public class CookServiceImpl implements CookService {
 
     @Transactional
     @Override
-    public List<DistrictDto> getSortedDistrictDtoListByTown(Town town, int id) {
+    public List<DistrictDto> getSortedDistrictCookDtoListByTown(Town town, int id) {
         Cook cook = read(id);
-         List<District> districtList = districtService.getDistrictListByTown(town);
-         districtList.sort(Comparator.comparing(District::getName));
-         List<District> districtCookList = cook.getDistricts();
-         districtList.removeAll(districtCookList);
-         districtList.addAll(0, districtCookList);
+        List<District> districtList = districtService.getDistrictListByTown(town);
 
-         return districtList.stream().map(d -> new DistrictDto(d.getId(), d.getName())).collect(Collectors.toList());
+        districtList.sort(Comparator.comparing(District::getName));
+
+        List<District> districtCookList = cook.getDistricts();
+        districtList.removeAll(districtCookList);
+        districtCookList.sort(Comparator.comparing(District::getName));
+        districtList.addAll(0, districtCookList);
+
+        return districtList.stream().map(d -> new DistrictDto(d.getId(), d.getName())).collect(Collectors.toList());
 
     }
 
-    @Transactional
-    @Override
-    public List<Cook> getCooksByDistrictId(int id) {
-        return cookRepository.getCooksByDistrictId(id);
-    }
-
-    @Override
-    public List<Cook> filterCooksByWorkTime(List<Cook> cooks, DayOfWeek weekDay, LocalTime time) {
-        List<Cook> filterCooks = new ArrayList<>();
-
-
-        for(Cook cook: cooks){
-            for(WorkTime workTime: cook.getWorkTime()){
-                LocalTime endTime = LocalTime.parse(workTime.getEndTime() + ":00");
-                LocalTime startTime = LocalTime.parse(workTime.getStartTime() + ":00");
-                if(workTime.getDay().equals(weekDay) && startTime.isBefore(time) &&  endTime.isAfter(time)){
-                    filterCooks.add(cook);
-                }
-            }
-        }
-
-        return filterCooks;
-    }
 
     @Override
     public CookProfileDto fillCookProfileDto(Cook cook) {
@@ -335,8 +300,8 @@ public class CookServiceImpl implements CookService {
         dto.setAddress(cook.getAddress());
         dto.setCity(cook.getCity());
 
-        if(cook.getBirthday() != null){
-            String[] dates =  cook.getBirthday().split("/");
+        if (cook.getBirthday() != null) {
+            String[] dates = cook.getBirthday().split("/");
             dto.setBirthdayDay(dates[0]);
             dto.setBirthdayMonth(dates[1]);
             dto.setBirthdayYear(dates[2]);
@@ -365,15 +330,8 @@ public class CookServiceImpl implements CookService {
     @Transactional
     @Override
     public List<Menu> findAllMenuByOrder(OrderDto dto) {
-
-
         List<Cook> cooks = getCooksByDistrictId(dto.getDistrict().getId());
-
-
-        DayOfWeek dayOfWeek = dto.getDate().getDayOfWeek();
-        LocalTime time = LocalTime.parse(dto.getTime() + ":00");
-
-         cooks = filterCooksByWorkTime(cooks, dayOfWeek, time);
+        cooks = filterCooksByWorkTime(cooks, dto);
 
 
         List<Menu> menus = new ArrayList<>();
@@ -381,21 +339,52 @@ public class CookServiceImpl implements CookService {
             menus.addAll(cook.getMenu());
         }
 
-
-
-        if(dto.getCuisineList() != null){
-            List<Cuisine> cuisines = new ArrayList<>(dto.getCuisineList());
-            for(Cuisine cuisine: cuisines){
-                if(cuisine.getName() == null){
-                    dto.getCuisineList().remove(cuisine);
-                }
-            }
-            if(!dto.getCuisineList().isEmpty()){
-                menus = menuService.filterMenuByCuisine(menus, dto.getCuisineList());
-            }
+        List<Menu> filterMenuListByCuisine =  menuService.filterMenuByCuisine(menus, dto.getCuisineList());
+        if (filterMenuListByCuisine != null){
+            menus = filterMenuListByCuisine;
         }
 
         return menus;
+    }
+
+
+    @Transactional
+    @Override
+    public List<Cook> getCooksByDistrictId(int id) {
+        return cookRepository.getCooksByDistrictId(id);
+    }
+
+
+
+    @Override
+    public List<Cook> filterCooksByWorkTime(List<Cook> cooks, OrderDto dto) {
+        DayOfWeek dayOfWeek = dto.getDate().getDayOfWeek();
+        LocalTime time = LocalTime.parse(dto.getTime() + ":00");
+
+        List<Cook> filterCooks = new ArrayList<>();
+
+        for (Cook cook : cooks) {
+            for (WorkTime workTime : cook.getWorkTime()) {
+                LocalTime endTime = LocalTime.parse(workTime.getEndTime() + ":00");
+                LocalTime startTime = LocalTime.parse(workTime.getStartTime() + ":00");
+                char startTimeFirstDigit = startTime.toString().charAt(0);
+                char endTimeFirstDigit = endTime.toString().charAt(0);
+                if((startTimeFirstDigit == '1' || startTimeFirstDigit == '2')  && (endTimeFirstDigit == '0')) {
+                    if ((time.toString().charAt(0) == '2' || time.toString().charAt(0) == '1') && workTime.getDay().equals(dayOfWeek) && startTime.isBefore(time)) {
+                        filterCooks.add(cook);
+                    }
+                }
+                if((startTimeFirstDigit == '1' || startTimeFirstDigit == '2')  && (endTimeFirstDigit == '0')) {
+                    if (time.toString().charAt(0) == '0'&& workTime.getDay().equals(dayOfWeek) && endTime.isAfter(time)) {
+                        filterCooks.add(cook);
+                    }
+                }
+                if (workTime.getDay().equals(dayOfWeek) && startTime.isBefore(time) && endTime.isAfter(time)) {
+                    filterCooks.add(cook);
+                }
+            }
+        }
+        return filterCooks;
     }
 
 }

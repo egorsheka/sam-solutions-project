@@ -1,5 +1,7 @@
 package by.sam.mvc.model;
 
+import java.util.Objects;
+
 public class DistrictDto {
 
     private int id;
@@ -28,5 +30,26 @@ public class DistrictDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "DistrictDto{" +
+                "id=" + id +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DistrictDto that = (DistrictDto) o;
+        return id == that.id &&
+                Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
     }
 }

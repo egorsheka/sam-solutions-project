@@ -20,14 +20,13 @@ public class MenuServiceImpl implements MenuService {
 
     private final MenuRepository menuRepository;
     private final DishService dishService;
-    private final CuisineService cuisineService;
 
 
 
-    public MenuServiceImpl(MenuRepository menuRepository, DishService dishService, CuisineService cuisineService) {
+    public MenuServiceImpl(MenuRepository menuRepository, DishService dishService) {
         this.menuRepository = menuRepository;
         this.dishService = dishService;
-        this.cuisineService = cuisineService;
+
     }
 
 
@@ -49,12 +48,25 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<Menu> filterMenuByCuisine(List<Menu> menus, List<Cuisine> cuisines) {
+        if (cuisines == null) {
+            return null;
+        }
+        List<Cuisine> cuisinesWithNull = new ArrayList<>(cuisines);
+        for (Cuisine cuisine : cuisinesWithNull) {
+            if (cuisine.getName() == null) {
+                cuisines.remove(cuisine);
+            }
+        }
+        if (cuisines.isEmpty()) {
+            return null;
+        }
+
         List<Menu> orderMenu = new ArrayList<>();
-        for(Menu menu: menus){
+        for (Menu menu : menus) {
             nextMenu:
-            for(Dish dish: menu.getDishes()){
-                for(Cuisine cuisine: cuisines) {
-                    if (dish.getCuisine().getName().equals(cuisine.getName())){
+            for (Dish dish : menu.getDishes()) {
+                for (Cuisine cuisine : cuisines) {
+                    if (dish.getCuisine().getName().equals(cuisine.getName())) {
                         orderMenu.add(menu);
                         break nextMenu;
                     }
@@ -91,7 +103,5 @@ public class MenuServiceImpl implements MenuService {
     public void delete(int id) {
         menuRepository.delete(id);
     }
-
-
 
 }

@@ -14,5 +14,5 @@ public interface MenuService {
     void update(Menu menu);
     Menu read(int id);
     List<Menu> filterMenuByCuisine(List<Menu> menus, List<Cuisine> cuisines);
-    //List<Menu> findAllMenuByOrder(OrderDto dto);
+
 }

@@ -25,7 +25,7 @@
                     <label class="main-label" th:text="${order.eventTime}"
                            style="color: #333333; font-size: 20px"></label>
                 </div>
-                <small style="margin-left: 242px" th:if="${order.orderType.name() == 'CLOSED'}" th:text="#{text.closed}"> <span class="badge badge-pill badge-secondary">closed</span></small>
+                <small style="position: absolute; right:50px" th:if="${order.orderType.name() == 'CLOSED'}"> <span class="badge badge-pill badge-secondary" th:text="#{text.closed}">closed</span></small>
             </div>
             <p class="mb-1" th:text="${order.menu.name}">Draniki po yzbecki</p>
             <small>

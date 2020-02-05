@@ -1,5 +1,6 @@
 package by.sam.mvc.service.order.impl;
 
+import by.sam.mvc.mail.GmailSenderService;
 import by.sam.mvc.model.OrderDto;
 import by.sam.mvc.entity.order.Order;
 import by.sam.mvc.entity.order.OrderType;
@@ -14,6 +15,10 @@ import by.sam.mvc.service.user.CookService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -23,15 +28,17 @@ public class OrderServiceImpl implements OrderService {
     private final DistrictService districtService;
     private final ClientService clientService;
     private final CookService cookService;
+    private final GmailSenderService mailSender;
 
 
     public OrderServiceImpl(OrderRepository orderRepository, MenuService menuService, DistrictService districtService,
-                            ClientService clientService, CookService cookService) {
+                            ClientService clientService, CookService cookService, GmailSenderService mailSender) {
         this.orderRepository = orderRepository;
         this.menuService = menuService;
         this.districtService = districtService;
         this.clientService = clientService;
         this.cookService = cookService;
+        this.mailSender = mailSender;
     }
 
     @Transactional
@@ -96,9 +103,26 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     @Override
+    public void sendMailClientToConfirmService(int id) {
+        Order order = read(id);
+        Client client = order.getClient();
+        mailSender.send("Confirm your dinner", "Please login and confirm your dinner that the cook has provided you with his services./n" +
+                "http://localhost:8084/sam_solutions_project_war/login", client.getEmail());
+    }
+
+    @Transactional
+    @Override
     public void makeOrderClosed(int id) {
         Order order = read(id);
         order.setOrderType(OrderType.CLOSED);
         update(order);
+    }
+
+    @Override
+    public List<Order> sortOrders(List<Order> orders) {
+        orders.sort(Comparator.comparing(Order::getDate));
+        Collections.reverse(orders);
+        return orders;
+
     }
 }

@@ -1,4 +1,4 @@
-package controllers;
+package by.sam.mvc.controllers;
 
 
 import by.sam.mvc.config.ThymeleafConfig;

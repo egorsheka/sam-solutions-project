@@ -47,4 +47,12 @@ public class UserServiceImpl implements UserService {
     public boolean isVerifyUser(String id) {
         return userRepository.isVerifyUser(id);
     }
+
+    @Transactional
+    @Override
+    public void verifyUser(String email) {
+        UserEntity user = userRepository.getUserByIdVerification(email);
+        user.setVerify(true);
+        update(user);
+    }
 }
