@@ -24,7 +24,7 @@ public class WorkLocationController {
         this.cookService = cookService;
     }
 
-    @GetMapping(path = {"location"})
+    @GetMapping(value = "/location")
     public String getCookWorkLocationPage() {
         return "cook/location";
     }
@@ -42,11 +42,11 @@ public class WorkLocationController {
         return cookService.readCookLocation(cookService.getAuthenticationCook(currentUser).getId());
     }
 
-
+    //todo
     @PostMapping(value = "/saveCookDistricts")
     public String saveCookDistricts(@RequestBody List<DistrictDto> dtoList, @AuthenticationPrincipal UserDetails currentUser) {
         cookService.updateDistricts(cookService.getAuthenticationCook(currentUser).getId(), dtoList);
-        return "cook/startCook";
+        return "do not matter";
     }
 
 }

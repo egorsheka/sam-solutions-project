@@ -81,13 +81,12 @@ public class CookServiceImpl implements CookService {
         //mailSender.send("Confirm your registration", "http://localhost:8084/sam_solutions_project_war/registration/confirm/" + userEntity.getIdVerification(), cook.getEmail());
 
 
-
-
         userService.create(userEntity);
         Cook newCook = new Cook();
 
         newCook.setName(cook.getName());
         newCook.setSurname(cook.getSurname());
+        newCook.setMobile(cook.getMobile());
         newCook.setPassword(cook.getPassword());
         newCook.setEmail(cook.getEmail());
         newCook.setUserEntity(userEntity);
@@ -188,7 +187,6 @@ public class CookServiceImpl implements CookService {
         Cook cook = cookRepository.read(id);
         cook.getMenu().remove(menuService.read(menu.getId()));
         cookRepository.update(cook);
-        menuService.delete(menu.getId());
     }
 
 
@@ -326,6 +324,17 @@ public class CookServiceImpl implements CookService {
         update(cook);
     }
 
+    @Transactional
+    @Override
+    public boolean isFillOutProfile(int id) {
+        Cook cook = read(id);
+        return cook.getCity() != null
+                && cook.getAddress() != null
+                && cook.getBirthday() != null
+                && !cook.getDistricts().isEmpty()
+                && !cook.getWorkTime().isEmpty();
+    }
+
 
     @Transactional
     @Override
@@ -339,8 +348,8 @@ public class CookServiceImpl implements CookService {
             menus.addAll(cook.getMenu());
         }
 
-        List<Menu> filterMenuListByCuisine =  menuService.filterMenuByCuisine(menus, dto.getCuisineList());
-        if (filterMenuListByCuisine != null){
+        List<Menu> filterMenuListByCuisine = menuService.filterMenuByCuisine(menus, dto.getCuisineList());
+        if (filterMenuListByCuisine != null) {
             menus = filterMenuListByCuisine;
         }
 
@@ -353,7 +362,6 @@ public class CookServiceImpl implements CookService {
     public List<Cook> getCooksByDistrictId(int id) {
         return cookRepository.getCooksByDistrictId(id);
     }
-
 
 
     @Override
@@ -369,13 +377,13 @@ public class CookServiceImpl implements CookService {
                 LocalTime startTime = LocalTime.parse(workTime.getStartTime() + ":00");
                 char startTimeFirstDigit = startTime.toString().charAt(0);
                 char endTimeFirstDigit = endTime.toString().charAt(0);
-                if((startTimeFirstDigit == '1' || startTimeFirstDigit == '2')  && (endTimeFirstDigit == '0')) {
+                if ((startTimeFirstDigit == '1' || startTimeFirstDigit == '2') && (endTimeFirstDigit == '0')) {
                     if ((time.toString().charAt(0) == '2' || time.toString().charAt(0) == '1') && workTime.getDay().equals(dayOfWeek) && startTime.isBefore(time)) {
                         filterCooks.add(cook);
                     }
                 }
-                if((startTimeFirstDigit == '1' || startTimeFirstDigit == '2')  && (endTimeFirstDigit == '0')) {
-                    if (time.toString().charAt(0) == '0'&& workTime.getDay().equals(dayOfWeek) && endTime.isAfter(time)) {
+                if ((startTimeFirstDigit == '1' || startTimeFirstDigit == '2') && (endTimeFirstDigit == '0')) {
+                    if (time.toString().charAt(0) == '0' && workTime.getDay().equals(dayOfWeek) && endTime.isAfter(time)) {
                         filterCooks.add(cook);
                     }
                 }

@@ -9,6 +9,11 @@
 
 <div class="row justify-content-center" style="margin-top: 100px">
     <div class="list-group" style="width: 600px">
+
+        <div th:if="${orders.empty == true}" class="first-div-label" style="margin: auto; margin-top:15%; width: 100%">
+            <label class="first-label"  th:text="#{text.you_have_no_orders}" style="width: 100%; font-size: 70px; color: white">You have no orders</label>
+        </div>
+
         <form action="#" th:action="@{/clientOrder}" method="post">
         <button href="#" th:value="${order.id}" name = "orderId" th:each="order, item : ${orders}"
            class="list-group-item list-group-item-action flex-column align-items-start">

@@ -1,5 +1,6 @@
 package by.sam.mvc.controllers.client;
 
+import by.sam.mvc.entity.user.Client;
 import by.sam.mvc.model.PersonDto;
 import by.sam.mvc.model.OrderDto;
 import by.sam.mvc.entity.location.District;
@@ -85,6 +86,11 @@ public class BookingController {
             model.addAttribute("user", new PersonDto());
             return "login";
         }
+        Client client = clientService.getAuthenticationClient(currentUser);
+        order.setClientName(client.getName());
+        order.setClientSurName(client.getSurname());
+        order.setClientMobile(client.getMobile());
+        order.setAddress(client.getAddress());
         model.addAttribute("order",  order);
         return "booking/confirmMenu";
     }

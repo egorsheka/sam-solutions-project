@@ -7,6 +7,7 @@ import by.sam.mvc.entity.user.Cook;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 
 @Entity
@@ -34,6 +35,12 @@ public class Order {
     @Enumerated(EnumType.STRING)
     @Column(name = "order_type")
     private OrderType orderType;
+
+    public Order() { }
+
+    public Order(LocalDate date) {
+        this.date = date;
+    }
 
     public int getId() {
         return id;
@@ -121,5 +128,23 @@ public class Order {
 
     public void setCook(Cook cook) {
         this.cook = cook;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return id == order.id &&
+                countOfGuests == order.countOfGuests &&
+                Objects.equals(date, order.date);
+
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "date=" + date +
+                '}';
     }
 }

@@ -49,4 +49,6 @@ public interface CookService extends Service<Cook> {
     CookProfileDto fillCookProfileDto(Cook cook);
     void updateProfileData(CookProfileDto dto);
 
+    boolean isFillOutProfile(int id);
+
 }

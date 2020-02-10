@@ -1,11 +1,12 @@
 package by.sam.mvc.service.order.impl;
 
-import by.sam.mvc.mail.GmailSenderService;
-import by.sam.mvc.model.OrderDto;
 import by.sam.mvc.entity.order.Order;
 import by.sam.mvc.entity.order.OrderType;
 import by.sam.mvc.entity.user.Client;
 import by.sam.mvc.entity.user.Cook;
+import by.sam.mvc.mail.GmailSenderService;
+import by.sam.mvc.model.OrderDto;
+import by.sam.mvc.model.OrdersDto;
 import by.sam.mvc.repository.order.OrderRepository;
 import by.sam.mvc.service.location.DistrictService;
 import by.sam.mvc.service.menu.MenuService;
@@ -29,6 +30,7 @@ public class OrderServiceImpl implements OrderService {
     private final ClientService clientService;
     private final CookService cookService;
     private final GmailSenderService mailSender;
+    private final int SIZE_ORDERS_LIST = 4;
 
 
     public OrderServiceImpl(OrderRepository orderRepository, MenuService menuService, DistrictService districtService,
@@ -46,16 +48,19 @@ public class OrderServiceImpl implements OrderService {
     public void create(Order order) {
         orderRepository.create(order);
     }
+
     @Transactional
     @Override
     public Order read(int id) {
         return orderRepository.read(id);
     }
+
     @Transactional
     @Override
     public void update(Order order) {
         orderRepository.update(order);
     }
+
     @Transactional
     @Override
     public void delete(int id) {
@@ -124,5 +129,43 @@ public class OrderServiceImpl implements OrderService {
         Collections.reverse(orders);
         return orders;
 
+    }
+
+    @Override
+    public OrdersDto getNextListOrders(List<Order> orderList, int page) {
+        orderList = sortOrders(orderList);
+
+        if (orderList.size() >= page * SIZE_ORDERS_LIST && page > 0) {
+            return new OrdersDto(true,
+                    orderList.subList((page - 1) * SIZE_ORDERS_LIST, page * SIZE_ORDERS_LIST));}
+
+        if (orderList.size() <= SIZE_ORDERS_LIST) { return new OrdersDto(true, orderList); }
+
+        int lastOrders = orderList.size() % SIZE_ORDERS_LIST;
+        return new OrdersDto(false, orderList.subList(orderList.size() - lastOrders, orderList.size()));
+
+    }
+
+    @Override
+    public OrdersDto getPreviousListOrders(List<Order> orderList, int page) {
+        orderList = sortOrders(orderList);
+
+        if (page <= 1) {
+            boolean firstPage = false;
+            if(page == 1){
+                firstPage = true;
+            }
+            if (orderList.size() >= SIZE_ORDERS_LIST) {
+                return new OrdersDto(firstPage, orderList.subList(0, SIZE_ORDERS_LIST));
+            } else {
+                return new OrdersDto(firstPage, orderList);
+            }
+        }
+
+        if(page * SIZE_ORDERS_LIST > orderList.size()){
+            int lastOrders = orderList.size() % SIZE_ORDERS_LIST;
+            return new OrdersDto(false, orderList.subList(orderList.size() - lastOrders, orderList.size()));
+        }
+        return new OrdersDto(true, orderList.subList((page - 1) * SIZE_ORDERS_LIST, page * SIZE_ORDERS_LIST));
     }
 }

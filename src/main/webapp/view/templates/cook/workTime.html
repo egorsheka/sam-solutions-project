@@ -13,9 +13,16 @@
 </head>
 <body>
 <div th:replace="fragments/cookNavbar :: cookNavbar"></div>
-
-<div class="card main-div">
-
+<div class="menuNavbar"></div>
+<div style="background-color: white; height: 90px; width: 100%; margin-bottom: 15px;">
+    <div class="first-div-label" style=" width: 100%">
+        <label class="first-label" style="width: 100%" th:text="#{text.Your_preferable_timetable}">Your preferable timetable</label>
+    </div>
+    <div style="margin: auto; width: 100%;height: 62px;" >
+        <label class="second-label"th:text="#{text.Choose_the_time}" style="width: 100%">Choose the time and days that you prefer to work</label>
+    </div>
+</div>
+<div class="card main-div" style="margin-top: 40px;">
     <div class="card-body">
         <span th:if="${loginError == true}"  style="color: red"> Error</span>
         <div style="columns: 70px ; margin-left: 45px; margin-top: 50px">

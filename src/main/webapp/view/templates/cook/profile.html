@@ -4,10 +4,10 @@
     <meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
     <div th:replace = "fragments/header :: header-menu"></div>
 </head>
-<body class="FonL app-contact-body">
+<body>
 <div th:replace="fragments/cookNavbar :: cookNavbar"></div>
 
-
+<div class="menuNavbar" style="margin-bottom: 10px"></div>
 <div class="container-profile">
     <div class="inner-profile">
 
@@ -114,7 +114,7 @@
                                 <option th:value="${'December'}" th:text="#{text.December}">December</option>
                             </select>
                         </div>
-                        <div style="width : 80px;  margin-right: 7px;">
+                        <div style="width : 85px;  margin-right: 7px;">
                             <select class="form-control"  th:field="${profile.birthdayYear}">
                                 <option th:value="${'2004'}" th:text="${'2004'}"></option>
                                 <option th:value="${'2003'}" th:text="${'2003'}"></option>
@@ -191,7 +191,7 @@
 
             </div>
             <div class="row justify-content-center">
-                <button class="btn btn-classic save" style="display: inline-block; margin-top: 30px" th:text="#{text.SAVE}">Save</button>
+                <button class="btn btn-classic save" style="display: inline-block; margin-top: 20px" th:text="#{text.SAVE}">Save</button>
             </div>
         </form>
     </div>

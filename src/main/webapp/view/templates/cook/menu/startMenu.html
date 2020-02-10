@@ -1,55 +1,83 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head th:replace="fragments/header :: header-menu"></head>
-    <body style="background-color: #f9f8f6">
+    <body style="background-color: #f7f3ec">
         <div th:replace="fragments/cookNavbar :: cookNavbar"></div>
-        <a th:href="${(#mvc.url('CC#getCookPersonalPage')).build()}" th:text="#{text.back}">back</a>
-        <p></p>
-        <form action="#" th:action="@{/createMenu}" method="get">
-             <div>
-                <button class="btn btn-classic save" type="submit" th:text="#{text.create_menu}"></button>
-            </div>
-        </form>
-        <div style="display: flex; flex-wrap: wrap; margin: auto; background-color: white; border: 0px; width: 1000px; background-color:  #f9f8f6">
-        <div  th:each="menuItem, item : ${menuList}" class="card" style="margin-left: 20px; margin-top: 20px">
+        <div class="menuNavbar"></div>
+        <div style="width: 100%; height: 60px; background-color: white">
+            <form action="#" th:action="@{/createMenu}" method="get">
+                <div th:if="${sixMenu == true}" style="position: absolute; left: 25%;">
+                    <label style="width: 700px; margin-top: 15px; font-size: 22px" th:text="#{text.you_can_have_only}">
+                        You can have only 6 personal menus
+                    </label>
+                </div>
+                <div th:if="${sixMenu != true && fullProfile == false}" style="position: absolute; left: 25%;">
+                    <label style="width: 700px; margin-top: 15px; font-size: 22px" th:text="#{text.in_order_for}">In
+                        order for the client to see your menu you need to fill out the entire profile
+                    </label>
+                </div>
+                <div style="position: absolute; left: 66.6%; width: 200px">
+                    <button class="btn btn-classic save" style="margin-top: 10px" type="submit"
+                            th:text="#{text.create_menu}"></button>
+                </div>
+            </form>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; margin: auto; background-color: white; border: 0px; width: 1000px; background-color:  #f7f3ec">
 
-            <div style="width: 300px;">
-                <div style="
+            <div th:if="${menuList.empty == true}" class="first-div-label" style="margin: auto; margin-top:15%; width: 100%">
+                <label class="first-label"  th:text="#{text.Create_your_own_unique}" style="width: 100%; font-size: 70px">Create your own unique menu</label>
+            </div>
+
+            <div th:each="menuItem, item : ${menuList}" class="card" style="margin-left: 20px; margin-top: 20px">
+
+                <div style="width: 300px;">
+                    <div style="
             border-bottom-width: 4px; /* Толщина линии внизу */
             border-bottom-style: solid; /* Стиль линии внизу */
-            border-bottom-color: #f9f8f6; /* Цвет линии внизу */">
-                    <label th:text="${menuItem.name}" th:value="${menuItem.name}" th:name="name"></label>
-                </div>
-                <form action="#" th:action="@{/selectMenu}" th:object="${menuItem}" method="post">
-                    <div>
-                        <input type="hidden" th:value="${menuItem.id}" th:name="id"/>
-                        <label th:text="#{text.rice_for_one_guest}">price for one guest</label>
-                        <label th:text="${menuItem.price}" th:value="${menuItem.price}" th:name="price">alesia</label>
-                        <label th:text="#{text.rub}">руб.</label>
-                        <div style="background-color: #444444; margin-left: 10px; margin-right: 10px; margin-bottom: 10px">
-                            <div style="width: 100%; margin: 0 auto">
-                                <button type="submit" th:text="#{text.see_more}" name="seeMore" class="btn btn-classic save"
-                                        style="display: inline-block;  width : 240px; margin-left: 15px;margin-top: 10px ">
-                                    SEE
-                                    MENU
-                                </button>
-                                <button type="submit" th:text="#{text.edit}" name="editMenu" class="btn btn-classic save"
-                                        style="display: inline-block;  width : 240px; margin-left: 15px;">MODIFY MENU
-                                </button>
-                                <button type="submit" th:value="${item.index}" th:text="#{text.delete_menu}"
-                                        name="deleteMenu"
-                                        class="btn btn-classic save"
-                                        style="display: inline-block;  width : 240px; margin-left: 15px;">DELETE MENU
-                                </button>
-                            </div>
-                        </div>
-
+            border-bottom-color: #f7f3ec; /* Цвет линии внизу */">
+                        <label style="margin-left: 10px" th:text="${menuItem.name}" th:value="${menuItem.name}"
+                               th:name="name"></label>
                     </div>
-                </form>
+                    <form action="#" th:action="@{/selectMenu}" th:object="${menuItem}" method="post">
+                        <div>
+                            <input type="hidden" th:value="${menuItem.id}" th:name="id"/>
+                            <label style="margin-left: 10px" th:text="#{text.rice_for_one_guest}">price for one guest
+                            </label>
+                            <label th:text="${menuItem.price}" th:value="${menuItem.price}" th:name="price">alesia
+                            </label>
+                            <label th:text="#{text.rub}">руб.</label>
+                            <div style="background-color: #444444; margin-left: 10px; margin-right: 10px; margin-bottom: 10px">
+                                <div style="width: 100%; margin: 0 auto">
+                                    <button  type="submit" th:text="#{text.see_more}" name="seeMore"
+                                            class="btn btn-classic save"
+                                            style="display: inline-block;  width : 240px; margin-left: 15px;margin-top: 10px ">
+                                        SEE
+                                        MENU
+                                    </button>
+                                    <button type="submit" th:text="#{text.edit}" name="editMenu"
+                                            class="btn btn-classic save"
+                                            style="display: inline-block;  width : 240px; margin-left: 15px;">MODIFY
+                                        MENU
+                                    </button>
+                                    <button onclick="del()" type="submit" th:value="${item.index}" th:text="#{text.delete_menu}"
+                                            name="deleteMenu"
+                                            class="btn btn-classic save"
+                                            style="display: inline-block;  width : 240px; margin-left: 15px;">DELETE MENU
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-        </div>
-
+        <label id="1" style="display: none"  th:text="#{text.Are_you_sure_you_want}"></label>
     </body>
 </html>
 
+<script>
+    function del() {
+        confirm($("#1").text());
+    }
+</script>

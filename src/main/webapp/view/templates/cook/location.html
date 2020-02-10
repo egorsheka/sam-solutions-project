@@ -5,13 +5,17 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/location.css}">
 </head>
 <div th:replace="fragments/cookNavbar :: cookNavbar"></div>
-<div class="first-div-label" style="margin-top: 65px; width: 700px">
-    <label class="first-label" style="width: 680px" th:text="#{text.Your_preferable_location}">Your preferable location</label>
+<div class="menuNavbar"></div>
+<div style="background-color: white; height: 90px; width: 100%; margin-bottom: 15px;">
+    <div class="first-div-label" style="margin: auto; width: 100%">
+        <label class="first-label" th:text="#{text.Your_preferable_location}" style="width: 100%">Your preferable location</label>
+    </div>
+    <div class="second-div-label"style="margin: auto; ; width: 100%" >
+        <label class="second-label"th:text="#{text.Choose_the_main_locations}"style="width: 100%" > Choose the main locations to allow only clients within your zone to book your
+            services</label>
+    </div>
 </div>
-<div class="second-div-label" >
-    <label class="second-label"th:text="#{text.Choose_the_main_locations}" > Choose the main locations to allow only clients within your zone to book your
-        services</label>
-</div>
+
 <div class="card main-div">
 
     <div class="card-body">

@@ -42,6 +42,25 @@
         </form>
     </div>
 </div>
+<div th:if="${orders.empty == true}" class="row justify-content-center" style="margin: auto; margin-top:15%; width: 100%">
+    <label class="first-label"  th:text="#{text.No_new_bookings_to_process}" style="margin: auto; font-size: 70px; color: white">No new bookings to process</label>
+</div>
+<form th:action="@{/orders/page}" th:object="${page}" method="post">
+<div th:if="${orders.empty == false}" class="row justify-content-center" style="margin-top: 30px">
+    <nav aria-label="Page navigation example">
+        <div class="pagination pagination-centered">
+            <ul class="pagination">
+
+                <li class="page-item" id="previous" ><button type="submit" th:name="previous" th:value="${page}" th:text="#{text.Previous}" class="page-link">Previous</button></li>
+                <li class="page-item" id="next" ><button type="submit" th:name="next" th:value="${page}" th:text="#{text.next}" class="page-link" style="width: 85.63px; text-align: center">Next</button></li>
+
+            </ul>
+        </div>
+    </nav>
+</div>
+</form>
+
+
 
 
 <script>

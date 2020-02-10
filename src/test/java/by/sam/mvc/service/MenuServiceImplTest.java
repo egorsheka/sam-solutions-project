@@ -28,8 +28,6 @@ import static org.junit.Assert.assertEquals;
 @WebAppConfiguration
 public class MenuServiceImplTest {
 
-    private MockMvc mockMvc;
-
     @InjectMocks
     MenuServiceImpl menuService;
 
@@ -37,7 +35,7 @@ public class MenuServiceImplTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(menuService).build();
+
     }
 
 
