@@ -1,21 +1,23 @@
 package by.sam.mvc.controllers;
 
 
+import by.sam.mvc.entity.location.Town;
 import by.sam.mvc.model.DistrictDto;
 import by.sam.mvc.model.OrderDto;
-import by.sam.mvc.entity.location.Town;
 import by.sam.mvc.model.TownDto;
 import by.sam.mvc.service.location.DistrictService;
 import by.sam.mvc.service.location.TownService;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
-// todo
+
 @Controller
 public class MainPageController {
 

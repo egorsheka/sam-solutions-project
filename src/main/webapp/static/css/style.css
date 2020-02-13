@@ -368,14 +368,14 @@ van{
   border-top: solid 4px white;
   height: 600px;
   border-bottom: solid 0.5px black;
-  background-color: #5e5e5e;
+  background-color: #343a40!important;
 }
 
 .app-info-container{
   height: 800px;
   border-bottom: solid 0.5px black;
   margin-top: -150px;
-  background-image: url("../images/kafe.jpg");
+  background-image: url("../images/mainPage.jpg");
 }
 .app-menu-container{
   height: 800px;
@@ -383,6 +383,11 @@ van{
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+
+}
+
+.back{
+  background-image: url("../images/greyFont2.png");
 
 }
 .app-content-text {

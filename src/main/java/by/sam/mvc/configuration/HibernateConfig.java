@@ -1,4 +1,4 @@
-package by.sam.mvc.config;
+package by.sam.mvc.configuration;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

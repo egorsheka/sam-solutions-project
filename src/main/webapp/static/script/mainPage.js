@@ -44,6 +44,11 @@
      option_.setAttribute("value", item.id.toString());
      option_.innerHTML = item.name.toString();
      selectDistrict.appendChild(option_);
+
+     if($("#labelId").text() !== "") {
+         $("#selectDistricts").val($("#labelId").text());
+     }
+
  });
  }));
  }

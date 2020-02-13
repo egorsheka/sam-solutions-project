@@ -1,7 +1,7 @@
 package by.sam.mvc.controllers;
 
 
-import by.sam.mvc.config.ThymeleafConfig;
+import by.sam.mvc.configuration.ThymeleafConfig;
 import by.sam.mvc.controllers.cook.MenuController;
 import by.sam.mvc.entity.menu.Cuisine;
 import by.sam.mvc.entity.menu.Dish;
@@ -27,7 +27,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -128,7 +127,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                         )
                 )));
         verify(cookService, times(1)).getAuthenticationCook(user);
-        verifyNoMoreInteractions(cookService);
 
     }
 

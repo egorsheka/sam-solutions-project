@@ -67,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.delete(id);
     }
 
-    //todo is it ok that parametrs are id of cook and client
+
     @Transactional
     @Override
     public void create(OrderDto orderDto) {
@@ -80,6 +80,7 @@ public class OrderServiceImpl implements OrderService {
         order.setDistrict(districtService.read(orderDto.getDistrict().getId()));
         order.setAddress(orderDto.getAddress());
         order.setMenu(menuService.read(orderDto.getMenuId()));
+        order.setAddInfo(orderDto.getAddInfo());
 
         Client client = clientService.read(orderDto.getClientId());
         client.setName(orderDto.getClientName());
@@ -96,6 +97,14 @@ public class OrderServiceImpl implements OrderService {
         client.setAddress(orderDto.getAddress());
         clientService.update(client);
         clientService.createOrderItem(orderDto.getClientId(), order);
+        if(order.getAddInfo() == null) {
+            mailSender.send("Новый заказ", "У вас появился новый заказ, перейдите на сайт, чтобы подтвердить его.", cook.getEmail());
+        }else {
+            String message = " Дополниетельная информация клиента: " + order.getAddInfo();
+            mailSender.send("Новый заказ", "У вас появился новый заказ, перейдите на сайт, чтобы подтвердить его." + message, cook.getEmail());
+
+        }
+
     }
 
     @Transactional
@@ -111,8 +120,7 @@ public class OrderServiceImpl implements OrderService {
     public void sendMailClientToConfirmService(int id) {
         Order order = read(id);
         Client client = order.getClient();
-        mailSender.send("Confirm your dinner", "Please login and confirm your dinner that the cook has provided you with his services./n" +
-                "http://localhost:8084/sam_solutions_project_war/login", client.getEmail());
+        mailSender.send("Повар подтвердил ващ заказ", "Ожидайте звонка или сообщения от повара.", client.getEmail());
     }
 
     @Transactional

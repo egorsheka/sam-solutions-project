@@ -35,18 +35,18 @@ public class WorkLocationController {
         return cookService.getSortedDistrictCookDtoListByTown(town, cookService.getAuthenticationCook(currentUser).getId());
     }
 
-    //todo
+
     @PostMapping(value = "/getCookDistricts")
     @ResponseBody
     public List<DistrictDto> getCookWorkLocation(@AuthenticationPrincipal UserDetails currentUser) {
         return cookService.readCookLocation(cookService.getAuthenticationCook(currentUser).getId());
     }
 
-    //todo
+
     @PostMapping(value = "/saveCookDistricts")
     public String saveCookDistricts(@RequestBody List<DistrictDto> dtoList, @AuthenticationPrincipal UserDetails currentUser) {
         cookService.updateDistricts(cookService.getAuthenticationCook(currentUser).getId(), dtoList);
-        return "do not matter";
+        return "cook/startCook";
     }
 
 }

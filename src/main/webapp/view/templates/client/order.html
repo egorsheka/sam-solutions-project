@@ -22,7 +22,7 @@
                    style="color: #333333; font-size: 14px"></label>
         </div>
 
-        <div style="background-color: rgba(72,71,69,0.86); height: 5px"></div>
+        <div style="background-color: rgba(50, 47, 42, 0.99); height: 5px"></div>
 
 
         <div style="margin-top: 15px; margin-left: 10px">
@@ -39,7 +39,7 @@
                    style="color: #333333; font-size: 14px"></label>
         </div>
 
-        <div style="background-color: rgba(72,71,69,0.86); height: 5px"></div>
+        <div style="background-color: rgba(50, 47, 42, 0.99); height: 5px"></div>
         <div style="margin-top: 15px; margin-left: 10px">
             <label class="main-label" style="color: #333333; font-size: 15px"><b th:text="#{text.Cook}"></b></label>
         </div>
@@ -57,7 +57,7 @@
             </div>
 
         </div>
-        <div style="background-color: rgba(72,71,69,0.86); height: 5px"></div>
+        <div style="background-color: rgba(50, 47, 42, 0.99); height: 5px"></div>
         <div style="margin-top: 15px; margin-left: 10px">
             <label class="main-label" style="color: #333333; font-size: 15px" ><b th:text="#{text.Name_of_menu}"></b></label>
         </div>
@@ -65,7 +65,7 @@
             <label class="main-label" th:text="${order.menu.name}"
                    style="color: #333333; font-size: 14px"></label>
         </div>
-        <div style="background-color: rgba(72,71,69,0.86); height: 5px"></div>
+        <div style="background-color: rgba(50, 47, 42, 0.99); height: 5px"></div>
         <div style="margin-top: 15px; margin-left: 10px">
             <label class="main-label" style="color: #333333; font-size: 15px"><b th:text="#{text.Total_price_booking_fee}"></b></label>
         </div>
@@ -85,7 +85,7 @@
         <div style="position: absolute;right: 30px;  bottom:20px; width: 200px">
         <label  th:if="${order.orderType.name() != 'CLOSED'}" th:text="#{text.confirm_if_the_cook}">confirm if the cook has provided you with his services</label>
         <button th:if="${order.orderType.name() != 'CLOSED'}" name="confirm" class="btn btn-classic save" th:value="${order.id}"  type="submit"
-                style="display: inline-block; margin-top: 12px;font-size: 15px;  width : 200px;" th:text="#{text.finish_order}">CONFIRM BOOKING
+                style="display: inline-block;font-size: 15px;  width : 200px;" th:text="#{text.finish_order}">CONFIRM BOOKING
         </button>
         <button th:if="${order.orderType.name() == 'CLOSED'}" name="back" class="btn btn-classic save"  type="submit"
                 style="display: inline-block; margin-top: 12px;font-size: 15px;  width : 200px;" th:text="#{text.back}">CONFIRM BOOKING

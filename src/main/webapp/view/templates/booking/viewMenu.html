@@ -29,7 +29,7 @@
 
 
 </head>
-<body style="background-color: #f9f8f6">
+<body class="back">
 
 <div sec:authorize="hasAuthority('COOK')">
     <div th:replace="fragments/cookNavbar :: cookNavbar"></div>
@@ -52,86 +52,90 @@
 
 <form action="#" th:action="@{/viewMenu}" th:object="${order}" method="post">
     <div>
-        <div class="main-div-img" style="height: 250px; position: absolute;  width: 100%;">
-            <div style="background-color: #6b2024; height: 70px; position:absolute;bottom:0;right:0; width: 100%; ">
+        <div class="main-div-img" style="height: 213px;   width: 100%;"></div>
+        <div style="background-color: #6b2024; height: 70px; width: 100%;">
 
-                <div style="color:white; font-size: 30px; text-align: center;
+            <div style="color:white; font-size: 30px; text-align: center;
             display: flex;
             align-items: center;
             justify-content: center ">
 
-                    <span>in</span>
-                    <div style="padding: 10px;">
-                        <select class="form-control input-main" th:field="${order.town}" id="select_">
-                            <option th:each="t : ${townList}" th:value="${t.id}" th:text="${t.name}"></option>
-                        </select>
-                    </div>
+                <span>in</span>
+                <div style="padding: 10px;">
+                    <select class="form-control input-main" th:field="${order.town}" id="select_">
+                        <option th:each="t : ${townList}" th:value="${t.id}" th:text="${t.name}"></option>
+                    </select>
+                </div>
 
-                    <div style="padding: 10px;">
-                        <select class="form-control input-main" th:field="${order.district.id}" id="selectDistricts"
-                                style="z-index: 2">
-                            <option th:each="district : ${districtList}" th:value="${district.id}"
-                                    th:text="${district.name}">
-                            </option>
-                        </select>
-                    </div>
+                <div style="padding: 10px;">
+                    <select class="form-control input-main" th:field="${order.district.id}" id="selectDistricts"
+                            style="z-index: 2">
+                        <option th:each="district : ${districtList}" th:value="${district.id}"
+                                th:text="${district.name}">
+                        </option>
+                    </select>
+                    <label id="labelId" style="display: none"  th:text="${order.district.id}"></label>
+                </div>
 
-                    <div>
-                        <span>on</span>
-                    </div>
-
-
-                    <div style="padding: 10px;">
-                        <input class="form-control input-main" id="orderedDate" type="date" th:value="${order.date}"
-                               th:field="${order.date}"
-                               min="2019-12-01" max="2020-06-31">
-                    </div>
-
-                    <span>at</span>
-                    <div style="padding: 10px;">
-                        <select th:field="${order.time}" class="form-control" style="width: 90px">
-                            <option th:value="${'01:00'}" th:text="${'01:00'}">01:00</option>
-                            <option th:value="${'02:00'}" th:text="${'02:00'}">02:00</option>
-                            <option th:value="${'03:00'}" th:text="${'03:00'}">03:00</option>
-                            <option th:value="${'04:00'}" th:text="${'04:00'}">04:00</option>
-                            <option th:value="${'05:00'}" th:text="${'05:00'}">05:00</option>
-                            <option th:value="${'06:00'}" th:text="${'06:00'}">06:00</option>
-                            <option th:value="${'07:00'}" th:text="${'07:00'}">07:00</option>
-                            <option th:value="${'08:00'}" th:text="${'08:00'}">08:00</option>
-                            <option th:value="${'09:00'}" th:text="${'09:00'}">09:00</option>
-                            <option th:value="${'10:00'}" th:text="${'10:00'}">10:00</option>
-                            <option th:value="${'11:00'}" th:text="${'11:00'}">11:00</option>
-                            <option th:value="${'12:00'}" th:text="${'12:00'}">12:00</option>
-                            <option th:value="${'13:00'}" th:text="${'13:00'}">13:00</option>
-                            <option th:value="${'14:00'}" th:text="${'14:00'}">14:00</option>
-                            <option th:value="${'15:00'}" th:text="${'15:00'}">15:00</option>
-                            <option th:value="${'16:00'}" th:text="${'16:00'}">16:00</option>
-                            <option th:value="${'17:00'}" th:text="${'17:00'}">17:00</option>
-                            <option th:value="${'18:00'}" th:text="${'18:00'}">18:00</option>
-                            <option th:value="${'19:00'}" th:text="${'19:00'}" selected>19:00</option>
-                            <option th:value="${'20:00'}" th:text="${'20:00'}">20:00</option>
-                            <option th:value="${'21:00'}" th:text="${'21:00'}">21:00</option>
-                            <option th:value="${'22:00'}" th:text="${'22:00'}">22:00</option>
-                            <option th:value="${'23:00'}" th:text="${'23:00'}">23:00</option>
-                            <option th:value="${'24:00'}" th:text="${'24:00'}">23:00</option>
-                        </select>
-                    </div>
+                <div>
+                    <span>on</span>
+                </div>
 
 
-                    <div style="padding: 10px;">
-                        <button th:text="#{text.view_menu}" name="save" type="submit" class="btn btn-warning"
-                                style=" border-radius: 5px; margin-top: 10px">view menu
-                        </button>
-                    </div>
+                <div style="padding: 10px;">
+                    <input class="form-control input-main" id="orderedDate" type="date" th:value="${order.date}"
+                           th:field="${order.date}"
+                           min="2019-12-01" max="2020-06-31">
+
+                </div>
+
+                <span>at</span>
+                <div style="padding: 10px;">
+                    <select th:field="${order.time}" class="form-control" style="width: 90px">
+                        <option th:value="${'01:00'}" th:text="${'01:00'}">01:00</option>
+                        <option th:value="${'02:00'}" th:text="${'02:00'}">02:00</option>
+                        <option th:value="${'03:00'}" th:text="${'03:00'}">03:00</option>
+                        <option th:value="${'04:00'}" th:text="${'04:00'}">04:00</option>
+                        <option th:value="${'05:00'}" th:text="${'05:00'}">05:00</option>
+                        <option th:value="${'06:00'}" th:text="${'06:00'}">06:00</option>
+                        <option th:value="${'07:00'}" th:text="${'07:00'}">07:00</option>
+                        <option th:value="${'08:00'}" th:text="${'08:00'}">08:00</option>
+                        <option th:value="${'09:00'}" th:text="${'09:00'}">09:00</option>
+                        <option th:value="${'10:00'}" th:text="${'10:00'}">10:00</option>
+                        <option th:value="${'11:00'}" th:text="${'11:00'}">11:00</option>
+                        <option th:value="${'12:00'}" th:text="${'12:00'}">12:00</option>
+                        <option th:value="${'13:00'}" th:text="${'13:00'}">13:00</option>
+                        <option th:value="${'14:00'}" th:text="${'14:00'}">14:00</option>
+                        <option th:value="${'15:00'}" th:text="${'15:00'}">15:00</option>
+                        <option th:value="${'16:00'}" th:text="${'16:00'}">16:00</option>
+                        <option th:value="${'17:00'}" th:text="${'17:00'}">17:00</option>
+                        <option th:value="${'18:00'}" th:text="${'18:00'}">18:00</option>
+                        <option th:value="${'19:00'}" th:text="${'19:00'}" selected>19:00</option>
+                        <option th:value="${'20:00'}" th:text="${'20:00'}">20:00</option>
+                        <option th:value="${'21:00'}" th:text="${'21:00'}">21:00</option>
+                        <option th:value="${'22:00'}" th:text="${'22:00'}">22:00</option>
+                        <option th:value="${'23:00'}" th:text="${'23:00'}">23:00</option>
+                        <option th:value="${'24:00'}" th:text="${'24:00'}">23:00</option>
+                    </select>
+                </div>
 
 
+                <div style="padding: 10px;">
+                    <button th:text="#{text.view_menu}" name="save" type="submit" class="btn btn-warning"
+                            style=" border-radius: 5px; margin-top: 10px">view menu
+                    </button>
                 </div>
 
 
             </div>
+
+
         </div>
         <div class="row justify-content-center"
-             style="background-color: #b7b7b7; width: 100%; height: 130px;position:absolute;bottom: 482px;">
+             style="webkit-repeating-linear-gradient(-45deg,#f9f8f6,#f9f8f6 3px,#eae9e8 4px,#f9f8f6 5px);
+    background-image: -moz-repeating-linear-gradient(-45deg,#f9f8f6,#f9f8f6 3px,#eae9e8 4px,#f9f8f6 5px);
+    background-image: -o-repeating-linear-gradient(-45deg,#f9f8f6,#f9f8f6 3px,#eae9e8 4px,#f9f8f6 5px);
+    background-image: repeating-linear-gradient(-45deg,#f9f8f6,#f9f8f6 3px,#eae9e8 4px,#f9f8f6 5px); width: 100%; height: 130px;bottom: 482px; margin-right: 0px;margin-left: 0px;">
             <div style="width: 600px; margin-top: 20px">
                 <div class="card cuisine-card d-inline-block" style="height: 25px; margin-top: 3px; margin-right: 3px"
                      th:each="cuisine : ${allCuisines}"
@@ -147,13 +151,12 @@
     </div>
 </form>
 
-<div style="margin-bottom: 300px"></div>
 
-<div th:if="${menuList.empty == true}" class="row justify-content-center" style="margin: auto; margin-top:25%; width: 100%">
+<div th:if="${menuList.empty == true}" class="row justify-content-center" style="margin: auto; width: 100%">
     <label class="first-label"  th:text="#{text.No_menus_for_this_request}" style="font-size: 70px;">No menus for this request</label>
 </div>
 
-<div class="row justify-content-center" style="margin-top: 380px; margin-right: 15px; margin-left: 15px">
+<div class="row justify-content-center" style="margin-right: 15px; margin-left: 15px">
 
     <div class=" d-inline-block">
         <div class="card main-div" th:each="menuItem, item : ${menuList}" th:if="${item.index % 2  == 0}"
@@ -167,7 +170,7 @@
                 <div class="carousel-inner">
                     <div class="carousel-item active" th:each="dish, itemDish : ${menuItem.dishes}"
                          th:if="${itemDish.index == 0}">
-                        <img class="d-block w-100" th:src="@{/images/kafe.jpg}" alt="First slide"
+                        <img class="d-block w-100" th:src="@{/images/dish2.jpg}" alt="First slide"
                              style="max-height: 210px; min-height: 210px;">
                         <div class="carousel-caption d-none d-md-block">
                             <h5 th:text="${menuItem.name}"></h5>
@@ -175,7 +178,7 @@
                     </div>
                     <div class="carousel-item" th:each="dish, itemDish : ${menuItem.dishes}"
                          th:if="${itemDish.index != 0}">
-                        <img class="d-block w-100" th:src="@{/images/kafe.jpg}" alt="First slide"
+                        <img class="d-block w-100" th:src="@{/images/dish3.jpg}" alt="First slide"
                              style="max-height: 210px; min-height: 210px;">
                         <div class="carousel-caption d-none d-md-block">
                             <h5 th:text="${menuItem.name}"></h5>
@@ -232,7 +235,7 @@
                 <div class="carousel-inner">
                     <div class="carousel-item active" th:each="dish, itemDish : ${menuItem.dishes}"
                          th:if="${itemDish.index == 0}">
-                        <img class="d-block w-100" th:src="@{/images/kafe.jpg}" alt="First slide"
+                        <img class="d-block w-100" th:src="@{/images/dish.jpg}" alt="First slide"
                              style="max-height: 210px; min-height: 210px;">
                         <div class="carousel-caption d-none d-md-block">
                             <h5 th:text="${menuItem.name}"></h5>
@@ -240,7 +243,7 @@
                     </div>
                     <div class="carousel-item" th:each="dish, itemDish : ${menuItem.dishes}"
                          th:if="${itemDish.index != 0}">
-                        <img class="d-block w-100" th:src="@{/images/kafe.jpg}" alt="First slide"
+                        <img class="d-block w-100" th:src="@{/images/dish.jpg}" alt="First slide"
                              style="max-height: 210px; min-height: 210px;">
                         <div class="carousel-caption d-none d-md-block">
                             <h5 th:text="${menuItem.name}"></h5>
@@ -331,6 +334,7 @@
         }
 
     }
+
 
 
 </script>

@@ -1,4 +1,4 @@
-package by.sam.mvc.config;
+package by.sam.mvc.configuration;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 import org.springframework.web.filter.CharacterEncodingFilter;

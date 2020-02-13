@@ -5,20 +5,19 @@
 <head>
     <div th:replace = "fragments/header :: header-menu"></div>
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/tail.select-default.css}">
 </head>
 
-<body class=FonIn>
+<body class=FonIn style="padding: 0px">
 
 <div sec:authorize="hasAuthority('COOK')">
-<!--    <div th:replace = "fragments/cookNavbar :: cookNavbar"></div>-->
     <nav class="navbar navbar-dark bg-dark" style="position: fixed; top: -3px; width: 100%;z-index: 2" >
         <div class="form-inline  app-nav-bar-container" style="margin-left: 60%">
-            <div class="btn-group" style="flex: 2; ">
-                <button type="button" class="" data-toggle="dropdown" aria-haspopup="true"
+            <div class="btn-group" style="flex: 2;">
+                <button type="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false"
                         th:text="#{text.Language}"
                         style="position: absolute; right: 0;  top: -15px; color:#ca6a45;  background-color: #343a40!important; border: 0;font-size: 20px;font-family: Bree Serif, serif;">
-                    Language
                 </button>
                 <div class="dropdown-menu" style="right: 0; left: auto; top: 30px; background-color: #343a40!important;">
                     <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="@{?lang=ru_RU}" th:text="#{text.Russian}">Russian</a>
@@ -40,9 +39,9 @@
                     My account
                 </button>
                 <div class="dropdown-menu" style="right: 0; left: auto; top: 30px; background-color: #343a40!important;">
-                    <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="${(#mvc.url('MPC#getMainPage')).build()}" th:text="#{text.Maim_page}">Main page</a>
-                    <div class="dropdown-divider" style="color: whitesmoke;"></div>
-                    <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="@{/logout}" th:text="#{text.Logout}">Logout</a>
+                    <a class="dropdown-item app-nav-link-item"  th:href="${(#mvc.url('MPC#getMainPage')).build()}" th:text="#{text.Maim_page}">Main page</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item app-nav-link-item"   th:href="@{/logout}" th:text="#{text.Logout}">Logout</a>
                 </div>
             </div>
 
@@ -50,23 +49,22 @@
     </nav>
 </div>
 <div sec:authorize="hasAuthority('CLIENT')">
-<!--    <div th:replace = "fragments/clientNavbar :: clientNavbar"></div>-->
     <nav class="navbar navbar-dark bg-dark" style="position: fixed; top: -3px; width: 100%;z-index: 2" >
         <a class="nav-link active app-nav-link-item" style="color: #343a40">_</a>
         <div class="form-inline  app-nav-bar-container" style="margin-left: 60%">
             <div class="btn-group" style="flex: 2;margin-right: 70px ">
-                <button type="button" class="" data-toggle="dropdown" aria-haspopup="true"
+                <button type="button" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false"
                         th:text="#{text.Language}"
                         style="position: absolute; right: 0;  top: -15px; color:#ca6a45;  background-color: #343a40!important; border: 0;font-size: 20px;font-family: Bree Serif, serif;">
                     Language
                 </button>
                 <div class="dropdown-menu" style="right: 0; left: auto; top: 30px; background-color: #343a40!important;">
-                    <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="@{?lang=ru_RU}" th:text="#{text.Russian}">Russian</a>
+                    <a class="dropdown-item app-nav-link-item"  th:href="@{?lang=ru_RU}" th:text="#{text.Russian}">Russian</a>
                     <div class="dropdown-divider" style="color: whitesmoke;"></div>
-                    <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="@{?lang=de}" th:text="#{text.Deutsch}">Deutsch</a>
+                    <a class="dropdown-item app-nav-link-item"   th:href="@{?lang=de}" th:text="#{text.Deutsch}">Deutsch</a>
                     <div class="dropdown-divider" style="color: whitesmoke;"></div>
-                    <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="@{?lang=en_US}" th:text="#{text.English}">English</a>
+                    <a class="dropdown-item app-nav-link-item"   th:href="@{?lang=en_US}" th:text="#{text.English}">English</a>
                 </div>
             </div>
             <div class="btn-group" style="flex: 2; width: 110px;">
@@ -76,11 +74,11 @@
                     My account
                 </button>
                 <div class="dropdown-menu" style="right: 0; left: auto; top: 30px; background-color: #343a40!important;">
-                    <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="${(#mvc.url('MPC#getMainPage')).build()}" th:text="#{text.Maim_page}">Main page</a>
+                    <a class="dropdown-item app-nav-link-item" th:href="${(#mvc.url('MPC#getMainPage')).build()}" th:text="#{text.Maim_page}">Main page</a>
                     <div class="dropdown-divider" style="color: whitesmoke;"></div>
-                    <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="${(#mvc.url('COC#getOrdersPage')).build()}" th:text="#{text.My_orders}">My orders</a>
+                    <a class="dropdown-item app-nav-link-item"   th:href="${(#mvc.url('COC#getOrdersPage')).build()}" th:text="#{text.My_orders}">My orders</a>
                     <div class="dropdown-divider" style="color: whitesmoke;"></div>
-                    <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="@{/logout}" th:text="#{text.Logout}">Logout</a>
+                    <a class="dropdown-item app-nav-link-item"  th:href="@{/logout}" th:text="#{text.Logout}">Logout</a>
                 </div>
             </div>
 
@@ -99,11 +97,11 @@
                 Language
             </button>
             <div class="dropdown-menu" style="right: 0; left: auto; top: 30px; background-color: #343a40!important;">
-                <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="@{?lang=ru_RU}" th:text="#{text.Russian}">Russian</a>
+                <a class="dropdown-item app-nav-link-item"  th:href="@{?lang=ru_RU}" th:text="#{text.Russian}">Russian</a>
                 <div class="dropdown-divider" style="color: whitesmoke;"></div>
-                <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="@{?lang=de}" th:text="#{text.Deutsch}">Deutsch</a>
+                <a class="dropdown-item app-nav-link-item"   th:href="@{?lang=de}" th:text="#{text.Deutsch}">Deutsch</a>
                 <div class="dropdown-divider" style="color: whitesmoke;"></div>
-                <a class="dropdown-item app-nav-link-item" style="color: whitesmoke;"  th:href="@{?lang=en_US}" th:text="#{text.English}">English</a>
+                <a class="dropdown-item app-nav-link-item"  th:href="@{?lang=en_US}" th:text="#{text.English}">English</a>
             </div>
         </div>
         <div class="form-inline  app-nav-bar-container" style="width: 70px">
@@ -127,7 +125,7 @@
 
             <span>in</span>
             <div style="padding: 10px;">
-                <select class="form-control input-main" th:field="${order.town}" id="select_">
+                <select class=" form-control input-main" th:field="${order.town}" id="select_">
                     <option th:each="t : ${townList}" th:value="${t.id}" th:text="${t.name}"></option>
                 </select>
             </div>
@@ -189,23 +187,18 @@
         </div>
     </div>
 
-    <div class="app-content-container">
-        <div class="app-content-text" style="border-bottom: solid 0.1px white; padding-bottom: 10px">
-            <p style="font-size: 40px">Rediscover the pleasure of entertaining at home</p>
+    <div class="app-content-container" style="height: 300px;">
+        <div class="app-content-text" style="padding: 0px; margin-top: 40px">
+            <p style="font-size: 40px; text-align: center" th:text="#{text.Rediscover_the_pleasure}">Rediscover the pleasure of entertaining at home</p>
+            <label th:text="#{text.We_believe_people}">
             We believe people should love hosting and entertaining others at home. It should be easy, delicious and
-            enjoyable.
-            <p></p>
-            In the future, hosting meal with loved ones will be simple and stress-free. Planning will be a breeze.
-            Ingredients will be fresh. Logistics will be invisible.
+                enjoyable.</label>
         </div>
-
-        <p align="center" style="font-size: 40px; width: 1000px; color: white; margin: 0 auto; padding-top: 20px">
-            At La Belle Assiette, we are building this future.
-        </p>
     </div>
 
 </form>
 <script type="text/javascript">
+    $(document).ready(function () {
 
 
     //http://sc0489:8080/personalcook_war_exploded/
@@ -223,7 +216,7 @@
 
 
 </script>
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" th:src="@{/script/jquery.js}"></script>
 <script type="text/javascript" th:src="@{/script/mainPage.js}"></script>
 

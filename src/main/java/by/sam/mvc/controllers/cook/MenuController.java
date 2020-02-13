@@ -89,8 +89,7 @@ public class MenuController {
         }
         int cookId = cookService.getAuthenticationCook(currentUser).getId();
         cookService.createMenuItem(cookId, newMenu);
-        model.addAttribute("menuList", cookService.read(cookId).getMenu());
-        return "cook/menu/startMenu";
+        return "redirect:/menuPage";
     }
 
 
@@ -102,8 +101,7 @@ public class MenuController {
         int cookId = cookService.getAuthenticationCook(currentUser).getId();
         List<Menu> menus = cookService.read(cookId).getMenu();
         cookService.deleteMenuItem(cookId, menus.remove(deleteMenu));
-        model.addAttribute("menuList", menus);
-        return "cook/menu/startMenu";
+        return "redirect:/menuPage";
     }
 
     // edit one menu
@@ -141,8 +139,7 @@ public class MenuController {
         }
         int cookId = cookService.getAuthenticationCook(currentUser).getId();
         cookService.updateMenuItem(cookId, menu);
-        model.addAttribute("menuList", cookService.read(cookId).getMenu());
-        return "cook/menu/startMenu";
+        return "redirect:/menuPage";
     }
 
 

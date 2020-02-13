@@ -1,7 +1,7 @@
 package by.sam.mvc.service;
 
 
-import by.sam.mvc.config.ThymeleafConfig;
+import by.sam.mvc.configuration.ThymeleafConfig;
 import by.sam.mvc.entity.menu.Cuisine;
 import by.sam.mvc.entity.menu.Dish;
 import by.sam.mvc.entity.menu.Menu;
@@ -14,8 +14,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.ArrayList;
 import java.util.Arrays;

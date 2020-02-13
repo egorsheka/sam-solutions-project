@@ -27,7 +27,6 @@ public interface CookService extends Service<Cook> {
     void updateMenuItem(int id, Menu menu);
 
     void createOrderItem(int id, Order order);
-    void updateOrderItem(int id, Order order);
 
 
     Cook getCookByMenuId(int menuId);

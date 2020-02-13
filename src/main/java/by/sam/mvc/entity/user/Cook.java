@@ -53,7 +53,6 @@ public class Cook {
     @ManyToOne
     private UserEntity userEntity;
 
-    private String status;
 
     public Cook(){}
 
@@ -119,14 +118,6 @@ public class Cook {
         this.mobile = mobile;
     }
 
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public List<District> getDistricts() {
         return districts;

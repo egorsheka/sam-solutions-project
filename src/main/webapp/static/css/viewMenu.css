@@ -1,5 +1,10 @@
 .main-div-img{
-    background-image: url("../images/kafe.jpg");
+    background: url("../images/viewMenu.jpg" )  no-repeat;
+    -moz-background-size: 100%; /* Firefox 3.6+ */
+    -webkit-background-size: 100%; /* Safari 3.1+ и Chrome 4.0+ */
+    -o-background-size: 100%; /* Opera 9.6+ */
+    background-size: 100%;
+
 }
 
 
@@ -10,7 +15,7 @@
 
     background: #FFFFFF;
     mix-blend-mode: normal;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 11px 8px 7px 0px rgba(0, 0.25, 0.25, 0.25);
 }
 
 .cuisine-card-selected{

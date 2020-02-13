@@ -30,7 +30,7 @@
             crossorigin="anonymous"></script>
 </head>
 
-<body style="background-color: #f9f8f6">
+<body class="back">
 
 
 <div sec:authorize="hasAuthority('COOK')">
@@ -53,7 +53,7 @@
 
 
 <form action="#" th:action="@{/makeOrder}" th:object="${order}" method="post">
-<div class="row justify-content-center" style="margin-top: 200px; margin-bottom: 200px">
+<div class="row justify-content-center" style="margin-top: 100px; margin-bottom: 200px">
     <div class="card d-inline-block" style="width: 470px; height: 550px; border: 0px; margin-left: 70px">
 
         <div style="margin-top: 15px; margin-left: 10px">
@@ -69,8 +69,8 @@
 
 
         <div class="card-body" style="height: 5px">
-            <div class="card dish-card2"
-                 style="width: 580px; margin-left: -20px; margin-top: -20px; border-color: #f9f8f6; border-width: 20px; border-radius: 0px; border-style: solid"></div>
+            <div class="card dish-card2 back"
+                 style="width: 580px; margin-left: -20px; margin-top: -20px; height: 20px;  border-width: 0; border-radius: 0px;"></div>
         </div>
 
         <div style="margin-top: 15px; margin-left: 10px">
@@ -83,13 +83,14 @@
 
         <div class="form-group" style="margin-left: 10px; margin-top: -10px; width: 440px">
             <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="2"
-                      th:placeholder="#{text.Please_indicate_if_you_would}"></textarea>
+                      th:value="${order.addInfo}" th:text="${order.addInfo}" th:name="addInfo" th:placeholder="#{text.Please_indicate_if_you_would}">
+            </textarea>
         </div>
 
 
         <div class="card-body" style="height: 5px">
-            <div class="card dish-card2"
-                 style="width: 580px; margin-left: -20px; margin-top: -20px; border-color: #f9f8f6; border-width: 20px; border-radius: 0px; border-style: solid"></div>
+            <div class="card dish-card2 back"
+                 style="width: 580px; margin-left: -20px; margin-top: -20px; height: 20px;  border-width: 0; border-radius: 0px"></div>
         </div>
 
 
@@ -180,8 +181,8 @@
         </div>
 
         <div class="card-body">
-            <div class="card dish-card2"
-                 style="position: absolute;left: 0px; top:110px; width: 288px; border-color: #f9f8f6; border-width: 17px; border-radius: 0px; border-style: solid"></div>
+            <div class="card dish-card2 back"
+                 style="position: absolute;left: 0px; top:110px; width: 288px;  height: 17px;  border-width: 0; border-radius: 0px;"></div>
         </div>
 
 

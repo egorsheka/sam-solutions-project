@@ -30,7 +30,7 @@
 
 
 </head>
-<body style="background-color: #f9f8f6">
+<body class="back">
 
 <div sec:authorize="hasAuthority('COOK')">
     <div th:replace = "fragments/cookNavbar :: cookNavbar"></div>
@@ -118,8 +118,8 @@
         </div>
 
         <div class="card-body">
-            <div class="card dish-card2"
-                 style="position: absolute;left: 0px; top:110px; width: 288px; border-color: #f9f8f6; border-width: 17px; border-radius: 0px; border-style: solid"></div>
+            <div class="card dish-card2 back"
+                 style="position: absolute;left: 0px; top:110px; width: 288px; border-color: #f9f8f6; height: 17px;  border-width: 0; border-radius: 0px"></div>
         </div>
 
 
@@ -242,8 +242,8 @@
 
 
         <div class="form-group" style="position: absolute;left: 15px;  top:440px;width: 258px">
-            <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="4"
-                      th:placeholder="#{text.Please_indicate_if_you_would}"></textarea>
+            <textarea class="form-control rounded-0" id="exampleFormControlTextarea2" rows="4" th:value="${order.addInfo}"
+                  th:name="addInfo"  th:placeholder="#{text.Please_indicate_if_you_would}"></textarea>
         </div>
 
             <input type="hidden" th:value="${menu.id}" th:name="menuId">

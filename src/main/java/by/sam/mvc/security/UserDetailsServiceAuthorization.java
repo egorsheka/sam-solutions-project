@@ -19,11 +19,9 @@ public class UserDetailsServiceAuthorization implements UserDetailsService {
 
     private final UserService userService;
 
-
     public UserDetailsServiceAuthorization(UserService userService) {
         this.userService = userService;
     }
-
 
     @Override
     @Transactional

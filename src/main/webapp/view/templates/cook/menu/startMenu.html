@@ -7,12 +7,12 @@
         <div style="width: 100%; height: 60px; background-color: white">
             <form action="#" th:action="@{/createMenu}" method="get">
                 <div th:if="${sixMenu == true}" style="position: absolute; left: 25%;">
-                    <label style="width: 700px; margin-top: 15px; font-size: 22px" th:text="#{text.you_can_have_only}">
+                    <label style="width: 800px; margin-top: 15px; font-size: 22px" th:text="#{text.you_can_have_only}">
                         You can have only 6 personal menus
                     </label>
                 </div>
                 <div th:if="${sixMenu != true && fullProfile == false}" style="position: absolute; left: 25%;">
-                    <label style="width: 700px; margin-top: 15px; font-size: 22px" th:text="#{text.in_order_for}">In
+                    <label style="width: 800px; margin-top: 15px; font-size: 22px" th:text="#{text.in_order_for}">In
                         order for the client to see your menu you need to fill out the entire profile
                     </label>
                 </div>

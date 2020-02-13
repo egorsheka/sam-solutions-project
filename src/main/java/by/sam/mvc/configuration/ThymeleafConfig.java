@@ -1,4 +1,4 @@
-package by.sam.mvc.config;
+package by.sam.mvc.configuration;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -34,9 +34,6 @@ public class ThymeleafConfig extends WebMvcConfigurerAdapter implements Applicat
     public void setApplicationContext(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
-
-
-
 
     @Bean
     public ViewResolver viewResolver() {

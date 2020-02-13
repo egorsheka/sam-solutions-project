@@ -72,6 +72,7 @@ public class  RegistrationController {
             userService.verifyUser(id);
         }
         model.addAttribute("user", new Cook());
+        model.addAttribute("loginError", false);
         return "login";
     }
 

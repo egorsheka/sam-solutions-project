@@ -38,8 +38,6 @@ public class MenuRepositoryImpl implements MenuRepository {
 
 
 
-    //TODO check fetch = FetchType.EAGER or to understand Hibernate.initialize(menu.getDishes());
-
     @Override
     public Menu read(int id){
         Menu menu = manager.find(Menu.class, id);

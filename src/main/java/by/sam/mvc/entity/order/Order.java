@@ -22,6 +22,8 @@ public class Order {
     private String eventTime;
     private LocalDate date;
     private int countOfGuests;
+    private String addInfo;
+
     @ManyToOne
     private District district;
     private String address;
@@ -31,6 +33,7 @@ public class Order {
     private Client client;
     @ManyToOne
     private Cook cook;
+
 
     @Enumerated(EnumType.STRING)
     @Column(name = "order_type")
@@ -139,6 +142,14 @@ public class Order {
                 countOfGuests == order.countOfGuests &&
                 Objects.equals(date, order.date);
 
+    }
+
+    public String getAddInfo() {
+        return addInfo;
+    }
+
+    public void setAddInfo(String addInfo) {
+        this.addInfo = addInfo;
     }
 
     @Override

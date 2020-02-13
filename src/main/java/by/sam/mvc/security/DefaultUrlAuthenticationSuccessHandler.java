@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Collection;
 
-// todo
+
 public class DefaultUrlAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
 
@@ -33,7 +33,6 @@ public class DefaultUrlAuthenticationSuccessHandler implements AuthenticationSuc
         String targetUrl = determineTargetUrl(authentication);
 
         if (response.isCommitted()) {
-            //"Response has already been committed. Unable to redirect to "
             return;
         }
 
@@ -42,7 +41,6 @@ public class DefaultUrlAuthenticationSuccessHandler implements AuthenticationSuc
 
     protected String determineTargetUrl(Authentication authentication) {
         boolean isUser = false;
-        boolean isAdmin = false;
         boolean isCook = false;
         Collection<? extends GrantedAuthority> authorities
                 = authentication.getAuthorities();
@@ -51,10 +49,6 @@ public class DefaultUrlAuthenticationSuccessHandler implements AuthenticationSuc
 
             if (grantedAuthority.getAuthority().equals("CLIENT")) {
                 isUser = true;
-                break;
-            }
-            if (grantedAuthority.getAuthority().equals("ADMIN")) {
-                isAdmin = true;
                 break;
             }
             if (grantedAuthority.getAuthority().equals("COOK")) {
@@ -66,10 +60,8 @@ public class DefaultUrlAuthenticationSuccessHandler implements AuthenticationSuc
 
         if (isUser) {
             return "/confirmMenu";
-        } else if (isAdmin) {
-            return "";
         } else if (isCook) {
-            return "/cookPage";
+            return "/orders";
         } else {
             throw new IllegalStateException();
         }
@@ -83,11 +75,5 @@ public class DefaultUrlAuthenticationSuccessHandler implements AuthenticationSuc
         session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
     }
 
-    public void setRedirectStrategy(RedirectStrategy redirectStrategy) {
-        this.redirectStrategy = redirectStrategy;
-    }
 
-    protected RedirectStrategy getRedirectStrategy() {
-        return redirectStrategy;
-    }
 }

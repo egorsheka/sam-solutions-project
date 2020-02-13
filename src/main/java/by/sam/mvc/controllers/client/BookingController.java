@@ -1,6 +1,7 @@
 package by.sam.mvc.controllers.client;
 
 import by.sam.mvc.entity.user.Client;
+import by.sam.mvc.model.DistrictDto;
 import by.sam.mvc.model.PersonDto;
 import by.sam.mvc.model.OrderDto;
 import by.sam.mvc.entity.location.District;
@@ -54,6 +55,8 @@ public class BookingController {
     @PostMapping(value = "/viewMenu")
     public String viewMenu(@ModelAttribute("orderDto") OrderDto order, Model model) {
         List<Menu> menus = cookService.findAllMenuByOrder(order);
+        District district = districtService.read(order.getDistrict().getId());
+        order.setDistrict(new DistrictDto(district.getId(), district.getName()));
         model.addAttribute("menuList",  menus);
         List<Cuisine> cuisines = new ArrayList<>();
         cuisines.add(new Cuisine());

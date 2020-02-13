@@ -1,12 +1,14 @@
 package by.sam.mvc.controllers;
 
-import by.sam.mvc.config.ThymeleafConfig;
+import by.sam.mvc.configuration.ThymeleafConfig;
 import by.sam.mvc.controllers.client.BookingController;
+import by.sam.mvc.entity.location.District;
 import by.sam.mvc.entity.location.Town;
 import by.sam.mvc.entity.menu.Cuisine;
 import by.sam.mvc.entity.menu.Dish;
 import by.sam.mvc.entity.menu.DishType;
 import by.sam.mvc.entity.menu.Menu;
+import by.sam.mvc.entity.order.Order;
 import by.sam.mvc.entity.user.Client;
 import by.sam.mvc.entity.user.Cook;
 import by.sam.mvc.model.DistrictDto;
@@ -33,7 +35,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -46,6 +47,7 @@ import static org.hamcrest.beans.HasPropertyWithValue.hasProperty;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.AllOf.allOf;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -57,7 +59,10 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import org.springframework.security.core.userdetails.User;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -116,7 +121,11 @@ public class BookingControllerTest {
         cook.setMenu(menus);
         cook.setId(1);
 
+        OrderDto dto = new OrderDto();
+        dto.setDistrict(new DistrictDto());
+
         when(cookService.findAllMenuByOrder(any())).thenReturn(menus);
+        when(districtService.read(anyInt())).thenReturn(new District());
 
         mockMvc.perform(post("/viewMenu")
                 .param("order.district.id", "1")
@@ -125,7 +134,8 @@ public class BookingControllerTest {
                 .param("cuisineList[0].name", "Greece")
                 .param("cuisineList[0].name", "Venezuela")
                 .param("cuisineList[0].name", "Sweden")
-                .param("cuisineList[0].name", "Russia"))
+                .param("cuisineList[0].name", "Russia")
+                .sessionAttr("orderDto", dto))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("menuList", hasSize(1)))
                 .andExpect(model().attribute("menuList", hasItem(
@@ -172,6 +182,9 @@ public class BookingControllerTest {
     @Test
     public void bookMenu_UserAuthenticated_ViewNameShouldBeBookingConfirmMenu() throws Exception {
 
+        User user = new User("user", "password", new ArrayList<>());
+        when(clientService.getAuthenticationClient(user)).thenReturn(new Client());
+
         mockMvc.perform(post("/bookMenu")
                 .with(user(new User("user","password", new ArrayList<GrantedAuthority>())))
                 .param("order.district.id", "1")
@@ -210,7 +223,6 @@ public class BookingControllerTest {
         mockMvc.perform(get("/confirmMenu")
                 .with(user(new User("user","password", new ArrayList<GrantedAuthority>())))
                 .sessionAttr("orderDto", dto))
-                .andDo(print())
                 .andExpect(view().name("booking/confirmMenu"));
     }
 

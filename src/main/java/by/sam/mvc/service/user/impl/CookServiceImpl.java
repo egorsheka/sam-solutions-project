@@ -1,16 +1,19 @@
 package by.sam.mvc.service.user.impl;
 
-import by.sam.mvc.model.*;
-import by.sam.mvc.mail.GmailSenderService;
 import by.sam.mvc.entity.location.District;
 import by.sam.mvc.entity.location.Town;
-import by.sam.mvc.entity.menu.Cuisine;
 import by.sam.mvc.entity.menu.Menu;
 import by.sam.mvc.entity.order.Order;
 import by.sam.mvc.entity.user.Cook;
 import by.sam.mvc.entity.user.Role;
 import by.sam.mvc.entity.user.UserEntity;
 import by.sam.mvc.entity.worktime.WorkTime;
+import by.sam.mvc.mail.GmailSenderService;
+import by.sam.mvc.model.CookProfileDto;
+import by.sam.mvc.model.DistrictDto;
+import by.sam.mvc.model.OrderDto;
+import by.sam.mvc.model.PersonDto;
+import by.sam.mvc.model.WorkTimeDto;
 import by.sam.mvc.repository.user.CookRepository;
 import by.sam.mvc.service.location.DistrictService;
 import by.sam.mvc.service.menu.MenuService;
@@ -21,16 +24,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.NoResultException;
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-//todo
+
 @Service
 public class CookServiceImpl implements CookService {
 
@@ -60,8 +64,8 @@ public class CookServiceImpl implements CookService {
         cookRepository.create(cook);
     }
 
-    //todo
-    @Transactional(noRollbackFor = Exception.class)
+
+    @Transactional
     @Override
     public boolean create(PersonDto cook) {
         if (userService.getUserCount(cook.getEmail()) != 0) {
@@ -70,15 +74,12 @@ public class CookServiceImpl implements CookService {
         UserEntity userEntity = new UserEntity();
         userEntity.setEmail(cook.getEmail());
         userEntity.setPassword(cook.getPassword());
-        //todo
-        // set role by userentity Service
         userEntity.setRole(new Role("COOK"));
 
-        //
         userEntity.setVerify(false);
         userEntity.setIdVerification(UUID.randomUUID().toString().split("-")[4]);
-        //todo еренести в ресурсы через mailSendrt
-        //mailSender.send("Confirm your registration", "http://localhost:8084/sam_solutions_project_war/registration/confirm/" + userEntity.getIdVerification(), cook.getEmail());
+
+        mailSender.send("Confirm your registration", "http://localhost:8084/sam_solutions_project_war/registration/confirm/" + userEntity.getIdVerification(), cook.getEmail());
 
 
         userService.create(userEntity);
@@ -112,7 +113,6 @@ public class CookServiceImpl implements CookService {
         updateCook.setPassword(cook.getPassword());
         updateCook.setBirthday(cook.getBirthday());
         updateCook.setMobile(cook.getMobile());
-        updateCook.setStatus(cook.getStatus());
 
         cookRepository.update(cook);
     }
@@ -149,7 +149,9 @@ public class CookServiceImpl implements CookService {
         List<WorkTime> timeList = times.stream().map(time ->
                 new WorkTime(DayOfWeek.valueOf(time.getDay().toUpperCase()), time.getStartTime(), time.getEndTime())).collect(Collectors.toList());
         for (WorkTime workTime : timeList) {
-            if (!(workTime.getStartTime().matches("((0|1)\\d|2[0-4]):[0-5]\\d") && workTime.getEndTime().matches("((0|1)\\d|2[0-4]):[0-5]\\d"))) {
+            if (!(workTime.getStartTime().matches("((0|1)\\d|2[0-4]):[0-5]\\d") &&
+                    workTime.getEndTime().matches("((0|1)\\d|2[0-4]):[0-5]\\d")) ||
+                    workTime.getStartTime().equals(workTime.getEndTime())) {
                 return false;
             }
         }
@@ -190,9 +192,6 @@ public class CookServiceImpl implements CookService {
     }
 
 
-    //todo check delete menu or not
-    //todo newMenu = menuService.read(id);
-    //todo cook.add(newM)
     @Transactional
     @Override
     public void updateMenuItem(int id, Menu menu) {
@@ -213,20 +212,6 @@ public class CookServiceImpl implements CookService {
         Cook cook = cookRepository.read(id);
         cook.getOrders().add(order);
         cookRepository.update(cook);
-    }
-
-    //todo check delete order or not
-    @Transactional
-    @Override
-    public void updateOrderItem(int id, Order order) {
-//        Cook cook = cookRepository.read(id);
-//        Order oldOrder = orderService.read(order.getId());
-//        cook.getOrders().remove(oldOrder);
-//        cook.getOrders().add(order);
-//
-//        orderService.update(order);
-//
-//        cookRepository.update(cook);
     }
 
     @Transactional
@@ -366,6 +351,9 @@ public class CookServiceImpl implements CookService {
 
     @Override
     public List<Cook> filterCooksByWorkTime(List<Cook> cooks, OrderDto dto) {
+            if(LocalDate.now().compareTo(dto.getDate()) > 0){
+                return Collections.emptyList();
+            }
         DayOfWeek dayOfWeek = dto.getDate().getDayOfWeek();
         LocalTime time = LocalTime.parse(dto.getTime() + ":00");
 

@@ -96,7 +96,7 @@
             <div class="custom-control custom-checkbox custom-control-inline"
                  style="float: left; width: 100px; height: 100px;">
                 <input type="checkbox" class="custom-control-input" id="TUESDAY">
-                <label class="custom-control-label" for="TUESDAY" th:text="#{text.day.THURSDAY}">Tuesday</label>
+                <label class="custom-control-label" for="TUESDAY" th:text="#{text.day.TUESDAY}">Tuesday</label>
                 <div id="div2" style="display: none; z-index: 2; width: 10px">
                     <select id="selectStart2" class="form-control" placeholder="from"
                             style="width: 80px; height: 28px;text-align: center; margin-left: 5px; margin-right: 3px; font-size: 13px; padding: 3px">
@@ -574,11 +574,10 @@
     });
 
     fetch("http://localhost:8084/sam_solutions_project_war/timeWorkData", { // try not to specify server here
-        method: 'POST',
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
-        },
-        body: JSON.stringify("123")
+        }
     })
         .then(resp => resp.json()
         .then(json => {

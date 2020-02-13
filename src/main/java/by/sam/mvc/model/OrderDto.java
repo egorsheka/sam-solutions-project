@@ -32,6 +32,7 @@ public class OrderDto {
     private String clientSurName;
     @NotEmpty
     private String clientMobile;
+    private String addInfo;
 
     private List<Cuisine> cuisineList;
 
@@ -133,6 +134,14 @@ public class OrderDto {
 
     public void setClientMobile(String clientMobile) {
         this.clientMobile = clientMobile;
+    }
+
+    public String getAddInfo() {
+        return addInfo;
+    }
+
+    public void setAddInfo(String addInfo) {
+        this.addInfo = addInfo;
     }
 
     public void setClient(Client client){

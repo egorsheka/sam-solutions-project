@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head th:replace="fragments/header :: header-menu"></head>
-    <body>
+    <body class="back">
         <div th:replace="fragments/cookNavbar :: cookNavbar"></div>
 
         <form action="#" th:action="@{/editMenu}" th:object="${editMenu}" method="post">

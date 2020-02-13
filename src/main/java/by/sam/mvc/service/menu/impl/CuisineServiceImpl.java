@@ -6,6 +6,7 @@ import by.sam.mvc.service.menu.CuisineService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -45,7 +46,9 @@ public class CuisineServiceImpl implements CuisineService {
 
     @Override
     public List<Cuisine> findAll() {
-        return cuisineRepository.findAll();
+        List<Cuisine> cuisines = cuisineRepository.findAll();
+        cuisines.sort(Comparator.comparing(Cuisine::getName));
+        return cuisines;
     }
 
     @Transactional

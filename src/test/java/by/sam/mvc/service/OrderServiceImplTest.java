@@ -1,7 +1,7 @@
 package by.sam.mvc.service;
 
 
-import by.sam.mvc.config.ThymeleafConfig;
+import by.sam.mvc.configuration.ThymeleafConfig;
 import by.sam.mvc.entity.order.Order;
 import by.sam.mvc.model.OrdersDto;
 import by.sam.mvc.service.order.impl.OrderServiceImpl;
@@ -186,7 +186,7 @@ public class OrderServiceImplTest {
 
 
         assertEquals(expectList, dto.getOrders());
-        assertFalse(dto.isCorrectPage());
+        assertTrue(dto.isCorrectPage());
 
     }
 
@@ -202,7 +202,7 @@ public class OrderServiceImplTest {
         expectList.add(new Order(LocalDate.of(2020, 2, 11)));
 
         assertEquals(expectList, dto.getOrders());
-        assertTrue(dto.isCorrectPage());
+        assertFalse(dto.isCorrectPage());
     }
 
     @Test

@@ -1,12 +1,8 @@
 package by.sam.mvc.service;
 
-import by.sam.mvc.config.ThymeleafConfig;
+import by.sam.mvc.configuration.ThymeleafConfig;
 import by.sam.mvc.entity.location.District;
 import by.sam.mvc.entity.location.Town;
-import by.sam.mvc.entity.menu.Cuisine;
-import by.sam.mvc.entity.menu.Dish;
-import by.sam.mvc.entity.menu.DishType;
-import by.sam.mvc.entity.menu.Menu;
 import by.sam.mvc.entity.user.Cook;
 import by.sam.mvc.entity.worktime.WorkTime;
 import by.sam.mvc.model.DistrictDto;
@@ -78,7 +74,7 @@ public class CookServiceImpTest {
     @Test
     public void filterCooksByWorkTime() {
         OrderDto dto = new OrderDto();
-        dto.setDate(LocalDate.of(2020, 2, 3));
+        dto.setDate(LocalDate.of(2020, 9, 7));
         dto.setTime("19:00");
 
         List<WorkTime> workTimesOne = new ArrayList<>(Arrays.asList(new WorkTime(DayOfWeek.MONDAY, "12:00", "20:00")));
