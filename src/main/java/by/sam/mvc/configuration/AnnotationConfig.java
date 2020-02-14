@@ -2,7 +2,7 @@ package by.sam.mvc.configuration;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-public class FrontControllerConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class AnnotationConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
     protected Class<?>[] getRootConfigClasses() {

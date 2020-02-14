@@ -23,12 +23,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void registerGlobalAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(userDetailsService);
-
+        auth.userDetailsService(userDetailsService);
     }
-
-
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {

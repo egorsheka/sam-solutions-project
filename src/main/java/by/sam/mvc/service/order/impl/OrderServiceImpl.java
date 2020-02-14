@@ -4,7 +4,7 @@ import by.sam.mvc.entity.order.Order;
 import by.sam.mvc.entity.order.OrderType;
 import by.sam.mvc.entity.user.Client;
 import by.sam.mvc.entity.user.Cook;
-import by.sam.mvc.mail.GmailSenderService;
+import by.sam.mvc.service.mail.GmailSenderService;
 import by.sam.mvc.model.OrderDto;
 import by.sam.mvc.model.OrdersDto;
 import by.sam.mvc.repository.order.OrderRepository;
@@ -120,7 +120,7 @@ public class OrderServiceImpl implements OrderService {
     public void sendMailClientToConfirmService(int id) {
         Order order = read(id);
         Client client = order.getClient();
-        mailSender.send("Повар подтвердил ващ заказ", "Ожидайте звонка или сообщения от повара.", client.getEmail());
+        mailSender.send("Повар подтвердил ваш заказ", "Ожидайте звонка или сообщения от повара.", client.getEmail());
     }
 
     @Transactional

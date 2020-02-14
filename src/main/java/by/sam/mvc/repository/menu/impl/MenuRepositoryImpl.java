@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-//TODO
+
 @Repository
 public class MenuRepositoryImpl implements MenuRepository {
 

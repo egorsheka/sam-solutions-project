@@ -70,14 +70,14 @@ public class OrdersController {
 
 
     @PostMapping(path = "confirmOrder", params = {"_new"})
-    public String confirmOrder(@AuthenticationPrincipal UserDetails currentUser, @RequestParam int _new) {
+    public String confirmOrder(@RequestParam int _new) {
         orderService.makeOrderInProcess(_new);
         orderService.sendMailClientToConfirmService(_new);
         return "redirect:/orders";
     }
 
     @PostMapping(path = "confirmOrder", params = {"inProcess"})
-    public String closeOrder(@AuthenticationPrincipal UserDetails currentUser, @RequestParam int inProcess) {
+    public String closeOrder() {
         return "redirect:/orders";
     }
 

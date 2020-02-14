@@ -4,7 +4,7 @@ import by.sam.mvc.entity.order.Order;
 import by.sam.mvc.entity.user.Client;
 import by.sam.mvc.entity.user.Role;
 import by.sam.mvc.entity.user.UserEntity;
-import by.sam.mvc.mail.GmailSenderService;
+import by.sam.mvc.service.mail.GmailSenderService;
 import by.sam.mvc.model.PersonDto;
 import by.sam.mvc.repository.user.ClientRepository;
 import by.sam.mvc.service.user.ClientService;
@@ -98,18 +98,5 @@ public class ClientServiceImpl implements ClientService {
         clientRepository.update(client);
     }
 
-    //todo check delete order or not
-    @Transactional
-    @Override
-    public void updateOrderItem(int id, Order order) {
-//        Client client = clientRepository.read(id);
-//        Order oldOrder = orderService.read(order.getId());
-//        client.getOrders().remove(oldOrder);
-//        client.getOrders().add(order);
-//
-//        orderService.update(order);
-//
-//        clientRepository.update(client);
-    }
 
 }

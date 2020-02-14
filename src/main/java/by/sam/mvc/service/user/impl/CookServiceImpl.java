@@ -8,7 +8,7 @@ import by.sam.mvc.entity.user.Cook;
 import by.sam.mvc.entity.user.Role;
 import by.sam.mvc.entity.user.UserEntity;
 import by.sam.mvc.entity.worktime.WorkTime;
-import by.sam.mvc.mail.GmailSenderService;
+import by.sam.mvc.service.mail.GmailSenderService;
 import by.sam.mvc.model.CookProfileDto;
 import by.sam.mvc.model.DistrictDto;
 import by.sam.mvc.model.OrderDto;

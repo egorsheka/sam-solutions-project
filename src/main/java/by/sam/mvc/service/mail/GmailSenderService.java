@@ -1,4 +1,4 @@
-//package by.sam.mvc.mail;
+//package by.sam.mvc.service.mail;
 //
 //
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -56,7 +56,7 @@
 //    }
 //}
 
-package by.sam.mvc.mail;
+package by.sam.mvc.service.mail;
 
 
 import org.springframework.context.annotation.PropertySource;

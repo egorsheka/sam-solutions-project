@@ -8,7 +8,6 @@ import by.sam.mvc.entity.menu.Cuisine;
 import by.sam.mvc.entity.menu.Dish;
 import by.sam.mvc.entity.menu.DishType;
 import by.sam.mvc.entity.menu.Menu;
-import by.sam.mvc.entity.order.Order;
 import by.sam.mvc.entity.user.Client;
 import by.sam.mvc.entity.user.Cook;
 import by.sam.mvc.model.DistrictDto;
@@ -58,17 +57,14 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-import org.springframework.security.core.userdetails.User;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {ThymeleafConfig.class})
 @WebAppConfiguration
 public class BookingControllerTest {
+
 
     private MockMvc mockMvc;
 

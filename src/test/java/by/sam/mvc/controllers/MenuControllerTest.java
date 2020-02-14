@@ -234,7 +234,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                 .param("dishes[0].id", "1")
                 .param("dishes[0].cuisine.id", "1")
                 .sessionAttr("newMenu", new Menu()))
-                .andExpect(status().isOk())
                 .andExpect(model().attribute("menuList", hasItem(
                         allOf(
                                 hasProperty("name", is("menu")),
@@ -255,6 +254,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
                                 ))
                         )
                 )))
-                .andExpect(view().name("cook/menu/startMenu"));
+                .andExpect(view().name("redirect:/menuPage"));
     }
 }

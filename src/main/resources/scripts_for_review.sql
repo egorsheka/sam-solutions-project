@@ -8,12 +8,17 @@ INSERT INTO public.userentity (id, email, idverification, isverify, password, ro
 INSERT INTO public.userentity (id, email, idverification, isverify, password, role_id) VALUES (245, 'ravik_huligan@gmail.com', '942910baebcd', true, 'ravik_huligan', 2);
 INSERT INTO public.userentity (id, email, idverification, isverify, password, role_id) VALUES (243, 'jamie_oliver@gmail.com', '670f19c9491a', true, 'jamie_oliver', 2);
 INSERT INTO public.userentity (id, email, idverification, isverify, password, role_id) VALUES (244, 'gordon_ramsay1999@gmail.com', '69cbb4091c5d', true, 'gordon_ramsay1999', 2);
+INSERT INTO public.userentity (id, email, idverification, isverify, password, role_id) VALUES (358, 'yanchelo@gmail.com', '9bd48b666d24', true, 'yanchelo', 1);
+
+
+INSERT INTO public.clients (id, address, email, mobile, name, password, surname, userentity_id) VALUES (2, 'Лынькова 20, 5 кв.', 'yanchelo@gmail.com', '+375444562354', 'Ян', 'yanchelo', 'Конончук', 358);
 
 
 INSERT INTO public.cooks (id, address, birthday, city, email, mobile, name, password,  surname, userentity_id) VALUES (28, null, null, null, 'jamie_oliver@gmail.com', '+375293471294', 'Jamie', 'jamie_oliverqwerty', 'Oliver', 243);
 INSERT INTO public.cooks (id, address, birthday, city, email, mobile, name, password,  surname, userentity_id) VALUES (29, null, null, null, 'gordon_ramsay1999@gmail.com', '+375258743287', 'Gordon', 'gordon_ramsay1999qwerty', 'Ramsay', 244);
 INSERT INTO public.cooks (id, address, birthday, city, email, mobile, name, password, surname, userentity_id) VALUES (30, null, null, null, 'ravik_huligan@gmail.com', '+375293385763', 'Равиль ', 'ravik_huliganqwerty', 'Тенишев', 245);
 INSERT INTO public.cooks (id, address, birthday, city, email, mobile, name, password,  surname, userentity_id) VALUES (31, null, null, null, 'kuvshinovI@gmail.com', '+375447846632', 'Илья', 'kuvshinovIqwerty',  'Кувшинов', 246);
+
 
 
 INSERT INTO public.towns (id, name) VALUES (1, 'Минск');
@@ -250,6 +255,7 @@ INSERT INTO public.cuisines (id, name) VALUES (8, 'Франция');
 INSERT INTO public.cuisines (id, name) VALUES (5, 'США');
 INSERT INTO public.cuisines (id, name) VALUES (2, 'Китай');
 INSERT INTO public.cuisines (id, name) VALUES (13, 'Испания');
+INSERT INTO public.cuisines (id, name) VALUES (25, 'Италия');
 
 
 
@@ -450,6 +456,31 @@ INSERT INTO public.cooks_menus (cook_id, menu_id) VALUES (30, 307);
 INSERT INTO public.cooks_menus (cook_id, menu_id) VALUES (31, 313);
 INSERT INTO public.cooks_menus (cook_id, menu_id) VALUES (31, 318);
 INSERT INTO public.cooks_menus (cook_id, menu_id) VALUES (31, 324);
+
+
+
+
+INSERT INTO public.orders (id, addinfo, address, countofguests, date, eventtime, ordertime, order_type, client_id, cook_id, district_id, menu_id) VALUES (4, '', 'Лынькова 20, 5 кв.', 2, '2020-02-15', '19:00', '00:00', 'IN_PROCESS', 2, 31, 1, 324);
+INSERT INTO public.orders (id, addinfo, address, countofguests, date, eventtime, ordertime, order_type, client_id, cook_id, district_id, menu_id) VALUES (5, '', 'Лынькова 20, 5 кв.', 2, '2020-02-16', '18:00', '00:00', 'NEW', 2, 31, 1, 318);
+INSERT INTO public.orders (id, addinfo, address, countofguests, date, eventtime, ordertime, order_type, client_id, cook_id, district_id, menu_id) VALUES (2, '', 'Лынькова 20, 5 кв.', 3, '2020-02-14', '19:00', '00:00', 'CLOSED', 2, 31, 4, 313);
+INSERT INTO public.orders (id, addinfo, address, countofguests, date, eventtime, ordertime, order_type, client_id, cook_id, district_id, menu_id) VALUES (3, '', 'Лынькова 20, 5 кв.', 2, '2020-02-14', '19:00', '00:00', 'CLOSED', 2, 31, 1, 318);
+INSERT INTO public.orders (id, addinfo, address, countofguests, date, eventtime, ordertime, order_type, client_id, cook_id, district_id, menu_id) VALUES (6, '', 'Лынькова 20, 5 кв.', 1, '2020-02-14', '19:00', '00:00', 'CLOSED', 2, 31, 1, 313);
+
+
+
+INSERT INTO public.clients_orders (client_id, orders_id) VALUES (2, 2);
+INSERT INTO public.clients_orders (client_id, orders_id) VALUES (2, 3);
+INSERT INTO public.clients_orders (client_id, orders_id) VALUES (2, 4);
+INSERT INTO public.clients_orders (client_id, orders_id) VALUES (2, 5);
+INSERT INTO public.clients_orders (client_id, orders_id) VALUES (2, 6);
+
+
+
+INSERT INTO public.cooks_orders (cook_id, orders_id) VALUES (31, 2);
+INSERT INTO public.cooks_orders (cook_id, orders_id) VALUES (31, 3);
+INSERT INTO public.cooks_orders (cook_id, orders_id) VALUES (31, 4);
+INSERT INTO public.cooks_orders (cook_id, orders_id) VALUES (31, 5);
+INSERT INTO public.cooks_orders (cook_id, orders_id) VALUES (31, 6);
 
 
 

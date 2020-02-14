@@ -14,7 +14,6 @@ public class Cuisine {
     @Id
     @GeneratedValue(strategy=GenerationType.SEQUENCE)
     private int id;
-//    @Column(unique = true)
     private String name;
 
 

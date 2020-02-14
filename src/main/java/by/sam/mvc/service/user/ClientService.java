@@ -13,12 +13,10 @@ public interface ClientService {
     void update(Client object);
     void delete(int id);
 
-
-
     Client getAuthenticationClient(UserDetails currentUser);
 
     void createOrderItem(int id, Order order);
-    void updateOrderItem(int id, Order order);
+
 
 
 

@@ -71,7 +71,6 @@ public class ThymeleafConfig extends WebMvcConfigurerAdapter implements Applicat
     }
 
 
-
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();

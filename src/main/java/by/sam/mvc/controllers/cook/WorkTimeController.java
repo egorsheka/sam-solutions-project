@@ -17,12 +17,11 @@ import java.util.List;
 @Controller
 public class WorkTimeController {
 
-    private final WorkTimeService workTimeService;
+
     private final CookService cookService;
 
 
-    public WorkTimeController(WorkTimeService workTimeService, CookService cookService) {
-        this.workTimeService = workTimeService;
+    public WorkTimeController(CookService cookService) {
         this.cookService = cookService;
     }
 
@@ -44,7 +43,6 @@ public class WorkTimeController {
     public String saveCookTimeWorkData(@RequestBody List<WorkTimeDto> times, @AuthenticationPrincipal UserDetails currentUser, Model model) {
         if(!cookService.updateWorkTime(cookService.getAuthenticationCook(currentUser).getId(), times)){
             model.addAttribute("workTime", new ArrayList<WorkTimeDto>(7));
-            model.addAttribute("loginError", true);
             return "cook/workTime";
         }
         return "cook/startCook";

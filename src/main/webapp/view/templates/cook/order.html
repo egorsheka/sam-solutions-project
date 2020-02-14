@@ -87,7 +87,7 @@
             <button th:if="${order.orderType.name() == 'NEW'}" name="_new" class="btn btn-classic save" th:value="${order.id}" type="submit"
                     style="display: inline-block; margin-top: 12px;font-size: 15px;  width : 200px;" th:text="#{text.CONFIRM_BOOKING}">CONFIRM BOOKING
             </button>
-            <button th:if="${order.orderType.name() == 'IN_PROCESS'}" name="inProcess" class="btn btn-classic save" th:value="${order.id}"  type="submit"
+            <button th:if="${order.orderType.name() == 'IN_PROCESS'}" name="inProcess" class="btn btn-classic save"  type="submit"
                     style="display: inline-block; margin-top: 12px;font-size: 15px;  width : 200px;" th:text="#{text.back}">CONFIRM BOOKING
             </button>
             <button th:if="${order.orderType.name() == 'CLOSED'}" name="closed" class="btn btn-classic save"  type="submit"

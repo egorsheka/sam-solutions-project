@@ -24,7 +24,7 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
-//todo null
+
 @Controller
 public class MenuController {
 
@@ -89,6 +89,7 @@ public class MenuController {
         }
         int cookId = cookService.getAuthenticationCook(currentUser).getId();
         cookService.createMenuItem(cookId, newMenu);
+        model.addAttribute("menuList", cookService.read(cookId).getMenu());
         return "redirect:/menuPage";
     }
 

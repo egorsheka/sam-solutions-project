@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 
-//todo null
+
 @Controller
 public class ProfileController {
 

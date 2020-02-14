@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-//TODO
+
 @Repository
 public class CookRepositoryImpl implements CookRepository {
 
@@ -74,8 +74,7 @@ public class CookRepositoryImpl implements CookRepository {
                 .setParameter("id", id)
                 .getResultList();
     }
-    // TODO
-    // Is ok?
+
     private void hibernateInitialize(Cook cook){
         if(!cook.getDistricts().isEmpty())
             Hibernate.initialize(cook.getDistricts());
