@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-// todo null
+
 @Controller
 @SessionAttributes("orderDto")
 public class BookingController {

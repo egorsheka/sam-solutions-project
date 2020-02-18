@@ -35,8 +35,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.anyInt;
 import static org.mockito.Mockito.when;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ThymeleafConfig.class})
+
 @WebAppConfiguration
 public class CookServiceImpTest {
 
